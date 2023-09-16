@@ -1,3 +1,5 @@
+import { PLANS } from "../utils/constants";
+
 export default {
   name: 'cars',
   type: 'document',
@@ -11,7 +13,25 @@ export default {
     {
       name: 'caryear',
       title: 'Year',
-      type: 'string',
+      type: 'datetime',
     },
+    {
+      name: 'planSelect',
+      title: 'Plan with Select dropdown',
+      type: 'string',
+      options: {
+        list: PLANS.map(({title, value}) => ({title, value})),
+        layout: 'dropdown',
+      },
+    },
+    {
+      name: 'planRadio',
+      title: 'Plan with Radio button',
+      type: 'string',
+      options: {
+        list: PLANS.map(({title, value}) => ({title, value})),
+        layout: 'radio'
+      },
+    }
   ],
 }
