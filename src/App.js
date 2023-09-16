@@ -1,11 +1,13 @@
 import Page from "./components/page.js";
 import Container from "./components/container.js";
 import Select from "./components/Select.js";
+import Breadcrumb from "./components/Breadcrumb";
 
 function App() {
   return (
     <>
       <div className="border-b">
+        <Breadcrumb />
         <div className="mx-auto max-w-[90%] flex py-3 gap-2">
           <Select name="Type" />
           <Select name="Price" />
