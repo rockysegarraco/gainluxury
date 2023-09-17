@@ -8,6 +8,7 @@ import SelectCountries from "./components/Selects/SelectCountries";
 import SelectStates from "./components/Selects/SelectStates";
 import SelectMakes from "./components/Selects/SelectMakes";
 import SelectPrice from "./components/Selects/SelectPrice";
+import SelectYears from "./components/Selects/YearSelect";
 import Filters from "./components/Filters";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <SelectStates />
           <SelectMakes />
           <SelectPrice />
+          <SelectYears />
         </div>
       </div>
       <Container>
