@@ -80,7 +80,6 @@ export default {
         layout: 'dropdown',
       },
     },
-
     {
       name: 'zipcode',
       title: 'Zipcode',
@@ -119,8 +118,14 @@ export default {
     },
     {
       name: 'gallery',
+      type: 'array',
       title: 'Gallery',
-      type: 'image',
-    },
+      of: [
+        { type: 'image' }
+      ],
+      options: {
+        layout: 'grid'
+      }
+    }
   ],
 }

@@ -1,20 +1,71 @@
-
-// Router
 import {
-    createBrowserRouter,
-} from "react-router-dom";
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  RedirectToSignIn,
+  SignIn,
+  SignUp,
+} from "@clerk/clerk-react";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import Home from "./routes/home";
+import Profile from "./routes/profile";
+import AddPost from "./routes/AddPost";
 
-// routes paths
-import App from './App';
-import Home from './routes/home';
+if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
 
-export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-    },
-    {
-        path: "/home",
-        element: <Home />,
-    },
-]);
+const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+
+function ClerkProviderWithRoutes() {
+  const navigate = useNavigate();
+  return (
+    <ClerkProvider
+      publishableKey={clerkPubKey}
+      navigate={(to) => navigate(to)}
+    >
+      <Routes>
+        <Route
+          path="/sign-in/*"
+          element={<SignIn routing="path" path="/sign-in" />}
+        />
+        <Route
+          path="/sign-up/*"
+          element={<SignUp routing="path" path="/sign-up" />}
+        />
+        <Route
+          path="/"
+          element={
+            <>
+              <SignedIn>
+                <Home />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        >
+        </Route>
+        <Route
+            path="/profile"
+            element={<Profile path="/profile" />}
+          />
+           <Route
+            path="/create-post"
+            element={<AddPost path="/create-post" />}
+          />
+      </Routes>
+    </ClerkProvider>
+  );
+}
+
+function Routers() {
+  return (
+    <Router>
+      <ClerkProviderWithRoutes />
+    </Router>
+  );
+}
+
+export default Routers;
