@@ -21,7 +21,7 @@ const AddPost = () => {
   }
 
   const checkout = async() => {
-    await axios.post('http://localhost:4000/checkout', {post}).then((res) => {
+    await axios.post('https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout', {post}).then((res) => {
       if (res.data.url) {
         localStorage.setItem("userPost", post);
         window.location.assign(res.data.url);
