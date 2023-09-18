@@ -5,13 +5,15 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
-
+import { useDispatch } from 'react-redux'
 //
 import FullScreenDialog from '../components/Dialog/FullScreenDialog';
+import { setPrice } from '../store/addPostSlice';
 
 const Profile = () => {
 	const { isLoaded, isSignedIn, user } = useUser();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [open, setOpen] = useState(false);
 
@@ -21,6 +23,7 @@ const Profile = () => {
 
 	const setItems = (item) => {
 		setOpen(false);
+		dispatch(setPrice(item))
 		navigate('/create-post')
 	}
 

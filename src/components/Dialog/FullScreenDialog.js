@@ -15,9 +15,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const CATEGORY = [
+  {
+    title: "Sell Cars",
+    category: 'cars',
+    priceId: 'price_1NrY3BFxIXAUhOllLPuOeLBW'
+  },
+  {
+    title: "Sell Property",
+    category: 'property',
+    priceId: 'price_1NrY3VFxIXAUhOllBLnaJwPa'
+  }
+]
+
 export default function FullScreenDialog({open, setOpen, setItem}) {
-  
- 
   return (
     <div>
       <Dialog
@@ -42,15 +53,14 @@ export default function FullScreenDialog({open, setOpen, setItem}) {
           </Toolbar>
         </AppBar>
         <List>
-          <ListItem button onClick={() => setItem('cars')}>
-            <ListItemText primary="Sell Cars" />
-          </ListItem>
-          <Divider />
-          <ListItem button onClick={() => setItem('property')}>
-            <ListItemText
-              primary="Sell Property"
-            />
-          </ListItem>
+          {CATEGORY.map((item, i) => (
+            <>
+              <ListItem key={i} button onClick={() => setItem(item)}>
+              <ListItemText primary={item.title} secondary="$7 per post" />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
         </List>
       </Dialog>
     </div>
