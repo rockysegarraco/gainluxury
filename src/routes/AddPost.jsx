@@ -31,6 +31,7 @@ const AddPost = () => {
 
   return (
     <div>
+      Add form here.
       <Card sx={{ maxWidth: 345, m: 4 }}>
         <CardActionArea>
           <CardMedia
