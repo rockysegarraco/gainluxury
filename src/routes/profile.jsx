@@ -1,9 +1,6 @@
 import { UserProfile } from "@clerk/clerk-react";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 //
@@ -38,18 +35,11 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
+      <Header handleOpen={() => setOpen(true)} />
       <Manager>
-        {" "}
         <UserProfile />
       </Manager>
-
       <div className="flex items-center justify-center p-4 relative">
-        <Tooltip title="Add Post" placement="right">
-          <Fab color="primary" aria-label="add" onClick={() => setOpen(true)}>
-            <AddIcon />
-          </Fab>
-        </Tooltip>
         <FullScreenDialog open={open} setOpen={handleOpen} setItem={setItems} />
       </div>
     </>

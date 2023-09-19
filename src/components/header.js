@@ -1,28 +1,9 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { UserButton } from "@clerk/clerk-react";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure, Menu } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Example() {
+export default function Example({ handleOpen }) {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -101,6 +82,7 @@ export default function Example() {
               </div>
               <div className="hidden lg:ml-4 lg:flex lg:items-center">
                 <button
+                  onClick={handleOpen}
                   type="button"
                   className="rounded-full bg-slate-900 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
@@ -110,7 +92,6 @@ export default function Example() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-4 flex-shrink-0">
                   <div>
-                    {" "}
                     <UserButton
                       userProfileMode="navigation"
                       userProfileUrl="/profile"
