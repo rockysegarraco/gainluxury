@@ -17,7 +17,6 @@ import Profile from "./routes/profile";
 import AddPost from "./routes/AddPost";
 import Success from "./routes/success";
 import Cancel from "./routes/cancel";
-import User from "./routes/user";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -55,7 +54,6 @@ function ClerkProviderWithRoutes() {
         <Route path="/create-post" element={<AddPost path="/create-post" />} />
         <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
-        <Route path="/user" element={<User path="/user" />} />
       </Routes>
     </ClerkProvider>
   );
