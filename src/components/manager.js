@@ -1,22 +1,8 @@
-import { useState } from "react";
-import { Dialog, Switch } from "@headlessui/react";
-import { Bars3Icon } from "@heroicons/react/20/solid";
 import {
-  BellIcon,
-  CreditCardIcon,
-  CubeIcon,
   FingerPrintIcon,
   UserCircleIcon,
-  UsersIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-const navigation = [
-  { name: "Home", href: "#" },
-  { name: "Invoices", href: "#" },
-  { name: "Clients", href: "#" },
-  { name: "Expenses", href: "#" },
-];
 const secondaryNavigation = [
   { name: "Profile", href: "#", icon: UserCircleIcon, current: true },
   { name: "Posts", href: "#", icon: FingerPrintIcon, current: false },
@@ -27,17 +13,12 @@ function classNames(...classes) {
 }
 
 export default function Example({ children }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
-    useState(true);
-
   return (
     <>
       <div className="mx-auto max-w-[90%] lg:flex lg:gap-x-16 lg:px-8">
         <aside className="flex overflow-x-auto border-b border-gray-900/5 py-4 lg:block lg:w-64 lg:flex-none lg:border-0 lg:py-20">
           <nav className="flex-none px-4 sm:px-6 lg:px-0">
             <ul
-              role="list"
               className="flex gap-x-3 gap-y-1 whitespace-nowrap lg:flex-col"
             >
               {secondaryNavigation.map((item) => (
