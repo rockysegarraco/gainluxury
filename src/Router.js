@@ -6,15 +6,21 @@ import {
   SignIn,
   SignUp,
 } from "@clerk/clerk-react";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import Home from "./routes/home";
 import Profile from "./routes/profile";
 import AddPost from "./routes/AddPost";
-import Success from './routes/success';
-import Cancel from './routes/cancel';
+import Success from "./routes/success";
+import Cancel from "./routes/cancel";
+import User from "./routes/user";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
+  throw new Error("Missing Publishable Key");
 }
 
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
@@ -22,10 +28,7 @@ const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 function ClerkProviderWithRoutes() {
   const navigate = useNavigate();
   return (
-    <ClerkProvider
-      publishableKey={clerkPubKey}
-      navigate={(to) => navigate(to)}
-    >
+    <ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
       <Routes>
         <Route
           path="/sign-in/*"
@@ -47,24 +50,12 @@ function ClerkProviderWithRoutes() {
               </SignedOut>
             </>
           }
-        >
-        </Route>
-        <Route
-            path="/profile"
-            element={<Profile path="/profile" />}
-          />
-           <Route
-            path="/create-post"
-            element={<AddPost path="/create-post" />}
-          />
-           <Route
-            path="/success"
-            element={<Success path="/success" />}
-          />
-           <Route
-            path="/cancel"
-            element={<Cancel path="/cancel" />}
-          />
+        ></Route>
+        <Route path="/profile" element={<Profile path="/profile" />} />
+        <Route path="/create-post" element={<AddPost path="/create-post" />} />
+        <Route path="/success" element={<Success path="/success" />} />
+        <Route path="/cancel" element={<Cancel path="/cancel" />} />
+        <Route path="/user" element={<User path="/user" />} />
       </Routes>
     </ClerkProvider>
   );
