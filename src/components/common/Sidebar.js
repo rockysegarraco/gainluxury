@@ -16,6 +16,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import Collapse from '@mui/material/Collapse';
+import PostAdd from '@mui/icons-material/PostAddOutlined';
 
 const drawerWidth = 240;
 
@@ -46,6 +47,11 @@ const Sidebar = ({ open, handleDrawerClose, }) => {
 			title: 'Settings',
 			icon: <Settings />,
 			onClick: (index) => handleClick(index, "/settings")
+		},
+		{
+			title: 'My Posts',
+			icon: <PostAdd />,
+			onClick: (index) => handleClick(index, "/my-post")
 		}
 	]
 	
