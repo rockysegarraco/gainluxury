@@ -40,9 +40,6 @@ export default function FullScreenDialog({ open, setOpen, setItem }) {
           onClose={setOpen}
           TransitionComponent={Transition}
         >
-          <div>
-            <Pricing />
-          </div>
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
               <IconButton
@@ -58,6 +55,9 @@ export default function FullScreenDialog({ open, setOpen, setItem }) {
               </Typography>
             </Toolbar>
           </AppBar>
+          <div>
+            <Pricing />
+          </div>
           <List>
             {CATEGORY.map((item, i) => (
               <>
