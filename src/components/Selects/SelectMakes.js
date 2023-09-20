@@ -12,7 +12,7 @@ export default function SelectSmall() {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+    <FormControl sx={{ minWidth: 140 }} size="small">
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"

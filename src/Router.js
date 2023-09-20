@@ -17,6 +17,12 @@ import Profile from "./routes/profile";
 import AddPost from "./routes/AddPost";
 import Success from "./routes/success";
 import Cancel from "./routes/cancel";
+import MainLayout from './components/common/MainLayout';
+import Settings from "./routes/Settings";
+import RealEstate from './routes/realestate';
+import Cars from "./routes/cars";
+import Marine from './routes/marine';
+import Aviator from './routes/aviator';
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -42,14 +48,21 @@ function ClerkProviderWithRoutes() {
           element={
             <>
               <SignedIn>
-                <Home />
+                <MainLayout />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />
               </SignedOut>
             </>
           }
-        ></Route>
+        >
+          <Route index element={<Home path="/home" />} />
+          <Route path="/home/real-estate" element={<RealEstate path="/home/real-estate" />} />
+          <Route path="/home/cars" element={<Cars path="/home/cars" />} />
+          <Route path="/home/marine" element={<Marine path="/home/marine" />} />
+          <Route path="/home/aviation" element={<Aviator path="/home/aviation" />} />
+          <Route path="/settings" element={<Settings path="settings" />} />
+        </Route>
         <Route path="/profile" element={<Profile path="/profile" />} />
         <Route path="/create-post" element={<AddPost path="/create-post" />} />
         <Route path="/success" element={<Success path="/success" />} />

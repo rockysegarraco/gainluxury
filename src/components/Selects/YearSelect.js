@@ -33,7 +33,6 @@ export default function SelectSmall() {
 					endIcon={<ArrowDropDownIcon />}
 					sx={{
 						width: "100px",
-						m:1,
 						padding: "7px",
 						border: "1px solid lightgray",
 						color: 'black',
