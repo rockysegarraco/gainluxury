@@ -9,7 +9,7 @@ export default function Example({ handleOpen }) {
       <Disclosure as="nav" className="bg-white shadow">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-[90%] px-2 sm:px-4 lg:px-8">
+            <div className="mx-auto max-w-[90%] px-2 sm:px-4 lg:px-8 border-b">
               <div className="flex h-16 justify-between">
                 <div className="flex px-2 lg:px-0">
                   <div className="flex flex-shrink-0 items-center">
