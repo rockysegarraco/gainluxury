@@ -4,13 +4,10 @@ import { Outlet } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 // components
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
-import FullScreenDialog from '../Dialog/FullScreenDialog';
-import { setPrice } from '../../store/addPostSlice';
 
 // configs
 
@@ -47,9 +44,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const MainLayout = () => {
   const [open, setOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -59,25 +54,14 @@ const MainLayout = () => {
     setOpen(false);
   };
 
-  const handleOpen = () => {
-    setModalOpen(false);
-  };
-
-  const setItems = (item) => {
-    setModalOpen(false);
-    dispatch(setPrice(item));
-    navigate("/create-post");
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
-      <Topbar open={open} handleOpen={() => setModalOpen(true)} handleDrawerOpen={handleDrawerOpen} />
+      <Topbar open={open} handleOpen={() => navigate("/create-post")} handleDrawerOpen={handleDrawerOpen} />
       <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />
         <Outlet />
       </Main>
-      <FullScreenDialog open={modalOpen} setOpen={handleOpen} setItem={setItems} />
     </Box>
   )
 }

@@ -12,23 +12,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 
 import Pricing from "../pricing";
+import { CATEGORY } from "../../utils/constants";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CATEGORY = [
-  {
-    title: "Sell Cars",
-    category: "cars",
-    priceId: "price_1NrY3BFxIXAUhOllLPuOeLBW",
-  },
-  {
-    title: "Sell Property",
-    category: "property",
-    priceId: "price_1NrY3VFxIXAUhOllBLnaJwPa",
-  },
-];
 
 export default function FullScreenDialog({ open, setOpen, setItem }) {
   return (
@@ -60,12 +49,12 @@ export default function FullScreenDialog({ open, setOpen, setItem }) {
           </div>
           <List>
             {CATEGORY.map((item, i) => (
-              <>
-                <ListItem key={i} button onClick={() => setItem(item)}>
+              <div key={i}>
+                <ListItem button onClick={() => setItem(item)}>
                   <ListItemText primary={item.title} secondary="$7 per post" />
                 </ListItem>
                 <Divider />
-              </>
+              </div>
             ))}
           </List>
         </Dialog>

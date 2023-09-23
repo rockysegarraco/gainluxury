@@ -44,14 +44,14 @@ const Sidebar = ({ open, handleDrawerClose }) => {
       isMenu: true,
     },
     {
-      title: "Settings",
-      icon: <Settings />,
-      onClick: (index) => handleClick(index, "/settings"),
-    },
-    {
       title: "My Posts",
       icon: <PostAdd />,
       onClick: (index) => handleClick(index, "/my-post"),
+    },
+    {
+      title: "Settings",
+      icon: <Settings />,
+      onClick: (index) => handleClick(index, "/settings"),
     },
   ];
 
@@ -118,7 +118,7 @@ const Sidebar = ({ open, handleDrawerClose }) => {
       <Divider />
       <List>
         {LIST_ITEMS.map((item, index) => (
-          <>
+          <div key={item.title}>
             {item?.isMenu ? (
               <>
                 <ListItem
@@ -161,7 +161,7 @@ const Sidebar = ({ open, handleDrawerClose }) => {
                 </ListItemButton>
               </ListItem>
             )}
-          </>
+          </div>
         ))}
       </List>
     </Drawer>
