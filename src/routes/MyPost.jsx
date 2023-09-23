@@ -26,7 +26,10 @@ const MyPost = () => {
   return (
     <div>
      {post.map((item, index) => (
-      <div key={index}>{item.title}</div>
+      <div>
+         <div key={index}>{item.title}</div>
+         <img src={item.gallery[0]} alt='img' />
+      </div>
      ))}
     </div>
   )
