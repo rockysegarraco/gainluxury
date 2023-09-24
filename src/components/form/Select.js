@@ -104,13 +104,14 @@ const customStyles = {
     ...provided,
     zIndex: 99,
     overflow: "hidden",
-    backgroundColor: '#222F3F',
-    borderRadius: '10px'
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    color: 'black'
   }),
   option: (provided, { isSelected, isDisabled, theme }) => ({
     ...provided,
     backgroundColor: isSelected ? theme.colors.selected : null,
-    color: isDisabled ? theme.colors.neutral20 : theme.colors.primary,
+    color: 'black',
     fontSize: 14,
   }),
   singleValue: (provided) => ({
