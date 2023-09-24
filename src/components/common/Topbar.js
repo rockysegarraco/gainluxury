@@ -40,7 +40,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           type="button"
           onClick={handleOpen}
           className="rounded-full bg-slate-900 px-6 py-2 mx-4 text-[1rem] text-white cursor-pointer hidden lg:block"
-          className="rounded-full bg-black px-6 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
+          className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}
           <ControlPointIcon /> Add Listing

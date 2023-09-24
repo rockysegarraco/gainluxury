@@ -61,7 +61,7 @@ const Sidebar = ({ open, handleDrawerClose }) => {
       icon: <HomeOutlined />,
       onClick: (index) => handleMenuItemClick(index, "/home/aviation"),
     },
-    { title: 'divider' },
+    { title: "divider" },
     {
       title: "My Posts",
       icon: <PostAdd />,
@@ -174,24 +174,21 @@ const Sidebar = ({ open, handleDrawerClose }) => {
               </>
             ) : (
               <div>
-                {
-                  item.title === "divider" ? (
-                    <Divider />
-                  ) : (
-                    <ListItem
-                      key={item.title}
-                      disablePadding
-                      selected={selectedIndex === index}
-                      onClick={() => item.onClick(index)}
-                    >
-                      <ListItemButton>
-                        <ListItemIcon>{item.icon}</ListItemIcon>
-                        <ListItemText primary={item.title} />
-                      </ListItemButton>
-                    </ListItem>
-                  )
-                }
-
+                {item.title === "divider" ? (
+                  <Divider />
+                ) : (
+                  <ListItem
+                    key={item.title}
+                    disablePadding
+                    selected={selectedIndex === index}
+                    onClick={() => item.onClick(index)}
+                  >
+                    <ListItemButton>
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.title} />
+                    </ListItemButton>
+                  </ListItem>
+                )}
               </div>
             )}
           </div>
