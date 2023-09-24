@@ -11,14 +11,21 @@ import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import UploadFileRounded from "@mui/icons-material/UploadFileRounded";
 
 // components
+import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
-import { BRAND, CATEGORY, CONDITION, COUNTRY, PRICE_TYPE } from '../utils/constants';
-import {uploadImages} from "../firebase";
+import Pricing from "../components/pricing";
+import {
+  BRAND,
+  CATEGORY,
+  CONDITION,
+  COUNTRY,
+  PRICE_TYPE,
+} from "../utils/constants";
+import { uploadImages } from "../firebase";
 import { IconButton } from "@mui/material";
 import { deepCloneData } from "../utils";
-
 
 const { FormItem } = Form;
 
@@ -39,41 +46,43 @@ const AddPost = ({ form }) => {
   }
 
   const checkout = async () => {
-    return validateFields().then(async (values) => {
-      const obj = {
-        gallery: gallaryImages,
-        ...values,
-        userId: user.id
-      }
-      return await axios
-        .post(
-          "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
-          {
-            post: {
-              priceId: category.priceId
+    return validateFields()
+      .then(async (values) => {
+        const obj = {
+          gallery: gallaryImages,
+          ...values,
+          userId: user.id,
+        };
+        return await axios
+          .post(
+            "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
+            {
+              post: {
+                priceId: category.priceId,
+              },
             }
-          }
-        )
-        .then((res) => {
-          if (res.data.url) {
-            localStorage.setItem("userPost", JSON.stringify(obj));
-            window.location.assign(res.data.url);
-          }
-        });
-    }).catch(e => {
-      console.log(e);
-    })
+          )
+          .then((res) => {
+            if (res.data.url) {
+              localStorage.setItem("userPost", JSON.stringify(obj));
+              window.location.assign(res.data.url);
+            }
+          });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
-  const handleGalleryFile = async(e) => {
+  const handleGalleryFile = async (e) => {
     const MAX_LENGTH = 5;
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
       if (files?.length <= MAX_LENGTH) {
-        const maxSize = 3 * 1024 * 1024; 
+        const maxSize = 3 * 1024 * 1024;
         const validFiles = files.filter((file) => file.size <= maxSize);
         if (validFiles.length !== files.length) {
-          alert('Some files exceed the maximum size limit (5MB).');
+          alert("Some files exceed the maximum size limit (5MB).");
         } else {
           setGalleryLoading(true);
           const result = await uploadImages(e.target.files);
@@ -91,13 +100,17 @@ const AddPost = ({ form }) => {
     const data = deepCloneData(gallaryImages);
     data.splice(index, 1);
     setGallaryImages(data);
-  }
+  };
 
   return (
     <div>
-      <div className="mx-auto max-w-full lg:max-w-3xl border mt-8 border-gray-200 bg-white px-4 py-5 sm:px-6 mb-5">
-        <Stack spacing={2}>
-          <h1 className="text-3xl mb-4">Listing Details</h1>
+      <Heading />
+      <div className="mx-auto max-w-full lg:max-w-4xl bg-white">
+        <Pricing />
+      </div>
+      <div className="mx-auto max-w-full md:max-w-2xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
+        <Stack spacing={0}>
+          <h2 className="text-2xl font-bold mb-1">Let's get started</h2>
           <FormItem>
             {getFieldDecorator("category", {
               initialValue: "",
@@ -106,11 +119,17 @@ const AddPost = ({ form }) => {
                   required: true,
                 },
               ],
-            })(<Select placeholder="Select Category" options={CATEGORY} onChange={(data) => setCategory(data)} />)}
+            })(
+              <Select
+                placeholder="Select Category"
+                options={CATEGORY}
+                onChange={(data) => setCategory(data)}
+              />
+            )}
           </FormItem>
 
           {category.value === "cars" && (
-            <Stack spacing={2}>
+            <Stack spacing={0}>
               <FormItem>
                 {getFieldDecorator("title", {
                   initialValue: "",
@@ -131,7 +150,7 @@ const AddPost = ({ form }) => {
                   ],
                 })(<TextInput placeholder="Tell us about the car" />)}
               </FormItem>
-              <Stack gap={2} sx={{ flexDirection: 'row' }}>
+              <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
                   {getFieldDecorator("pricingType", {
                     initialValue: "",
@@ -140,7 +159,13 @@ const AddPost = ({ form }) => {
                         required: true,
                       },
                     ],
-                  })(<Select fullWidth placeholder="Price Type" options={PRICE_TYPE} />)}
+                  })(
+                    <Select
+                      fullWidth
+                      placeholder="Price Type"
+                      options={PRICE_TYPE}
+                    />
+                  )}
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator("price", {
@@ -162,7 +187,13 @@ const AddPost = ({ form }) => {
                         required: true,
                       },
                     ],
-                  })(<Select fullWidth placeholder="Condition" options={CONDITION} />)}
+                  })(
+                    <Select
+                      fullWidth
+                      placeholder="Condition"
+                      options={CONDITION}
+                    />
+                  )}
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator("brand", {
@@ -174,9 +205,8 @@ const AddPost = ({ form }) => {
                     ],
                   })(<Select fullWidth placeholder="Brand" options={BRAND} />)}
                 </FormItem>
-
               </Stack>
-              <Stack gap={2} sx={{ flexDirection: 'row' }}>
+              <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
                   {getFieldDecorator("kilometersRun", {
                     initialValue: "",
@@ -197,13 +227,18 @@ const AddPost = ({ form }) => {
                     ],
                   })(<TextInput placeholder="Engine Capacity" />)}
                 </FormItem>
-
               </Stack>
-              <Button variant="contained" 
-              size="large" 
-              endIcon={<UploadFileRounded />}
-              sx={{ backgroundColor: '#212121', marginTop: '20px', textTransform: "none" }}
-               onClick={() => inputGallery.current.click()}>
+              <Button
+                variant="contained"
+                size="large"
+                endIcon={<UploadFileRounded />}
+                sx={{
+                  backgroundColor: "#212121",
+                  marginTop: "20px",
+                  textTransform: "none",
+                }}
+                onClick={() => inputGallery.current.click()}
+              >
                 {galleryLoading ? "Loading..." : "Add Images (5MB Max) "}
               </Button>
               <input
@@ -215,16 +250,22 @@ const AddPost = ({ form }) => {
                 accept="image/png, image/jpg, image/jpeg"
                 onChange={handleGalleryFile}
               />
-              <Stack gap={1} sx={{flexDirection: "row"}}>
+              <Stack gap={1} sx={{ flexDirection: "row" }}>
                 {gallaryImages.map((image, index) => (
-                  <Paper key={index} sx={{
-                    backgroundImage: `url(${image})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    height: 150,
-                    width: 150
-                  }}>
-                    <IconButton sx={{ alignSelf: 'flex-end' }} onClick={() => handleImageDelete(index)}>
+                  <Paper
+                    key={index}
+                    sx={{
+                      backgroundImage: `url(${image})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                      height: 150,
+                      width: 150,
+                    }}
+                  >
+                    <IconButton
+                      sx={{ alignSelf: "flex-end" }}
+                      onClick={() => handleImageDelete(index)}
+                    >
                       <CloseOutlined />
                     </IconButton>
                   </Paper>
@@ -233,19 +274,11 @@ const AddPost = ({ form }) => {
             </Stack>
           )}
 
-          {category.value === "property" && (
-            <div> Property fields </div>
-          )}
+          {category.value === "property" && <div> Property fields </div>}
+          {category.value === "yatch" && <div> Yatch fields </div>}
+          {category.value === "aviation" && <div> aviation fields </div>}
 
-          {category.value === "yatch" && (
-            <div> Yatch fields </div>
-          )}
-
-          {category.value === "aviation" && (
-            <div> aviation fields </div>
-          )}
-
-          <h1 className="text-3xl mt-4 mb-4">Contact Details</h1>
+          <h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
           <FormItem>
             {getFieldDecorator("phone", {
               initialValue: "",
@@ -267,7 +300,7 @@ const AddPost = ({ form }) => {
             })(<TextInput placeholder="Address" />)}
           </FormItem>
 
-          <Stack gap={2} sx={{ flexDirection: 'row' }}>
+          <Stack gap={2} sx={{ flexDirection: "row" }}>
             <FormItem>
               {getFieldDecorator("state", {
                 initialValue: "",
@@ -291,13 +324,17 @@ const AddPost = ({ form }) => {
             </FormItem>
           </Stack>
         </Stack>
-        <Button variant="contained" size="large" sx={{ backgroundColor: '#212121', alignSelf: 'flex-end', marginTop: '20px' }}
-          onClick={checkout}>
-          Post Ad ${category?.price}
-        </Button>
+
+        <button
+          onClick={checkout}
+          type="button"
+          className="rounded-full bg-black px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 mt-8"
+        >
+          Continue to Payment
+        </button>
       </div>
     </div>
   );
 };
 
-export default Form.create()(AddPost);;
+export default Form.create()(AddPost);

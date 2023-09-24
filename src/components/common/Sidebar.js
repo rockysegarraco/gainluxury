@@ -14,6 +14,10 @@ import Settings from "@mui/icons-material/SettingsOutlined";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import SailingIcon from "@mui/icons-material/Sailing";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import { useNavigate } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import PostAdd from "@mui/icons-material/PostAddOutlined";
@@ -38,10 +42,24 @@ const Sidebar = ({ open, handleDrawerClose }) => {
 
   const LIST_ITEMS = [
     {
-      title: "Home",
+      title: "Real Estate",
       icon: <HomeOutlined />,
-      onClick: (index) => handleClick(index, "/"),
-      isMenu: true,
+      onClick: (index) => handleMenuItemClick(index, "/home/real-estate"),
+    },
+    {
+      title: "Cars",
+      icon: <TimeToLeaveIcon />,
+      onClick: (index) => handleMenuItemClick(index, "/home/cars"),
+    },
+    {
+      title: "Marine",
+      icon: <SailingIcon />,
+      onClick: (index) => handleMenuItemClick(index, "/home/marine"),
+    },
+    {
+      title: "Aviation",
+      icon: <HomeOutlined />,
+      onClick: (index) => handleMenuItemClick(index, "/home/aviation"),
     },
     {
       title: "My Posts",
@@ -49,8 +67,13 @@ const Sidebar = ({ open, handleDrawerClose }) => {
       onClick: (index) => handleClick(index, "/my-post"),
     },
     {
-      title: "Settings",
-      icon: <Settings />,
+      title: "Add Listing",
+      icon: <ControlPointIcon />,
+      onClick: (index) => handleClick(index, "/create-post"),
+    },
+    {
+      title: "Manage Account",
+      icon: <AccountCircleIcon />,
       onClick: (index) => handleClick(index, "/settings"),
     },
   ];

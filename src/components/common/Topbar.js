@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import { UserButton } from "@clerk/clerk-react";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   return (
@@ -39,9 +40,10 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           type="button"
           onClick={handleOpen}
           className="rounded-full bg-slate-900 px-6 py-2 mx-4 text-[1rem] text-white cursor-pointer hidden lg:block"
+          className="rounded-full bg-black px-6 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}
-          Add Listing
+          <ControlPointIcon /> Add Listing
         </button>
         <UserButton />
       </Toolbar>
