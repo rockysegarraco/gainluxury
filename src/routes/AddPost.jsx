@@ -33,6 +33,7 @@ const AddPost = ({ form }) => {
   const { isLoaded, isSignedIn, user } = useUser();
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
+  const [isPrice, setPrice] = useState(true);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
@@ -148,7 +149,7 @@ const AddPost = ({ form }) => {
                       required: true,
                     },
                   ],
-                })(<TextInput placeholder="Tell us about the car" />)}
+                })(<TextInput multiline placeholder="Tell us about the car" />)}
               </FormItem>
               <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
@@ -164,6 +165,7 @@ const AddPost = ({ form }) => {
                       fullWidth
                       placeholder="Price Type"
                       options={PRICE_TYPE}
+                      onChange={(data) => setPrice(() => data.value === "Fixed" ? false : true )}
                     />
                   )}
                 </FormItem>
@@ -172,10 +174,10 @@ const AddPost = ({ form }) => {
                     initialValue: "",
                     rules: [
                       {
-                        required: true,
+                        required: !isPrice,
                       },
                     ],
-                  })(<TextInput type="number" placeholder="Price $" />)}
+                  })(<TextInput disabled={isPrice} type="number" placeholder="Price $" />)}
                 </FormItem>
               </Stack>
               <Stack gap={2} sx={{ flexDirection: "row" }}>

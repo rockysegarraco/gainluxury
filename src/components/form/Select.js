@@ -106,13 +106,15 @@ const customStyles = {
     overflow: "hidden",
     backgroundColor: 'white',
     borderRadius: '10px',
-    color: 'black'
   }),
   option: (provided, { isSelected, isDisabled, theme }) => ({
     ...provided,
     backgroundColor: isSelected ? theme.colors.selected : null,
     color: 'black',
     fontSize: 14,
+    '&:hover': {
+      backgroundColor: '#F5F5F5'
+    }
   }),
   singleValue: (provided) => ({
     ...provided,

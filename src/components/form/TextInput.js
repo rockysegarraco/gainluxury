@@ -1,12 +1,12 @@
 import React from "react";
 import InputBase from "@mui/material/InputBase";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Typography from "@mui/material/Typography";
 import FormHelperText from "@mui/material/FormHelperText";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import "./Form.css";
-import { cc_format } from "../../utils";
 
 const Input = React.forwardRef(
   (
@@ -47,17 +47,19 @@ const Input = React.forwardRef(
         sx={{ width: "100%" }}
         {...other}
       >
-        {label && <FormLabel sx={{ fontSize: 18, fontWeight: 500}} color="primary">{label}</FormLabel>}
-        {subLabel && <FormLabel sx={{ fontSize: 12 }}  color="primary">{subLabel}</FormLabel>}
-        <InputBase
+        {label && <FormLabel sx={{ fontSize: 18, fontWeight: 500 }} color="primary">{label}</FormLabel>}
+        {subLabel && <FormLabel sx={{ fontSize: 12 }} color="primary">{subLabel}</FormLabel>}
+        {multiline ? <TextareaAutosize
+          minRows={3}
           type={type}
           className="styledInput"
+          style={{ paddingInline: 10 }}
           id={id}
           name={name}
           inputRef={ref}
           placeholder={placeholder}
           fullWidth
-          value={capital ? value?.toUpperCase() : cardNumber ? cc_format(value) : value}
+          value={capital ? value?.toUpperCase() : value}
           onChange={onChange}
           multiline={multiline}
           disabled={disabled}
@@ -65,28 +67,47 @@ const Input = React.forwardRef(
           rows={rows}
           onBlur={onBlur}
           error={hasError}
-          startAdornment={
-            startAdornment && (
-              <InputAdornment
-                position="start"
-                sx={{ position: "absolute", left: 8, zIndex: 1 }}
-              >
-                {startAdornment}
-              </InputAdornment>
-            )
-          }
-          endAdornment={
-            endAdornment && (
-              <InputAdornment
-                position="end"
-                sx={{ position: "absolute", right: 8 }}
-              >
-                {endAdornment}
-              </InputAdornment>
-            )
-          }
           {...inputProps}
-        />
+        /> :
+          <InputBase
+            type={type}
+            className="styledInput"
+            style={{ paddingInline: 10 }}
+            id={id}
+            name={name}
+            inputRef={ref}
+            placeholder={placeholder}
+            fullWidth
+            value={capital ? value?.toUpperCase() : value}
+            onChange={onChange}
+            multiline={multiline}
+            disabled={disabled}
+            readOnly={readOnly}
+            rows={rows}
+            onBlur={onBlur}
+            error={hasError}
+            startAdornment={
+              startAdornment && (
+                <InputAdornment
+                  position="start"
+                  sx={{ position: "absolute", left: 8, zIndex: 1 }}
+                >
+                  {startAdornment}
+                </InputAdornment>
+              )
+            }
+            endAdornment={
+              endAdornment && (
+                <InputAdornment
+                  position="end"
+                  sx={{ position: "absolute", right: 8 }}
+                >
+                  {endAdornment}
+                </InputAdornment>
+              )
+            }
+            {...inputProps}
+          />}
         {hint && (
           <Typography variant="caption" color="textSecondary">
             {hint}
