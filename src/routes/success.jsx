@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import db from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import Topbar from "../components/common/Topbar";
+import { useNavigate } from "react-router-dom";
 
 const Success = () => {
+  const [postData, setPost] = useState();
+  const navigate = useNavigate();
+
   useEffect(() => {
     uploadData();
   }, []);
@@ -11,6 +15,7 @@ const Success = () => {
   const uploadData = () => {
     const post = JSON.parse(localStorage.getItem("userPost"));
     if (post) {
+      setPost(post)
       const collections = collection(db, post.category.value);
       // Add a document to the collection
       addDoc(collections, {
@@ -42,6 +47,7 @@ const Success = () => {
               </p>
               <button
                 type="button"
+                onClick={() =>  navigate(`/${postData.category.value}/${postData.slug}`)}
                 className="rounded-full bg-black px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 mt-8"
               >
                 View Listing

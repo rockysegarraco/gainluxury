@@ -23,6 +23,7 @@ import Cars from "./routes/cars";
 import Marine from './routes/marine';
 import Aviator from './routes/aviator';
 import MyPost from "./routes/MyPost";
+import PostDetail from "./routes/PostDetail";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -74,6 +75,11 @@ function ClerkProviderWithRoutes() {
         <Route path="/create-post" element={<AddPost path="/create-post" />} />
         <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
+        <Route path="/cars/:slug" element={<PostDetail />} />
+        <Route path="/property/:slug" element={<PostDetail />} />
+        <Route path="/yatch/:slug" element={<PostDetail />} />
+        <Route path="/aviation/:slug" element={<PostDetail />} />
+        
 
       </Routes>
     </ClerkProvider>

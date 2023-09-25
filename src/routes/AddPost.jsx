@@ -37,6 +37,7 @@ const AddPost = ({ form }) => {
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { getFieldDecorator, validateFields, resetFields } = form;
 
@@ -49,10 +50,12 @@ const AddPost = ({ form }) => {
   const checkout = async () => {
     return validateFields()
       .then(async (values) => {
+        setIsLoading(true);
         const obj = {
           gallery: gallaryImages,
           ...values,
           userId: user.id,
+          slug: values.title.replace(" ", "-") + `-${new Date().getTime()}`
         };
         return await axios
           .post(
@@ -65,12 +68,14 @@ const AddPost = ({ form }) => {
           )
           .then((res) => {
             if (res.data.url) {
+              setIsLoading(false);
               localStorage.setItem("userPost", JSON.stringify(obj));
               window.location.assign(res.data.url);
             }
           });
       })
       .catch((e) => {
+        setIsLoading(false);
         console.log(e);
       });
   };
@@ -332,7 +337,7 @@ const AddPost = ({ form }) => {
           type="button"
           className="rounded-full bg-black px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 mt-8"
         >
-          Continue to Payment
+          {isLoading ? "Loading..." : "Continue to Payment"}
         </button>
       </div>
     </div>

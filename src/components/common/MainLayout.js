@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -45,6 +45,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const MainLayout = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -57,7 +58,7 @@ const MainLayout = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <Topbar open={open} handleOpen={() => navigate("/create-post")} handleDrawerOpen={handleDrawerOpen} />
-      <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
+      <Sidebar open={open} drawerIndex={location.state?.drawerIndex} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />
         <Outlet />
