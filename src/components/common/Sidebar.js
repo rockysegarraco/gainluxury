@@ -10,7 +10,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Settings from "@mui/icons-material/SettingsOutlined";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -21,6 +20,7 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import { useNavigate } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import PostAdd from "@mui/icons-material/PostAddOutlined";
+import FlightOutlined from "@mui/icons-material/FlightOutlined";
 
 const drawerWidth = 240;
 
@@ -33,10 +33,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const Sidebar = ({ open, handleDrawerClose }) => {
+const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0 }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(drawerIndex);
   const [menuIndex, setMenuIndex] = useState(0);
   const [menuOpen, setOpen] = React.useState(false);
 
@@ -58,7 +58,7 @@ const Sidebar = ({ open, handleDrawerClose }) => {
     },
     {
       title: "Aviation",
-      icon: <HomeOutlined />,
+      icon: <FlightOutlined />,
       onClick: (index) => handleMenuItemClick(index, "/home/aviation"),
     },
     { title: "divider" },
