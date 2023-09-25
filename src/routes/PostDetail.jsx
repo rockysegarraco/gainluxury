@@ -32,7 +32,7 @@ const PostDetail = () => {
 
   return (
     <div>
-      <Detail title={data.title} description={data.description} />
+      <Detail title={data.title} description={data.description} price />
       {isLoading ? (
         <Box
           sx={{
@@ -50,6 +50,7 @@ const PostDetail = () => {
           <div>{data.title}</div>
           <div>{data.description}</div>
           <div>{data.price}</div>
+          <div>{data.email}</div>
         </div>
       )}
     </div>
