@@ -43,7 +43,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}
-          <ControlPointIcon /> Add Listing
+          Add Listing
         </button>
         <UserButton />
       </Toolbar>
