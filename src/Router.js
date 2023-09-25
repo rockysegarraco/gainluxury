@@ -58,7 +58,7 @@ function ClerkProviderWithRoutes() {
           }
         >
 
-           {/* Drawer routes */}
+          {/* Drawer routes */}
           <Route index element={<Home path="/home" />} />
           <Route path="/home/real-estate" element={<RealEstate path="/home/real-estate" />} />
           <Route path="/home/cars" element={<Cars path="/home/cars" />} />
@@ -66,20 +66,18 @@ function ClerkProviderWithRoutes() {
           <Route path="/home/aviation" element={<Aviator path="/home/aviation" />} />
           <Route path="/settings" element={<Settings path="/settings" />} />
           <Route path="/my-post" element={<MyPost path="/my-post" />} />
-
-
+          <Route path="/aviation/:slug" element={<PostDetail />} />
+          <Route path="/cars/:slug" element={<PostDetail />} />
+          <Route path="/property/:slug" element={<PostDetail />} />
+          <Route path="/yatch/:slug" element={<PostDetail />} />
 
         </Route>
-        
+
         {/* Global routes */}
         <Route path="/create-post" element={<AddPost path="/create-post" />} />
         <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
-        <Route path="/cars/:slug" element={<PostDetail />} />
-        <Route path="/property/:slug" element={<PostDetail />} />
-        <Route path="/yatch/:slug" element={<PostDetail />} />
-        <Route path="/aviation/:slug" element={<PostDetail />} />
-        
+
 
       </Routes>
     </ClerkProvider>
