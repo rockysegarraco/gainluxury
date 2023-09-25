@@ -55,7 +55,7 @@ const AddPost = ({ form }) => {
           gallery: gallaryImages,
           ...values,
           userId: user.id,
-          slug: values.title.replace(" ", "-") + `-${new Date().getTime()}`
+          slug: values.title.replace(/[^a-z0-9]+/g, '-') + `-${new Date().getTime()}`
         };
         return await axios
           .post(

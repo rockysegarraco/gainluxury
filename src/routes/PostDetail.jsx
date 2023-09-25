@@ -26,13 +26,14 @@ const PostDetail = () => {
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       setData(doc.data());
+      setIsLoading(false);
     });
-    setIsLoading(false);
+    
   };
+
 
   return (
     <div>
-      <Detail title={data.title} description={data.description} price />
       {isLoading ? (
         <Box
           sx={{
@@ -47,10 +48,7 @@ const PostDetail = () => {
         </Box>
       ) : (
         <div>
-          <div>{data.title}</div>
-          <div>{data.description}</div>
-          <div>{data.price}</div>
-          <div>{data.email}</div>
+          <Detail data={data} />
         </div>
       )}
     </div>
