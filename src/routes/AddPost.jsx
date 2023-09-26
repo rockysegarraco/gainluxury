@@ -81,7 +81,7 @@ const AddPost = ({ form }) => {
   };
 
   const handleGalleryFile = async (e) => {
-    const MAX_LENGTH = 5;
+    const MAX_LENGTH = 10;
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
       if (files?.length <= MAX_LENGTH) {
@@ -114,7 +114,7 @@ const AddPost = ({ form }) => {
       <div className="mx-auto max-w-full lg:max-w-4xl bg-white">
         <Pricing />
       </div>
-      <div className="mx-auto max-w-full md:max-w-2xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
+      <div className="mx-auto max-w-full md:max-w-4xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
         <Stack spacing={0}>
           <h2 className="text-2xl font-bold mb-1">Let's get started</h2>
           <FormItem>

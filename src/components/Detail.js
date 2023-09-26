@@ -1,67 +1,13 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    theme: {
-      extend: {
-        gridTemplateRows: {
-          '[auto,auto,1fr]': 'auto auto 1fr',
-        },
-      },
-    },
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
-import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-};
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+//
+import Gallery from "./Gallery";
 
 export default function Example(props) {
-  const { title, description, price, } = props.data;
+  const { title, description, price, gallery } = props.data;
   return (
     <>
       <div className="bg-white">
         <div className="pt-6">
-          <nav aria-label="Breadcrumb">
+          {/* <nav aria-label="Breadcrumb">
             <ol
               role="list"
               className="mx-auto flex max-w-[2xl] items-center space-x-2 px-4 sm:px-6 lg:max-w-[90%] lg:px-8"
@@ -98,11 +44,11 @@ export default function Example(props) {
                 </a>
               </li>
             </ol>
-          </nav>
+          </nav> */}
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-[90%] lg:grid-cols-4 lg:gap-x-8 lg:px-8 bg-slate-100">
-            IMAGE GALLERY GOES HERE
+          <div className="mx-auto mt-6 max-w-2xl lg:max-w-[90%] px-4 max-h-full">
+            {gallery?.length > 0 && <Gallery images={gallery} />}
           </div>
 
           {/* Product info */}
