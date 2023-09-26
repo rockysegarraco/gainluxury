@@ -1,25 +1,31 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import Slide from "@mui/material/Slide";
+import Stack from "@mui/material/Stack";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Share from '@mui/icons-material/Share';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
-import Slide from "@mui/material/Slide";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import { ListItemIcon } from "@mui/material";
 
-import Pricing from "../pricing";
-import { CATEGORY } from "../../utils/constants";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+function srcset(image, width, height, rows = 1, cols = 1) {
+  return {
+    src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
+    srcSet: `${image}?w=${width * cols}&h=${height * rows
+      }&fit=crop&auto=format&dpr=2 2x`,
+  };
+}
 
-export default function FullScreenDialog({ open, setOpen, setItem }) {
+
+export default function FullScreenDialog({ open, setOpen, images, selectedItem = 0 }) {
   return (
     <>
       <div>
@@ -28,35 +34,52 @@ export default function FullScreenDialog({ open, setOpen, setItem }) {
           open={open}
           onClose={setOpen}
           TransitionComponent={Transition}
+          className="relative"
         >
-          <AppBar sx={{ position: "relative" }}>
-            <Toolbar>
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={setOpen}
-                aria-label="close"
-              >
-                <CloseIcon />
+          <Stack
+            sx={{ flexDirection: 'row', justifyContent: 'space-between', m: 1, position: 'sticky', top: 5  }} >
+            <div>
+              <IconButton onClick={setOpen}>
+                <ArrowBackIosNewIcon />
               </IconButton>
-              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Select Category
+            </div>
+            <Stack sx={{ flexDirection: 'row' }} gap={2}>
+              <Typography sx={{ fontSize: 16, cursor: "pointer" }}>
+                <IconButton size="medium">
+                  <Share />
+                </IconButton> Share
               </Typography>
-            </Toolbar>
-          </AppBar>
-          <div>
-            <Pricing />
-          </div>
-          <List>
-            {CATEGORY.map((item, i) => (
-              <div key={i}>
-                <ListItem button onClick={() => setItem(item)}>
-                  <ListItemText primary={item.title} secondary="$7 per post" />
-                </ListItem>
-                <Divider />
-              </div>
-            ))}
-          </List>
+              <Typography sx={{ fontSize: 16, cursor: "pointer" }}>
+                <IconButton size="medium">
+                  <FavoriteBorderIcon />
+                </IconButton> Save
+              </Typography>
+            </Stack>
+          </Stack>
+
+          <Stack sx={{ alignItems: 'center'}}>
+            <ImageList
+              sx={{
+                transform: 'translateZ(0)',
+              }}
+              gap={1}
+            >
+              {images.map((item, i) => {
+                const cols = 2;
+                const rows = 2;
+                return (
+                  <ImageListItem autoFocus={selectedItem === i} key={ListItemIcon} cols={cols} rows={rows}>
+                    <img
+                      {...srcset(item, 250, 200, rows, cols)}
+                      alt={i}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                );
+              })}
+            </ImageList>
+          </Stack>
+
         </Dialog>
       </div>
     </>
