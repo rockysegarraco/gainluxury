@@ -129,6 +129,7 @@ const Gallery = ({ images }) => {
 			{imageGrid()?.map((item, index) => (
 				<ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
 					<img
+						onClick={() => setIsOpen(true)}
 						className='hover:opacity-80 cursor-pointer'
 						{...srcset(item.img, 121, item.rows, item.cols)}
 						style={{maxHeight: 450, height: index !== 0 ? (imageGrid().length > 3 ? 223 : 450)  : 450}}
