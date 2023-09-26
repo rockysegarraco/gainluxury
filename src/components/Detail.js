@@ -23,13 +23,15 @@ import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 
+import Specifics from "../components/Specifics";
+
 const product = {
   name: "Basic Tee 6-Pack",
   price: "$192",
   href: "#",
   breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
+    { id: 1, name: "Cars", href: "#" },
+    { id: 2, name: "Brand", href: "#" },
   ],
   images: [
     {
@@ -56,7 +58,7 @@ function classNames(...classes) {
 }
 
 export default function Example(props) {
-  const { title, description, price, } = props.data;
+  const { title, description, price } = props.data;
   return (
     <>
       <div className="bg-white">
@@ -64,7 +66,7 @@ export default function Example(props) {
           <nav aria-label="Breadcrumb">
             <ol
               role="list"
-              className="mx-auto flex max-w-[2xl] items-center space-x-2 px-4 sm:px-6 lg:max-w-[90%] lg:px-8"
+              className="mx-auto flex max-w-[2xl] items-center space-x-2 max-w-[90%]"
             >
               {product.breadcrumbs.map((breadcrumb) => (
                 <li key={breadcrumb.id}>
@@ -94,50 +96,53 @@ export default function Example(props) {
                   aria-current="page"
                   className="font-medium text-gray-500 hover:text-gray-600"
                 >
-                  {product.name}
+                  {title}
                 </a>
               </li>
             </ol>
           </nav>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-[90%] lg:grid-cols-4 lg:gap-x-8 lg:px-8 bg-slate-100">
+          <div className="mx-auto max-w-[90%] mt-4 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8  bg-slate-100">
             IMAGE GALLERY GOES HERE
           </div>
 
           {/* Product info */}
-          <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-[90%] lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                {title}
-              </h1>
-            </div>
-
-            {/* Options */}
-            <div className="mt-4 lg:row-span-3 lg:mt-0">
-              <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">
-                {price}
-              </p>
-
-              {/* EMAIL */}
-              <div className="mt-10">
-                <button
-                  type="submit"
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Send Email
-                </button>
+          <div className="mx-auto max-w-[90%] pb-16 pt-10 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:pb-24 lg:pt-6">
+            <div className="lg:col-span-2 lg:pr-8">
+              <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+              <h2 className="text-2xl text-gray-900">${price}</h2>
+              <h3 className="py-2">Atlanta, Georgia, United States</h3>
+              <div className="py-4">
+                <Specifics />
+              </div>
+              <div className="py-4 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
+                <div>
+                  <h3 className="sr-only">Description</h3>
+                  <div className="">
+                    <h3 className="text-2xl font-bold mb-2">
+                      About this "type"
+                    </h3>
+                    <p className="text-base text-gray-900">{description}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-              {/* Description and details */}
-              <div>
-                <h3 className="sr-only">Description</h3>
-                <div className="space-y-6">
-                  <p className="text-base text-gray-900">{description}</p>
+            {/* Aside */}
+            <div className="mt-4 lg:row-span-3 lg:mt-0">
+              <div className="border border-gray-200 bg-white px-4 py-5 sm:px-6 mb-0 lg:mb-4">
+                <p className="text-2xl font-semibold">"Khan Exclusive®"</p>
+                <div className="py-2">Show Number</div>
+                <div className="py-4">
+                  <button
+                    type="submit"
+                    className="flex w-full items-center justify-center rounded-full border border-transparent bg-indigo-600 px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Send Email
+                  </button>
                 </div>
+                <div className="mt-4">MAP GOES HERE</div>
               </div>
             </div>
           </div>
