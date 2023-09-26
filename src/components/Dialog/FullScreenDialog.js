@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { ListItemIcon } from "@mui/material";
+import ImageGalleryModal from "./ImageGalleryModal";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -24,8 +24,16 @@ function srcset(image, width, height, rows = 1, cols = 1) {
   };
 }
 
-
 export default function FullScreenDialog({ open, setOpen, images, selectedItem = 0 }) {
+
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleImageClick = (index) => {
+    setCurrentIndex(index);
+    setDialogOpen(true);
+  } 
+
   return (
     <>
       <div>
@@ -68,8 +76,9 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
                 const cols = 2;
                 const rows = 2;
                 return (
-                  <ImageListItem autoFocus={selectedItem === i} key={ListItemIcon} cols={cols} rows={rows}>
+                  <ImageListItem autoFocus={selectedItem === i} key={i} cols={cols} rows={rows}>
                     <img
+                      onClick={() => handleImageClick(i)}
                       {...srcset(item, 250, 200, rows, cols)}
                       alt={i}
                       loading="lazy"
@@ -79,7 +88,7 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
               })}
             </ImageList>
           </Stack>
-
+          <ImageGalleryModal open={isDialogOpen} setOpen={() => setDialogOpen(!isDialogOpen)} images={images} currentIndex={currentIndex}  />
         </Dialog>
       </div>
     </>
