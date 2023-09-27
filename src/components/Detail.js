@@ -1,53 +1,31 @@
 //
 import Gallery from "./Gallery";
+import { Link } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function Example(props) {
-  const { title, description, price, gallery } = props.data;
+  const {
+    title,
+    description,
+    price,
+    gallery,
+    email,
+    kilometersRun,
+    engineCapacity,
+    condition,
+    state,
+    yearModel,
+  } = props.data;
   return (
     <>
       <div className="bg-white">
         <div className="pt-6">
-          {/* <nav aria-label="Breadcrumb">
-            <ol
-              role="list"
-              className="mx-auto flex max-w-[2xl] items-center space-x-2 max-w-[90%]"
-            >
-              {product.breadcrumbs.map((breadcrumb) => (
-                <li key={breadcrumb.id}>
-                  <div className="flex items-center">
-                    <a
-                      href={breadcrumb.href}
-                      className="mr-2 text-sm font-medium text-gray-900"
-                    >
-                      {breadcrumb.name}
-                    </a>
-                    <svg
-                      width={16}
-                      height={20}
-                      viewBox="0 0 16 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      className="h-5 w-4 text-gray-300"
-                    >
-                      <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                    </svg>
-                  </div>
-                </li>
-              ))}
-              <li className="text-sm">
-                <a
-                  href={product.href}
-                  aria-current="page"
-                  className="font-medium text-gray-500 hover:text-gray-600"
-                >
-                  {title}
-                </a>
-              </li>
-            </ol>
-          </nav> */}
+          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-4 lg:px-0">
+            <Breadcrumb />
+          </div>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl lg:max-w-[90%] px-4 max-h-full">
+          <div className="mx-auto mt-6 max-w-full lg:max-w-[90%] max-h-full px-4 lg:px-0">
             {gallery?.length > 0 && <Gallery images={gallery} />}
           </div>
 
@@ -56,9 +34,58 @@ export default function Example(props) {
             <div className="lg:col-span-2 lg:pr-8">
               <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
               <h2 className="text-2xl text-gray-900">${price}</h2>
-              <h3 className="py-2">Atlanta, Georgia, United States</h3>
+              <h3 className="py-2">Atlanta, Georgia, {state.label}</h3>
               <div className="py-4">
-                <Specifics />
+                <div className="bg-gray-900">
+                  <div className="mx-auto max-w-7xl">
+                    <div className="grid grid-cols-2 gap-px bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
+                      <div className="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
+                        <p className="text-sm font-medium leading-6 text-gray-400">
+                          Year
+                        </p>
+                        <p className="mt-2 flex items-baseline gap-x-2">
+                          <span className="text-4xl font-semibold tracking-tight text-white">
+                            {yearModel}
+                          </span>
+                          <span className="text-sm text-gray-400"></span>
+                        </p>
+                      </div>
+                      <div className="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
+                        <p className="text-sm font-medium leading-6 text-gray-400">
+                          Miles
+                        </p>
+                        <p className="mt-2 flex items-baseline gap-x-2">
+                          <span className="text-4xl font-semibold tracking-tight text-white">
+                            {kilometersRun}
+                          </span>
+                          <span className="text-sm text-gray-400">km</span>
+                        </p>
+                      </div>
+                      <div className="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
+                        <p className="text-sm font-medium leading-6 text-gray-400">
+                          Engine Type
+                        </p>
+                        <p className="mt-2 flex items-baseline gap-x-2">
+                          <span className="text-4xl font-semibold tracking-tight text-white">
+                            {engineCapacity}
+                          </span>
+                          <span className="text-sm text-gray-400"></span>
+                        </p>
+                      </div>
+                      <div className="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
+                        <p className="text-sm font-medium leading-6 text-gray-400">
+                          Condition
+                        </p>
+                        <p className="mt-2 flex items-baseline gap-x-2">
+                          <span className="text-2xl font-semibold tracking-tight text-white">
+                            {condition.label}
+                          </span>
+                          <span className="text-sm text-gray-400"></span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="py-4 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
                 <div>
@@ -79,12 +106,14 @@ export default function Example(props) {
                 <p className="text-2xl font-semibold">"Khan Exclusive®"</p>
                 <div className="py-2">Show Number</div>
                 <div className="py-4">
-                  <button
-                    type="submit"
-                    className="flex w-full items-center justify-center rounded-full border border-transparent bg-indigo-600 px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Send Email
-                  </button>
+                  <Link to={`mailto:${email}`}>
+                    <button
+                      type="submit"
+                      className="flex w-full items-center justify-center rounded-full border border-transparent bg-indigo-600 px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Send Email
+                    </button>
+                  </Link>
                 </div>
                 <div className="mt-4">MAP GOES HERE</div>
               </div>

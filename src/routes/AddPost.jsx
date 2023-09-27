@@ -55,7 +55,9 @@ const AddPost = ({ form }) => {
           gallery: gallaryImages,
           ...values,
           userId: user.id,
-          slug: values.title.replace(/[^a-z0-9]+/g, '-') + `-${new Date().getTime()}`
+          slug:
+            values.title.replace(/[^a-z0-9]+/g, "-") +
+            `-${new Date().getTime()}`,
         };
         return await axios
           .post(
@@ -156,6 +158,16 @@ const AddPost = ({ form }) => {
                   ],
                 })(<TextInput multiline placeholder="Tell us about the car" />)}
               </FormItem>
+              <FormItem>
+                {getFieldDecorator("yearModel", {
+                  initialValue: "",
+                  rules: [
+                    {
+                      required: true,
+                    },
+                  ],
+                })(<TextInput type="number" placeholder="Year" />)}
+              </FormItem>
               <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
                   {getFieldDecorator("pricingType", {
@@ -170,7 +182,9 @@ const AddPost = ({ form }) => {
                       fullWidth
                       placeholder="Price Type"
                       options={PRICE_TYPE}
-                      onChange={(data) => setPrice(() => data.value === "Fixed" ? false : true )}
+                      onChange={(data) =>
+                        setPrice(() => (data.value === "Fixed" ? false : true))
+                      }
                     />
                   )}
                 </FormItem>
@@ -182,7 +196,13 @@ const AddPost = ({ form }) => {
                         required: !isPrice,
                       },
                     ],
-                  })(<TextInput disabled={isPrice} type="number" placeholder="Price $" />)}
+                  })(
+                    <TextInput
+                      disabled={isPrice}
+                      type="number"
+                      placeholder="Price $"
+                    />
+                  )}
                 </FormItem>
               </Stack>
               <Stack gap={2} sx={{ flexDirection: "row" }}>
@@ -202,39 +222,39 @@ const AddPost = ({ form }) => {
                     />
                   )}
                 </FormItem>
-                <FormItem>
-                  {getFieldDecorator("brand", {
-                    initialValue: "",
-                    rules: [
-                      {
-                        required: true,
-                      },
-                    ],
-                  })(<Select fullWidth placeholder="Brand" options={BRAND} />)}
-                </FormItem>
               </Stack>
-              <Stack gap={2} sx={{ flexDirection: "row" }}>
-                <FormItem>
-                  {getFieldDecorator("kilometersRun", {
-                    initialValue: "",
-                    rules: [
-                      {
-                        required: true,
-                      },
-                    ],
-                  })(<TextInput type="number" placeholder="Kilometers Run" />)}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("engineCapacity", {
-                    initialValue: "",
-                    rules: [
-                      {
-                        required: true,
-                      },
-                    ],
-                  })(<TextInput placeholder="Engine Capacity" />)}
-                </FormItem>
-              </Stack>
+
+              <FormItem>
+                {getFieldDecorator("brand", {
+                  initialValue: "",
+                  rules: [
+                    {
+                      required: true,
+                    },
+                  ],
+                })(<Select fullWidth placeholder="Brand" options={BRAND} />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("kilometersRun", {
+                  initialValue: "",
+                  rules: [
+                    {
+                      required: true,
+                    },
+                  ],
+                })(<TextInput type="number" placeholder="Kilometers Run" />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("engineCapacity", {
+                  initialValue: "",
+                  rules: [
+                    {
+                      required: true,
+                    },
+                  ],
+                })(<TextInput placeholder="Engine Capacity" />)}
+              </FormItem>
+
               <Button
                 variant="contained"
                 size="large"
@@ -286,6 +306,16 @@ const AddPost = ({ form }) => {
           {category.value === "aviation" && <div> aviation fields </div>}
 
           <h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
+          <FormItem>
+            {getFieldDecorator("email", {
+              initialValue: "",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
+            })(<TextInput placeholder="Email" />)}
+          </FormItem>
           <FormItem>
             {getFieldDecorator("phone", {
               initialValue: "",
