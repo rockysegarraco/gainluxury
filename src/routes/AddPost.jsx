@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import UploadFileRounded from "@mui/icons-material/UploadFileRounded";
+import IconButton from "@mui/material/IconButton";
 
 // components
 import Heading from "../components/Heading";
@@ -24,8 +25,7 @@ import {
   PRICE_TYPE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
-import { IconButton } from "@mui/material";
-import { deepCloneData } from "../utils";
+import { createSlug, deepCloneData } from "../utils";
 
 const { FormItem } = Form;
 
@@ -39,7 +39,7 @@ const AddPost = ({ form }) => {
   const [gallaryImages, setGallaryImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { getFieldDecorator, validateFields, resetFields } = form;
+  const { getFieldDecorator, validateFields } = form;
 
   // In case the user signs out while on the page.
   if (!isLoaded || !isSignedIn) {
@@ -50,29 +50,34 @@ const AddPost = ({ form }) => {
   const checkout = async () => {
     return validateFields()
       .then(async (values) => {
-        setIsLoading(true);
-        const obj = {
-          gallery: gallaryImages,
-          ...values,
-          userId: user.id,
-          slug: values.title.replace(/[^a-z0-9]+/g, '-') + `-${new Date().getTime()}`
-        };
-        return await axios
-          .post(
-            "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
-            {
-              post: {
-                priceId: category.priceId,
-              },
-            }
-          )
-          .then((res) => {
-            if (res.data.url) {
-              setIsLoading(false);
-              localStorage.setItem("userPost", JSON.stringify(obj));
-              window.location.assign(res.data.url);
-            }
-          });
+        if (gallaryImages.length >= 5) {
+          setIsLoading(true);
+          const slug = createSlug(values.title)
+          const obj = {
+            gallery: gallaryImages,
+            ...values,
+            userId: user.id,
+            slug
+          };
+          return await axios
+            .post(
+              "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
+              {
+                post: {
+                  priceId: category.priceId,
+                },
+              }
+            )
+            .then((res) => {
+              if (res.data.url) {
+                setIsLoading(false);
+                localStorage.setItem("userPost", JSON.stringify(obj));
+                window.location.assign(res.data.url);
+              }
+            });
+        } else {
+          alert("Please add at least 5 photos.");
+        }
       })
       .catch((e) => {
         setIsLoading(false);
@@ -85,22 +90,16 @@ const AddPost = ({ form }) => {
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
       if (files?.length <= MAX_LENGTH) {
-        if (files?.length <= 5) {
-          e.preventDefault();
-          alert(`Please upload atleast 5 Photos`);
+        const maxSize = 3 * 1024 * 1024;
+        const validFiles = files.filter((file) => file.size <= maxSize);
+        if (validFiles.length !== files.length) {
+          alert("Some files exceed the maximum size limit (5MB).");
         } else {
-          const maxSize = 3 * 1024 * 1024;
-          const validFiles = files.filter((file) => file.size <= maxSize);
-          if (validFiles.length !== files.length) {
-            alert("Some files exceed the maximum size limit (5MB).");
-          } else {
-            setGalleryLoading(true);
-            const result = await uploadImages(e.target.files);
-            setGallaryImages((prev) => [...prev, ...result]);
-            setGalleryLoading(false);
-          }
+          setGalleryLoading(true);
+          const result = await uploadImages(e.target.files);
+          setGallaryImages((prev) => [...prev, ...result]);
+          setGalleryLoading(false);
         }
-        
       } else {
         e.preventDefault();
         alert(`Cannot upload files more than ${MAX_LENGTH}`);
@@ -176,7 +175,7 @@ const AddPost = ({ form }) => {
                       fullWidth
                       placeholder="Price Type"
                       options={PRICE_TYPE}
-                      onChange={(data) => setPrice(() => data.value === "Fixed" ? false : true )}
+                      onChange={(data) => setPrice(() => data.value === "Fixed" ? false : true)}
                     />
                   )}
                 </FormItem>
@@ -263,7 +262,7 @@ const AddPost = ({ form }) => {
                 accept="image/png, image/jpg, image/jpeg"
                 onChange={handleGalleryFile}
               />
-              <Stack gap={1} sx={{ flexDirection: "row" }}>
+              <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
                 {gallaryImages.map((image, index) => (
                   <Paper
                     key={index}
@@ -273,17 +272,19 @@ const AddPost = ({ form }) => {
                       backgroundSize: "cover",
                       height: 150,
                       width: 150,
+                      flexShrink: 0,
+                      marginTop: '10px'
                     }}
                   >
                     <IconButton
-                      sx={{ alignSelf: "flex-end" }}
+                      sx={{ m: 1, height: '22px', width: '22px', bgcolor: 'white' }}
                       onClick={() => handleImageDelete(index)}
                     >
                       <CloseOutlined />
                     </IconButton>
                   </Paper>
                 ))}
-              </Stack>
+              </div>
             </Stack>
           )}
 

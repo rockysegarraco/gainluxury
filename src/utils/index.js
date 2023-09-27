@@ -14,3 +14,21 @@ export const cc_format = (value) => {
   }
 
   export const deepCloneData = (data) => JSON.parse(JSON.stringify(data));
+
+  export function createSlug(title) {
+    // Convert to lowercase
+    let slug = title.toLowerCase();
+  
+    // Remove special characters and replace spaces with hyphens
+    slug = slug.replace(/[^a-zA-Z0-9\s]/g, ''); // Remove non-alphanumeric characters
+    slug = slug.replace(/\s+/g, '-'); // Replace spaces with hyphens
+  
+    // Trim leading and trailing hyphens
+    slug = slug.replace(/^-+|-+$/g, '');
+  
+    // Optionally limit the length of the slug
+    const maxLength = 50; // Adjust as needed
+    slug = slug.substring(0, maxLength);
+  
+    return slug + `-${new Date().getTime()}`;
+  }

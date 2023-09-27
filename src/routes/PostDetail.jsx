@@ -28,7 +28,6 @@ const PostDetail = () => {
       setData(doc.data());
       setIsLoading(false);
     });
-    
   };
 
 

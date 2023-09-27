@@ -147,6 +147,7 @@ const CustomSelect = React.forwardRef(
       isMulti = false,
       cacheOptions = true,
       size,
+      disabled = false,
       styles,
       sx,
       fullWidth,
@@ -230,6 +231,7 @@ const CustomSelect = React.forwardRef(
           />
         ) : (
           <Select
+            isDisabled={disabled}
             ref={ref}
             size={size}
             hasError={hasError}

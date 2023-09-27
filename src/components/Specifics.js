@@ -5,7 +5,7 @@ const stats = [
   { name: "Engine", value: "3" },
 ];
 
-export default function Example() {
+export default function Specifics() {
   return (
     <div className="bg-gray-900">
       <div className="mx-auto max-w-7xl">
