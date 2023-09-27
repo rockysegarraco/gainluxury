@@ -85,16 +85,22 @@ const AddPost = ({ form }) => {
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
       if (files?.length <= MAX_LENGTH) {
-        const maxSize = 3 * 1024 * 1024;
-        const validFiles = files.filter((file) => file.size <= maxSize);
-        if (validFiles.length !== files.length) {
-          alert("Some files exceed the maximum size limit (5MB).");
+        if (files?.length <= 5) {
+          e.preventDefault();
+          alert(`Please upload atleast 5 Photos`);
         } else {
-          setGalleryLoading(true);
-          const result = await uploadImages(e.target.files);
-          setGallaryImages((prev) => [...prev, ...result]);
-          setGalleryLoading(false);
+          const maxSize = 3 * 1024 * 1024;
+          const validFiles = files.filter((file) => file.size <= maxSize);
+          if (validFiles.length !== files.length) {
+            alert("Some files exceed the maximum size limit (5MB).");
+          } else {
+            setGalleryLoading(true);
+            const result = await uploadImages(e.target.files);
+            setGallaryImages((prev) => [...prev, ...result]);
+            setGalleryLoading(false);
+          }
         }
+        
       } else {
         e.preventDefault();
         alert(`Cannot upload files more than ${MAX_LENGTH}`);
