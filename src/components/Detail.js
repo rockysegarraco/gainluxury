@@ -1,21 +1,17 @@
+import { useUser } from "@clerk/clerk-react";
 //
 import Gallery from "./Gallery";
-import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb";
+import Specifics from "./Specifics";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Edit from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 
-export default function Example(props) {
-  const {
-    title,
-    description,
-    price,
-    gallery,
-    email,
-    kilometersRun,
-    engineCapacity,
-    condition,
-    state,
-    yearModel,
-  } = props.data;
+export default function PostDetail(props) {
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  const { title, description, price, gallery, userId, slug } = props.data;
   return (
     <>
       <div className="bg-white">
@@ -25,14 +21,18 @@ export default function Example(props) {
           </div>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-full lg:max-w-[90%] max-h-full px-4 lg:px-0">
+          <div className="mx-auto mt-6 max-w-2xl lg:max-w-[90%] max-h-full">
             {gallery?.length > 0 && <Gallery images={gallery} />}
           </div>
 
           {/* Product info */}
           <div className="mx-auto max-w-[90%] pb-16 pt-10 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:pb-24 lg:pt-6">
             <div className="lg:col-span-2 lg:pr-8">
+              <Stack sx={{ flexDirection: 'row', justifyContent: 'space-between'}}>
               <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+              {user.id === userId && (<Button onClick={() => navigate(`/edit-post/${slug}`)}
+               variant="outlined" startIcon={<Edit />}>Edit Post</Button>)}
+              </Stack>
               <h2 className="text-2xl text-gray-900">${price}</h2>
               <h3 className="py-2">Atlanta, Georgia, {state.label}</h3>
               <div className="py-4">
