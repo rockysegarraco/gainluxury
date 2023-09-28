@@ -90,11 +90,7 @@ const EditPost = ({ form }) => {
 			setPostData(doc.data());
 			setCategory(doc.data()?.category)
 			setDocId(doc.id);
-
-			console.log('====================================');
-			console.log(doc.data());
-			console.log('====================================');
-		});	
+		});
 	};
 
 	// In case the user signs out while on the page.
@@ -117,7 +113,7 @@ const EditPost = ({ form }) => {
 					const documentToUpdate = doc(db, category.value, docId);
 					await updateDoc(documentToUpdate, {
 						...obj
-					 });
+					});
 					setIsLoading(false);
 					navigate(`/${category.value}/${slug}`)
 				} else {
@@ -179,7 +175,7 @@ const EditPost = ({ form }) => {
 				</div>
 				<div className="mx-auto max-w-full md:max-w-4xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
 					<Stack spacing={0}>
-						<h2 className="text-2xl font-bold mb-1">Let's get started</h2>
+						<h2 className="text-2xl font-bold mb-1">Edit Listing</h2>
 						<FormItem>
 							{getFieldDecorator("category", {
 								initialValue: "",
