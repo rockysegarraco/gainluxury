@@ -21,6 +21,8 @@ import { useNavigate } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import PostAdd from "@mui/icons-material/PostAddOutlined";
 import FlightOutlined from "@mui/icons-material/FlightOutlined";
+import { UserButton, useClerk, useUser,  } from "@clerk/clerk-react";
+import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
 
@@ -33,12 +35,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0 }) => {
+const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(drawerIndex);
   const [menuIndex, setMenuIndex] = useState(0);
   const [menuOpen, setOpen] = React.useState(false);
+  const {isSignedIn} = useUser();
+  const { signOut } = useClerk();
 
   const LIST_ITEMS = [
     {
@@ -74,8 +78,8 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0 }) => {
     },
     {
       title: "Manage Account",
-      icon: <AccountCircleIcon />,
-      onClick: (index) => handleClick(index, "/settings"),
+      icon:  isSignedIn ? <div className="pointer-events-none"><UserButton /></div> : <AccountCircleIcon />,
+      onClick: (index) => openDialog()
     },
   ];
 
@@ -140,7 +144,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0 }) => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List>
+      <List className="flex-1">
         {LIST_ITEMS.map((item, index) => (
           <div key={item.title}>
             {item?.isMenu ? (
@@ -194,6 +198,11 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0 }) => {
           </div>
         ))}
       </List>
+     {isSignedIn && (<Button 
+      onClick={signOut}
+      className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case">
+        Sign out
+      </Button>)}
     </Drawer>
   );
 };

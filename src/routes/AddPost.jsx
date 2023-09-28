@@ -26,6 +26,7 @@ import {
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData } from "../utils";
+import { useEffect } from "react";
 
 const { FormItem } = Form;
 
@@ -42,10 +43,11 @@ const AddPost = ({ form }) => {
   const { getFieldDecorator, validateFields } = form;
 
   // In case the user signs out while on the page.
-  if (!isLoaded || !isSignedIn) {
-    navigate("/");
-    return null;
-  }
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn) {
+      navigate("/");
+    }
+  }, [])
 
   const checkout = async () => {
     return validateFields()

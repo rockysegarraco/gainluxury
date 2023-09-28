@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const cc_format = (value) => {
     if (value?.length <= 19) {
       const v = value?.replace(/\s+/g, "")
@@ -31,4 +33,14 @@ export const cc_format = (value) => {
     slug = slug.substring(0, maxLength);
   
     return slug + `-${new Date().getTime()}`;
+  }
+
+  export function useTitle(title) {
+    useEffect(() => {
+      const prevTitle = document.title
+      document.title = title + " | GainLuxury"
+      return () => {
+        document.title = prevTitle
+      }
+    })
   }
