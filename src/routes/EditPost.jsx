@@ -67,7 +67,8 @@ const EditPost = ({ form }) => {
 					phone: postData?.phone,
 					address: postData?.address,
 					state: postData?.state,
-					zipcode: postData?.zipcode
+					zipcode: postData?.zipcode,
+					email: postData?.email
 				})
 				setGallaryImages(postData?.gallery);
 				setPrice(() => postData.pricingType.value === "Fixed" ? false : true)
@@ -87,7 +88,7 @@ const EditPost = ({ form }) => {
 				setPostData(doc.data());
 				setCategory(doc.data()?.category)
 				setDocId(doc?.id);
-			});	
+			});
 		} else {
 			setFetching(false);
 		}
@@ -108,7 +109,7 @@ const EditPost = ({ form }) => {
 					const documentToUpdate = doc(db, category.value, docId);
 					await updateDoc(documentToUpdate, {
 						...obj
-					 });
+					});
 					setIsLoading(false);
 					navigate(`/${category.value}/${slug}`)
 				} else {
@@ -339,6 +340,16 @@ const EditPost = ({ form }) => {
 						{category.value === "aviation" && <div> aviation fields </div>}
 
 						<h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
+						<FormItem>
+							{getFieldDecorator("email", {
+								initialValue: "",
+								rules: [
+									{
+										required: true,
+									},
+								],
+							})(<TextInput placeholder="Email" />)}
+						</FormItem>
 						<FormItem>
 							{getFieldDecorator("phone", {
 								initialValue: "",
