@@ -8,6 +8,8 @@ import { useState } from "react";
 // components
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
+import ProfileDialog from '../Dialog/ProfileDialog'
+import { useUser } from '@clerk/clerk-react';
 
 // configs
 
@@ -44,8 +46,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const MainLayout = () => {
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const {isSignedIn} = useUser();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -55,14 +59,22 @@ const MainLayout = () => {
     setOpen(false);
   };
 
+  const handleOpenPage = () => {
+    if (isSignedIn) {
+      navigate('/create-post')
+    } else {
+      alert('Please login first create a post')
+    }
+  }
   return (
     <Box sx={{ display: "flex" }}>
-      <Topbar open={open} handleOpen={() => navigate("/create-post")} handleDrawerOpen={handleDrawerOpen} />
-      <Sidebar open={open} drawerIndex={location.state?.drawerIndex} handleDrawerClose={handleDrawerClose} />
+      <Topbar open={open} handleOpen={handleOpenPage} handleDrawerOpen={handleDrawerOpen} />
+      <Sidebar open={open} openDialog={() => setOpenDialog(!openDialog)} drawerIndex={location.state?.drawerIndex} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />
         <Outlet />
       </Main>
+      <ProfileDialog open={openDialog} setOpen={() => setOpenDialog(!openDialog)}  />
     </Box>
   )
 }

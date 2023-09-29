@@ -1,10 +1,5 @@
 import {
   ClerkProvider,
-  SignedIn,
-  SignedOut,
-  RedirectToSignIn,
-  SignIn,
-  SignUp,
 } from "@clerk/clerk-react";
 import {
   BrowserRouter as Router,
@@ -25,6 +20,8 @@ import Aviator from './routes/aviator';
 import MyPost from "./routes/MyPost";
 import PostDetail from "./routes/PostDetail";
 import EditPost from "./routes/EditPost";
+import Login from "./routes/login";
+import Register from "./routes/Register";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -37,26 +34,17 @@ function ClerkProviderWithRoutes() {
   return (
     <ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
       <Routes>
-        <Route
+        {/* <Route
           path="/sign-in/*"
           element={<SignIn routing="path" path="/sign-in" />}
         />
         <Route
           path="/sign-up/*"
           element={<SignUp routing="path" path="/sign-up" />}
-        />
+        /> */}
         <Route
           path="/"
-          element={
-            <>
-              <SignedIn>
-                <MainLayout />
-              </SignedIn>
-              <SignedOut>
-                <RedirectToSignIn />
-              </SignedOut>
-            </>
-          }
+          element={<MainLayout />}
         >
 
           {/* Drawer routes */}
@@ -79,7 +67,9 @@ function ClerkProviderWithRoutes() {
         <Route path="/edit-post/:slug" element={<EditPost path="/edit-post" />} />
         <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
-
+        <Route path="/login" element={<Login path="/login" />} />
+        <Route path="/signup" element={<Register path="/signup" />} />
+        
 
       </Routes>
     </ClerkProvider>
