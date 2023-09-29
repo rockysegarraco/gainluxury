@@ -47,7 +47,7 @@ export default function PostDetail(props) {
                 sx={{ flexDirection: "row", justifyContent: "space-between" }}
               >
                 <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-                {user.id === userId && (
+                {user?.id === userId && (
                   <Button
                     onClick={() => navigate(`/edit-post/${slug}`)}
                     variant="outlined"

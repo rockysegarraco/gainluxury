@@ -1,5 +1,5 @@
-import { Route, Link, Routes, useNavigate } from "react-router-dom";
-import { EnvelopeIcon, PhoneIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { useNavigate } from "react-router-dom";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 export default function Example() {
   const navigate = useNavigate();
