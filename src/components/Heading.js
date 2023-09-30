@@ -8,11 +8,11 @@ export default function Example() {
   };
 
   return (
-    <div className="py-4 border-b border-gray-200 bg-white">
-      <div className="mx-auto max-w-[90%]">
+    <div className="py-4">
+      <div className="mx-auto max-w-7xl px-8">
         <div className="flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="">
-            <img className="h-12 w-auto" src="/mark.svg" alt="Gain Luxury" />
+            <img className="h-8 w-auto" src="/logo.svg" alt="Gain Luxury" />
           </div>
           <div className="flex-shrink-0">
             <button

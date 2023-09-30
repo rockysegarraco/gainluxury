@@ -21,7 +21,8 @@ import { useNavigate } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import PostAdd from "@mui/icons-material/PostAddOutlined";
 import FlightOutlined from "@mui/icons-material/FlightOutlined";
-import { UserButton, useClerk, useUser,  } from "@clerk/clerk-react";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
 import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
@@ -41,7 +42,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
   const [selectedIndex, setSelectedIndex] = useState(drawerIndex);
   const [menuIndex, setMenuIndex] = useState(0);
   const [menuOpen, setOpen] = React.useState(false);
-  const {isSignedIn} = useUser();
+  const { isSignedIn } = useUser();
   const { signOut } = useClerk();
 
   const LIST_ITEMS = [
@@ -67,7 +68,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
     },
     { title: "divider" },
     {
-      title: "My Posts",
+      title: "My Listings",
       icon: <PostAdd />,
       onClick: (index) => handleClick(index, "/my-post"),
     },
@@ -77,9 +78,21 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       onClick: (index) => handleClick(index, "/create-post"),
     },
     {
+      title: "Pricing",
+      icon: <AttachMoneyIcon />,
+      onClick: (index) => handleClick(index, "/pricing"),
+    },
+    { title: "divider" },
+    {
       title: "Manage Account",
-      icon:  isSignedIn ? <div className="pointer-events-none"><UserButton /></div> : <AccountCircleIcon />,
-      onClick: (index) => openDialog()
+      icon: isSignedIn ? (
+        <div className="pointer-events-none">
+          <UserButton />
+        </div>
+      ) : (
+        <AccountCircleIcon />
+      ),
+      onClick: (index) => openDialog(),
     },
   ];
 
@@ -134,7 +147,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       open={open}
     >
       <DrawerHeader>
-        <div>IMG</div>
+        <div>Welcome!</div>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "ltr" ? (
             <ChevronLeftIcon />
@@ -198,11 +211,14 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
           </div>
         ))}
       </List>
-     {isSignedIn && (<Button 
-      onClick={signOut}
-      className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case">
-        Sign out
-      </Button>)}
+      {isSignedIn && (
+        <Button
+          onClick={signOut}
+          className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case"
+        >
+          Sign out
+        </Button>
+      )}
     </Drawer>
   );
 };

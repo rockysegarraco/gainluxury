@@ -8,7 +8,7 @@ import { UserButton, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
-  const {isSignedIn} = useUser();
+  const { isSignedIn } = useUser();
   const navigate = useNavigate();
   return (
     <AppBar
@@ -44,16 +44,28 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}
-          Add Listing
+          Pricing
         </button>
-       {isSignedIn ? <UserButton afterSignOutUrl="/login" /> : (<button
+        <button
           type="button"
-          onClick={() => navigate('/login')}
+          onClick={handleOpen}
           className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}
-          Login
-        </button>)}
+          Add Listing
+        </button>
+        {isSignedIn ? (
+          <UserButton afterSignOutUrl="/login" />
+        ) : (
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
+          >
+            {" "}
+            Login
+          </button>
+        )}
       </Toolbar>
     </AppBar>
   );
