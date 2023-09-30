@@ -63,7 +63,7 @@ const MainLayout = () => {
     if (isSignedIn) {
       navigate('/create-post')
     } else {
-      alert('Please login first create a post')
+      navigate('/login')
     }
   }
   return (

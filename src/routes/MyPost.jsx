@@ -55,7 +55,7 @@ const MyPost = () => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        if (doc.data()?.status) {
+        if (doc.data()?.status === "sold") {
           setSoldPost((prev) => [...prev, doc.data()]);
         } else {
           setPost((prev) => [...prev, doc.data()]);
