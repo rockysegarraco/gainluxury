@@ -40,7 +40,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         <Box sx={{ flexGrow: 1 }} />
         <button
           type="button"
-          onClick={handleOpen}
+          onClick={() => navigate('/pricing')}
           className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}

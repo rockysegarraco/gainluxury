@@ -92,7 +92,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       ) : (
         <AccountCircleIcon />
       ),
-      onClick: (index) => openDialog(),
+      onClick: (index) => isSignedIn && openDialog(),
     },
   ];
 
@@ -159,7 +159,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       <Divider />
       <List className="flex-1">
         {LIST_ITEMS.map((item, index) => (
-          <div key={item.title}>
+          <div key={index}>
             {item?.isMenu ? (
               <>
                 <ListItem
@@ -217,6 +217,14 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
           className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case"
         >
           Sign out
+        </Button>
+      )}
+      {!isSignedIn && (
+        <Button
+          onClick={() => navigate('/login')}
+          className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case"
+        >
+          Login
         </Button>
       )}
     </Drawer>

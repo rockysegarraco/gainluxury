@@ -25,8 +25,9 @@ import {
   PRICE_TYPE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
-import { createSlug, deepCloneData } from "../utils";
+import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
+import PhoneInput from "../components/form/PhoneInput";
 
 const { FormItem } = Form;
 
@@ -329,14 +330,16 @@ const AddPost = ({ form }) => {
             })(<TextInput placeholder="Email" />)}
           </FormItem>
           <FormItem>
-            {getFieldDecorator("phone", {
-              initialValue: "",
+            {getFieldDecorator('phone', {
+              initialValue: user && user.user_mobile,
               rules: [
                 {
                   required: true,
+                  message: 'Please enter a valid phone number',
                 },
+                { validator: validatePhone },
               ],
-            })(<TextInput type="number" placeholder="Phone" />)}
+            })(<PhoneInput placeholder="Mobile Number" prependIcon={false} maxLength={10} />)}
           </FormItem>
           <FormItem>
             {getFieldDecorator("address", {

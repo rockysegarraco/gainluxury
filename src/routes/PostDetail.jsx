@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Detail from "../components/Detail";
 //
 import db from "../firebase";
@@ -11,6 +11,8 @@ const PostDetail = () => {
   let { slug } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
+  const [docId, setDocId] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (slug) {
@@ -26,10 +28,26 @@ const PostDetail = () => {
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       setData(doc.data());
+      setDocId(doc?.id);
       setIsLoading(false);
     });
   };
 
+  const handleSold = async() => {
+    const documentToUpdate = doc(db, data.category.value, docId);
+    updateDoc(documentToUpdate, {
+      status: "sold"
+    }).then(() => {
+      getPost();
+    });
+  }
+
+  const handleDelete = async() => {
+    const documentToUpdate = doc(db, data.category.value, docId);
+    deleteDoc(documentToUpdate).then(() => {
+      navigate(-1)
+    });
+  }
 
   return (
     <div>
@@ -47,7 +65,7 @@ const PostDetail = () => {
         </Box>
       ) : (
         <div>
-          <Detail data={data} />
+          <Detail data={data} handleSold={handleSold} handleDelete={handleDelete}  />
         </div>
       )}
     </div>

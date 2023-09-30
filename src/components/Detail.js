@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Edit from "@mui/icons-material/Edit";
+import Delete from "@mui/icons-material/Delete";
+import Done from "@mui/icons-material/Done";
 import { useNavigate } from "react-router-dom";
 
 import Breadcrumb from "../components/Breadcrumb";
+import Popconfirm from "./Popconfirm";
 
-export default function PostDetail(props) {
+export default function PostDetail({data, handleSold, handleDelete}) {
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -26,13 +29,41 @@ export default function PostDetail(props) {
     engineCapacity,
     condition,
     email,
-  } = props.data;
+    status
+  } = data;
+
+  
   return (
     <>
       <div className="bg-white">
         <div className="pt-6">
-          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-4 lg:px-0">
+          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-4 lg:px-0 flex flex-row justify-between">
             <Breadcrumb />
+            {user?.id === userId && (<div className="flex gap-2">
+            <Button
+                disabled={status && status === "sold"}
+                onClick={handleSold}
+                variant={status ? "contained" : "outlined"}
+                startIcon={status && <Done />}
+              >
+               {status ? "Sold" : "Mark as Sold"}
+              </Button>
+              <Button
+                onClick={() => navigate(`/edit-post/${slug}`)}
+                variant="outlined"
+                startIcon={<Edit />}
+              >
+                Edit Post
+              </Button>
+              <Popconfirm title="Are you sure?" onConfirm={handleDelete}>
+              <Button
+                variant="outlined"
+                startIcon={<Delete />}
+              >
+                Delete
+              </Button>
+              </Popconfirm>
+            </div>)}
           </div>
 
           {/* Image gallery */}
@@ -47,15 +78,6 @@ export default function PostDetail(props) {
                 sx={{ flexDirection: "row", justifyContent: "space-between" }}
               >
                 <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-                {user?.id === userId && (
-                  <Button
-                    onClick={() => navigate(`/edit-post/${slug}`)}
-                    variant="outlined"
-                    startIcon={<Edit />}
-                  >
-                    Edit Post
-                  </Button>
-                )}
               </Stack>
               <h2 className="text-2xl text-gray-900">${price}</h2>
               <h3 className="py-2">Atlanta, Georgia, {state.label}</h3>

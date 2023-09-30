@@ -44,3 +44,23 @@ export const cc_format = (value) => {
       }
     })
   }
+
+  export function isValidPhone(text) {
+    // From: https://stackoverflow.com/questions/4338267/validate-phone-number-with-javascript
+    return !!text.trim().match(/\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g);
+  }
+
+  export function validatePhone(rule, value, callback) {
+    if (value) {
+      const isValid = isValidPhone(value);
+      if (isValid) {
+        callback();
+      } else if (!value.startsWith('+') && value.length === 10) {
+        callback();
+      } else {
+        callback("Invalid mobile number");
+      }
+    } else {
+      callback();
+    }
+  }
