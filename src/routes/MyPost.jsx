@@ -6,8 +6,6 @@ import PageHeading from "../components/PageHeading";
 //
 import db from "../firebase";
 
-
-
 const MyPost = () => {
   const [post, setPost] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
@@ -28,7 +26,7 @@ const MyPost = () => {
     if (post.length > 0) {
       const tabData = JSON.parse(JSON.stringify(tabs));
       tabData[0].name = `All (${post.length})`;
-      setTabs(tabData)
+      setTabs(tabData);
     }
   }, [post]);
 
@@ -36,7 +34,7 @@ const MyPost = () => {
     if (savedPost.length > 0) {
       const tabData = JSON.parse(JSON.stringify(tabs));
       tabData[1].name = `Saved (${savedPost.length})`;
-      setTabs(tabData)
+      setTabs(tabData);
     }
   }, [savedPost]);
 
@@ -44,7 +42,7 @@ const MyPost = () => {
     if (soldPost.length > 0) {
       const tabData = JSON.parse(JSON.stringify(tabs));
       tabData[2].name = `Sold (${soldPost.length})`;
-      setTabs(tabData)
+      setTabs(tabData);
     }
   }, [soldPost]);
 
@@ -66,21 +64,28 @@ const MyPost = () => {
 
   return (
     <div>
-      <div className="mx-auto max-w-[90%] mt-6">
-        <PageHeading tabData={tabs} tabIndex={tabIndex} setIndex={(i) => setTabIndex(i)} />
+      <div className="mx-auto max-w-[90%] mt-8">
+        <PageHeading
+          tabData={tabs}
+          tabIndex={tabIndex}
+          setIndex={(i) => setTabIndex(i)}
+        />
       </div>
       <div className="mx-auto max-w-[90%] px-0 py-8 sm:px-6 sm:py-8 lg:max-w-[90%] lg:px-0">
-      <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
-      {tabIndex === 0 && post.map((item, index) => (
-        <CardListing item={item} index={index} />
-      ))}
-      {tabIndex === 1 && savedPost.map((item, index) => (
-        <CardListing item={item} index={index} />
-      ))}
-      {tabIndex === 2 && soldPost.map((item, index) => (
-        <CardListing item={item} index={index} />
-      ))}
-      </div >
+        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
+          {tabIndex === 0 &&
+            post.map((item, index) => (
+              <CardListing item={item} index={index} />
+            ))}
+          {tabIndex === 1 &&
+            savedPost.map((item, index) => (
+              <CardListing item={item} index={index} />
+            ))}
+          {tabIndex === 2 &&
+            soldPost.map((item, index) => (
+              <CardListing item={item} index={index} />
+            ))}
+        </div>
       </div>
     </div>
   );

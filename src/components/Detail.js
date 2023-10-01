@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import Popconfirm from "./Popconfirm";
 
-export default function PostDetail({data, handleSold, handleDelete}) {
+export default function PostDetail({ data, handleSold, handleDelete }) {
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -29,44 +29,53 @@ export default function PostDetail({data, handleSold, handleDelete}) {
     engineCapacity,
     condition,
     email,
-    status
+    status,
+    brand,
   } = data;
 
-  
   return (
     <>
       <div className="bg-white">
         <div className="pt-6">
-          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-4 lg:px-0 flex flex-row justify-between">
-            <Breadcrumb />
-            {user?.id === userId && (<div className="flex gap-2">
-            <Button
-                onClick={() => handleSold(status === "sold" ? "unsold" : "sold")}
-                variant={status && status === "sold" ? "contained" : "outlined"}
-                startIcon={status && status === "sold" && <Done />}
-              >
-               {status && status === "sold" ? "Mark as Unsold" : "Mark as Sold"}
-              </Button>
-              <Button
-                onClick={() => navigate(`/edit-post/${slug}`)}
-                variant="outlined"
-                startIcon={<Edit />}
-              >
-                Edit Post
-              </Button>
-              <Popconfirm title="Are you sure?" onConfirm={handleDelete}>
-              <Button
-                variant="outlined"
-                startIcon={<Delete />}
-              >
-                Delete
-              </Button>
-              </Popconfirm>
-            </div>)}
+          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-6 lg:px-0 flex flex-row justify-between">
+            <div>
+              <Breadcrumb />
+            </div>
+          </div>
+          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-6 lg:px-0 flex flex-row justify-between mt-8">
+            {user?.id === userId && (
+              <div className="flex gap-2">
+                <Button
+                  onClick={() =>
+                    handleSold(status === "sold" ? "unsold" : "sold")
+                  }
+                  variant={
+                    status && status === "sold" ? "contained" : "outlined"
+                  }
+                  startIcon={status && status === "sold" && <Done />}
+                >
+                  {status && status === "sold"
+                    ? "Mark as Unsold"
+                    : "Mark as Sold"}
+                </Button>
+                <Button
+                  onClick={() => navigate(`/edit-post/${slug}`)}
+                  variant="outlined"
+                  startIcon={<Edit />}
+                >
+                  Edit Post
+                </Button>
+                <Popconfirm title="Are you sure?" onConfirm={handleDelete}>
+                  <Button variant="outlined" startIcon={<Delete />}>
+                    Delete
+                  </Button>
+                </Popconfirm>
+              </div>
+            )}
           </div>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl lg:max-w-[90%] max-h-full">
+          <div className="mx-auto mt-6 max-w-2xl lg:max-w-[90%] max-h-full lg:px-0 px-6">
             {gallery?.length > 0 && <Gallery images={gallery} />}
           </div>
 
@@ -76,7 +85,9 @@ export default function PostDetail({data, handleSold, handleDelete}) {
               <Stack
                 sx={{ flexDirection: "row", justifyContent: "space-between" }}
               >
-                <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {yearModel} {brand.label}
+                </h1>
               </Stack>
               <h2 className="text-2xl text-gray-900">${price}</h2>
               <h3 className="py-2">Atlanta, Georgia, {state.label}</h3>
