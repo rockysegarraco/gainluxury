@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
-
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 // MUI
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -22,11 +22,11 @@ import {
 	BRAND,
 	CATEGORY,
 	CONDITION,
-	COUNTRY,
 	PRICE_TYPE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData } from "../utils";
+import axios from "axios";
 
 const { FormItem } = Form;
 
@@ -42,7 +42,8 @@ const EditPost = ({ form }) => {
 	const [isFetching, setFetching] = useState(true);
 	const [postData, setPostData] = useState();
 	const [docId, setDocId] = useState();
-
+	const [addressValue, setValue] = useState(null);
+	const [location, setLocation] = useState(null);
 	const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
 	useEffect(() => {
@@ -65,10 +66,9 @@ const EditPost = ({ form }) => {
 					kilometersRun: postData?.kilometersRun,
 					engineCapacity: postData?.engineCapacity,
 					phone: postData?.phone,
-					address: postData?.address,
 					state: postData?.state,
 					zipcode: postData?.zipcode,
-					email: postData?.email
+					email: postData?.email,
 				})
 				setGallaryImages(postData?.gallery);
 				setPrice(() => postData.pricingType.value === "Fixed" ? false : true)
@@ -86,6 +86,7 @@ const EditPost = ({ form }) => {
 				setFetching(false);
 				// doc.data() is never undefined for query doc snapshots
 				setPostData(doc.data());
+				setValue({label: doc.data().address});
 				setCategory(doc.data()?.category)
 				setDocId(doc?.id);
 			});
@@ -104,7 +105,9 @@ const EditPost = ({ form }) => {
 					const obj = {
 						gallery: gallaryImages,
 						...values,
-						slug
+						slug,
+						location,
+						address: addressValue.label,
 					};
 					const documentToUpdate = doc(db, category.value, docId);
 					await updateDoc(documentToUpdate, {
@@ -149,6 +152,24 @@ const EditPost = ({ form }) => {
 		data.splice(index, 1);
 		setGallaryImages(data);
 	};
+
+	const getAddressValue = (value) => {
+		console.log(value);
+		const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
+		axios.get(details_url).then((res) => {
+		  console.log(res.data);
+		  const addressData = res.data.result.address_components;
+		  const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
+		  setFieldsValue({
+			zipcode: zipcode ? zipcode.long_name : "",
+	
+		  })
+		  setLocation(res.data.result.geometry?.location);
+		}).catch(e => {
+		  console.log(e);
+		})
+		setValue(value);
+	  }
 
 	return (
 		<div>
@@ -360,19 +381,19 @@ const EditPost = ({ form }) => {
 								],
 							})(<TextInput type="number" placeholder="Phone" />)}
 						</FormItem>
-						<FormItem>
-							{getFieldDecorator("address", {
-								initialValue: "",
-								rules: [
-									{
-										required: true,
-									},
-								],
-							})(<TextInput placeholder="Address" />)}
-						</FormItem>
+						<div className="mt-2">
+          <GooglePlacesAutocomplete
+              selectProps={{
+                placeholder: "Select your address",
+                value: addressValue,
+                onChange: getAddressValue,
+              }}
+              apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
+            />
+          </div>
 
 						<Stack gap={2} sx={{ flexDirection: "row" }}>
-							<FormItem>
+							{/* <FormItem>
 								{getFieldDecorator("state", {
 									initialValue: "",
 									rules: [
@@ -381,7 +402,7 @@ const EditPost = ({ form }) => {
 										},
 									],
 								})(<Select fullWidth placeholder="Country" options={COUNTRY} />)}
-							</FormItem>
+							</FormItem> */}
 
 							<FormItem>
 								{getFieldDecorator("zipcode", {

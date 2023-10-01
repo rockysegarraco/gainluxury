@@ -23,13 +23,14 @@ export default function PostDetail({data, handleSold, handleDelete}) {
     gallery,
     userId,
     slug,
-    state,
+    address,
     yearModel,
     kilometersRun,
     engineCapacity,
     condition,
     email,
-    status
+    status,
+    pricingType,
   } = data;
 
   
@@ -78,8 +79,8 @@ export default function PostDetail({data, handleSold, handleDelete}) {
               >
                 <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
               </Stack>
-              <h2 className="text-2xl text-gray-900">${price}</h2>
-              <h3 className="py-2">Atlanta, Georgia, {state.label}</h3>
+              <h2 className="text-2xl text-gray-900">{price ? `$${price}` : pricingType.value}</h2>
+              <h3 className="py-2">{address}</h3>
               <div className="py-4">
                 <div className="bg-gray-900">
                   <div className="mx-auto max-w-7xl">

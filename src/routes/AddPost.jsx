@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 // MUI
 import Stack from "@mui/material/Stack";
@@ -21,7 +22,6 @@ import {
   BRAND,
   CATEGORY,
   CONDITION,
-  COUNTRY,
   PRICE_TYPE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
@@ -40,8 +40,9 @@ const AddPost = ({ form }) => {
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const { getFieldDecorator, validateFields } = form;
+  const [addressValue, setValue] = useState(null);
+  const [location, setLocation] = useState(null);
+  const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
   // In case the user signs out while on the page.
   useEffect(() => {
@@ -60,7 +61,9 @@ const AddPost = ({ form }) => {
             gallery: gallaryImages,
             ...values,
             userId: user.id,
+            address: addressValue.label,
             slug,
+            location
           };
           return await axios
             .post(
@@ -115,6 +118,21 @@ const AddPost = ({ form }) => {
     data.splice(index, 1);
     setGallaryImages(data);
   };
+
+  const getAddressValue = (value) => {
+    const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
+    axios.get(details_url).then((res) => {
+      const addressData = res.data.result.address_components;
+      const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
+      setFieldsValue({
+        zipcode: zipcode ? zipcode.long_name : "",
+      })
+      setLocation(res.data.result.geometry?.location);
+    }).catch(e => {
+      console.log(e);
+    })
+    setValue(value);
+  }
 
   return (
     <div>
@@ -341,19 +359,19 @@ const AddPost = ({ form }) => {
               ],
             })(<PhoneInput placeholder="Mobile Number" prependIcon={false} maxLength={10} />)}
           </FormItem>
-          <FormItem>
-            {getFieldDecorator("address", {
-              initialValue: "",
-              rules: [
-                {
-                  required: true,
-                },
-              ],
-            })(<TextInput placeholder="Address" />)}
-          </FormItem>
+          <div className="mt-2">
+          <GooglePlacesAutocomplete
+              selectProps={{
+                placeholder: "Select your address",
+                value: addressValue,
+                onChange: getAddressValue,
+              }}
+              apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
+            />
+          </div>
 
           <Stack gap={2} sx={{ flexDirection: "row" }}>
-            <FormItem>
+            {/* <FormItem>
               {getFieldDecorator("state", {
                 initialValue: "",
                 rules: [
@@ -362,7 +380,7 @@ const AddPost = ({ form }) => {
                   },
                 ],
               })(<Select fullWidth placeholder="Country" options={COUNTRY} />)}
-            </FormItem>
+            </FormItem> */}
 
             <FormItem>
               {getFieldDecorator("zipcode", {
