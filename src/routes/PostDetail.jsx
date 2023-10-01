@@ -33,10 +33,10 @@ const PostDetail = () => {
     });
   };
 
-  const handleSold = async() => {
+  const handleSold = async(status) => {
     const documentToUpdate = doc(db, data.category.value, docId);
     updateDoc(documentToUpdate, {
-      status: "sold"
+      status
     }).then(() => {
       getPost();
     });

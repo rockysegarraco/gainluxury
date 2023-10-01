@@ -31,8 +31,8 @@ export const PRICE_TYPE = [
 		value: "Fixed"
 	},
 	{
-		label: "On Call",
-		value: "On Call"
+		label: "Price On Request",
+		value: "Price On Request"
 	}
 ]
 

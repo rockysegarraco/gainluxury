@@ -41,12 +41,11 @@ export default function PostDetail({data, handleSold, handleDelete}) {
             <Breadcrumb />
             {user?.id === userId && (<div className="flex gap-2">
             <Button
-                disabled={status && status === "sold"}
-                onClick={handleSold}
-                variant={status ? "contained" : "outlined"}
-                startIcon={status && <Done />}
+                onClick={() => handleSold(status === "sold" ? "unsold" : "sold")}
+                variant={status && status === "sold" ? "contained" : "outlined"}
+                startIcon={status && status === "sold" && <Done />}
               >
-               {status ? "Sold" : "Mark as Sold"}
+               {status && status === "sold" ? "Mark as Unsold" : "Mark as Sold"}
               </Button>
               <Button
                 onClick={() => navigate(`/edit-post/${slug}`)}

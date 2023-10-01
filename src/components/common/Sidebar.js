@@ -49,42 +49,50 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
     {
       title: "Real Estate",
       icon: <HomeOutlined />,
+      show: true,
       onClick: (index) => handleMenuItemClick(index, "/home/real-estate"),
     },
     {
       title: "Cars",
       icon: <TimeToLeaveIcon />,
+      show: true,
       onClick: (index) => handleMenuItemClick(index, "/home/cars"),
     },
     {
       title: "Marine",
       icon: <SailingIcon />,
+      show: true,
       onClick: (index) => handleMenuItemClick(index, "/home/marine"),
     },
     {
       title: "Aviation",
       icon: <FlightOutlined />,
+      show: true,
       onClick: (index) => handleMenuItemClick(index, "/home/aviation"),
     },
     { title: "divider" },
     {
       title: "My Listings",
       icon: <PostAdd />,
+      show: true,
       onClick: (index) => handleClick(index, "/my-post"),
     },
     {
       title: "Add Listing",
       icon: <ControlPointIcon />,
+      show: true,
       onClick: (index) => handleClick(index, "/create-post"),
     },
     {
       title: "Pricing",
       icon: <AttachMoneyIcon />,
+      show: true,
       onClick: (index) => handleClick(index, "/pricing"),
     },
     { title: "divider" },
     {
       title: "Manage Account",
+      show: isSignedIn,
       icon: isSignedIn ? (
         <div className="pointer-events-none">
           <UserButton />
@@ -200,10 +208,10 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
                     selected={selectedIndex === index}
                     onClick={() => item.onClick(index)}
                   >
-                    <ListItemButton>
+                    {item.show && <ListItemButton>
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText primary={item.title} />
-                    </ListItemButton>
+                    </ListItemButton>}
                   </ListItem>
                 )}
               </div>
