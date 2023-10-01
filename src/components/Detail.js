@@ -8,6 +8,7 @@ import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import Done from "@mui/icons-material/Done";
 import { useNavigate } from "react-router-dom";
+import GoogleMapReact from "google-map-react";
 
 import Breadcrumb from "../components/Breadcrumb";
 import Popconfirm from "./Popconfirm";
@@ -23,15 +24,26 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
     gallery,
     userId,
     slug,
-    state,
+    address,
     yearModel,
     kilometersRun,
     engineCapacity,
     condition,
     email,
     status,
+    pricingType,
+    location,
     brand,
   } = data;
+
+  const renderMarkers = (map, maps) => {
+    let marker = new maps.Marker({
+      position: location,
+      map,
+      title: address?.split(" ")[0],
+    });
+    return marker;
+  };
 
   return (
     <>
@@ -89,8 +101,10 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                   {yearModel} {brand.label}
                 </h1>
               </Stack>
-              <h2 className="text-2xl text-gray-900">${price}</h2>
-              <h3 className="py-2">Atlanta, Georgia, {state.label}</h3>
+              <h2 className="text-2xl text-gray-900">
+                {price ? `$${price}` : pricingType.value}
+              </h2>
+              <h3 className="py-2">{address}</h3>
               <div className="py-4">
                 <div className="bg-gray-900">
                   <div className="mx-auto max-w-7xl">
@@ -171,7 +185,24 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                     </button>
                   </Link>
                 </div>
-                <div className="mt-4">MAP GOES HERE</div>
+                <div className="mt-4 h-[500px] w-full">
+                  <GoogleMapReact
+                    bootstrapURLKeys={{
+                      key: process.env.REACT_APP_GOOGLE_MAP_KEY,
+                    }}
+                    defaultCenter={location}
+                    defaultZoom={15}
+                    onGoogleApiLoaded={({ map, maps }) =>
+                      renderMarkers(map, maps)
+                    }
+                  >
+                    {/* <AnyReactComponent
+                      lat={59.955413}
+                      lng={30.337844}
+                      text="My Marker"
+                    /> */}
+                  </GoogleMapReact>
+                </div>
               </div>
             </div>
           </div>
