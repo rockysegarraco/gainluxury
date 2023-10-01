@@ -8,6 +8,7 @@ import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import Done from "@mui/icons-material/Done";
 import { useNavigate } from "react-router-dom";
+import GoogleMapReact from 'google-map-react';
 
 import Breadcrumb from "../components/Breadcrumb";
 import Popconfirm from "./Popconfirm";
@@ -31,8 +32,18 @@ export default function PostDetail({data, handleSold, handleDelete}) {
     email,
     status,
     pricingType,
+    location
   } = data;
 
+  
+  const renderMarkers = (map, maps) => {
+    let marker = new maps.Marker({
+      position: location,
+      map,
+      title: address?.split(" ")[0]
+    });
+    return marker;
+  }
   
   return (
     <>
@@ -161,7 +172,20 @@ export default function PostDetail({data, handleSold, handleDelete}) {
                     </button>
                   </Link>
                 </div>
-                <div className="mt-4">MAP GOES HERE</div>
+                <div className="mt-4 h-[500px] w-full">
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_KEY }}
+                    defaultCenter={location}
+                    defaultZoom={15}
+                    onGoogleApiLoaded={({map, maps}) => renderMarkers(map, maps)}
+                  >
+                    {/* <AnyReactComponent
+                      lat={59.955413}
+                      lng={30.337844}
+                      text="My Marker"
+                    /> */}
+                  </GoogleMapReact>
+                </div>
               </div>
             </div>
           </div>
