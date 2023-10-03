@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 // MUI
 import Stack from "@mui/material/Stack";
@@ -18,12 +18,7 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import Pricing from "../components/pricing";
-import {
-  BRAND,
-  CATEGORY,
-  CONDITION,
-  PRICE_TYPE,
-} from "../utils/constants";
+import { BRAND, CATEGORY, CONDITION, PRICE_TYPE } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
@@ -49,7 +44,7 @@ const AddPost = ({ form }) => {
     if (!isLoaded || !isSignedIn) {
       navigate("/");
     }
-  }, [])
+  }, []);
 
   const checkout = async () => {
     return validateFields()
@@ -63,7 +58,7 @@ const AddPost = ({ form }) => {
             userId: user.id,
             address: addressValue.label,
             slug,
-            location
+            location,
           };
           return await axios
             .post(
@@ -121,18 +116,23 @@ const AddPost = ({ form }) => {
 
   const getAddressValue = (value) => {
     const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
-    axios.get(details_url).then((res) => {
-      const addressData = res.data.result.address_components;
-      const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
-      setFieldsValue({
-        zipcode: zipcode ? zipcode.long_name : "",
+    axios
+      .get(details_url)
+      .then((res) => {
+        const addressData = res.data.result.address_components;
+        const zipcode = addressData.filter(
+          (a) => a.types[0] === "postal_code"
+        )[0];
+        setFieldsValue({
+          zipcode: zipcode ? zipcode.long_name : "",
+        });
+        setLocation(res.data.result.geometry?.location);
       })
-      setLocation(res.data.result.geometry?.location);
-    }).catch(e => {
-      console.log(e);
-    })
+      .catch((e) => {
+        console.log(e);
+      });
     setValue(value);
-  }
+  };
 
   return (
     <div>
@@ -142,7 +142,7 @@ const AddPost = ({ form }) => {
       </div>
       <div className="mx-auto max-w-full md:max-w-4xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
         <Stack spacing={0}>
-          <h2 className="text-2xl font-bold mb-1">Let's get started</h2>
+          <h2 className="text-2xl font-bold mb-4">Let's get started</h2>
           <FormItem>
             {getFieldDecorator("category", {
               initialValue: "",
@@ -153,7 +153,8 @@ const AddPost = ({ form }) => {
               ],
             })(
               <Select
-                placeholder="Select Category"
+                label="Select Category"
+                placeholder="Choose"
                 options={CATEGORY}
                 onChange={(data) => setCategory(data)}
               />
@@ -170,7 +171,7 @@ const AddPost = ({ form }) => {
                       required: true,
                     },
                   ],
-                })(<TextInput placeholder="Add Title" />)}
+                })(<TextInput label="Features" placeholder="Add Title" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("description", {
@@ -180,7 +181,13 @@ const AddPost = ({ form }) => {
                       required: true,
                     },
                   ],
-                })(<TextInput multiline placeholder="Tell us about the car" />)}
+                })(
+                  <TextInput
+                    multiline
+                    label="Listing Title"
+                    placeholder="Tell us about the car"
+                  />
+                )}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("yearModel", {
@@ -190,7 +197,7 @@ const AddPost = ({ form }) => {
                       required: true,
                     },
                   ],
-                })(<TextInput type="number" placeholder="Year" />)}
+                })(<TextInput label="Year" type="number" placeholder="Year" />)}
               </FormItem>
               <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
@@ -204,7 +211,8 @@ const AddPost = ({ form }) => {
                   })(
                     <Select
                       fullWidth
-                      placeholder="Price Type"
+                      placeholder=""
+                      label="Price Type"
                       options={PRICE_TYPE}
                       onChange={(data) =>
                         setPrice(() => (data.value === "Fixed" ? false : true))
@@ -223,6 +231,7 @@ const AddPost = ({ form }) => {
                   })(
                     <TextInput
                       disabled={isPrice}
+                      label="Price"
                       type="number"
                       placeholder="Price $"
                     />
@@ -240,6 +249,7 @@ const AddPost = ({ form }) => {
                     ],
                   })(
                     <Select
+                      label="Price"
                       fullWidth
                       placeholder="Condition"
                       options={CONDITION}
@@ -256,28 +266,49 @@ const AddPost = ({ form }) => {
                       required: true,
                     },
                   ],
-                })(<Select fullWidth placeholder="Brand" options={BRAND} />)}
+                })(
+                  <Select
+                    fullWidth
+                    label="Price"
+                    placeholder="Brand"
+                    label="Brand"
+                    options={BRAND}
+                  />
+                )}
               </FormItem>
-              <FormItem>
-                {getFieldDecorator("kilometersRun", {
-                  initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
-                })(<TextInput type="number" placeholder="Kilometers Run" />)}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("engineCapacity", {
-                  initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
-                })(<TextInput placeholder="Engine Capacity" />)}
-              </FormItem>
+              <div className="py-2">
+                <FormItem>
+                  {getFieldDecorator("kilometersRun", {
+                    initialValue: "",
+                    rules: [
+                      {
+                        required: true,
+                      },
+                    ],
+                  })(
+                    <TextInput
+                      label="Price"
+                      type="number"
+                      placeholder="Kilometers Run"
+                    />
+                  )}
+                </FormItem>
+              </div>
+
+              <div className="py-2">
+                <FormItem>
+                  {getFieldDecorator("engineCapacity", {
+                    initialValue: "",
+                    rules: [
+                      {
+                        required: true,
+                      },
+                    ],
+                  })(
+                    <TextInput label="Engine" placeholder="Engine Capacity" />
+                  )}
+                </FormItem>
+              </div>
 
               <Button
                 variant="contained"
@@ -348,19 +379,25 @@ const AddPost = ({ form }) => {
             })(<TextInput placeholder="Email" />)}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('phone', {
+            {getFieldDecorator("phone", {
               initialValue: user && user.user_mobile,
               rules: [
                 {
                   required: true,
-                  message: 'Please enter a valid phone number',
+                  message: "Please enter a valid phone number",
                 },
                 { validator: validatePhone },
               ],
-            })(<PhoneInput placeholder="Mobile Number" prependIcon={false} maxLength={10} />)}
+            })(
+              <PhoneInput
+                placeholder="Mobile Number"
+                prependIcon={false}
+                maxLength={10}
+              />
+            )}
           </FormItem>
           <div className="mt-2">
-          <GooglePlacesAutocomplete
+            <GooglePlacesAutocomplete
               selectProps={{
                 placeholder: "Select your address",
                 value: addressValue,
