@@ -189,9 +189,11 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                   <GoogleMapReact
                     bootstrapURLKeys={{
                       key: process.env.REACT_APP_GOOGLE_MAP_KEY,
+                      libraries:['places'],
                     }}
                     defaultCenter={location}
                     defaultZoom={15}
+                    yesIWantToUseGoogleMapApiInternals
                     onGoogleApiLoaded={({ map, maps }) =>
                       renderMarkers(map, maps)
                     }

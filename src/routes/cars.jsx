@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 
+//
 import Container from "../components/container.js";
 import Breadcrumb from "../components/Breadcrumb";
 import CardCar from "../components/cardCar";
@@ -12,13 +14,53 @@ import SelectMakes from "../components/Selects/SelectMakes";
 import SelectPrice from "../components/Selects/SelectPrice";
 import SelectYears from "../components/Selects/YearSelect";
 import Filters from "../components/Filters";
+//
+import db from "../firebase";
 
 const Cars = () => {
+  const [post, setPost] = useState([]);
+  const [sortOptions, setSortOption] = useState([
+    { name: "Price lowest first", current: true, label: 'price', value: 'asc'  },
+    { name: "Price highest first", current: false, label: 'price', value: 'desc' },
+    { name: "Mileage Low to High", current: false, label: 'kilometersRun', value: 'asc' },
+    { name: "Mileage High to Low", current: false, label: 'kilometersRun', value: 'desc' },
+    { name: "Year Low to High", current: false, label: 'yearModel', value: 'asc' },
+    { name: "Year High to Low", current: false, label: 'yearModel', value: 'desc' },
+  ])
+
+  const [sort, setSort] = useState({label: 'price', value: 'asc'});
+
+  useEffect(() => {
+    getData();
+  }, [sort]);
+
+
+  const handleSort = (obj, index) => {
+    const data = JSON.parse(JSON.stringify(sortOptions));
+    data.forEach((value, i) => value.current = i === index)
+    setSortOption(data);
+    setSort(obj)
+  }
+
+
+  const getData = async () => {
+      let data = [];
+      const collections = collection(db, "cars");
+      const q = query(collections, 
+        where("category.value", "==", "cars"), orderBy(sort.label, sort.value));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        data.push(doc.data());
+      });
+      setPost(data);
+  };
+
   return (
     <>
     <div className="border-b pb-4">
         <div className="flex flex-row  max-w-[90%] items-center justify-between mx-auto">
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 mt-4">
             <SelectCountries />
             <SelectStates />
             <SelectMakes />
@@ -52,17 +94,11 @@ const Cars = () => {
           <Breadcrumb />
         </div>
         <h1 className="text-4xl">Cars for Sale</h1>
-        <Filters />
+        <Filters sortOptions={sortOptions} handleSort={handleSort} />
         <div className="grid grid-cols-3 mt-8 gap-8">
-          <div>
-            <CardCar />
-          </div>
-          <div>
-            <CardCar />
-          </div>
-          <div>
-            <CardCar />
-          </div>
+          {post.map((item, index) => (
+            <CardCar item={item} i={index} />
+          ))}
         </div>
         <Pagination count={10} />
       </Container>

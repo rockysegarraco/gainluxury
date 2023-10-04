@@ -7,25 +7,25 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
-export default function CardCar() {
+export default function CardCar({item, i}) {
   return (
-    <Card>
+    <Card key={i}>
       <CardMedia
         component="img"
         alt="green iguana"
-        image="https://img.jamesedition.com/listing_images/2023/08/04/16/25/36/8687f76c-38c4-4465-9f01-11d4094256bd/je/556x342xcxm.jpg"
+        image={item.gallery[0]}
       />
       <div className="p-3">
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            $345,000
+          {item.pricingType.value === "Fixed" ?  `$${item.price}` : item.pricingType.value}
           </Typography>
           <Typography gutterBottom variant="h6" component="div">
-            2023 Bugatti Chiron
+          {item.yearModel} {item.brand.label}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          {/* <Typography variant="body2" color="text.secondary">
             Atlanta, Georgia, United States
-          </Typography>
+          </Typography> */}
         </CardContent>
         <CardActions>
           <Button size="small">

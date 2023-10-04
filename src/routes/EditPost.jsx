@@ -86,7 +86,7 @@ const EditPost = ({ form }) => {
 				setFetching(false);
 				// doc.data() is never undefined for query doc snapshots
 				setPostData(doc.data());
-				setValue({label: doc.data().address});
+				setValue({ label: doc.data().address });
 				setCategory(doc.data()?.category)
 				setDocId(doc?.id);
 			});
@@ -102,6 +102,11 @@ const EditPost = ({ form }) => {
 				if (gallaryImages.length >= 5) {
 					setIsLoading(true);
 					const slug = createSlug(values.title)
+					if (values.price) {
+						values.price = Number(values.price);
+					}
+					values.kilometersRun = Number(values.kilometersRun);
+					values.yearModel = Number(values.yearModel);
 					const obj = {
 						gallery: gallaryImages,
 						...values,
@@ -157,19 +162,19 @@ const EditPost = ({ form }) => {
 		console.log(value);
 		const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
 		axios.get(details_url).then((res) => {
-		  console.log(res.data);
-		  const addressData = res.data.result.address_components;
-		  const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
-		  setFieldsValue({
-			zipcode: zipcode ? zipcode.long_name : "",
-	
-		  })
-		  setLocation(res.data.result.geometry?.location);
+			console.log(res.data);
+			const addressData = res.data.result.address_components;
+			const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
+			setFieldsValue({
+				zipcode: zipcode ? zipcode.long_name : "",
+
+			})
+			setLocation(res.data.result.geometry?.location);
 		}).catch(e => {
-		  console.log(e);
+			console.log(e);
 		})
 		setValue(value);
-	  }
+	}
 
 	return (
 		<div>
@@ -193,11 +198,7 @@ const EditPost = ({ form }) => {
 						<FormItem>
 							{getFieldDecorator("category", {
 								initialValue: "",
-								rules: [
-									{
-										required: true,
-									},
-								],
+								rules: [{ required: true, }],
 							})(
 								<Select
 									disabled={true}
@@ -212,32 +213,20 @@ const EditPost = ({ form }) => {
 								<FormItem>
 									{getFieldDecorator("title", {
 										initialValue: "",
-										rules: [
-											{
-												required: true,
-											},
-										],
+										rules: [{ required: true, }],
 									})(<TextInput placeholder="Add Title" />)}
 								</FormItem>
 								<FormItem>
 									{getFieldDecorator("description", {
 										initialValue: "",
-										rules: [
-											{
-												required: true,
-											},
-										],
+										rules: [{ required: true, }],
 									})(<TextInput multiline placeholder="Tell us about the car" />)}
 								</FormItem>
 								<Stack gap={2} sx={{ flexDirection: "row" }}>
 									<FormItem>
 										{getFieldDecorator("pricingType", {
 											initialValue: "",
-											rules: [
-												{
-													required: true,
-												},
-											],
+											rules: [{ required: true, }]
 										})(
 											<Select
 												fullWidth
@@ -250,11 +239,7 @@ const EditPost = ({ form }) => {
 									<FormItem>
 										{getFieldDecorator("price", {
 											initialValue: "",
-											rules: [
-												{
-													required: !isPrice,
-												},
-											],
+											rules: [{ required: !isPrice, }],
 										})(<TextInput disabled={isPrice} type="number" placeholder="Price $" />)}
 									</FormItem>
 								</Stack>
@@ -262,11 +247,7 @@ const EditPost = ({ form }) => {
 									<FormItem>
 										{getFieldDecorator("condition", {
 											initialValue: "",
-											rules: [
-												{
-													required: true,
-												},
-											],
+											rules: [{ required: true, }],
 										})(
 											<Select
 												fullWidth
@@ -278,11 +259,7 @@ const EditPost = ({ form }) => {
 									<FormItem>
 										{getFieldDecorator("brand", {
 											initialValue: "",
-											rules: [
-												{
-													required: true,
-												},
-											],
+											rules: [{ required: true, }],
 										})(<Select fullWidth placeholder="Brand" options={BRAND} />)}
 									</FormItem>
 								</Stack>
@@ -290,21 +267,13 @@ const EditPost = ({ form }) => {
 									<FormItem>
 										{getFieldDecorator("kilometersRun", {
 											initialValue: "",
-											rules: [
-												{
-													required: true,
-												},
-											],
+											rules: [{ required: true, }],
 										})(<TextInput type="number" placeholder="Kilometers Run" />)}
 									</FormItem>
 									<FormItem>
 										{getFieldDecorator("engineCapacity", {
 											initialValue: "",
-											rules: [
-												{
-													required: true,
-												},
-											],
+											rules: [{ required: true, }],
 										})(<TextInput placeholder="Engine Capacity" />)}
 									</FormItem>
 								</Stack>
@@ -364,33 +333,24 @@ const EditPost = ({ form }) => {
 						<FormItem>
 							{getFieldDecorator("email", {
 								initialValue: "",
-								rules: [
-									{
-										required: true,
-									},
-								],
+								rules: [{ required: true, }],
 							})(<TextInput placeholder="Email" />)}
 						</FormItem>
 						<FormItem>
 							{getFieldDecorator("phone", {
 								initialValue: "",
-								rules: [
-									{
-										required: true,
-									},
-								],
+								rules: [{ required: true, }],
 							})(<TextInput type="number" placeholder="Phone" />)}
 						</FormItem>
 						<div className="mt-2">
-          <GooglePlacesAutocomplete
-              selectProps={{
-                placeholder: "Select your address",
-                value: addressValue,
-                onChange: getAddressValue,
-              }}
-              apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
-            />
-          </div>
+							<GooglePlacesAutocomplete
+								selectProps={{
+									placeholder: "Select your address",
+									value: addressValue,
+									onChange: getAddressValue,
+								}}
+							/>
+						</div>
 
 						<Stack gap={2} sx={{ flexDirection: "row" }}>
 							{/* <FormItem>
@@ -407,11 +367,7 @@ const EditPost = ({ form }) => {
 							<FormItem>
 								{getFieldDecorator("zipcode", {
 									initialValue: "",
-									rules: [
-										{
-											required: true,
-										},
-									],
+									rules: [{ required: true, }],
 								})(<TextInput placeholder="Zipcode" type="number" />)}
 							</FormItem>
 						</Stack>

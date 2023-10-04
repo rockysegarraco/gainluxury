@@ -57,6 +57,11 @@ const AddPost = ({ form }) => {
         if (gallaryImages.length >= 5) {
           setIsLoading(true);
           const slug = createSlug(values.title);
+          if (values.price) {
+            values.price = Number(values.price);
+          }
+          values.kilometersRun = Number(values.kilometersRun);
+          values.yearModel = Number(values.yearModel);
           const obj = {
             gallery: gallaryImages,
             ...values,
@@ -65,6 +70,7 @@ const AddPost = ({ form }) => {
             slug,
             location
           };
+          
           return await axios
             .post(
               "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
@@ -146,11 +152,7 @@ const AddPost = ({ form }) => {
           <FormItem>
             {getFieldDecorator("category", {
               initialValue: "",
-              rules: [
-                {
-                  required: true,
-                },
-              ],
+              rules: [{required: true,}],
             })(
               <Select
                 placeholder="Select Category"
@@ -165,42 +167,28 @@ const AddPost = ({ form }) => {
               <FormItem>
                 {getFieldDecorator("title", {
                   initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
+                  rules: [{required: true,}],
                 })(<TextInput placeholder="Add Title" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("description", {
                   initialValue: "",
                   rules: [
-                    {
-                      required: true,
-                    },
+                    {required: true},
                   ],
                 })(<TextInput multiline placeholder="Tell us about the car" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("yearModel", {
                   initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
+                  rules: [{required: true,}],
                 })(<TextInput type="number" placeholder="Year" />)}
               </FormItem>
               <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
                   {getFieldDecorator("pricingType", {
                     initialValue: "",
-                    rules: [
-                      {
-                        required: true,
-                      },
-                    ],
+                    rules: [{required: true,}],
                   })(
                     <Select
                       fullWidth
@@ -215,11 +203,7 @@ const AddPost = ({ form }) => {
                 <FormItem>
                   {getFieldDecorator("price", {
                     initialValue: "",
-                    rules: [
-                      {
-                        required: !isPrice,
-                      },
-                    ],
+                    rules: [{required: !isPrice,}],
                   })(
                     <TextInput
                       disabled={isPrice}
@@ -233,11 +217,7 @@ const AddPost = ({ form }) => {
                 <FormItem>
                   {getFieldDecorator("condition", {
                     initialValue: "",
-                    rules: [
-                      {
-                        required: true,
-                      },
-                    ],
+                    rules: [{required: true,}],
                   })(
                     <Select
                       fullWidth
@@ -251,31 +231,19 @@ const AddPost = ({ form }) => {
               <FormItem>
                 {getFieldDecorator("brand", {
                   initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
+                  rules: [{required: true,}],
                 })(<Select fullWidth placeholder="Brand" options={BRAND} />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("kilometersRun", {
                   initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
+                  rules: [{required: true,}],
                 })(<TextInput type="number" placeholder="Kilometers Run" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("engineCapacity", {
                   initialValue: "",
-                  rules: [
-                    {
-                      required: true,
-                    },
-                  ],
+                  rules: [{required: true,}],
                 })(<TextInput placeholder="Engine Capacity" />)}
               </FormItem>
 
@@ -340,11 +308,7 @@ const AddPost = ({ form }) => {
           <FormItem>
             {getFieldDecorator("email", {
               initialValue: "",
-              rules: [
-                {
-                  required: true,
-                },
-              ],
+              rules: [{required: true,}],
             })(<TextInput placeholder="Email" />)}
           </FormItem>
           <FormItem>
@@ -385,11 +349,7 @@ const AddPost = ({ form }) => {
             <FormItem>
               {getFieldDecorator("zipcode", {
                 initialValue: "",
-                rules: [
-                  {
-                    required: true,
-                  },
-                ],
+                rules: [{required: true,}],
               })(<TextInput placeholder="Zipcode" type="number" />)}
             </FormItem>
           </Stack>
