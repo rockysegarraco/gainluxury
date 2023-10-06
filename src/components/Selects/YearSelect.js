@@ -7,45 +7,52 @@ import Popover from '@mui/material/Popover';
 import Button from "@mui/material/Button";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Typography from "@mui/material/Typography";
+import { YEAR, YEAR2 } from "../../utils/constants";
 
-export default function SelectSmall() {
-	const [anchorEl, setAnchorEl] = React.useState(null);
+export default function SelectYears({ handleMin, handleMax, minValue, maxValue }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-	const open = Boolean(anchorEl);
-	const id = open ? 'simple-popover' : undefined;
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
-	return (
-		<div className="relative">
-			
-				<Button
-					id={id}
-					onClick={handleClick}
-					variant="outlined"
-					size="medium"
-					endIcon={<ArrowDropDownIcon />}
-					sx={{
-						width: "100px",
-						padding: "7px",
-						border: "1px solid lightgray",
-						color: 'black',
-						":hover": {
-							border: "1px solid black"
-						},
-						textTransform: "none"
-					}}
-				>
-					<Typography>Years</Typography>
+  return (
+    <div className="relative">
 
-				</Button>
-			<Popover
+      <Button
+        id={id}
+        onClick={handleClick}
+        variant="outlined"
+        size="medium"
+        endIcon={<ArrowDropDownIcon />}
+        sx={{
+          width: "130px",
+          justifyContent: "space-between",
+          padding: "7px",
+          border: "1px solid lightgray",
+          color: 'black',
+          ":hover": {
+            border: "1px solid black"
+          },
+          textTransform: "none"
+        }}
+      >
+      
+        {minValue === "Min" && maxValue === "Max" ? 
+        (<Typography>Years</Typography>) : 
+        minValue !== "Min" && maxValue === "Max" ?  (<Typography>{`${minValue}+`}</Typography>) :
+        minValue === "Min" && maxValue !== "Max" ? (<Typography>{` <${maxValue}`}</Typography>):
+        (<Typography>{`${minValue} - ${maxValue}`}</Typography>)}
+
+      </Button>
+      <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -55,31 +62,30 @@ export default function SelectSmall() {
           horizontal: 'left',
         }}
       >
-				<Stack direction="row" spacing={2} padding={2}>
-					<FormControl sx={{ m: 1, minWidth: 140 }} size="small">
-						<Select
-							labelId="demo-select-small-label"
-							id="demo-select-small"
-							value={0}
-						>
-							<MenuItem value={0}>2020</MenuItem>
-							<MenuItem value={10}>2021</MenuItem>
-						</Select>
-					</FormControl>
-					<FormControl sx={{ m: 1, minWidth: 140 }} size="small">
-						<Select
-							labelId="demo-select-small-label"
-							id="demo-select-small"
-							value={0}
-						>
-							<MenuItem value={0}>2022</MenuItem>
-							<MenuItem value={10}>2023</MenuItem>
-
-						</Select>
-					</FormControl>
-				</Stack>
+        <Stack direction="row" spacing={2} padding={2}>
+          <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+            <Select
+              value={minValue}
+              onChange={(event) => handleMin(event.target.value)}
+            >
+              {YEAR.map((year, index) => (
+                <MenuItem key={index} value={year.value}>{year.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+            <Select
+              value={maxValue}
+              onChange={(event) => handleMax(event.target.value)}
+            >
+              {YEAR2.map((year, index) => (
+                <MenuItem key={index} value={year.value}>{year.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
       </Popover>
 
-		</div>
-	);
+    </div>
+  );
 }

@@ -9,19 +9,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Filters({ handleSort, sortOptions }) {
-  const [open, setOpen] = useState(false);
-
+export default function Filters({ handleSort, sortOptions, sort }) {
   return (
     <div className="bg-white">
       {/* Filters */}
       <section aria-labelledby="filter-heading">
-        <div className="bg-white pb-0 mt-8">
+        <div className="bg-white pb-0">
           <div className="mx-auto flex max-w-full items-center justify-between px-4 sm:px-6 lg:px-0">
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                  Sort
+                  Sort: {sort?.name} 
                   <ChevronDownIcon
                     className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                     aria-hidden="true"
