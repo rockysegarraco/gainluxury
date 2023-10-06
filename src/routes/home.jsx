@@ -1,9 +1,13 @@
-import Hero from "../components/hero";
+import FeaturedSection from "../components/FeaturedSection";
+import Newsletter from "../components/Newsletter";
+import Carousel from "../components/Carousel";
 
 function Home() {
   return (
     <>
-      <Hero />
+      <Carousel />
+      <FeaturedSection />
+      <Newsletter />
     </>
   );
 }
