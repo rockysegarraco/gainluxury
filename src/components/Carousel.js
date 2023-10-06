@@ -1,11 +1,25 @@
-const myStyle = {
-  backfaceVisibility: "hidden",
-};
+import { Carousel } from "@material-tailwind/react";
 
 export default function Example() {
   return (
     <>
-      <div
+      <Carousel className="h-[700px] rounded-xl">
+      <img
+        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
+        alt="image 1"
+        className="h-full w-full object-cover"
+      />
+      <img
+        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
+        className="h-full w-full object-cover"
+      />
+      <img
+       src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
+        alt="image 3"
+        className="h-full w-full object-cover"
+      />
+    </Carousel>
+      {/* <div
         id="carouselExampleCaptions"
         className="relative"
         data-te-carousel-init
@@ -48,7 +62,7 @@ export default function Example() {
             style={myStyle}
           >
             <img
-              src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
+            1  src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
               className="block w-full"
               alt="..."
             />
@@ -66,7 +80,7 @@ export default function Example() {
             style={myStyle}
           >
             <img
-              src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
+           2   src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
               className="block w-full"
               alt="..."
             />
@@ -84,7 +98,7 @@ export default function Example() {
             style={myStyle}
           >
             <img
-              src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
+         3     src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
               className="block w-full"
               alt="..."
             />
@@ -149,7 +163,7 @@ export default function Example() {
             Next
           </span>
         </button>
-      </div>
+      </div> */}
       ;
     </>
   );
