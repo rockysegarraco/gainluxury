@@ -25,8 +25,12 @@ label {
   font-weight: bold;
 }
 
-/* h1, h2, h3, h4, h5, h6 {
-  font-family: "verdigris-mvb-pro-big", serif;
+.fancy {
+font-family: "verdigris-mvb-pro-big", serif;
 font-weight: 700;
 font-style: normal;
-} */
+}
+
+.section {
+  padding: 2rem 0 2rem 0;
+}
