@@ -6,10 +6,8 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 // MUI
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import UploadFileRounded from "@mui/icons-material/UploadFileRounded";
 import IconButton from "@mui/material/IconButton";
 
 // components
@@ -18,7 +16,7 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import Pricing from "../components/pricing";
-import { BRAND, CATEGORY, CONDITION, PRICE_TYPE } from "../utils/constants";
+import { BRAND, CATEGORY, CONDITION, COUNTRY, PRICE_TYPE } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
@@ -164,24 +162,23 @@ const AddPost = ({ form }) => {
           </FormItem>
 
           {category.value === "cars" && (
-            <Stack spacing={0}>
-              <FormItem>
-                {getFieldDecorator("title", {
-                  initialValue: "",
-                  rules: [{ required: true, }],
-                })(<TextInput label="Features" placeholder="Add Title" />)}
-              </FormItem>
+            <Stack gap={3}>
+              <div className="mt-4">
+                <FormItem>
+                  {getFieldDecorator("title", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(<TextInput label="Listing Title" />)}
+                </FormItem>
+              </div>
               <FormItem>
                 {getFieldDecorator("description", {
                   initialValue: "",
-                  rules: [
-                    { required: true },
-                  ],
+                  rules: [{ required: true }],
                 })(
                   <TextInput
                     multiline
-                    label="Listing Title"
-                    placeholder="Tell us about the car"
+                    label="Features"
                   />
                 )}
               </FormItem>
@@ -189,9 +186,9 @@ const AddPost = ({ form }) => {
                 {getFieldDecorator("yearModel", {
                   initialValue: "",
                   rules: [{ required: true, }],
-                })(<TextInput label="Year" type="number" placeholder="Year" />)}
+                })(<TextInput label="Year" type="number" />)}
               </FormItem>
-              <Stack gap={2} sx={{ flexDirection: "row" }}>
+              <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
                 <FormItem>
                   {getFieldDecorator("pricingType", {
                     initialValue: "",
@@ -199,7 +196,6 @@ const AddPost = ({ form }) => {
                   })(
                     <Select
                       fullWidth
-                      placeholder=""
                       label="Price Type"
                       options={PRICE_TYPE}
                       onChange={(data) =>
@@ -216,9 +212,8 @@ const AddPost = ({ form }) => {
                   })(
                     <TextInput
                       disabled={isPrice}
-                      label="Price"
+                      label="Price $"
                       type="number"
-                      placeholder="Price $"
                     />
                   )}
                 </FormItem>
@@ -232,9 +227,8 @@ const AddPost = ({ form }) => {
                     rules: [{ required: true, }],
                   })(
                     <Select
-                      label="Price"
                       fullWidth
-                      placeholder="Condition"
+                      label="Condition"
                       options={CONDITION}
                     />
                   )}
@@ -245,45 +239,49 @@ const AddPost = ({ form }) => {
                 {getFieldDecorator("brand", {
                   initialValue: "",
                   rules: [{ required: true, }],
-                })(<Select label="Brand" fullWidth placeholder="Brand" options={BRAND} />)}
+                })(<Select label="Brand" fullWidth options={BRAND} />)}
               </FormItem>
 
               <FormItem>
                 {getFieldDecorator("kilometersRun", {
                   initialValue: "",
                   rules: [{ required: true, }],
-                })(<TextInput label="Kilometers Run" type="number" placeholder="Kilometers Run" />)}
+                })(<TextInput label="Kilometers Run" type="number" />)}
               </FormItem>
 
               <FormItem>
                 {getFieldDecorator("engineCapacity", {
                   initialValue: "",
                   rules: [{ required: true, }],
-                })(<TextInput label="Engine" placeholder="Engine Capacity" />)}
+                })(<TextInput label="Engine" />)}
               </FormItem>
 
-              <Button
-                variant="contained"
-                size="large"
-                endIcon={<UploadFileRounded />}
-                sx={{
-                  backgroundColor: "#212121",
-                  marginTop: "20px",
-                  textTransform: "none",
-                }}
-                onClick={() => inputGallery.current.click()}
-              >
-                {galleryLoading ? "Loading..." : "Add Images (5MB Max) "}
-              </Button>
-              <input
-                max={5}
-                multiple
-                style={{ display: "none" }}
-                ref={inputGallery}
-                type="file"
-                accept="image/png, image/jpg, image/jpeg"
-                onChange={handleGalleryFile}
-              />
+              <div class="col-span-full">
+                <label for="cover-photo" class="block font-medium leading-6 text-gray-700">Photos</label>
+                <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                  <div class="text-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                    </svg>
+                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                      <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                        <span className="self-center">{galleryLoading ? "Loading..." : "Add Images"}</span>
+                        <input 
+                          id="file-upload" name="file-upload"
+                          multiple max={5}
+                          type="file" 
+                          class="sr-only"
+                          ref={inputGallery}
+                          accept="image/png, image/jpg, image/jpeg"
+                          onChange={handleGalleryFile}
+                        />
+                      </label>
+                      
+                    </div>
+                    <p class="text-xs leading-5 text-gray-600">PNG, JPG up to 3MB</p>
+                  </div>
+                </div>
+              </div>
               <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
                 {gallaryImages.map((image, index) => (
                   <Paper
@@ -320,11 +318,12 @@ const AddPost = ({ form }) => {
           {category.value === "aviation" && <div> aviation fields </div>}
 
           <h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
+          <Stack gap={3}>
           <FormItem>
             {getFieldDecorator("email", {
               initialValue: "",
               rules: [{ required: true, }],
-            })(<TextInput placeholder="Email" />)}
+            })(<TextInput label="Email" />)}
           </FormItem>
           <FormItem>
             {getFieldDecorator("phone", {
@@ -338,16 +337,17 @@ const AddPost = ({ form }) => {
               ],
             })(
               <PhoneInput
-                placeholder="Mobile Number"
+                label="Mobile Number"
                 prependIcon={false}
                 maxLength={10}
               />
             )}
           </FormItem>
           <div className="mt-2">
+          <label class="block mb-2 font-medium leading-6 text-gray-700">Address</label>
             <GooglePlacesAutocomplete
               selectProps={{
-                placeholder: "Select your address",
+                placeholder: "search your place",
                 value: addressValue,
                 onChange: getAddressValue,
               }}
@@ -355,24 +355,21 @@ const AddPost = ({ form }) => {
             />
           </div>
 
-          <Stack gap={2} sx={{ flexDirection: "row" }}>
-            {/* <FormItem>
-              {getFieldDecorator("state", {
+          <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+            <FormItem>
+              {getFieldDecorator("country", {
                 initialValue: "",
-                rules: [
-                  {
-                    required: true,
-                  },
-                ],
-              })(<Select fullWidth placeholder="Country" options={COUNTRY} />)}
-            </FormItem> */}
+                rules: [{required: true,},],
+              })(<Select fullWidth label="Country" options={COUNTRY} />)}
+            </FormItem>
 
             <FormItem>
               {getFieldDecorator("zipcode", {
                 initialValue: "",
                 rules: [{ required: true, }],
-              })(<TextInput placeholder="Zipcode" type="number" />)}
+              })(<TextInput label="Zipcode" type="number" />)}
             </FormItem>
+          </Stack>
           </Stack>
         </Stack>
 

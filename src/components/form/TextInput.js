@@ -47,7 +47,7 @@ const Input = React.forwardRef(
         sx={{ width: "100%" }}
         {...other}
       >
-        {label && <FormLabel sx={{ fontSize: 18, fontWeight: 500 }} color="primary">{label}</FormLabel>}
+        {label && <FormLabel sx={{ fontWeight: 500 }}>{label}</FormLabel>}
         {subLabel && <FormLabel sx={{ fontSize: 12 }} color="primary">{subLabel}</FormLabel>}
         {multiline ? <TextareaAutosize
           minRows={3}

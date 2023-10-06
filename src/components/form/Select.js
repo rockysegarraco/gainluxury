@@ -70,7 +70,7 @@ const customStyles = {
     border: "1px solid lightgray",
     borderRadius: "5px",
     width: "100%",    
-    padding: "5px 5px",
+    padding: "5px 0px",
     color: "#000",
     backgroundColor: 'transparent',
     maxHeight: 44,
@@ -80,7 +80,7 @@ const customStyles = {
   }),
   valueContainer: (provided) => ({
     ...provided,
-    padding: "4px 18px",
+    padding: "4px 10px",
     fontSize: 14,
   }),
   placeholder: (provided, { theme }) => ({

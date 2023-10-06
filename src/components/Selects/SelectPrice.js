@@ -45,9 +45,9 @@ export default function SelectPrice({ handleMin, handleMax, minValue, maxValue }
       >
         {minValue === "Min" && maxValue === "Max" ?
           (<Typography>Price</Typography>) : 
-          minValue !== "Min" && maxValue === "Max" ?  (<Typography>{`${minValue}K+`}</Typography>) :
-          minValue === "Min" && maxValue !== "Max" ? (<Typography>{` <${maxValue}K`}</Typography>):
-           (<Typography>{`${minValue}K - ${maxValue}K`}</Typography>)}
+          minValue !== "Min" && maxValue === "Max" ?  (<Typography>{`${minValue}+`}</Typography>) :
+          minValue === "Min" && maxValue !== "Max" ? (<Typography>{` <${maxValue}`}</Typography>):
+           (<Typography>{`${minValue} - ${maxValue}`}</Typography>)}
 
       </Button>
       <Popover

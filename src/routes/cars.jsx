@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 //
 import Container from "../components/container.js";
 import Breadcrumb from "../components/Breadcrumb";
 import CardCar from "../components/cardCar";
-import Pagination from "../components/Pagination";
+//import Pagination from "../components/Pagination";
 
 import SelectCountries from "../components/Selects/SelectCountries"
 import SelectStates from "../components/Selects/SelectStates";
@@ -123,14 +123,14 @@ const Cars = () => {
             <SelectPrice
               minValue={minPrice}
               maxValue={maxPrice}
-              handleMin={(value) => setMinPrice(value)}
-              handleMax={(value) => setMaxPrice(value)}
+              handleMin={(value) => setMinYear('Min')|setMaxYear('Max')|setMinPrice(value)}
+              handleMax={(value) => setMinYear('Min')|setMaxYear('Max')|setMaxPrice(value)}
             />
             <SelectYears
               minValue={minYear}
               maxValue={maxYear}
-              handleMin={(value) => setMinYear(value)}
-              handleMax={(value) => setMaxYear(value)} />
+              handleMin={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMinYear(value)}
+              handleMax={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMaxYear(value)} />
             <div className="flex w-full min-w-2xl">
               <label htmlFor="search" className="sr-only">
                 Search cars

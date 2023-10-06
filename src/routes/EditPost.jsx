@@ -22,6 +22,7 @@ import {
 	BRAND,
 	CATEGORY,
 	CONDITION,
+	COUNTRY,
 	PRICE_TYPE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
@@ -159,7 +160,6 @@ const EditPost = ({ form }) => {
 	};
 
 	const getAddressValue = (value) => {
-		console.log(value);
 		const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
 		axios.get(details_url).then((res) => {
 			console.log(res.data);
@@ -193,7 +193,7 @@ const EditPost = ({ form }) => {
 			) : (<div>
 				<Heading />
 				<div className="mx-auto max-w-full md:max-w-4xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
-					<Stack spacing={0}>
+					<Stack gap={3}>
 						<h2 className="text-2xl font-bold mb-1">Edit Listing</h2>
 						<FormItem>
 							{getFieldDecorator("category", {
@@ -202,27 +202,27 @@ const EditPost = ({ form }) => {
 							})(
 								<Select
 									disabled={true}
-									placeholder="Select Category"
+									label="Select Category"
 									options={CATEGORY}
 								/>
 							)}
 						</FormItem>
 
 						{category.value === "cars" && (
-							<Stack spacing={0}>
+							<Stack gap={3}>
 								<FormItem>
 									{getFieldDecorator("title", {
 										initialValue: "",
 										rules: [{ required: true, }],
-									})(<TextInput placeholder="Add Title" />)}
+									})(<TextInput label="Add Title" />)}
 								</FormItem>
 								<FormItem>
 									{getFieldDecorator("description", {
 										initialValue: "",
 										rules: [{ required: true, }],
-									})(<TextInput multiline placeholder="Tell us about the car" />)}
+									})(<TextInput multiline label="Tell us about the car" />)}
 								</FormItem>
-								<Stack gap={2} sx={{ flexDirection: "row" }}>
+								<Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
 									<FormItem>
 										{getFieldDecorator("pricingType", {
 											initialValue: "",
@@ -230,7 +230,7 @@ const EditPost = ({ form }) => {
 										})(
 											<Select
 												fullWidth
-												placeholder="Price Type"
+												label="Price Type"
 												options={PRICE_TYPE}
 												onChange={(data) => setPrice(() => data.value === "Fixed" ? false : true)}
 											/>
@@ -240,7 +240,7 @@ const EditPost = ({ form }) => {
 										{getFieldDecorator("price", {
 											initialValue: "",
 											rules: [{ required: !isPrice, }],
-										})(<TextInput disabled={isPrice} type="number" placeholder="Price $" />)}
+										})(<TextInput disabled={isPrice} type="number" label="Price $" />)}
 									</FormItem>
 								</Stack>
 								<Stack gap={2} sx={{ flexDirection: "row" }}>
@@ -251,7 +251,7 @@ const EditPost = ({ form }) => {
 										})(
 											<Select
 												fullWidth
-												placeholder="Condition"
+												label="Condition"
 												options={CONDITION}
 											/>
 										)}
@@ -260,7 +260,7 @@ const EditPost = ({ form }) => {
 										{getFieldDecorator("brand", {
 											initialValue: "",
 											rules: [{ required: true, }],
-										})(<Select fullWidth placeholder="Brand" options={BRAND} />)}
+										})(<Select fullWidth label="Brand" options={BRAND} />)}
 									</FormItem>
 								</Stack>
 								<Stack gap={2} sx={{ flexDirection: "row" }}>
@@ -268,13 +268,13 @@ const EditPost = ({ form }) => {
 										{getFieldDecorator("kilometersRun", {
 											initialValue: "",
 											rules: [{ required: true, }],
-										})(<TextInput type="number" placeholder="Kilometers Run" />)}
+										})(<TextInput type="number" label="Kilometers Run" />)}
 									</FormItem>
 									<FormItem>
 										{getFieldDecorator("engineCapacity", {
 											initialValue: "",
 											rules: [{ required: true, }],
-										})(<TextInput placeholder="Engine Capacity" />)}
+										})(<TextInput label="Engine Capacity" />)}
 									</FormItem>
 								</Stack>
 								<Button
@@ -334,41 +334,41 @@ const EditPost = ({ form }) => {
 							{getFieldDecorator("email", {
 								initialValue: "",
 								rules: [{ required: true, }],
-							})(<TextInput placeholder="Email" />)}
+							})(<TextInput label="Email" />)}
 						</FormItem>
 						<FormItem>
 							{getFieldDecorator("phone", {
 								initialValue: "",
 								rules: [{ required: true, }],
-							})(<TextInput type="number" placeholder="Phone" />)}
+							})(<TextInput label="Phone" />)}
 						</FormItem>
 						<div className="mt-2">
 							<GooglePlacesAutocomplete
 								selectProps={{
-									placeholder: "Select your address",
+									label: "Select your address",
 									value: addressValue,
 									onChange: getAddressValue,
 								}}
 							/>
 						</div>
 
-						<Stack gap={2} sx={{ flexDirection: "row" }}>
-							{/* <FormItem>
-								{getFieldDecorator("state", {
+						<Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+							<FormItem>
+								{getFieldDecorator("country", {
 									initialValue: "",
 									rules: [
 										{
 											required: true,
 										},
 									],
-								})(<Select fullWidth placeholder="Country" options={COUNTRY} />)}
-							</FormItem> */}
+								})(<Select fullWidth label="Country" options={COUNTRY} />)}
+							</FormItem>
 
 							<FormItem>
 								{getFieldDecorator("zipcode", {
 									initialValue: "",
 									rules: [{ required: true, }],
-								})(<TextInput placeholder="Zipcode" type="number" />)}
+								})(<TextInput label="Zipcode" type="number" />)}
 							</FormItem>
 						</Stack>
 					</Stack>
