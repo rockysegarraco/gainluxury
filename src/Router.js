@@ -21,6 +21,7 @@ import PostDetail from "./routes/PostDetail";
 import EditPost from "./routes/EditPost";
 import Login from "./routes/login";
 import Register from "./routes/Register";
+import AddProperty from "./routes/AddProperty";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -33,14 +34,6 @@ function ClerkProviderWithRoutes() {
   return (
     <ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
       <Routes>
-        {/* <Route
-          path="/sign-in/*"
-          element={<SignIn routing="path" path="/sign-in" />}
-        />
-        <Route
-          path="/sign-up/*"
-          element={<SignUp routing="path" path="/sign-up" />}
-        /> */}
         <Route path="/" element={<MainLayout />}>
           {/* Drawer routes */}
           <Route index element={<Home path="/home" />} />
@@ -63,7 +56,8 @@ function ClerkProviderWithRoutes() {
         </Route>
 
         {/* Global routes */}
-        <Route path="/create-post" element={<AddPost path="/create-post" />} />
+        <Route path="/create-car-post" element={<AddPost path="/create-car-post" />} />
+        <Route path="/create-property-post" element={<AddProperty path="/create-property-post" />} />
         <Route
           path="/edit-post/:slug"
           element={<EditPost path="/edit-post" />}

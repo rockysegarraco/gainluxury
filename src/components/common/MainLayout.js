@@ -59,9 +59,9 @@ const MainLayout = () => {
     setOpen(false);
   };
 
-  const handleOpenPage = () => {
+  const handleOpenPage = (page) => {
     if (isSignedIn) {
-      navigate('/create-post')
+      navigate(page)
     } else {
       navigate('/login')
     }

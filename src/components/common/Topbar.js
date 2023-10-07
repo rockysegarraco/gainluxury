@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
+import Popover from '@mui/material/Popover';
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
+import ListItem from "@mui/material/ListItem";
+import  ListItemText from "@mui/material/ListItemText";
+import  ListItemIcon from "@mui/material/ListItemIcon";
+import  ListItemButton from "@mui/material/ListItemButton";
+import CarRental from "@mui/icons-material/CarRental";
+import Home from "@mui/icons-material/Home";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openPopver = Boolean(anchorEl);
+  const id = openPopver ? 'simple-popover' : undefined;
+
   return (
     <AppBar
       className="border-b py-0 lg:py-1 px-2 lg:px-16"
@@ -48,7 +69,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         </button>
         <button
           type="button"
-          onClick={handleOpen}
+          onClick={handleClick}
           className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
         >
           {" "}
@@ -67,6 +88,33 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </button>
         )}
       </Toolbar>
+      <Popover
+        id={id}
+        open={openPopver}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <ListItem divider disablePadding onClick={() => handleOpen('/create-car-post')}>
+          <ListItemButton>
+            <ListItemIcon>
+              <CarRental />
+            </ListItemIcon>
+            <ListItemText primary="Sell a car" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding onClick={() => handleOpen('/create-property-post')}>
+        <ListItemButton>
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Sell a Property" />
+          </ListItemButton>
+        </ListItem>
+      </Popover>
     </AppBar>
   );
 };

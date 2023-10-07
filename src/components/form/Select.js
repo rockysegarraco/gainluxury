@@ -62,7 +62,7 @@ const customStyles = {
   container: (provided) => ({
     ...provided,
     "label + &": {
-      marginTop: 8,
+      marginTop: 5,
     },
   }),
   control: (provided, { theme, selectProps }) => ({
