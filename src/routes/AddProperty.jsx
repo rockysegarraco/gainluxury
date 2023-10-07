@@ -16,7 +16,7 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import Pricing from "../components/pricing";
-import { BRAND, CATEGORY, CONDITION, COUNTRY, PRICE_TYPE } from "../utils/constants";
+import { CATEGORY, COUNTRY } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
@@ -27,8 +27,7 @@ const { FormItem } = Form;
 const AddProperty = ({ form }) => {
   const { isLoaded, isSignedIn, user } = useUser();
   const navigate = useNavigate();
-  const [category, setCategory] = useState([]);
-  const [isPrice, setPrice] = useState(true);
+  const [category, setCategory] = useState(CATEGORY[1]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
@@ -53,7 +52,6 @@ const AddProperty = ({ form }) => {
           if (values.price) {
             values.price = Number(values.price);
           }
-          values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
           const obj = {
             gallery: gallaryImages,
@@ -127,8 +125,16 @@ const AddProperty = ({ form }) => {
         const zipcode = addressData.filter(
           (a) => a.types[0] === "postal_code"
         )[0];
+        const country = addressData.filter(
+          (a) => a.types[0] === "country"
+        )[0];
+        const state = addressData.filter(
+          (a) => a.types[0] === "administrative_area_level_1"
+        )[0];
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
+          country: country ? { label: country.long_name, value: country.long_name } : "",
+          state: state?.long_name
         });
         setLocation(res.data.result.geometry?.location);
       })
@@ -147,21 +153,6 @@ const AddProperty = ({ form }) => {
       <div className="mx-auto max-w-full md:max-w-4xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
         <Stack spacing={0}>
           <h2 className="text-2xl font-bold mb-4">Let's get started</h2>
-          <FormItem>
-            {getFieldDecorator("category", {
-              initialValue: "",
-              rules: [{ required: true, }],
-            })(
-              <Select
-                label="Select Category"
-                placeholder="Choose"
-                options={CATEGORY}
-                onChange={(data) => setCategory(data)}
-              />
-            )}
-          </FormItem>
-
-          {category.value === "cars" && (
             <Stack gap={3}>
               <div className="mt-4">
                 <FormItem>
@@ -181,79 +172,6 @@ const AddProperty = ({ form }) => {
                     label="Features"
                   />
                 )}
-              </FormItem>
-              <FormItem>
-                {getFieldDecorator("yearModel", {
-                  initialValue: "",
-                  rules: [{ required: true, }],
-                })(<TextInput label="Year" type="number" />)}
-              </FormItem>
-              <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
-                <FormItem>
-                  {getFieldDecorator("pricingType", {
-                    initialValue: "",
-                    rules: [{ required: true, }],
-                  })(
-                    <Select
-                      fullWidth
-                      label="Price Type"
-                      options={PRICE_TYPE}
-                      onChange={(data) =>
-                        setPrice(() => (data.value === "Fixed" ? false : true))
-                      }
-                    />
-                  )}
-                </FormItem>
-
-                <FormItem>
-                  {getFieldDecorator("price", {
-                    initialValue: "",
-                    rules: [{ required: !isPrice, }],
-                  })(
-                    <TextInput
-                      disabled={isPrice}
-                      label="Price $"
-                      type="number"
-                    />
-                  )}
-                </FormItem>
-
-              </Stack>
-
-              <Stack gap={2} sx={{ flexDirection: "row" }}>
-                <FormItem>
-                  {getFieldDecorator("condition", {
-                    initialValue: "",
-                    rules: [{ required: true, }],
-                  })(
-                    <Select
-                      fullWidth
-                      label="Condition"
-                      options={CONDITION}
-                    />
-                  )}
-                </FormItem>
-              </Stack>
-
-              <FormItem>
-                {getFieldDecorator("brand", {
-                  initialValue: "",
-                  rules: [{ required: true, }],
-                })(<Select label="Brand" fullWidth options={BRAND} />)}
-              </FormItem>
-
-              <FormItem>
-                {getFieldDecorator("kilometersRun", {
-                  initialValue: "",
-                  rules: [{ required: true, }],
-                })(<TextInput label="Kilometers Run" type="number" />)}
-              </FormItem>
-
-              <FormItem>
-                {getFieldDecorator("engineCapacity", {
-                  initialValue: "",
-                  rules: [{ required: true, }],
-                })(<TextInput label="Engine" />)}
               </FormItem>
 
               <div class="col-span-full">
@@ -311,11 +229,6 @@ const AddProperty = ({ form }) => {
                 ))}
               </div>
             </Stack>
-          )}
-
-          {category.value === "property" && <div> Property fields </div>}
-          {category.value === "yatch" && <div> Yatch fields </div>}
-          {category.value === "aviation" && <div> aviation fields </div>}
 
           <h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
           <Stack gap={3}>
@@ -354,6 +267,13 @@ const AddProperty = ({ form }) => {
               apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
             />
           </div>
+
+          <FormItem>
+                {getFieldDecorator("state", {
+                  initialValue: "",
+                  rules: [{ required: true, },],
+                })(<TextInput fullWidth label="State" />)}
+              </FormItem>
 
           <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
             <FormItem>
