@@ -16,7 +16,7 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import Pricing from "../components/pricing";
-import { CATEGORY, COUNTRY } from "../utils/constants";
+import { CATEGORY, COUNTRY, US_STATE } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
@@ -134,7 +134,7 @@ const AddProperty = ({ form }) => {
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
           country: country ? { label: country.long_name, value: country.long_name } : "",
-          state: state?.long_name
+          state: state ? { label: state.long_name, value: state.long_name } : "",
         });
         setLocation(res.data.result.geometry?.location);
       })
@@ -271,8 +271,7 @@ const AddProperty = ({ form }) => {
           <FormItem>
                 {getFieldDecorator("state", {
                   initialValue: "",
-                  rules: [{ required: true, },],
-                })(<TextInput fullWidth label="State" />)}
+                })(<Select options={US_STATE} fullWidth label="State" />)}
               </FormItem>
 
           <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
@@ -280,13 +279,12 @@ const AddProperty = ({ form }) => {
               {getFieldDecorator("country", {
                 initialValue: "",
                 rules: [{required: true,},],
-              })(<Select fullWidth label="Country" options={COUNTRY} />)}
+              })(<Select fullWidth label="Country" options={COUNTRY}  />)}
             </FormItem>
 
             <FormItem>
               {getFieldDecorator("zipcode", {
                 initialValue: "",
-                rules: [{ required: true, }],
               })(<TextInput label="Zipcode" type="number" />)}
             </FormItem>
           </Stack>

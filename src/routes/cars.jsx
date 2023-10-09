@@ -18,6 +18,8 @@ import Filters from "../components/Filters";
 //
 import db from "../firebase";
 import Stack from '@mui/material/Stack';
+import { BRAND, COUNTRY } from '../utils/constants.js';
+import SelectModel from '../components/Selects/SelectModel.js';
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -41,13 +43,19 @@ const Cars = () => {
   const [minPrice, setMinPrice] = React.useState("Min");
 
   const [brand, setBrand] = React.useState("All");
+  const [state, setState] = React.useState("All");
+  const [country, setCountry] = React.useState("All");
+  const [model, setModel] = React.useState("All");
+
+  const [stateData, setStateData] = React.useState([]);
+  const [modelData, setModelData] = React.useState([]);
 
 
   const [sort, setSort] = useState({ label: 'price', value: 'asc', name: 'Price lowest first' });
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, brand]);
+  }, [minYear, maxYear, maxPrice, minPrice, brand, state, country, model]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -91,6 +99,22 @@ const Cars = () => {
       q = query(q, where("brand.value", "==", brand))
     }
 
+     // Model Filter
+     if (model !== "All") {
+      q = query(q, where("model.value", "==", model))
+    }
+
+     // Country Filter
+     if (country !== "All") {
+      q = query(q, where("country.value", "==", country))
+    }
+
+    // State Filter
+    if (state !== "All") {
+      q = query(q, where("state.value", "==", state))
+    }
+
+
     //   q = query(q, orderBy(sort.label, sort.value))
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -110,16 +134,41 @@ const Cars = () => {
     setMinPrice("Min")
     setMaxYear("Max")
     setMinYear("Min")
+    setBrand("All")
+    setCountry("All");
+    setState("All")
+    setModel("All")
+  }
+
+  const handleCountry = (data) => {
+    const state = COUNTRY.find((table) => table.value === data).state;
+    setCountry(data);
+    if (state) {
+      setStateData(state);
+    } else {
+      setStateData([])
+    }
+  }
+
+  const handleBrand = (data) => {
+    const modal = BRAND.find((table) => table.label === data).modal;
+    setBrand(data);
+    if (modal) {
+      setModelData(modal);
+    } else {
+      setModelData([])
+    }
   }
 
   return (
     <>
       <div className="border-b pb-4">
         <div className="flex flex-row  max-w-[90%] items-center justify-between mx-auto">
-          <div className="flex space-x-2 mt-4">
-            <SelectCountries />
-            <SelectStates />
-            <SelectMakes handleBrand={(value) => setBrand(value)} brand={brand} />
+          <div className="flex items-center space-x-2 mt-4">
+            <SelectCountries handleCountry={handleCountry} country={country}  />
+            {stateData?.length > 0 && <SelectStates handleState={(value) => setState(value)} state={state} stateData={stateData} />}
+            <SelectMakes handleBrand={handleBrand} brand={brand} />
+            {modelData?.length > 0 && <SelectModel handleModel={(value) => setModel(value)} model={model} modelData={modelData} />}
             <SelectPrice
               minValue={minPrice}
               maxValue={maxPrice}
@@ -184,7 +233,7 @@ const Cars = () => {
 
         <div className="grid grid-cols-3 mt-8 gap-8">
           {post.map((item, index) => (
-            <CardCar item={item} i={index} />
+            <CardCar key={index} item={item} i={index} />
           ))}
         </div>
         {/* <Pagination count={10} /> */}

@@ -16,7 +16,7 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import Pricing from "../components/pricing";
-import { BRAND, CATEGORY, CONDITION, COUNTRY, PRICE_TYPE } from "../utils/constants";
+import { BRAND, CATEGORY, CONDITION, COUNTRY, PRICE_TYPE, US_STATE } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
@@ -29,6 +29,7 @@ const AddPost = ({ form }) => {
   const navigate = useNavigate();
   const [category, setCategory] = useState(CATEGORY[0]);
   const [isPrice, setPrice] = useState(true);
+  const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
@@ -136,7 +137,7 @@ const AddPost = ({ form }) => {
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
           country: country ? { label: country.long_name, value: country.long_name } : "",
-          state: state?.long_name
+          state: state ? { label: state.long_name, value: state.long_name } : "",
         });
         setLocation(res.data.result.geometry?.location);
       })
@@ -210,7 +211,33 @@ const AddPost = ({ form }) => {
                   />
                 )}
               </FormItem>
+            </Stack>
 
+            <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+              <FormItem>
+                {getFieldDecorator("brand", {
+                  initialValue: "",
+                  rules: [{ required: true, }],
+                })(<Select 
+                  label="Brand" 
+                  fullWidth
+                  options={BRAND}
+                  onChange={(data) =>setBrandData(() => (data.modal))}
+                />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("model", {
+                  initialValue: "",
+                  rules: [{ required: brandData?.length > 0, }],
+                })(
+                  <Select
+                  label="Modal" 
+                  fullWidth
+                  disabled={!brandData?.length > 0}
+                  options={brandData}
+                  />
+                )}
+              </FormItem>
             </Stack>
 
             <Stack gap={2} sx={{ flexDirection: "row" }}>
@@ -227,13 +254,6 @@ const AddPost = ({ form }) => {
                 )}
               </FormItem>
             </Stack>
-
-            <FormItem>
-              {getFieldDecorator("brand", {
-                initialValue: "",
-                rules: [{ required: true, }],
-              })(<Select label="Brand" fullWidth options={BRAND} />)}
-            </FormItem>
 
             <FormItem>
               {getFieldDecorator("kilometersRun", {
@@ -343,11 +363,10 @@ const AddPost = ({ form }) => {
             </div>
 
             <FormItem>
-                {getFieldDecorator("state", {
-                  initialValue: "",
-                  rules: [{ required: true, },],
-                })(<TextInput fullWidth label="State" />)}
-              </FormItem>
+              {getFieldDecorator("state", {
+                initialValue: "",
+              })(<Select options={US_STATE} fullWidth label="State" />)}
+            </FormItem>
 
             <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
               <FormItem>
@@ -360,7 +379,6 @@ const AddPost = ({ form }) => {
               <FormItem>
                 {getFieldDecorator("zipcode", {
                   initialValue: "",
-                  rules: [{ required: true, }],
                 })(<TextInput label="Zipcode" type="number" />)}
               </FormItem>
             </Stack>

@@ -1,29 +1,20 @@
 import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { COUNTRY } from "../../utils/constants";
 
-export default function SelectSmall() {
-  const [age, setAge] = React.useState(0);
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
+export default function SelectCountry({handleCountry, country}) {
   return (
-    <FormControl sx={{ minWidth: 140 }} size="small">
+    <FormControl sx={{ minWidth: 150 }} size="small">
       <Select
-        displayEmpty
-        labelId="demo-select-small-label"
-        id="demo-select-small"
-        value={age}
-        onChange={handleChange}
+        value={country}
+        onChange={(e) => handleCountry(e.target.value)}
       >
-        <MenuItem value={0}>All Countries</MenuItem>
-        <MenuItem value={10}>United States</MenuItem>
-        <MenuItem value={20}>Germany</MenuItem>
-        <MenuItem value={30}>United Arab Emirates</MenuItem>
+        <MenuItem value={"All"}>All Countries</MenuItem>
+        {COUNTRY.map((con, i) => (
+           <MenuItem key={i} value={con.value}>{con.label}</MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

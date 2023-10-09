@@ -24,6 +24,7 @@ import {
   CONDITION,
   COUNTRY,
   PRICE_TYPE,
+  US_STATE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData } from "../utils";
@@ -36,6 +37,7 @@ const EditPost = ({ form }) => {
   const navigate = useNavigate();
   const [category, setCategory] = useState(CATEGORY[0]);
   const [isPrice, setPrice] = useState(true);
+  const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
@@ -71,6 +73,7 @@ const EditPost = ({ form }) => {
           country: postData?.country,
           zipcode: postData?.zipcode,
           email: postData?.email,
+          model: postData?.model,
         })
         setGallaryImages(postData?.gallery);
         setPrice(() => postData.pricingType.value === "Fixed" ? false : true)
@@ -175,7 +178,7 @@ const EditPost = ({ form }) => {
       setFieldsValue({
         zipcode: zipcode ? zipcode.long_name : "",
         country: country ? { label: country.long_name, value: country.long_name } : "",
-        state: state?.long_name
+        state: state ? { label: state.long_name, value: state.long_name } : "",
       })
       setLocation(res.data.result.geometry?.location);
     }).catch(e => {
@@ -237,8 +240,33 @@ const EditPost = ({ form }) => {
                   })(<TextInput disabled={isPrice} type="number" label="Price $" />)}
                 </FormItem>
               </Stack>
-              <Stack gap={2} sx={{ flexDirection: "row" }}>
-                <FormItem>
+              <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+              <FormItem>
+                {getFieldDecorator("brand", {
+                  initialValue: "",
+                  rules: [{ required: true, }],
+                })(<Select 
+                  label="Brand" 
+                  fullWidth
+                  options={BRAND}
+                  onChange={(data) =>setBrandData(() => (data.modal))}
+                />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("model", {
+                  initialValue: "",
+                  rules: [{ required: brandData?.length > 0, }],
+                })(
+                  <Select
+                  label="Modal" 
+                  fullWidth
+                  disabled={!brandData?.length > 0}
+                  options={brandData}
+                  />
+                )}
+              </FormItem>
+            </Stack>
+            <FormItem>
                   {getFieldDecorator("condition", {
                     initialValue: "",
                     rules: [{ required: true, }],
@@ -250,13 +278,6 @@ const EditPost = ({ form }) => {
                     />
                   )}
                 </FormItem>
-                <FormItem>
-                  {getFieldDecorator("brand", {
-                    initialValue: "",
-                    rules: [{ required: true, }],
-                  })(<Select fullWidth label="Brand" options={BRAND} />)}
-                </FormItem>
-              </Stack>
               <Stack gap={2} sx={{ flexDirection: "row" }}>
                 <FormItem>
                   {getFieldDecorator("kilometersRun", {
@@ -344,8 +365,7 @@ const EditPost = ({ form }) => {
             <FormItem>
               {getFieldDecorator("state", {
                 initialValue: "",
-                rules: [{ required: true, },],
-              })(<TextInput fullWidth label="State" />)}
+              })(<Select options={US_STATE} fullWidth label="State" />)}
             </FormItem>
 
             <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
@@ -363,7 +383,6 @@ const EditPost = ({ form }) => {
               <FormItem>
                 {getFieldDecorator("zipcode", {
                   initialValue: "",
-                  rules: [{ required: true, }],
                 })(<TextInput label="Zipcode" type="number" />)}
               </FormItem>
             </Stack>

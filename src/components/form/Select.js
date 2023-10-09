@@ -110,10 +110,10 @@ const customStyles = {
   option: (provided, { isSelected, isDisabled, theme }) => ({
     ...provided,
     backgroundColor: isSelected ? theme.colors.selected : null,
-    color: 'black',
+    color: isDisabled ? 'grey' : 'black',
     fontSize: 14,
     '&:hover': {
-      backgroundColor: '#F5F5F5'
+      backgroundColor: !isDisabled && '#F5F5F5'
     }
   }),
   singleValue: (provided) => ({
@@ -245,7 +245,7 @@ const CustomSelect = React.forwardRef(
             isMulti={isMulti}
             hideSelectedOptions={!Components.MultiValue}
             closeMenuOnSelect={!isMulti}
-            styles={styles ? styles : customStyles}
+            styles={styles ? styles : customStyles}         
             {...rest}
           />
         )}
