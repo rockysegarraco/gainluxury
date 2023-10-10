@@ -38,7 +38,7 @@ export default function Example() {
             Featured Categories
           </h2>
         </div>
-        <div className="mx-auto mt-8 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-8 grid max-w-full auto-rows-fr grid-cols-2 gap-8 sm:mt-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-4">
           {posts.map((post) => (
             <article
               key={post.id}

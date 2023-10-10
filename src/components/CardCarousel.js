@@ -1,5 +1,4 @@
 import { Carousel, Typography, Button } from "@material-tailwind/react";
-import Link from "@mui/material/Link";
 
 export default function Example() {
   return (
@@ -22,11 +21,11 @@ export default function Example() {
       >
         <div className="relative h-full w-full">
           <img
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3550&q=80"
+            src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
             alt="image 1"
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
+          <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/75">
             <div className="absolute bottom-0 w-3/4 text-center md:w-2/4">
               <a href="/">
                 <Typography
