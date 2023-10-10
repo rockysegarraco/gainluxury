@@ -1,5 +1,5 @@
 .App {
-  font-family: sans-serif;
+
   text-align: center;
   position: relative;
 }
@@ -7,7 +7,17 @@
 .slide {
   position: relative;
   width: 100%;
+  height: 50vh;
+}
+
+
+
+@media screen and (min-width: 1200px) {
+.slide {
+  position: relative;
+  width: 100%;
   height: 80vh;
+}
 }
 
 .show {
@@ -39,7 +49,7 @@ img {
 
 @keyframes fade {
   from {
-    opacity: 0.1;
+    opacity: 0.75;
   }
   to {
     opacity: 1;

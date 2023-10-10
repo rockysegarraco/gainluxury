@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 const products = [
   {
     id: 1,
@@ -54,7 +40,7 @@ const products = [
     location: "Atlanta, Georgia, USA",
   },
   {
-    id: 1,
+    id: 5,
     name: "Luxury Mansion In Front Of The Sea, Javea Costa Blanca Spain | 2.300m2 House · Heliport Licence",
     href: "#",
     imageSrc:
@@ -64,7 +50,7 @@ const products = [
     location: "Atlanta, Georgia, USA",
   },
   {
-    id: 2,
+    id: 6,
     name: "Luxury Mansion In Front Of The Sea, Javea Costa Blanca Spain | 2.300m2 House · Heliport Licence",
     href: "#",
     imageSrc:
@@ -74,7 +60,7 @@ const products = [
     location: "Atlanta, Georgia, USA",
   },
   {
-    id: 3,
+    id: 7,
     name: "2018 Bugatti Chiron awd",
     href: "#",
     imageSrc:
@@ -84,7 +70,7 @@ const products = [
     location: "Atlanta, Georgia, USA",
   },
   {
-    id: 4,
+    id: 8,
     name: "2018 Bugatti Chiron awd",
     href: "#",
     imageSrc:
@@ -105,11 +91,10 @@ export default function Example() {
             Recent Listings
           </h2>
         </div>
-
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200 lg:aspect-none group-hover:opacity-75 h-80">
+              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200 lg:aspect-none group-hover:opacity-75 h-60">
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
