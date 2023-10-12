@@ -24,6 +24,7 @@ import FlightOutlined from "@mui/icons-material/FlightOutlined";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
 import Button from "@mui/material/Button";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const drawerWidth = 240;
 
@@ -154,13 +155,8 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       open={open}
     >
       <DrawerHeader>
-        <div>Welcome!</div>
         <IconButton onClick={handleDrawerClose}>
-          {theme.direction === "ltr" ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
+          {theme.direction === "ltr" ? <ClearIcon /> : <ClearIcon />}
         </IconButton>
       </DrawerHeader>
       <Divider />
@@ -207,10 +203,12 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
                     selected={selectedIndex === index}
                     onClick={() => item.onClick(index)}
                   >
-                    {item.show && <ListItemButton>
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.title} />
-                    </ListItemButton>}
+                    {item.show && (
+                      <ListItemButton>
+                        <ListItemIcon>{item.icon}</ListItemIcon>
+                        <ListItemText primary={item.title} />
+                      </ListItemButton>
+                    )}
                   </ListItem>
                 )}
               </div>
@@ -228,7 +226,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       )}
       {!isSignedIn && (
         <Button
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
           className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case"
         >
           Login

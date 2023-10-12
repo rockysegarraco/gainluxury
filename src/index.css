@@ -21,6 +21,10 @@ code {
     padding: 9px 0 0 0 !important;
 }
 
+.css-h4y409-MuiList-root {
+    padding-top: 0px !important;
+}
+
 label {
   font-weight: bold;
 }

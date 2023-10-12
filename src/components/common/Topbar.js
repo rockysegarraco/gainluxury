@@ -13,6 +13,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 import CarRental from "@mui/icons-material/CarRental";
 import Home from "@mui/icons-material/Home";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const { isSignedIn } = useUser();
@@ -48,7 +49,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           edge="start"
           sx={{ mr: 1, ...(open && { display: "none" }) }}
         >
-          <MenuIcon />
+          <Bars3Icon className="h-6" />
         </IconButton>
         <div className="flex px-0 lg:px-0">
           <div className="flex flex-shrink-0 items-center">
@@ -64,7 +65,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           edge="start"
           sx={{ mr: 1, ...(open && { display: "none" }) }}
         >
-          <MenuIcon />
+          <Bars3Icon className="h-6" />
         </IconButton>
         <button
           type="button"
