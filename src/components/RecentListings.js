@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 const products = [
   {
     id: 1,
@@ -53,6 +39,46 @@ const products = [
     price: "Price on Request",
     location: "Atlanta, Georgia, USA",
   },
+  {
+    id: 5,
+    name: "Luxury Mansion In Front Of The Sea, Javea Costa Blanca Spain | 2.300m2 House · Heliport Licence",
+    href: "#",
+    imageSrc:
+      "https://images.unsplash.com/photo-1566023766902-331b7790175c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3277&q=80",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "$8,276,007",
+    location: "Atlanta, Georgia, USA",
+  },
+  {
+    id: 6,
+    name: "Luxury Mansion In Front Of The Sea, Javea Costa Blanca Spain | 2.300m2 House · Heliport Licence",
+    href: "#",
+    imageSrc:
+      "https://images.unsplash.com/photo-1624471687574-db62e60673f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "$2,236,000",
+    location: "Atlanta, Georgia, USA",
+  },
+  {
+    id: 7,
+    name: "2018 Bugatti Chiron awd",
+    href: "#",
+    imageSrc:
+      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3474&q=80",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "Price on Request",
+    location: "Atlanta, Georgia, USA",
+  },
+  {
+    id: 8,
+    name: "2018 Bugatti Chiron awd",
+    href: "#",
+    imageSrc:
+      "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: "Price on Request",
+    location: "Atlanta, Georgia, USA",
+  },
   // More products...
 ];
 
@@ -62,10 +88,9 @@ export default function Example() {
       <div className="mx-auto max-w-[90%]">
         <div className="mx-auto max-w-full">
           <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl fancy">
-            Featured Listings
+            Recent Listings
           </h2>
         </div>
-
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group relative">
