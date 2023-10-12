@@ -37,7 +37,7 @@ const Cars = () => {
 
   const collections = collection(db, "cars");
   let q = query(collections,
-    where("category.value", "==", "cars"));
+    where("category.value", "==", "cars"), where("postStatus", "==", "Live"));
 
   const [minYear, setMinYear] = React.useState("Min");
   const [maxYear, setMaxYear] = React.useState("Max");
