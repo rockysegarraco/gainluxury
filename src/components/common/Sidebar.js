@@ -150,7 +150,6 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
           boxSizing: "border-box",
         },
       }}
-      variant="persistent"
       anchor="left"
       open={open}
     >
