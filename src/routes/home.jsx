@@ -9,7 +9,6 @@ import Carousel from "../components/Carousel/CarouselFade";
 function Home() {
   return (
     <>
-      <MainNav />
       <Carousel />
       <FeaturedSection />
       <FeaturedListings />
