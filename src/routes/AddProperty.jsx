@@ -60,6 +60,7 @@ const AddProperty = ({ form }) => {
             address: addressValue.label,
             slug,
             location,
+            category
           };
 
           return await axios

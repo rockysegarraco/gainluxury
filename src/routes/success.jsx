@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import db from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import Topbar from "../components/common/Topbar";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +20,8 @@ const Success = () => {
       // Add a document to the collection
       addDoc(collections, {
         ...post,
+        postDate: Timestamp.fromDate(new Date()),
+        postStatus: 'Live'
       })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);

@@ -56,6 +56,7 @@ const AddPost = ({ form }) => {
           }
           values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
+          values.brand = {value: values.brand.value, label: values.brand.label}
           const obj = {
             gallery: gallaryImages,
             ...values,
@@ -63,6 +64,7 @@ const AddPost = ({ form }) => {
             address: addressValue.label,
             slug,
             location,
+            category
           };
 
           return await axios

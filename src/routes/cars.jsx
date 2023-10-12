@@ -20,9 +20,12 @@ import db from "../firebase";
 import Stack from '@mui/material/Stack';
 import { BRAND, COUNTRY } from '../utils/constants.js';
 import SelectModel from '../components/Selects/SelectModel.js';
+import SearchDialog from '../components/Dialog/SearchDialog.js';
 
 const Cars = () => {
   const [post, setPost] = useState([]);
+  const [isSearchDialogOpen, setDialogOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const [sortOptions, setSortOption] = useState([
     { name: "Price lowest first", current: true, label: 'price', value: 'asc' },
     { name: "Price highest first", current: false, label: 'price', value: 'desc' },
@@ -138,6 +141,7 @@ const Cars = () => {
     setCountry("All");
     setState("All")
     setModel("All")
+    setSearchText("");
   }
 
   const handleCountry = (data) => {
@@ -158,6 +162,26 @@ const Cars = () => {
     } else {
       setModelData([])
     }
+  }
+
+  const handleSearch = (modal, brand) => {
+    setSearchText(`${modal}, ${brand}`)
+    setBrand(brand);
+    setModel(modal);
+    setDialogOpen(false);
+  }
+
+  const handleOption = (brand) => {
+    setSearchText(brand)
+    setBrand(brand);
+    setDialogOpen(false);
+  }
+
+  const handleClear = (e) => {
+    e.stopPropagation();
+    setSearchText('');
+    setModel("All")
+    setBrand("All")
   }
 
   return (
@@ -187,16 +211,16 @@ const Cars = () => {
               <div className="relative flex">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <MagnifyingGlassIcon
+                    onClick={handleClear}
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
                 </div>
                 <input
-                  id="search"
-                  name="search"
+                  onClick={() => setDialogOpen(true)}
                   className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Search Cars"
-                  type="search"
+                  value={searchText}
                 />
               </div>
             </div>
@@ -237,6 +261,13 @@ const Cars = () => {
           ))}
         </div>
         {/* <Pagination count={10} /> */}
+
+        <SearchDialog 
+          setOpen={() => setDialogOpen(false)} 
+          open={isSearchDialogOpen} 
+          handleClick={handleSearch}
+          handleOption={handleOption}
+       />
       </Container>
 
     </>

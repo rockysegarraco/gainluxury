@@ -22,6 +22,7 @@ import EditPost from "./routes/EditPost";
 import Login from "./routes/login";
 import Register from "./routes/Register";
 import AddProperty from "./routes/AddProperty";
+import SuperUser from "./routes/SuperUser";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -67,6 +68,7 @@ function ClerkProviderWithRoutes() {
         <Route path="/login" element={<Login path="/login" />} />
         <Route path="/signup" element={<Register path="/signup" />} />
         <Route path="/pricing" element={<Pricing path="/pricing" />} />
+        <Route path="/super-user" element={<SuperUser path="/super-user" />} />
       </Routes>
     </ClerkProvider>
   );

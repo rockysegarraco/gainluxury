@@ -59,7 +59,6 @@ const EditPost = ({ form }) => {
     if (postData) {
       setTimeout(() => {
         setFieldsValue({
-          category: postData?.category,
           title: postData?.title,
           description: postData?.description,
           pricingType: postData?.pricingType,
@@ -112,6 +111,7 @@ const EditPost = ({ form }) => {
           }
           values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
+          values.brand = {value: values.brand.value, label: values.brand.label}
           const obj = {
             gallery: gallaryImages,
             ...values,
@@ -166,7 +166,6 @@ const EditPost = ({ form }) => {
   const getAddressValue = (value) => {
     const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
     axios.get(details_url).then((res) => {
-      console.log(res.data);
       const addressData = res.data.result.address_components;
       const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
       const country = addressData.filter(
