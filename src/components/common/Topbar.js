@@ -33,7 +33,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
 
   return (
     <AppBar
-      className="border-b py-1 lg:py-1 px-2 lg:px-16"
+      className="border-b py-1 lg:py-1 px-0 lg:px-2 lg:px-16"
       position="fixed"
       open={open}
       color="inherit"
@@ -41,6 +41,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
     >
       <Toolbar>
         <IconButton
+          className="hidden lg:block"
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
@@ -51,14 +52,20 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         </IconButton>
         <div className="flex px-0 lg:px-0">
           <div className="flex flex-shrink-0 items-center">
-            <img
-              className="lg:h-7 h-6 w-auto"
-              src="/logo.svg"
-              alt="Your Company"
-            />
+            <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} />
+        <IconButton
+          className="block lg:hidden"
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{ mr: 1, ...(open && { display: "none" }) }}
+        >
+          <MenuIcon />
+        </IconButton>
         <button
           type="button"
           onClick={() => navigate("/pricing")}
