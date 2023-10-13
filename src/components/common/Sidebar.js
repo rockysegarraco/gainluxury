@@ -8,8 +8,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -167,7 +165,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List className="flex-1">
+      <List sx={{ flex: 1 }}>
         {LIST_ITEMS.map((item, index) => (
           <div key={index}>
             {item?.isMenu ? (

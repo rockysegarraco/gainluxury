@@ -5,7 +5,6 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Share from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import ImageGallery from "react-image-gallery";
 import styled from "@emotion/styled";
 

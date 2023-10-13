@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Topbar from "../components/common/Topbar";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import Heading from "../components/Heading";
 
@@ -43,7 +42,6 @@ export default function Pricing() {
                 <div className="h-px flex-auto bg-gray-100" />
               </div>
               <ul
-                role="list"
                 className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6"
               >
                 {includedFeatures.map((feature) => (
