@@ -92,6 +92,13 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
     },
     { title: "divider" },
     {
+      title: "Sign in / Register",
+      icon: <AccountCircleIcon />,
+      show: true,
+      onClick: (index) => handleClick(index, "/pricing"),
+    },
+    { title: "divider" },
+    {
       title: "Manage Account",
       show: isSignedIn,
       icon: isSignedIn ? (

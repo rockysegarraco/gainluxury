@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 //
 import Container from "../components/container.js";
 import Breadcrumb from "../components/Breadcrumb";
 import CardCar from "../components/cardCar";
 //import Pagination from "../components/Pagination";
 
-import SelectCountries from "../components/Selects/SelectCountries"
+import SelectCountries from "../components/Selects/SelectCountries";
 import SelectStates from "../components/Selects/SelectStates";
 import SelectMakes from "../components/Selects/SelectMakes";
 import SelectPrice from "../components/Selects/SelectPrice";
@@ -17,27 +17,55 @@ import SelectYears from "../components/Selects/YearSelect";
 import Filters from "../components/Filters";
 //
 import db from "../firebase";
-import Stack from '@mui/material/Stack';
-import { BRAND, COUNTRY } from '../utils/constants.js';
-import SelectModel from '../components/Selects/SelectModel.js';
-import SearchDialog from '../components/Dialog/SearchDialog.js';
+import Stack from "@mui/material/Stack";
+import { BRAND, COUNTRY } from "../utils/constants.js";
+import SelectModel from "../components/Selects/SelectModel.js";
+import SearchDialog from "../components/Dialog/SearchDialog.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
   const [isSearchDialogOpen, setDialogOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [sortOptions, setSortOption] = useState([
-    { name: "Price lowest first", current: true, label: 'price', value: 'asc' },
-    { name: "Price highest first", current: false, label: 'price', value: 'desc' },
-    { name: "Mileage Low to High", current: false, label: 'kilometersRun', value: 'asc' },
-    { name: "Mileage High to Low", current: false, label: 'kilometersRun', value: 'desc' },
-    { name: "Year Low to High", current: false, label: 'yearModel', value: 'asc' },
-    { name: "Year High to Low", current: false, label: 'yearModel', value: 'desc' },
-  ])
+    { name: "Price lowest first", current: true, label: "price", value: "asc" },
+    {
+      name: "Price highest first",
+      current: false,
+      label: "price",
+      value: "desc",
+    },
+    {
+      name: "Mileage Low to High",
+      current: false,
+      label: "kilometersRun",
+      value: "asc",
+    },
+    {
+      name: "Mileage High to Low",
+      current: false,
+      label: "kilometersRun",
+      value: "desc",
+    },
+    {
+      name: "Year Low to High",
+      current: false,
+      label: "yearModel",
+      value: "asc",
+    },
+    {
+      name: "Year High to Low",
+      current: false,
+      label: "yearModel",
+      value: "desc",
+    },
+  ]);
 
   const collections = collection(db, "cars");
-  let q = query(collections,
-    where("category.value", "==", "cars"), where("postStatus", "==", "Live"));
+  let q = query(
+    collections,
+    where("category.value", "==", "cars"),
+    where("postStatus", "==", "Live")
+  );
 
   const [minYear, setMinYear] = React.useState("Min");
   const [maxYear, setMaxYear] = React.useState("Max");
@@ -53,8 +81,11 @@ const Cars = () => {
   const [stateData, setStateData] = React.useState([]);
   const [modelData, setModelData] = React.useState([]);
 
-
-  const [sort, setSort] = useState({ label: 'price', value: 'asc', name: 'Price lowest first' });
+  const [sort, setSort] = useState({
+    label: "price",
+    value: "asc",
+    name: "Price lowest first",
+  });
 
   useEffect(() => {
     getData();
@@ -62,10 +93,10 @@ const Cars = () => {
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
-    data.forEach((value, i) => value.current = i === index)
+    data.forEach((value, i) => (value.current = i === index));
     setSortOption(data);
-    setSort(obj)
-  }
+    setSort(obj);
+  };
 
   useEffect(() => {
     const data = JSON.parse(JSON.stringify(post));
@@ -82,41 +113,40 @@ const Cars = () => {
 
     // Year filter
     if (minYear !== "Min") {
-      q = query(q, where("yearModel", ">=", minYear))
+      q = query(q, where("yearModel", ">=", minYear));
     }
     if (maxYear !== "Max") {
-      q = query(q, where("yearModel", "<=", maxYear))
+      q = query(q, where("yearModel", "<=", maxYear));
     }
 
     // Price filter
     if (minPrice !== "Min" && minPrice.length >= 2) {
       console.log(typeof minPrice);
-      q = query(q, where("price", ">=", Number(minPrice)))
+      q = query(q, where("price", ">=", Number(minPrice)));
     }
     if (maxPrice !== "Max" && maxPrice.length >= 2) {
-      q = query(q, where("price", "<=", Number(minPrice)))
+      q = query(q, where("price", "<=", Number(minPrice)));
     }
 
     // Brand Filter
     if (brand !== "All") {
-      q = query(q, where("brand.value", "==", brand))
+      q = query(q, where("brand.value", "==", brand));
     }
 
-     // Model Filter
-     if (model !== "All") {
-      q = query(q, where("model.value", "==", model))
+    // Model Filter
+    if (model !== "All") {
+      q = query(q, where("model.value", "==", model));
     }
 
-     // Country Filter
-     if (country !== "All") {
-      q = query(q, where("country.value", "==", country))
+    // Country Filter
+    if (country !== "All") {
+      q = query(q, where("country.value", "==", country));
     }
 
     // State Filter
     if (state !== "All") {
-      q = query(q, where("state.value", "==", state))
+      q = query(q, where("state.value", "==", state));
     }
-
 
     //   q = query(q, orderBy(sort.label, sort.value))
     const querySnapshot = await getDocs(q);
@@ -133,16 +163,16 @@ const Cars = () => {
   };
 
   const handleReset = () => {
-    setMaxPrice("Max")
-    setMinPrice("Min")
-    setMaxYear("Max")
-    setMinYear("Min")
-    setBrand("All")
+    setMaxPrice("Max");
+    setMinPrice("Min");
+    setMaxYear("Max");
+    setMinYear("Min");
+    setBrand("All");
     setCountry("All");
-    setState("All")
-    setModel("All")
+    setState("All");
+    setModel("All");
     setSearchText("");
-  }
+  };
 
   const handleCountry = (data) => {
     const state = COUNTRY.find((table) => table.value === data).state;
@@ -150,9 +180,9 @@ const Cars = () => {
     if (state) {
       setStateData(state);
     } else {
-      setStateData([])
+      setStateData([]);
     }
-  }
+  };
 
   const handleBrand = (data) => {
     const modal = BRAND.find((table) => table.label === data).modal;
@@ -160,50 +190,71 @@ const Cars = () => {
     if (modal) {
       setModelData(modal);
     } else {
-      setModelData([])
+      setModelData([]);
     }
-  }
+  };
 
   const handleSearch = (modal, brand) => {
-    setSearchText(`${modal}, ${brand}`)
+    setSearchText(`${modal}, ${brand}`);
     setBrand(brand);
     setModel(modal);
     setDialogOpen(false);
-  }
+  };
 
   const handleOption = (brand) => {
-    setSearchText(brand)
+    setSearchText(brand);
     setBrand(brand);
     setDialogOpen(false);
-  }
+  };
 
   const handleClear = (e) => {
     e.stopPropagation();
-    setSearchText('');
-    setModel("All")
-    setBrand("All")
-  }
+    setSearchText("");
+    setModel("All");
+    setBrand("All");
+  };
 
   return (
     <>
-      <div className="border-b pb-4">
-        <div className="flex flex-row  max-w-[90%] items-center justify-between mx-auto">
-          <div className="flex items-center space-x-2 mt-4">
-            <SelectCountries handleCountry={handleCountry} country={country}  />
-            {stateData?.length > 0 && <SelectStates handleState={(value) => setState(value)} state={state} stateData={stateData} />}
+      <div className="border-b py-4">
+        <div className="flex flex-row px-6 lg:px-20 items-center justify-between mx-auto">
+          <div className="flex space-x-2">
+            <SelectCountries handleCountry={handleCountry} country={country} />
+            {stateData?.length > 0 && (
+              <SelectStates
+                handleState={(value) => setState(value)}
+                state={state}
+                stateData={stateData}
+              />
+            )}
             <SelectMakes handleBrand={handleBrand} brand={brand} />
-            {modelData?.length > 0 && <SelectModel handleModel={(value) => setModel(value)} model={model} modelData={modelData} />}
+            {modelData?.length > 0 && (
+              <SelectModel
+                handleModel={(value) => setModel(value)}
+                model={model}
+                modelData={modelData}
+              />
+            )}
             <SelectPrice
               minValue={minPrice}
               maxValue={maxPrice}
-              handleMin={(value) => setMinYear('Min')|setMaxYear('Max')|setMinPrice(value)}
-              handleMax={(value) => setMinYear('Min')|setMaxYear('Max')|setMaxPrice(value)}
+              handleMin={(value) =>
+                setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
+              }
+              handleMax={(value) =>
+                setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
+              }
             />
             <SelectYears
               minValue={minYear}
               maxValue={maxYear}
-              handleMin={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMinYear(value)}
-              handleMax={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMaxYear(value)} />
+              handleMin={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+              }
+              handleMax={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+              }
+            />
             <div className="flex w-full min-w-2xl">
               <label htmlFor="search" className="sr-only">
                 Search cars
@@ -232,28 +283,46 @@ const Cars = () => {
           <Breadcrumb />
         </div>
         <h1 className="text-4xl">Cars for Sale</h1>
-        <Stack sx={{ display: 'flex', flexDirection: "row", mt: 2, justifyContent: "space-between" }}>
-          <Filters sort={sort} sortOptions={sortOptions} handleSort={handleSort} />
+        <Stack
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            mt: 2,
+            justifyContent: "space-between",
+          }}
+        >
+          <Filters
+            sort={sort}
+            sortOptions={sortOptions}
+            handleSort={handleSort}
+          />
           <span>{post.length} Listings</span>
         </Stack>
 
         {post.length === 0 && (
-            <Stack sx={{ mt: 4 }}>
-              <Typography sx={{ fontWeight: "bold", fontSize: 20}}>No Results</Typography>
-              <Box>
-              <Typography 
-              onClick={handleReset}
-              component="span"
-              style={{ display: "inline"}} 
-              sx={{ cursor: "pointer", color: "blueviolet", "&:hover": { textDecoration: "underline",}  }}>
-                Reset all filters {" "}
+          <Stack sx={{ mt: 4 }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
+              No Results
+            </Typography>
+            <Box>
+              <Typography
+                onClick={handleReset}
+                component="span"
+                style={{ display: "inline" }}
+                sx={{
+                  cursor: "pointer",
+                  color: "blueviolet",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                Reset all filters{" "}
               </Typography>
-              <Typography style={{ display: "inline"}} sx={{ color: "black"}}>
-                 or remove one of your filters above to see more listings
-                </Typography>
-              </Box>
-            </Stack>
-          )}
+              <Typography style={{ display: "inline" }} sx={{ color: "black" }}>
+                or remove one of your filters above to see more listings
+              </Typography>
+            </Box>
+          </Stack>
+        )}
 
         <div className="grid grid-cols-3 mt-8 gap-8">
           {post.map((item, index) => (
@@ -262,16 +331,15 @@ const Cars = () => {
         </div>
         {/* <Pagination count={10} /> */}
 
-        <SearchDialog 
-          setOpen={() => setDialogOpen(false)} 
-          open={isSearchDialogOpen} 
+        <SearchDialog
+          setOpen={() => setDialogOpen(false)}
+          open={isSearchDialogOpen}
           handleClick={handleSearch}
           handleOption={handleOption}
-       />
+        />
       </Container>
-
     </>
-  )
-}
+  );
+};
 
 export default Cars;
