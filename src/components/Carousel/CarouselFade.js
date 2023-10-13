@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { IconButton } from "@material-tailwind/react";
-import { Typography, Button } from "@material-tailwind/react";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+
 import "./Carousel.css";
 
 const content = [

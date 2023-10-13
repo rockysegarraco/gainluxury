@@ -13,26 +13,13 @@ const SuperUser = () => {
   const [isLogin, setIsLogin] = useState(JSON.parse(localStorage.getItem("isSuperLogin")))
   const [user, setUser] = useState();;
   const [password, setPassword] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState([]);
-  const [page, setPage] = React.useState(20);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const username = process.env.REACT_APP_SUPER_USER_NAME;
   const superpassword = process.env.REACT_APP_SUPER_USER_PASS;
 
   useEffect(() => {
     getData();
   }, [])
-
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
 
   const getData = async () => {
     const collections = collection(db, "cars");
@@ -47,7 +34,6 @@ const SuperUser = () => {
       obj.docId = doc.id
       setPost((prev) => [...prev, obj]);
     });
-    setIsLoading(false)
   };
 
   const handleLogin = () => {
@@ -141,7 +127,7 @@ const SuperUser = () => {
                   paginationModel: { page: 0, pageSize: 20 },
                 },
               }}
-              pageSizeOptions={[5, 10]}
+              pageSizeOptions={[5, 10, 20]}
             />
           </div>
 

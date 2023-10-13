@@ -12,9 +12,6 @@ import ProfileDialog from '../Dialog/ProfileDialog'
 import { useUser } from '@clerk/clerk-react';
 
 // configs
-
-const drawerWidth = 240;
-
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1, 

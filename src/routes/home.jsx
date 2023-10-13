@@ -1,4 +1,3 @@
-import MainNav from "../components/common/MainNav";
 import FeaturedSection from "../components/FeaturedSection";
 import FeaturedListings from "../components/FeaturedListings";
 import RecentListings from "../components/RecentListings";

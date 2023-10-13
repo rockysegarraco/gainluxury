@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import Popover from "@mui/material/Popover";
 import { UserButton, useUser } from "@clerk/clerk-react";
@@ -13,7 +12,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 import CarRental from "@mui/icons-material/CarRental";
 import Home from "@mui/icons-material/Home";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const { isSignedIn } = useUser();
@@ -34,7 +33,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
 
   return (
     <AppBar
-      className="border-b py-1 lg:py-1 px-0 lg:px-2 lg:px-16"
+      className="border-b py-1 lg:py-1 px-0 lg:px-16"
       position="fixed"
       open={open}
       color="inherit"
