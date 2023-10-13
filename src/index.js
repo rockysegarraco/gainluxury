@@ -5,6 +5,7 @@ import { StyledEngineProvider, createTheme, ThemeProvider } from '@mui/material/
 import CssBaseline from '@mui/material/CssBaseline';
 
 import './index.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import "react-image-gallery/styles/css/image-gallery.css";
 import Router from './Router';
