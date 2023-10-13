@@ -38,3 +38,25 @@ font-style: normal;
 .section {
   padding: 2.5rem 0 2rem 0;
 }
+
+div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu .rocky {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
+
+.view {
+  z-index: 999999999999999;
+}

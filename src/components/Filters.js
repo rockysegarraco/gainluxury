@@ -1,8 +1,5 @@
 import { Fragment, useState } from "react";
-import {
-  Menu,
-  Transition,
-} from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
@@ -15,11 +12,11 @@ export default function Filters({ handleSort, sortOptions, sort }) {
       {/* Filters */}
       <section aria-labelledby="filter-heading">
         <div className="bg-white pb-0">
-          <div className="mx-auto flex max-w-full items-center justify-between px-4 sm:px-6 lg:px-0">
+          <div className="mx-auto flex max-w-full items-center justify-between">
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                  Sort: {sort?.name} 
+                  Sort: {sort?.name}
                   <ChevronDownIcon
                     className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                     aria-hidden="true"

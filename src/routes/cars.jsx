@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 //
 import Container from "../components/container.js";
 import Breadcrumb from "../components/Breadcrumb";
-import CardCar from "../components/cardCar";
+import CardCar from "../components/cardCar.js";
 //import Pagination from "../components/Pagination";
 
 import SelectCountries from "../components/Selects/SelectCountries";
@@ -21,6 +21,8 @@ import Stack from "@mui/material/Stack";
 import { BRAND, COUNTRY } from "../utils/constants.js";
 import SelectModel from "../components/Selects/SelectModel.js";
 import SearchDialog from "../components/Dialog/SearchDialog.js";
+
+import FeaturedListings from "../components/FeaturedListings";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -216,8 +218,8 @@ const Cars = () => {
 
   return (
     <>
-      <div className="border-b py-4">
-        <div className="flex flex-row px-6 lg:px-20 items-center justify-between mx-auto">
+      {/*<div className="border-b py-4">
+        <div className="px-6 lg:px-20">
           <div className="flex space-x-2">
             <SelectCountries handleCountry={handleCountry} country={country} />
             {stateData?.length > 0 && (
@@ -277,12 +279,12 @@ const Cars = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>*/}
       <Container>
         <div className="py-4">
           <Breadcrumb />
         </div>
-        <h1 className="text-4xl">Cars for Sale</h1>
+        <h1 className="text-4xl fancy">Cars for Sale</h1>
         <Stack
           sx={{
             display: "flex",
@@ -296,7 +298,7 @@ const Cars = () => {
             sortOptions={sortOptions}
             handleSort={handleSort}
           />
-          <span>{post.length} Listings</span>
+          <span className="text-sm text-gray-700">{post.length} Listings</span>
         </Stack>
 
         {post.length === 0 && (
@@ -324,7 +326,7 @@ const Cars = () => {
           </Stack>
         )}
 
-        <div className="grid grid-cols-3 mt-8 gap-8">
+        <div>
           {post.map((item, index) => (
             <CardCar key={index} item={item} i={index} />
           ))}
