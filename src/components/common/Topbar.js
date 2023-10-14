@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -33,13 +34,13 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
 
   return (
     <AppBar
-      className="border-b py-1 lg:py-1 px-0 lg:px-16"
+      className="border-b lg:px-20"
       position="fixed"
       open={open}
       color="inherit"
       elevation={0}
     >
-      <Toolbar>
+      <Toolbar className="px-6 lg:px-0">
         <IconButton
           className="hidden lg:block"
           color="inherit"
@@ -52,7 +53,9 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         </IconButton>
         <div className="flex px-0 lg:px-0">
           <div className="flex flex-shrink-0 items-center">
-            <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
+            <Link to="/">
+              <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
+            </Link>
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} />
@@ -88,7 +91,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           <button
             type="button"
             onClick={() => navigate("/login")}
-            className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
+            className="rounded-full bg-black px-4 py-2 mr-0 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
           >
             {" "}
             Login

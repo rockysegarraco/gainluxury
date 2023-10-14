@@ -1,14 +1,14 @@
 import { SignIn } from "@clerk/clerk-react";
 import React from "react";
 import { useTitle } from "../utils";
-import Heading from "../components/Heading";
+import Topbar from "../components/common/Topbar";
 
 const Login = () => {
   useTitle("Login");
 
   return (
     <>
-      <Heading />
+      <Topbar />
       <div className="flex">
         <div className="flex flex-1 items-center justify-center mt-16 lg:mt-24">
           <SignIn path="/login" signUpUrl="/signup" routing="path" />

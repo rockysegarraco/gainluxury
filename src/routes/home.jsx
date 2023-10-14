@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Carousel from "../components/Carousel/CarouselFade";
 import { BrowserView, MobileView } from "react-device-detect";
 import MobileSlider from "../components/Carousel/MobileSlider";
+import SubNav from "../components/SubNav";
 
 function Home() {
   return (

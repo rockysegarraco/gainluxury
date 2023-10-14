@@ -1,7 +1,7 @@
 export default function Layout({ preview, children }) {
   return (
     <>
-      <div className="mx-auto max-w-[90%]">{children}</div>
+      <div className="mx-auto max-w-full lg:px-20 px-6">{children}</div>
     </>
   );
 }
