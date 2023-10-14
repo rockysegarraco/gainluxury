@@ -185,10 +185,10 @@ const Cars = () => {
   }
 
   return (
-    <>
-      <div className="border-b pb-4">
-        <div className="flex flex-row  max-w-[90%] items-center justify-between mx-auto">
-          <div className="flex items-center space-x-2 mt-4">
+    <div className='flex flex-col overflow-hidden'>
+      <div className="border-b py-4 max-w-[100vw]">
+        <div className="flex flex-row mx-auto max-w-[90%] overflow-scroll">
+          <div className="flex space-x-2 mt-2">
             <SelectCountries handleCountry={handleCountry} country={country}  />
             {stateData?.length > 0 && <SelectStates handleState={(value) => setState(value)} state={state} stateData={stateData} />}
             <SelectMakes handleBrand={handleBrand} brand={brand} />
@@ -204,7 +204,7 @@ const Cars = () => {
               maxValue={maxYear}
               handleMin={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMinYear(value)}
               handleMax={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMaxYear(value)} />
-            <div className="flex w-full min-w-2xl">
+            <div className="flex relative w-full min-w-2xl">
               <label htmlFor="search" className="sr-only">
                 Search cars
               </label>
@@ -220,6 +220,7 @@ const Cars = () => {
                   onClick={() => setDialogOpen(true)}
                   className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Search Cars"
+                  style={{minWidth: '200px'}}
                   value={searchText}
                 />
               </div>
@@ -270,7 +271,7 @@ const Cars = () => {
        />
       </Container>
 
-    </>
+    </div>
   )
 }
 
