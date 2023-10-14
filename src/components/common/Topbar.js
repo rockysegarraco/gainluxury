@@ -14,6 +14,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import CarRental from "@mui/icons-material/CarRental";
 import Home from "@mui/icons-material/Home";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const { isSignedIn } = useUser();
@@ -40,9 +41,9 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
       color="inherit"
       elevation={0}
     >
-      <Toolbar className="px-6 lg:px-0">
+      <Toolbar className="pl-6 pr-4 lg:px-0">
         <IconButton
-          className="hidden lg:block"
+          className=""
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
@@ -59,20 +60,13 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton
-          className="block lg:hidden"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 1, ...(open && { display: "none" }) }}
-        >
-          <Bars3Icon className="h-6" />
-        </IconButton>
+        <div className="px-4">
+          <SearchIcon />
+        </div>
         <button
           type="button"
           onClick={() => navigate("/pricing")}
-          className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
+          className="rounded-full px-4 py-2 mr-0 text-base text-black shadow-sm hover:bg-gray-100 hidden lg:block"
         >
           {" "}
           Pricing
@@ -80,7 +74,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="rounded-full bg-black px-4 py-2 mr-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
+          className="rounded-full px-4 py-2 mr-4 text-base text-black hover:bg-gray-100 hidden lg:block"
         >
           {" "}
           Add Listing
@@ -91,10 +85,10 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           <button
             type="button"
             onClick={() => navigate("/login")}
-            className="rounded-full bg-black px-4 py-2 mr-0 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 hidden lg:block"
+            className="rounded-full border border-black hover:border-gray-700 px-6 py-2 mr-0 text-sm font-semibold hover:text-gray-700 hidden lg:block"
           >
             {" "}
-            Login
+            Log In
           </button>
         )}
       </Toolbar>

@@ -22,8 +22,6 @@ import { BRAND, COUNTRY } from "../utils/constants.js";
 import SelectModel from "../components/Selects/SelectModel.js";
 import SearchDialog from "../components/Dialog/SearchDialog.js";
 
-import FeaturedListings from "../components/FeaturedListings";
-
 const Cars = () => {
   const [post, setPost] = useState([]);
   const [isSearchDialogOpen, setDialogOpen] = useState(false);
@@ -217,12 +215,18 @@ const Cars = () => {
   };
 
   return (
-    <div className='flex flex-col overflow-hidden'>
-      <div className="border-b py-4 max-w-[100vw]">
-        <div className="flex flex-row mx-auto max-w-[90%] overflow-scroll">
-          <div className="flex space-x-2 mt-2">
-            <SelectCountries handleCountry={handleCountry} country={country}  />
-            {stateData?.length > 0 && <SelectStates handleState={(value) => setState(value)} state={state} stateData={stateData} />}
+    <div className="flex flex-col overflow-hidden">
+      <div className="border-b py-2 lg:py-3 max-w-[100vw]">
+        <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
+          <div className="flex space-x-2">
+            <SelectCountries handleCountry={handleCountry} country={country} />
+            {stateData?.length > 0 && (
+              <SelectStates
+                handleState={(value) => setState(value)}
+                state={state}
+                stateData={stateData}
+              />
+            )}
             <SelectMakes handleBrand={handleBrand} brand={brand} />
             {modelData?.length > 0 && (
               <SelectModel
@@ -244,8 +248,13 @@ const Cars = () => {
             <SelectYears
               minValue={minYear}
               maxValue={maxYear}
-              handleMin={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMinYear(value)}
-              handleMax={(value) => setMinPrice('Min')|setMaxPrice('Max')|setMaxYear(value)} />
+              handleMin={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+              }
+              handleMax={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+              }
+            />
             <div className="flex relative w-full min-w-2xl">
               <label htmlFor="search" className="sr-only">
                 Search cars
@@ -262,7 +271,7 @@ const Cars = () => {
                   onClick={() => setDialogOpen(true)}
                   className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Search Cars"
-                  style={{minWidth: '200px'}}
+                  style={{ minWidth: "200px" }}
                   value={searchText}
                 />
               </div>
@@ -271,10 +280,10 @@ const Cars = () => {
         </div>
       </div>
       <Container>
-        <div className="py-4">
+        <div className="py-2 lg:py-3">
           <Breadcrumb />
         </div>
-        <h1 className="text-4xl fancy">Cars for Sale</h1>
+        <h1 className="text-2xl lg:text-4xl fancy">Cars for Sale</h1>
         <Stack
           sx={{
             display: "flex",
@@ -322,17 +331,9 @@ const Cars = () => {
           ))}
         </div>
         {/* <Pagination count={10} /> */}
-
-        <SearchDialog
-          setOpen={() => setDialogOpen(false)}
-          open={isSearchDialogOpen}
-          handleClick={handleSearch}
-          handleOption={handleOption}
-        />
       </Container>
-
     </div>
-  )
-}
+  );
+};
 
 export default Cars;

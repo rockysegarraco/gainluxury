@@ -9,10 +9,10 @@ export default function Example() {
 
   return (
     <div className="py-4">
-      <div className="mx-auto max-w-7xl px-8">
+      <div className="mx-auto max-w-full lg:px-20 px-6">
         <div className="flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="">
-            <img className="h-8 w-auto" src="/logo.svg" alt="Gain Luxury" />
+            <img className="h-14 w-auto" src="/mark.svg" alt="Gain Luxury" />
           </div>
           <div className="flex-shrink-0">
             <button
