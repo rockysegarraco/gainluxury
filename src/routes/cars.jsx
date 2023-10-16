@@ -215,129 +215,161 @@ const Cars = () => {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <div className="border-b py-2 lg:py-3 max-w-[100vw]">
-        <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
-          <div className="flex space-x-2">
-            <SelectCountries handleCountry={handleCountry} country={country} />
-            {stateData?.length > 0 && (
-              <SelectStates
-                handleState={(value) => setState(value)}
-                state={state}
-                stateData={stateData}
-              />
-            )}
-            <SelectMakes handleBrand={handleBrand} brand={brand} />
-            {modelData?.length > 0 && (
-              <SelectModel
-                handleModel={(value) => setModel(value)}
-                model={model}
-                modelData={modelData}
-              />
-            )}
-            <SelectPrice
-              minValue={minPrice}
-              maxValue={maxPrice}
-              handleMin={(value) =>
-                setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
-              }
-              handleMax={(value) =>
-                setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
-              }
+    <>
+      <div className="w-full block lg:hidden">
+        <label htmlFor="search" className="sr-only">
+          Search
+        </label>
+        <div className="relative flex px-4 pt-3">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-6 pt-2">
+            <MagnifyingGlassIcon
+              onClick={handleClear}
+              className="h-5 w-5 text-gray-400"
+              aria-hidden="true"
             />
-            <SelectYears
-              minValue={minYear}
-              maxValue={maxYear}
-              handleMin={(value) =>
-                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
-              }
-              handleMax={(value) =>
-                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
-              }
-            />
-            <div className="flex relative w-full min-w-2xl">
-              <label htmlFor="search" className="sr-only">
-                Search cars
-              </label>
-              <div className="relative flex">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <MagnifyingGlassIcon
-                    onClick={handleClear}
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
+          </div>
+          <input
+            onClick={() => setDialogOpen(true)}
+            className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            placeholder="Search Cars"
+            style={{ minWidth: "100%" }}
+            value={searchText}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col overflow-hidden">
+        <div className="border-b py-3 lg:py-3 max-w-[100vw]">
+          <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
+            <div className="flex space-x-2">
+              <SelectCountries
+                handleCountry={handleCountry}
+                country={country}
+              />
+              {stateData?.length > 0 && (
+                <SelectStates
+                  handleState={(value) => setState(value)}
+                  state={state}
+                  stateData={stateData}
+                />
+              )}
+              <SelectMakes handleBrand={handleBrand} brand={brand} />
+              {modelData?.length > 0 && (
+                <SelectModel
+                  handleModel={(value) => setModel(value)}
+                  model={model}
+                  modelData={modelData}
+                />
+              )}
+              <SelectPrice
+                minValue={minPrice}
+                maxValue={maxPrice}
+                handleMin={(value) =>
+                  setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
+                }
+                handleMax={(value) =>
+                  setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
+                }
+              />
+              <SelectYears
+                minValue={minYear}
+                maxValue={maxYear}
+                handleMin={(value) =>
+                  setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+                }
+                handleMax={(value) =>
+                  setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+                }
+              />
+              <div className="relative w-full min-w-4xl hidden lg:block">
+                <label htmlFor="search" className="sr-only">
+                  Search cars
+                </label>
+                <div className="relative flex">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <MagnifyingGlassIcon
+                      onClick={handleClear}
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <input
+                    onClick={() => setDialogOpen(true)}
+                    className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Search Cars"
+                    style={{ minWidth: "300px" }}
+                    value={searchText}
                   />
                 </div>
-                <input
-                  onClick={() => setDialogOpen(true)}
-                  className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Search Cars"
-                  style={{ minWidth: "200px" }}
-                  value={searchText}
-                />
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <Container>
-        <div className="py-2 lg:py-3">
-          <Breadcrumb />
-        </div>
-        <h1 className="text-2xl lg:text-4xl fancy">Cars for Sale</h1>
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            mt: 2,
-            justifyContent: "space-between",
-          }}
-        >
-          <Filters
-            sort={sort}
-            sortOptions={sortOptions}
-            handleSort={handleSort}
-          />
-          <span className="text-sm text-gray-700">{post.length} Listings</span>
-        </Stack>
-
-        {post.length === 0 && (
-          <Stack sx={{ mt: 4 }}>
-            <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
-              No Results
-            </Typography>
-            <Box>
-              <Typography
-                onClick={handleReset}
-                component="span"
-                style={{ display: "inline" }}
-                sx={{
-                  cursor: "pointer",
-                  color: "blueviolet",
-                  "&:hover": { textDecoration: "underline" },
-                }}
-              >
-                Reset all filters{" "}
-              </Typography>
-              <Typography style={{ display: "inline" }} sx={{ color: "black" }}>
-                or remove one of your filters above to see more listings
-              </Typography>
-            </Box>
+        <Container>
+          <div className="py-2 lg:py-3">
+            <Breadcrumb />
+          </div>
+          <h1 className="text-2xl lg:text-4xl fancy">Cars for Sale</h1>
+          <Stack
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              mt: 2,
+              justifyContent: "space-between",
+            }}
+          >
+            <Filters
+              sort={sort}
+              sortOptions={sortOptions}
+              handleSort={handleSort}
+            />
+            <span className="text-sm text-gray-700">
+              {post.length} Listings
+            </span>
           </Stack>
-        )}
 
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4">
-          {post.map((item, index) => (
-            <CardCar key={index} item={item} i={index} />
-          ))}
-        </div>
-        {/* <Pagination count={10} /> */}
-      </Container>
-      <SearchDialog
-         handleClick={handleSearch} 
-         handleOption={handleOption} 
-         setOpen={() => setDialogOpen(false)} 
-         open={isSearchDialogOpen} />
-    </div>
+          {post.length === 0 && (
+            <Stack sx={{ mt: 4 }}>
+              <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
+                No Results
+              </Typography>
+              <Box>
+                <Typography
+                  onClick={handleReset}
+                  component="span"
+                  style={{ display: "inline" }}
+                  sx={{
+                    cursor: "pointer",
+                    color: "blueviolet",
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                >
+                  Reset all filters{" "}
+                </Typography>
+                <Typography
+                  style={{ display: "inline" }}
+                  sx={{ color: "black" }}
+                >
+                  or remove one of your filters above to see more listings
+                </Typography>
+              </Box>
+            </Stack>
+          )}
+
+          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4">
+            {post.map((item, index) => (
+              <CardCar key={index} item={item} i={index} />
+            ))}
+          </div>
+          {/* <Pagination count={10} /> */}
+        </Container>
+        <SearchDialog
+          handleClick={handleSearch}
+          handleOption={handleOption}
+          setOpen={() => setDialogOpen(false)}
+          open={isSearchDialogOpen}
+        />
+      </div>
+    </>
   );
 };
 

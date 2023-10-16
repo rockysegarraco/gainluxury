@@ -53,7 +53,10 @@ const AddProperty = ({ form }) => {
             values.price = Number(values.price);
           }
           values.yearModel = Number(values.yearModel);
-          values.country = {value: values.country.value, label: values.country.label}
+          values.country = {
+            value: values.country.value,
+            label: values.country.label,
+          };
           const obj = {
             gallery: gallaryImages,
             ...values,
@@ -61,7 +64,7 @@ const AddProperty = ({ form }) => {
             address: addressValue.label,
             slug,
             location,
-            category
+            category,
           };
 
           return await axios
@@ -127,16 +130,18 @@ const AddProperty = ({ form }) => {
         const zipcode = addressData.filter(
           (a) => a.types[0] === "postal_code"
         )[0];
-        const country = addressData.filter(
-          (a) => a.types[0] === "country"
-        )[0];
+        const country = addressData.filter((a) => a.types[0] === "country")[0];
         const state = addressData.filter(
           (a) => a.types[0] === "administrative_area_level_1"
         )[0];
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
-          country: country ? { label: country.long_name, value: country.long_name } : "",
-          state: state ? { label: state.long_name, value: state.long_name } : "",
+          country: country
+            ? { label: country.long_name, value: country.long_name }
+            : "",
+          state: state
+            ? { label: state.long_name, value: state.long_name }
+            : "",
         });
         setLocation(res.data.result.geometry?.location);
       })
@@ -155,141 +160,168 @@ const AddProperty = ({ form }) => {
       <div className="mx-auto max-w-full md:max-w-4xl lg:max-w-3xl mt-2 bg-white px-10 lg:px-0 py-5 mb-5">
         <Stack spacing={0}>
           <h2 className="text-2xl font-bold mb-4">Let's get started</h2>
-            <Stack gap={3}>
-              <div className="mt-4">
-                <FormItem>
-                  {getFieldDecorator("title", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(<TextInput label="Listing Title" />)}
-                </FormItem>
-              </div>
+          <Stack gap={3}>
+            <div className="mt-4">
               <FormItem>
-                {getFieldDecorator("description", {
+                {getFieldDecorator("title", {
                   initialValue: "",
                   rules: [{ required: true }],
-                })(
-                  <TextInput
-                    multiline
-                    label="Features"
-                  />
-                )}
+                })(<TextInput label="Listing Title" />)}
               </FormItem>
+              <div className="mt-4">
+                <FormItem>
+                  {getFieldDecorator("agent", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(<TextInput label="Agent" />)}
+                </FormItem>
+              </div>
+            </div>
+            <FormItem>
+              {getFieldDecorator("description", {
+                initialValue: "",
+                rules: [{ required: true }],
+              })(<TextInput multiline label="Features" />)}
+            </FormItem>
 
-              <div class="col-span-full">
-                <label for="cover-photo" class="block font-medium leading-6 text-gray-700">Photos</label>
-                <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                  <div class="text-center">
-                    <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-                    </svg>
-                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                        <span className="self-center">{galleryLoading ? "Loading..." : "Add Images"}</span>
-                        <input 
-                          id="file-upload" name="file-upload"
-                          multiple max={5}
-                          type="file" 
-                          class="sr-only"
-                          ref={inputGallery}
-                          accept="image/png, image/jpg, image/jpeg"
-                          onChange={handleGalleryFile}
-                        />
-                      </label>
-                      
-                    </div>
-                    <p class="text-xs leading-5 text-gray-600">PNG, JPG up to 3MB</p>
+            <div class="col-span-full">
+              <label
+                for="cover-photo"
+                class="block font-medium leading-6 text-gray-700"
+              >
+                Photos
+              </label>
+              <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div class="text-center">
+                  <svg
+                    class="mx-auto h-12 w-12 text-gray-300"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                    <label
+                      for="file-upload"
+                      class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                    >
+                      <span className="self-center">
+                        {galleryLoading ? "Loading..." : "Add Images"}
+                      </span>
+                      <input
+                        id="file-upload"
+                        name="file-upload"
+                        multiple
+                        max={5}
+                        type="file"
+                        class="sr-only"
+                        ref={inputGallery}
+                        accept="image/png, image/jpg, image/jpeg"
+                        onChange={handleGalleryFile}
+                      />
+                    </label>
                   </div>
+                  <p class="text-xs leading-5 text-gray-600">
+                    PNG, JPG up to 3MB
+                  </p>
                 </div>
               </div>
-              <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                {gallaryImages.map((image, index) => (
-                  <Paper
-                    key={index}
+            </div>
+            <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
+              {gallaryImages.map((image, index) => (
+                <Paper
+                  key={index}
+                  sx={{
+                    backgroundImage: `url(${image})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    height: 150,
+                    width: 150,
+                    flexShrink: 0,
+                    marginTop: "10px",
+                  }}
+                >
+                  <IconButton
                     sx={{
-                      backgroundImage: `url(${image})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "cover",
-                      height: 150,
-                      width: 150,
-                      flexShrink: 0,
-                      marginTop: "10px",
+                      m: 1,
+                      height: "22px",
+                      width: "22px",
+                      bgcolor: "white",
                     }}
+                    onClick={() => handleImageDelete(index)}
                   >
-                    <IconButton
-                      sx={{
-                        m: 1,
-                        height: "22px",
-                        width: "22px",
-                        bgcolor: "white",
-                      }}
-                      onClick={() => handleImageDelete(index)}
-                    >
-                      <CloseOutlined />
-                    </IconButton>
-                  </Paper>
-                ))}
-              </div>
-            </Stack>
+                    <CloseOutlined />
+                  </IconButton>
+                </Paper>
+              ))}
+            </div>
+          </Stack>
 
           <h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
           <Stack gap={3}>
-          <FormItem>
-            {getFieldDecorator("email", {
-              initialValue: "",
-              rules: [{ required: true, }],
-            })(<TextInput label="Email" />)}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator("phone", {
-              initialValue: user && user.user_mobile,
-              rules: [
-                {
-                  required: true,
-                  message: "Please enter a valid phone number",
-                },
-                { validator: validatePhone },
-              ],
-            })(
-              <PhoneInput
-                label="Mobile Number"
-                prependIcon={false}
-                maxLength={10}
+            <FormItem>
+              {getFieldDecorator("email", {
+                initialValue: "",
+                rules: [{ required: true }],
+              })(<TextInput label="Email" />)}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("phone", {
+                initialValue: user && user.user_mobile,
+                rules: [
+                  {
+                    required: true,
+                    message: "Please enter a valid phone number",
+                  },
+                  { validator: validatePhone },
+                ],
+              })(
+                <PhoneInput
+                  label="Mobile Number"
+                  prependIcon={false}
+                  maxLength={10}
+                />
+              )}
+            </FormItem>
+            <div className="mt-2">
+              <label class="block mb-2 font-medium leading-6 text-gray-700">
+                Address
+              </label>
+              <GooglePlacesAutocomplete
+                selectProps={{
+                  placeholder: "search your place",
+                  value: addressValue,
+                  onChange: getAddressValue,
+                }}
+                apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
               />
-            )}
-          </FormItem>
-          <div className="mt-2">
-          <label class="block mb-2 font-medium leading-6 text-gray-700">Address</label>
-            <GooglePlacesAutocomplete
-              selectProps={{
-                placeholder: "search your place",
-                value: addressValue,
-                onChange: getAddressValue,
-              }}
-              apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
-            />
-          </div>
+            </div>
 
-          <FormItem>
-                {getFieldDecorator("state", {
+            <FormItem>
+              {getFieldDecorator("state", {
+                initialValue: "",
+              })(<Select options={US_STATE} fullWidth label="State" />)}
+            </FormItem>
+
+            <Stack gap={2} sx={{ flexDirection: "row", alignItems: "center" }}>
+              <FormItem>
+                {getFieldDecorator("country", {
                   initialValue: "",
-                })(<Select options={US_STATE} fullWidth label="State" />)}
+                  rules: [{ required: true }],
+                })(<Select fullWidth label="Country" options={COUNTRY} />)}
               </FormItem>
 
-          <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
-            <FormItem>
-              {getFieldDecorator("country", {
-                initialValue: "",
-                rules: [{required: true,},],
-              })(<Select fullWidth label="Country" options={COUNTRY}  />)}
-            </FormItem>
-
-            <FormItem>
-              {getFieldDecorator("zipcode", {
-                initialValue: "",
-              })(<TextInput label="Zipcode" type="number" />)}
-            </FormItem>
-          </Stack>
+              <FormItem>
+                {getFieldDecorator("zipcode", {
+                  initialValue: "",
+                })(<TextInput label="Zipcode" type="number" />)}
+              </FormItem>
+            </Stack>
           </Stack>
         </Stack>
 
