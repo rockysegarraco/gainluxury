@@ -16,6 +16,7 @@ export default function CardCar({ item, i }) {
             : item.pricingType.value
         }
         Location={item.address}
+        email={item.email}
       />
     </>
   );
