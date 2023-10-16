@@ -1,6 +1,9 @@
-import Card from "../components/Card.js";
+import CardCar from "./cardCar.js";
 
-export default function RecentListings() {
+export default function RecentListings({ post }) {
+
+
+
   return (
     <div className="section">
       <div className="mx-auto max-w-[90%]">
@@ -10,7 +13,9 @@ export default function RecentListings() {
           </h2>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          <Card />
+          {post.map((item, index) => (
+            <CardCar key={index} item={item} i={index} />
+          ))}
         </div>
       </div>
     </div>
