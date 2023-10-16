@@ -54,7 +54,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
               <Breadcrumb />
             </div>
           </div>
-          <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-6 lg:px-0 flex flex-row justify-between mt-8">
+          <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-8">
             {user?.id === userId && (
               <div className="flex gap-2">
                 <Button
@@ -87,23 +87,22 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
           </div>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl lg:max-w-[90%] max-h-full lg:px-0 px-6">
+          <div className="mx-auto mt-6 max-w-full max-h-full lg:px-20 px-4">
             {gallery?.length > 0 && <Gallery images={gallery} />}
           </div>
 
           {/* Product info */}
           <div className="mx-auto max-w-[90%] pb-16 pt-10 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:pb-24 lg:pt-6">
             <div className="lg:col-span-2 lg:pr-8">
-              <Stack
-                sx={{ flexDirection: "row", justifyContent: "space-between" }}
-              >
-                <h1 className="text-3xl font-bold text-gray-900">
-                  {yearModel} {brand.label}
+              <div className="flex justify-between">
+                <h1 className="text-xl lg:text-3xl font-bold text-gray-900 fancy">
+                  {title}
                 </h1>
-              </Stack>
-              <h2 className="text-2xl text-gray-900">
-                {price ? `$${price}` : pricingType.value}
-              </h2>
+                <h2 className="text-lg lg:text-3xl text-gray-900 fancy">
+                  {price ? `$${price}` : pricingType.value}
+                </h2>
+              </div>
+
               <h3 className="py-2">{address}</h3>
               <div className="py-4">
                 <div className="bg-gray-900">
@@ -189,7 +188,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                   <GoogleMapReact
                     bootstrapURLKeys={{
                       key: process.env.REACT_APP_GOOGLE_MAP_KEY,
-                      libraries:['places'],
+                      libraries: ["places"],
                     }}
                     defaultCenter={location}
                     defaultZoom={15}

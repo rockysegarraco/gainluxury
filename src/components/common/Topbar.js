@@ -66,7 +66,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         <button
           type="button"
           onClick={() => navigate("/pricing")}
-          className="rounded-full px-4 py-2 mr-0 text-base text-black shadow-sm hover:bg-gray-100 hidden lg:block"
+          className="rounded-full px-6 py-2 mr-0 text-base text-black hover:bg-gray-100 hidden lg:block"
         >
           {" "}
           Pricing
@@ -74,7 +74,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="rounded-full px-4 py-2 mr-4 text-base text-black hover:bg-gray-100 hidden lg:block"
+          className="rounded-full px-6 py-2 mr-4 text-base text-black hover:bg-gray-100 hidden lg:block"
         >
           {" "}
           Add Listing

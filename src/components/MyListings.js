@@ -1,11 +1,9 @@
-import * as React from "react";
 import Card from "../components/Card.js";
-
-export default function CardCar({ item, i }) {
+export default function MyListings({ item, index }) {
   return (
     <>
       <Card
-        key={i}
+        key={index}
         Link={`/${item.category.value}/${item.slug}`}
         Title={item.title}
         ImageUrl={item.gallery[0]}

@@ -160,6 +160,9 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       open={open}
     >
       <DrawerHeader>
+        <div>
+          <img className="h-10" src="/mark.svg" />
+        </div>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "ltr" ? <ClearIcon /> : <ClearIcon />}
         </IconButton>

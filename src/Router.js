@@ -57,8 +57,14 @@ function ClerkProviderWithRoutes() {
         </Route>
 
         {/* Global routes */}
-        <Route path="/create-car-post" element={<AddPost path="/create-car-post" />} />
-        <Route path="/create-property-post" element={<AddProperty path="/create-property-post" />} />
+        <Route
+          path="/create-car-post"
+          element={<AddPost path="/create-car-post" />}
+        />
+        <Route
+          path="/create-property-post"
+          element={<AddProperty path="/create-property-post" />}
+        />
         <Route
           path="/edit-post/:slug"
           element={<EditPost path="/edit-post" />}
