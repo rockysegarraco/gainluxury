@@ -57,6 +57,7 @@ const AddPost = ({ form }) => {
           values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
           values.brand = {value: values.brand.value, label: values.brand.label}
+          values.country = {value: values.country.value, label: values.country.label}
           const obj = {
             gallery: gallaryImages,
             ...values,

@@ -53,6 +53,7 @@ const AddProperty = ({ form }) => {
             values.price = Number(values.price);
           }
           values.yearModel = Number(values.yearModel);
+          values.country = {value: values.country.value, label: values.country.label}
           const obj = {
             gallery: gallaryImages,
             ...values,
