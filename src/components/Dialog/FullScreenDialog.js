@@ -42,7 +42,6 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
           open={open}
           onClose={setOpen}
           TransitionComponent={Transition}
-          className="relative"
         >
           <Stack
             sx={{ flexDirection: 'row', justifyContent: 'space-between', m: 1, position: 'sticky', top: 5  }} >

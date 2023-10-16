@@ -19,15 +19,16 @@ export default function Example(props) {
                   {props.Price}
                 </div>
                 <div className="text-sm text-black/75">
-                  <a href={props.Link}>{props.Title}</a>
+                  <a href={props.Link}>
+                    {props.Title}
+                    {/* <span aria-hidden="true" className="absolute inset-0" /> REmove this line */}
+                  </a>
                 </div>
               </div>
               <div>
                 <button
                   className="rounded bg-black px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={() =>
-                    (window.location = "mailto:rockysegarra@icloud.com")
-                  }
+                  onClick={() => (window.location = `mailto:${props.email}`)}
                 >
                   Contact
                 </button>

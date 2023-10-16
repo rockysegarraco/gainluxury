@@ -332,6 +332,11 @@ const Cars = () => {
         </div>
         {/* <Pagination count={10} /> */}
       </Container>
+      <SearchDialog
+         handleClick={handleSearch} 
+         handleOption={handleOption} 
+         setOpen={() => setDialogOpen(false)} 
+         open={isSearchDialogOpen} />
     </div>
   );
 };
