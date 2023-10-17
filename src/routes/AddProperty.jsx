@@ -70,6 +70,8 @@ const AddProperty = ({ form }) => {
               {
                 post: {
                   priceId: category.priceId,
+                  success_url: window.location.origin + '/success',
+                  cancel_url: window.location.origin + '/cancel'
                 },
               }
             )
@@ -95,7 +97,7 @@ const AddProperty = ({ form }) => {
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
       if (files?.length <= MAX_LENGTH) {
-        const maxSize = 3 * 1024 * 1024;
+        const maxSize = 5 * 1024 * 1024;
         const validFiles = files.filter((file) => file.size <= maxSize);
         if (validFiles.length !== files.length) {
           alert("Some files exceed the maximum size limit (5MB).");
@@ -119,9 +121,8 @@ const AddProperty = ({ form }) => {
   };
 
   const getAddressValue = (value) => {
-    const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
     axios
-      .get(details_url)
+    .post("https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/get-place-data", {placeId: value?.value?.place_id})
       .then((res) => {
         const addressData = res.data.result.address_components;
         const zipcode = addressData.filter(
@@ -198,7 +199,7 @@ const AddProperty = ({ form }) => {
                       </label>
                       
                     </div>
-                    <p class="text-xs leading-5 text-gray-600">PNG, JPG up to 3MB</p>
+                    <p class="text-xs leading-5 text-gray-600">PNG, JPG up to 5MB</p>
                   </div>
                 </div>
               </div>

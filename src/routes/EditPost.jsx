@@ -141,7 +141,7 @@ const EditPost = ({ form }) => {
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
       if (files?.length <= MAX_LENGTH) {
-        const maxSize = 3 * 1024 * 1024;
+        const maxSize = 5 * 1024 * 1024;
         const validFiles = files.filter((file) => file.size <= maxSize);
         if (validFiles.length !== files.length) {
           alert("Some files exceed the maximum size limit (5MB).");
@@ -165,8 +165,10 @@ const EditPost = ({ form }) => {
   };
 
   const getAddressValue = (value) => {
-    const details_url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${value?.value?.place_id}&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}`;
-    axios.get(details_url).then((res) => {
+    axios
+    .post("https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/get-place-data", {placeId: value?.value?.place_id})
+    .then((res) => {
+      console.log(res);
       const addressData = res.data.result.address_components;
       const zipcode = addressData.filter(a => a.types[0] === "postal_code")[0];
       const country = addressData.filter(

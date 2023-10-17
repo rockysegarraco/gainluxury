@@ -81,6 +81,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       icon: <ControlPointIcon />,
       show: true,
       onClick: (index) => handleClick(index, "/create-post"),
+      isMenu: true,
     },
     {
       title: "Pricing",
@@ -110,22 +111,14 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
     },
   ];
 
-  const MENU_ITEMS = [
+  const ADD_LISTING_MENU_ITEMS = [
     {
-      title: "Real Estate",
-      onClick: (index) => handleMenuItemClick(index, "/home/real-estate"),
+      title: "Sell a Car",
+      onClick: (index) => handleMenuItemClick(index, "/create-car-post"),
     },
     {
-      title: "Cars",
-      onClick: (index) => handleMenuItemClick(index, "/home/cars"),
-    },
-    {
-      title: "Marine",
-      onClick: (index) => handleMenuItemClick(index, "/home/marine"),
-    },
-    {
-      title: "Aviation",
-      onClick: (index) => handleMenuItemClick(index, "/home/aviation"),
+      title: "Sell a Property",
+      onClick: (index) => handleMenuItemClick(index, "/create-property-post"),
     },
   ];
   const handleClick = (index, path) => {
@@ -161,7 +154,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
     >
       <DrawerHeader>
         <div>
-          <img className="h-10" src="/mark.svg" />
+          <img className="h-10" src="/mark.svg" alt="" />
         </div>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "ltr" ? <ClearIcon /> : <ClearIcon />}
@@ -187,7 +180,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
                 </ListItem>
                 <Collapse in={menuOpen} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {MENU_ITEMS.map((menu, i) => (
+                    {ADD_LISTING_MENU_ITEMS.map((menu, i) => (
                       <ListItemButton
                         key={menu.title}
                         sx={{ pl: 4 }}
