@@ -29,7 +29,7 @@ export default function SearchDialog({ open, setOpen, handleClick, handleOption 
   const styles = {
     container: base => ({
       ...base,
-      width: 500,
+      minWidth: 360,
     }),
   };
 
@@ -54,22 +54,25 @@ export default function SearchDialog({ open, setOpen, handleClick, handleOption 
         }}
       >
 
-        <AsyncSelect
+       <div className="mx-11">
+       <AsyncSelect
           onChange={(value) => setOptions(value)}
           styles={styles}
           cacheOptions
           loadOptions={loadOptions}
         />
-        <Stack sx={{backgroundColor: "white", mt: 1, p: 1, ":hover": {
-                backgroundColor: "lightgray"
-              },}}>
-        {options && <Button 
-        onClick={() => handleOption(options.value)}
-        sx={{ flexDirection: "row", justifyContent: 'space-between' }}>
-          <div>{options?.label}</div>
-          <Box sx={{ color: 'gray', pr: 2, fontSize: 14 }}>Make</Box>
-        </Button>}
-        </Stack>
+        {options && <Stack sx={{
+          backgroundColor: "white", mt: 1, p: 1, ":hover": {
+            backgroundColor: "lightgray"
+          }
+        }}>
+          <Button
+            onClick={() => handleOption(options.value)}
+            sx={{ flexDirection: "row", justifyContent: 'space-between' }}>
+            <div>{options?.label}</div>
+            <Box sx={{ color: 'gray', pr: 2, fontSize: 14 }}>Make</Box>
+          </Button>
+        </Stack>}
         {options?.modal.map((item, i) => (
           <Stack
             key={i}
@@ -92,6 +95,7 @@ export default function SearchDialog({ open, setOpen, handleClick, handleOption 
             }
           </Stack>
         ))}
+       </div>
       </Dialog>
     </>
   );
