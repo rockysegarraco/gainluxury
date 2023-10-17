@@ -21,8 +21,9 @@ import {
   COUNTRY,
   US_STATE,
   RE_LISTING_TYPE,
-  RE_SELECT_PROPERTY,
   RE_SELECT_PROPERTY_CATEGORY,
+  PRICE_TYPE,
+  RE_PRICE_UNIT,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -166,19 +167,19 @@ const AddProperty = ({ form }) => {
   return (
     <div>
       <Heading />
-      <div className="mx-auto max-w-7xl bg-white mb-8">
+      <div className="mx-auto max-w-full bg-white mb-8">
         <Pricing />
       </div>
 
-      <div className="mx-auto max-w-7xl grid grid-cols-12 gap-4">
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-6 px-6 lg:px-0">
+      <div className="mx-auto max-w-full grid grid-cols-12 gap-4 lg:px-20 px-6">
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-4">
           <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
             Listing Details
             {/* We use less vertical padding on card headers on desktop than on body sections */}
           </div>
           <div className="px-4 py-5 sm:p-6">
             <Stack spacing={0}>
-              <Stack gap={3}>
+              <Stack gap={2}>
                 <FormItem>
                   {getFieldDecorator("title", {
                     initialValue: "",
@@ -210,14 +211,69 @@ const AddProperty = ({ form }) => {
                     />
                   )}
                 </FormItem>
+                <FormItem>
+                  {getFieldDecorator("priceType", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(
+                    <Select
+                      options={PRICE_TYPE}
+                      fullWidth
+                      label="Price Type *"
+                      autocomplete="off"
+                    />
+                  )}
+                </FormItem>
+                <FormItem>
+                  {getFieldDecorator("price", {
+                    initialValue: "",
+                    rules: [{ required: false }],
+                  })(<TextInput label="Price [$] *" />)}
+                </FormItem>
+                <FormItem>
+                  {getFieldDecorator("priceType", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(
+                    <Select
+                      options={RE_PRICE_UNIT}
+                      fullWidth
+                      label="Price Unit *"
+                      autocomplete="off"
+                    />
+                  )}
+                </FormItem>
                 <div>
-                  <FormItem>
-                    {getFieldDecorator("price", {
-                      initialValue: "",
-                      rules: [{ required: false }],
-                    })(<TextInput label="Price [$] *" />)}
-                  </FormItem>
+                  <label class="block mb-2 font-medium leading-6 text-gray-700">
+                    Address
+                  </label>
+                  <GooglePlacesAutocomplete
+                    selectProps={{
+                      placeholder: "search your place",
+                      value: addressValue,
+                      onChange: getAddressValue,
+                    }}
+                    apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
+                  />
                 </div>
+                <FormItem>
+                  {getFieldDecorator("aptsize", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(<TextInput label="Apartment Size *" />)}
+                </FormItem>
+                <FormItem>
+                  {getFieldDecorator("bedrooms", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(<TextInput label="Bedrooms *" />)}
+                </FormItem>
+                <FormItem>
+                  {getFieldDecorator("baths", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(<TextInput label="Baths *" />)}
+                </FormItem>
                 <FormItem>
                   {getFieldDecorator("description", {
                     initialValue: "",
@@ -225,6 +281,46 @@ const AddProperty = ({ form }) => {
                   })(<TextInput multiline label="Features" />)}
                 </FormItem>
 
+                <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
+                  {gallaryImages.map((image, index) => (
+                    <Paper
+                      key={index}
+                      sx={{
+                        backgroundImage: `url(${image})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        height: 150,
+                        width: 150,
+                        flexShrink: 0,
+                        marginTop: "10px",
+                      }}
+                    >
+                      <IconButton
+                        sx={{
+                          m: 1,
+                          height: "22px",
+                          width: "22px",
+                          bgcolor: "white",
+                        }}
+                        onClick={() => handleImageDelete(index)}
+                      >
+                        <CloseOutlined />
+                      </IconButton>
+                    </Paper>
+                  ))}
+                </div>
+              </Stack>
+            </Stack>
+          </div>
+        </div>
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-4">
+          <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
+            Gallery
+            {/* We use less vertical padding on card headers on desktop than on body sections */}
+          </div>
+          <div className="px-4 py-5 sm:p-6">
+            <Stack spacing={0}>
+              <Stack gap={2}>
                 <div class="col-span-full">
                   <label
                     for="cover-photo"
@@ -305,7 +401,7 @@ const AddProperty = ({ form }) => {
             </Stack>
           </div>
         </div>
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-6">
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-4">
           <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
             Contact Details
             {/* We use less vertical padding on card headers on desktop than on body sections */}
@@ -317,7 +413,7 @@ const AddProperty = ({ form }) => {
                   {getFieldDecorator("agentName", {
                     initialValue: "",
                     rules: [{ required: false }],
-                  })(<TextInput label="Agent Name" />)}
+                  })(<TextInput label="Agent/Owner Name *" />)}
                 </FormItem>
               </div>
               <div>
@@ -325,7 +421,7 @@ const AddProperty = ({ form }) => {
                   {getFieldDecorator("agentCompany", {
                     initialValue: "",
                     rules: [{ required: false }],
-                  })(<TextInput label="Agent Company" />)}
+                  })(<TextInput label="Agent/Owner Company" />)}
                 </FormItem>
               </div>
               <Stack gap={3}>
@@ -347,7 +443,7 @@ const AddProperty = ({ form }) => {
                     ],
                   })(
                     <PhoneInput
-                      label="Mobile Number"
+                      label="Phone Number"
                       prependIcon={false}
                       maxLength={10}
                     />
@@ -392,6 +488,7 @@ const AddProperty = ({ form }) => {
             </Stack>
           </div>
         </div>
+
         <div className="col-span-12">
           <button
             onClick={checkout}

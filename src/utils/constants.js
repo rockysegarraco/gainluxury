@@ -3436,7 +3436,13 @@ export const RE_SELECT_PROPERTY = [
 export const RE_SELECT_PROPERTY_CATEGORY = [
   { label: "Apartments & Flats", value: "apartments_flats" },
   { label: "Commercial Property", value: "commercial_property" },
-  { label: "Garages", value: "garages" },
-  { label: "Houses", value: "houses" },
+  { label: "Residential Property", value: "residential_property" },
   { label: "Plots & Land", value: "plots_land" },
+];
+
+export const RE_PRICE_UNIT = [
+  { label: "No Unit", value: "no_unit" },
+  { label: "Year (per year)", value: "per_year" },
+  { label: "Month (per month)", value: "per_month" },
+  { label: "Square Feet (per sqft)", value: "square_feet" },
 ];
