@@ -208,7 +208,7 @@ const CustomSelect = React.forwardRef(
         fullWidth={fullWidth}
         error={hasError}
       >
-        {label && <FormLabel sx={{fontWeight: 500}}>{label}</FormLabel>}
+        {label && <FormLabel sx={{fontWeight: "bold"}}>{label}</FormLabel>}
         {loadOptions ? (
           <AsyncComponent
             ref={ref}

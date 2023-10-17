@@ -43,6 +43,8 @@ const AddProperty = ({ form }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
+
+  const [propertyCategory, setPropertyCategory] = useState();
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
   // In case the user signs out while on the page.
@@ -164,6 +166,26 @@ const AddProperty = ({ form }) => {
     setValue(value);
   };
 
+  const renderPriceUnit = () => {
+    if (propertyCategory?.value === "apartments_flats") {
+      return (
+        <FormItem>
+                  {getFieldDecorator("priceUnit", {
+                    initialValue: "",
+                    rules: [{ required: true }],
+                  })(
+                    <Select
+                      options={RE_PRICE_UNIT}
+                      fullWidth
+                      label="Price Unit *"
+                      autocomplete="off"
+                    />
+                  )}
+                </FormItem>
+      )
+    }
+  }
+
   return (
     <div>
       <Heading />
@@ -208,6 +230,7 @@ const AddProperty = ({ form }) => {
                       fullWidth
                       label="Category *"
                       autocomplete="off"
+                      onChange={data => setPropertyCategory(data)}
                     />
                   )}
                 </FormItem>
@@ -230,19 +253,7 @@ const AddProperty = ({ form }) => {
                     rules: [{ required: false }],
                   })(<TextInput label="Price [$] *" />)}
                 </FormItem>
-                <FormItem>
-                  {getFieldDecorator("priceType", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(
-                    <Select
-                      options={RE_PRICE_UNIT}
-                      fullWidth
-                      label="Price Unit *"
-                      autocomplete="off"
-                    />
-                  )}
-                </FormItem>
+                {renderPriceUnit()}
                 <div>
                   <label class="block mb-2 font-medium leading-6 text-gray-700">
                     Address
@@ -272,7 +283,7 @@ const AddProperty = ({ form }) => {
                   {getFieldDecorator("baths", {
                     initialValue: "",
                     rules: [{ required: true }],
-                  })(<TextInput label="Baths *" />)}
+                  })(<TextInput label="Baths *" hint="adadasdsa" />)}
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator("description", {
