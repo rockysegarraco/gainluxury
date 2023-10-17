@@ -50,7 +50,7 @@ const Carousel = ({ content, link }) => {
           </div>
         ))}
 
-        <IconButton
+        {pause && (<IconButton
           variant="text"
           size="lg"
           onClick={handlePre}
@@ -70,9 +70,9 @@ const Carousel = ({ content, link }) => {
               d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
             />
           </svg>
-        </IconButton>
+        </IconButton>)}
 
-        <IconButton
+        {pause && (<IconButton
           variant="text"
           size="lg"
           onClick={handleNext}
@@ -92,7 +92,7 @@ const Carousel = ({ content, link }) => {
               d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
             />
           </svg>
-        </IconButton>
+        </IconButton>)}
       </div>
 
       <div className="absolute bottom-5 left-2/4 z-50 flex -translate-x-2/4 gap-2">
