@@ -81,8 +81,8 @@ const AddProperty = ({ form }) => {
               {
                 post: {
                   priceId: category.priceId,
-                  success_url: window.location.origin + '/success',
-                  cancel_url: window.location.origin + '/cancel'
+                  success_url: window.location.origin + "/success",
+                  cancel_url: window.location.origin + "/cancel",
                 },
               }
             )
@@ -133,7 +133,10 @@ const AddProperty = ({ form }) => {
 
   const getAddressValue = (value) => {
     axios
-    .post("https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/get-place-data", {placeId: value?.value?.place_id})
+      .post(
+        "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/get-place-data",
+        { placeId: value?.value?.place_id }
+      )
       .then((res) => {
         const addressData = res.data.result.address_components;
         const zipcode = addressData.filter(
@@ -163,13 +166,13 @@ const AddProperty = ({ form }) => {
   return (
     <div>
       <Heading />
-      <div className="mx-auto max-w-full lg:max-w-4xl bg-white">
+      <div className="mx-auto max-w-7xl bg-white mb-8">
         <Pricing />
       </div>
 
       <div className="mx-auto max-w-7xl grid grid-cols-12 gap-4">
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-6">
-          <div className="px-4 py-5 sm:px-6 font-bold">
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-6 px-6 lg:px-0">
+          <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
             Listing Details
             {/* We use less vertical padding on card headers on desktop than on body sections */}
           </div>
@@ -303,12 +306,12 @@ const AddProperty = ({ form }) => {
           </div>
         </div>
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-6">
-          <div className="px-4 py-5 sm:px-6 font-bold">
+          <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
             Contact Details
             {/* We use less vertical padding on card headers on desktop than on body sections */}
           </div>
           <div className="px-4 py-5 sm:p-6">
-            <Stack spacing={0}>
+            <Stack spacing={3}>
               <div>
                 <FormItem>
                   {getFieldDecorator("agentName", {
@@ -324,54 +327,6 @@ const AddProperty = ({ form }) => {
                     rules: [{ required: false }],
                   })(<TextInput label="Agent Company" />)}
                 </FormItem>
-              </div>
-              <div className="col-span-full mt-4 bg-slate-100 p-5">
-                <label
-                  htmlFor="photo"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Agent Photo
-                </label>
-                <div className="mt-2 flex items-center gap-x-3">
-                  <UserCircleIcon
-                    className="h-12 w-12 text-gray-300"
-                    aria-hidden="true"
-                  />
-                  <button
-                    type="button"
-                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      for="file-upload"
-                      class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span className="self-center">
-                        {galleryLoading ? "Loading..." : "Add Images"}
-                      </span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        multiple
-                        max={5}
-                        type="file"
-                        class="sr-only"
-                        ref={inputGallery}
-                        accept="image/png, image/jpg, image/jpeg"
-                        onChange={handleGalleryFile}
-                      />
-                    </label>
-                  </div>
-                  <p class="text-xs leading-5 text-gray-600">
-                    PNG, JPG up to 5MB
-                  </p>
-                </div>
               </div>
               <Stack gap={3}>
                 <FormItem>
@@ -416,7 +371,6 @@ const AddProperty = ({ form }) => {
                     initialValue: "",
                   })(<Select options={US_STATE} fullWidth label="State" />)}
                 </FormItem>
-                RE_LISTING_TYPE
                 <Stack
                   gap={2}
                   sx={{ flexDirection: "row", alignItems: "center" }}
