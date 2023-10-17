@@ -8,7 +8,7 @@ export default function CardCar({ item, i }) {
         key={i}
         Link={`/${item.category.value}/${item.slug}`}
         Title={item.title}
-        ImageUrl={item.gallery[0]}
+        ImageUrl={item.gallery}
         Alt={item.title}
         Price={
           item.pricingType.value === "Fixed"

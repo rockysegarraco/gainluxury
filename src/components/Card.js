@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
+import Carousel from "./Carousel/CarouselCard";
 
 export default function Example(props) {
   return (
     <>
       <article className="border">
         <div className="relative w-full">
-          <Link to={props.Link}>
-            <img
-              src={props.ImageUrl}
-              alt={props.Alt}
-              className="aspect-[16/9] w-full bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-            />
-          </Link>
+          <Carousel content={props.ImageUrl} link={props.Link} />
         </div>
         <div className="mx-auto max-w-full p-3">
           <div className="group relative">
