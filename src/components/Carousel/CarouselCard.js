@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
@@ -28,17 +28,6 @@ const Carousel = ({ content, link }) => {
     setPause(!pause);
   };
 
-  useEffect(() => {
-    let interval = setInterval(() => {
-      if (!pause) {
-        handleNext();
-      } else {
-        clearInterval(interval);
-      }
-    }, 3000);
-    return () => clearInterval(interval);
-  });
-
   return (
     <div className="App">
       <div
@@ -46,7 +35,7 @@ const Carousel = ({ content, link }) => {
         onMouseEnter={handleMouse}
         onMouseLeave={handleMouse}
       >
-        {content.map((item, index) => (
+        {content?.map((item, index) => (
           <div
             className={counter - 1 === index ? "show" : "not-show"}
             key={index}
@@ -63,10 +52,9 @@ const Carousel = ({ content, link }) => {
 
         <IconButton
           variant="text"
-          color="white"
           size="lg"
           onClick={handlePre}
-          className="!absolute top-2/4 left-4 -translate-y-2/4 lg:hidden block"
+          className="!absolute top-2/4 left-4 -translate-y-2/4 ring-1 ring-white bg-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -86,10 +74,9 @@ const Carousel = ({ content, link }) => {
 
         <IconButton
           variant="text"
-          color="white"
           size="lg"
           onClick={handleNext}
-          className="!absolute top-2/4 !right-4 -translate-y-2/4 lg:hidden block"
+          className="!absolute top-2/4 !right-4 -translate-y-2/4 ring-1 ring-white bg-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
