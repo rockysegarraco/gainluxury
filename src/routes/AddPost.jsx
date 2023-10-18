@@ -16,7 +16,14 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import Pricing from "../components/pricing";
-import { BRAND, CATEGORY, CONDITION, COUNTRY, PRICE_TYPE, US_STATE } from "../utils/constants";
+import {
+  BRAND,
+  CATEGORY,
+  CONDITION,
+  COUNTRY,
+  PRICE_TYPE,
+  US_STATE,
+} from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
@@ -56,8 +63,14 @@ const AddPost = ({ form }) => {
           }
           values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
-          values.brand = {value: values.brand.value, label: values.brand.label}
-          values.country = {value: values.country.value, label: values.country.label}
+          values.brand = {
+            value: values.brand.value,
+            label: values.brand.label,
+          };
+          values.country = {
+            value: values.country.value,
+            label: values.country.label,
+          };
           const obj = {
             gallery: gallaryImages,
             ...values,
@@ -74,8 +87,8 @@ const AddPost = ({ form }) => {
               {
                 post: {
                   priceId: category.priceId,
-                  success_url: window.location.origin + '/success',
-                  cancel_url: window.location.origin + '/cancel'
+                  success_url: window.location.origin + "/success",
+                  cancel_url: window.location.origin + "/cancel",
                 },
               }
             )
@@ -126,22 +139,27 @@ const AddPost = ({ form }) => {
 
   const getAddressValue = (value) => {
     axios
-      .post("https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/get-place-data", {placeId: value?.value?.place_id})
+      .post(
+        "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/get-place-data",
+        { placeId: value?.value?.place_id }
+      )
       .then((res) => {
         const addressData = res.data.result.address_components;
         const zipcode = addressData.filter(
           (a) => a.types[0] === "postal_code"
         )[0];
-        const country = addressData.filter(
-          (a) => a.types[0] === "country"
-        )[0];
+        const country = addressData.filter((a) => a.types[0] === "country")[0];
         const state = addressData.filter(
           (a) => a.types[0] === "administrative_area_level_1"
         )[0];
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
-          country: country ? { label: country.long_name, value: country.long_name } : "",
-          state: state ? { label: state.long_name, value: state.long_name } : "",
+          country: country
+            ? { label: country.long_name, value: country.long_name }
+            : "",
+          state: state
+            ? { label: state.long_name, value: state.long_name }
+            : "",
         });
         setLocation(res.data.result.geometry?.location);
       })
@@ -173,24 +191,19 @@ const AddPost = ({ form }) => {
               {getFieldDecorator("description", {
                 initialValue: "",
                 rules: [{ required: true }],
-              })(
-                <TextInput
-                  multiline
-                  label="Features"
-                />
-              )}
+              })(<TextInput multiline label="Features" />)}
             </FormItem>
             <FormItem>
               {getFieldDecorator("yearModel", {
                 initialValue: "",
-                rules: [{ required: true, }],
+                rules: [{ required: true }],
               })(<TextInput label="Year" type="number" />)}
             </FormItem>
-            <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+            <Stack gap={2} sx={{ flexDirection: "row", alignItems: "center" }}>
               <FormItem>
                 {getFieldDecorator("pricingType", {
                   initialValue: "",
-                  rules: [{ required: true, }],
+                  rules: [{ required: true }],
                 })(
                   <Select
                     fullWidth
@@ -206,39 +219,37 @@ const AddPost = ({ form }) => {
               <FormItem>
                 {getFieldDecorator("price", {
                   initialValue: "",
-                  rules: [{ required: !isPrice, }],
+                  rules: [{ required: !isPrice }],
                 })(
-                  <TextInput
-                    disabled={isPrice}
-                    label="Price $"
-                    type="number"
-                  />
+                  <TextInput disabled={isPrice} label="Price $" type="number" />
                 )}
               </FormItem>
             </Stack>
 
-            <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+            <Stack gap={2} sx={{ flexDirection: "row", alignItems: "center" }}>
               <FormItem>
                 {getFieldDecorator("brand", {
                   initialValue: "",
-                  rules: [{ required: true, }],
-                })(<Select 
-                  label="Brand" 
-                  fullWidth
-                  options={BRAND}
-                  onChange={(data) =>setBrandData(() => (data.modal))}
-                />)}
+                  rules: [{ required: true }],
+                })(
+                  <Select
+                    label="Brand"
+                    fullWidth
+                    options={BRAND}
+                    onChange={(data) => setBrandData(() => data.modal)}
+                  />
+                )}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("model", {
                   initialValue: "",
-                  rules: [{ required: brandData?.length > 0, }],
+                  rules: [{ required: brandData?.length > 0 }],
                 })(
                   <Select
-                  label="Modal" 
-                  fullWidth
-                  disabled={!brandData?.length > 0}
-                  options={brandData}
+                    label="Modal"
+                    fullWidth
+                    disabled={!brandData?.length > 0}
+                    options={brandData}
                   />
                 )}
               </FormItem>
@@ -248,44 +259,59 @@ const AddPost = ({ form }) => {
               <FormItem>
                 {getFieldDecorator("condition", {
                   initialValue: "",
-                  rules: [{ required: true, }],
-                })(
-                  <Select
-                    fullWidth
-                    label="Condition"
-                    options={CONDITION}
-                  />
-                )}
+                  rules: [{ required: true }],
+                })(<Select fullWidth label="Condition" options={CONDITION} />)}
               </FormItem>
             </Stack>
 
             <FormItem>
               {getFieldDecorator("kilometersRun", {
                 initialValue: "",
-                rules: [{ required: true, }],
+                rules: [{ required: true }],
               })(<TextInput label="Kilometers Run" type="number" />)}
             </FormItem>
 
             <FormItem>
               {getFieldDecorator("engineCapacity", {
                 initialValue: "",
-                rules: [{ required: true, }],
+                rules: [{ required: true }],
               })(<TextInput label="Engine" />)}
             </FormItem>
 
             <div class="col-span-full">
-              <label for="cover-photo" class="block font-medium leading-6 text-gray-700">Photos</label>
+              <label
+                for="cover-photo"
+                class="block font-medium leading-6 text-gray-700"
+              >
+                Photos
+              </label>
               <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div class="text-center">
-                  <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                  <svg
+                    class="mx-auto h-12 w-12 text-gray-300"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                      clip-rule="evenodd"
+                    />
                   </svg>
                   <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                      <span className="self-center">{galleryLoading ? "Loading..." : "Add Images"}</span>
+                    <label
+                      for="file-upload"
+                      class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                    >
+                      <span className="self-center">
+                        {galleryLoading ? "Loading..." : "Add Images"}
+                      </span>
                       <input
-                        id="file-upload" name="file-upload"
-                        multiple max={5}
+                        id="file-upload"
+                        name="file-upload"
+                        multiple
+                        max={5}
                         type="file"
                         class="sr-only"
                         ref={inputGallery}
@@ -293,9 +319,10 @@ const AddPost = ({ form }) => {
                         onChange={handleGalleryFile}
                       />
                     </label>
-
                   </div>
-                  <p class="text-xs leading-5 text-gray-600">PNG, JPG up to 5MB</p>
+                  <p class="text-xs leading-5 text-gray-600">
+                    PNG, JPG up to 5MB
+                  </p>
                 </div>
               </div>
             </div>
@@ -331,9 +358,15 @@ const AddPost = ({ form }) => {
           <h2 className="text-xl font-bold pt-6 pb-1">Contact Details</h2>
           <Stack gap={3}>
             <FormItem>
+              {getFieldDecorator("agentName", {
+                initialValue: "",
+                rules: [{ required: false }],
+              })(<TextInput label="Agent/Owner Name *" />)}
+            </FormItem>
+            <FormItem>
               {getFieldDecorator("email", {
                 initialValue: "",
-                rules: [{ required: true, }],
+                rules: [{ required: true }],
               })(<TextInput label="Email" />)}
             </FormItem>
             <FormItem>
@@ -355,7 +388,9 @@ const AddPost = ({ form }) => {
               )}
             </FormItem>
             <div className="mt-2">
-              <label class="block mb-2 font-medium leading-6 text-gray-700">Address</label>
+              <label class="block mb-2 font-medium leading-6 text-gray-700">
+                Address
+              </label>
               <GooglePlacesAutocomplete
                 selectProps={{
                   placeholder: "search your place",
@@ -372,7 +407,7 @@ const AddPost = ({ form }) => {
               })(<Select options={US_STATE} fullWidth label="State" />)}
             </FormItem>
 
-            <Stack gap={2} sx={{ flexDirection: "row", alignItems: 'center' }}>
+            <Stack gap={2} sx={{ flexDirection: "row", alignItems: "center" }}>
               <FormItem>
                 {getFieldDecorator("country", {
                   initialValue: "",

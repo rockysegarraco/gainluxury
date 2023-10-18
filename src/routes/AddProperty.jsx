@@ -165,254 +165,311 @@ const AddProperty = ({ form }) => {
       });
     setValue(value);
   };
-
-  const renderPriceUnit = () => {
-    if (propertyCategory?.value === "apartments_flats") {
+  const renderResidential = () => {
+    if (propertyCategory?.value === "residential_property") {
       return (
-        <FormItem>
-                  {getFieldDecorator("priceUnit", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(
-                    <Select
-                      options={RE_PRICE_UNIT}
-                      fullWidth
-                      label="Price Unit *"
-                      autocomplete="off"
-                    />
-                  )}
-                </FormItem>
-      )
+        <>
+          <Stack spacing={0}>
+            <Stack gap={2}>
+              <FormItem>
+                {getFieldDecorator("aptsize", {
+                  initialValue: "",
+                  rules: [{ required: true }],
+                })(<TextInput label="Apartment Size *" />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("bedrooms", {
+                  initialValue: "",
+                  rules: [{ required: true }],
+                })(<TextInput label="Bedrooms *" />)}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("baths", {
+                  initialValue: "",
+                  rules: [{ required: true }],
+                })(<TextInput label="Baths *" />)}
+              </FormItem>
+            </Stack>
+          </Stack>
+        </>
+      );
     }
-  }
+  };
+
+  const renderCommercial = () => {
+    if (propertyCategory?.value === "commercial_property") {
+      return (
+        <>
+          <Stack spacing={0}>
+            <Stack gap={2}>
+              <FormItem>
+                {getFieldDecorator("propertyType", {
+                  initialValue: "",
+                  rules: [{ required: true }],
+                })(
+                  <Select
+                    options={RE_PRICE_UNIT}
+                    fullWidth
+                    label="Property Type *"
+                    autocomplete="off"
+                  />
+                )}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator("size", {
+                  initialValue: "",
+                  rules: [{ required: false }],
+                })(<TextInput label="Size" />)}
+              </FormItem>
+            </Stack>
+          </Stack>
+        </>
+      );
+    }
+  };
 
   return (
     <div>
       <Heading />
-      <div className="mx-auto max-w-full bg-white mb-8">
+      <div className="mx-auto max-w-4xl bg-white mb-8">
         <Pricing />
       </div>
 
-      <div className="mx-auto max-w-full grid grid-cols-12 gap-4 lg:px-20 px-6">
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-4">
-          <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
-            Listing Details
-            {/* We use less vertical padding on card headers on desktop than on body sections */}
-          </div>
-          <div className="px-4 py-5 sm:p-6">
-            <Stack spacing={0}>
-              <Stack gap={2}>
-                <FormItem>
-                  {getFieldDecorator("title", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(<TextInput label="Listing Title" />)}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("listingType", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(
-                    <Select
-                      options={RE_LISTING_TYPE}
-                      fullWidth
-                      label="Listing Type *"
-                    />
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("propertyCategory", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(
-                    <Select
-                      options={RE_SELECT_PROPERTY_CATEGORY}
-                      fullWidth
-                      label="Category *"
-                      autocomplete="off"
-                      onChange={data => setPropertyCategory(data)}
-                    />
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("priceType", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(
-                    <Select
-                      options={PRICE_TYPE}
-                      fullWidth
-                      label="Price Type *"
-                      autocomplete="off"
-                    />
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("price", {
-                    initialValue: "",
-                    rules: [{ required: false }],
-                  })(<TextInput label="Price [$] *" />)}
-                </FormItem>
-                {renderPriceUnit()}
-                <div>
-                  <label class="block mb-2 font-medium leading-6 text-gray-700">
-                    Address
-                  </label>
-                  <GooglePlacesAutocomplete
-                    selectProps={{
-                      placeholder: "search your place",
-                      value: addressValue,
-                      onChange: getAddressValue,
-                    }}
-                    apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
-                  />
-                </div>
-                <FormItem>
-                  {getFieldDecorator("aptsize", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(<TextInput label="Apartment Size *" />)}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("bedrooms", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(<TextInput label="Bedrooms *" />)}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("baths", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(<TextInput label="Baths *" hint="adadasdsa" />)}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator("description", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(<TextInput multiline label="Features" />)}
-                </FormItem>
-
-                <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                  {gallaryImages.map((image, index) => (
-                    <Paper
-                      key={index}
-                      sx={{
-                        backgroundImage: `url(${image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: 150,
-                        width: 150,
-                        flexShrink: 0,
-                        marginTop: "10px",
+      <div className="mx-auto max-w-4xl grid grid-cols-12 gap-4 lg:px-0 px-6">
+        <div className=" col-span-12 lg:col-span-12">
+          <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+            <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
+              Listing Details
+              {/* We use less vertical padding on card headers on desktop than on body sections */}
+            </div>
+            <div className="px-4 py-5 sm:p-6">
+              <Stack spacing={0}>
+                <Stack gap={2}>
+                  <FormItem>
+                    {getFieldDecorator("title", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(<TextInput label="Listing Title *" />)}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator("listingType", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(
+                      <Select
+                        options={RE_LISTING_TYPE}
+                        fullWidth
+                        label="Listing Type *"
+                      />
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator("priceType", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(
+                      <Select
+                        options={PRICE_TYPE}
+                        fullWidth
+                        label="Price Type *"
+                        autocomplete="off"
+                      />
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator("price", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(<TextInput label="Price [$] *" />)}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator("propertyCategory", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(
+                      <Select
+                        options={RE_SELECT_PROPERTY_CATEGORY}
+                        fullWidth
+                        label="Category *"
+                        autocomplete="off"
+                        onChange={(data) => setPropertyCategory(data)}
+                      />
+                    )}
+                  </FormItem>
+                  {renderCommercial()}
+                  {renderResidential()}
+                  <div>
+                    <label class="block mb-2 font-medium leading-6 text-gray-700">
+                      Address
+                    </label>
+                    <GooglePlacesAutocomplete
+                      selectProps={{
+                        placeholder: "search your place",
+                        value: addressValue,
+                        onChange: getAddressValue,
                       }}
-                    >
-                      <IconButton
+                      apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
+                    />
+                  </div>
+                  <FormItem>
+                    {getFieldDecorator("state", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(<Select options={US_STATE} fullWidth label="State *" />)}
+                  </FormItem>
+
+                  <FormItem>
+                    {getFieldDecorator("country", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(
+                      <Select fullWidth label="Country *" options={COUNTRY} />
+                    )}
+                  </FormItem>
+
+                  <FormItem>
+                    {getFieldDecorator("zipcode", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(<TextInput label="Zipcode *" type="number" />)}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator("description", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(
+                      <TextInput
+                        multiline
+                        label="Features"
+                        hint="ex. Elevator, Privacy, Air Conditioning 2D Floor Plan..."
+                      />
+                    )}
+                  </FormItem>
+
+                  <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
+                    {gallaryImages.map((image, index) => (
+                      <Paper
+                        key={index}
                         sx={{
-                          m: 1,
-                          height: "22px",
-                          width: "22px",
-                          bgcolor: "white",
+                          backgroundImage: `url(${image})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: 150,
+                          width: 150,
+                          flexShrink: 0,
+                          marginTop: "10px",
                         }}
-                        onClick={() => handleImageDelete(index)}
                       >
-                        <CloseOutlined />
-                      </IconButton>
-                    </Paper>
-                  ))}
-                </div>
+                        <IconButton
+                          sx={{
+                            m: 1,
+                            height: "22px",
+                            width: "22px",
+                            bgcolor: "white",
+                          }}
+                          onClick={() => handleImageDelete(index)}
+                        >
+                          <CloseOutlined />
+                        </IconButton>
+                      </Paper>
+                    ))}
+                  </div>
+                </Stack>
               </Stack>
-            </Stack>
+            </div>
           </div>
         </div>
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-4">
-          <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
-            Gallery
-            {/* We use less vertical padding on card headers on desktop than on body sections */}
-          </div>
-          <div className="px-4 py-5 sm:p-6">
-            <Stack spacing={0}>
-              <Stack gap={2}>
-                <div class="col-span-full">
-                  <label
-                    for="cover-photo"
-                    class="block font-medium leading-6 text-gray-700"
-                  >
-                    Photos
-                  </label>
-                  <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                    <div class="text-center">
-                      <svg
-                        class="mx-auto h-12 w-12 text-gray-300"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                        <label
-                          for="file-upload"
-                          class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+        <div className=" col-span-12 lg:col-span-12">
+          <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+            <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
+              Gallery
+              {/* We use less vertical padding on card headers on desktop than on body sections */}
+            </div>
+            <div className="px-4 py-5 sm:p-6">
+              <Stack spacing={0}>
+                <Stack gap={2}>
+                  <div class="col-span-full">
+                    <label
+                      for="cover-photo"
+                      class="block font-medium leading-6 text-gray-700"
+                    >
+                      Photos
+                    </label>
+                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                      <div class="text-center">
+                        <svg
+                          class="mx-auto h-12 w-12 text-gray-300"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
                         >
-                          <span className="self-center">
-                            {galleryLoading ? "Loading..." : "Add Images"}
-                          </span>
-                          <input
-                            id="file-upload"
-                            name="file-upload"
-                            multiple
-                            max={5}
-                            type="file"
-                            class="sr-only"
-                            ref={inputGallery}
-                            accept="image/png, image/jpg, image/jpeg"
-                            onChange={handleGalleryFile}
+                          <path
+                            fill-rule="evenodd"
+                            d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                            clip-rule="evenodd"
                           />
-                        </label>
+                        </svg>
+                        <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                          <label
+                            for="file-upload"
+                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                          >
+                            <span className="self-center">
+                              {galleryLoading ? "Loading..." : "Add Images"}
+                            </span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              multiple
+                              max={5}
+                              type="file"
+                              class="sr-only"
+                              ref={inputGallery}
+                              accept="image/png, image/jpg, image/jpeg"
+                              onChange={handleGalleryFile}
+                            />
+                          </label>
+                        </div>
+                        <p class="text-xs leading-5 text-gray-600">
+                          PNG, JPG up to 3MB
+                        </p>
                       </div>
-                      <p class="text-xs leading-5 text-gray-600">
-                        PNG, JPG up to 3MB
-                      </p>
                     </div>
                   </div>
-                </div>
-                <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                  {gallaryImages.map((image, index) => (
-                    <Paper
-                      key={index}
-                      sx={{
-                        backgroundImage: `url(${image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: 150,
-                        width: 150,
-                        flexShrink: 0,
-                        marginTop: "10px",
-                      }}
-                    >
-                      <IconButton
+                  <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
+                    {gallaryImages.map((image, index) => (
+                      <Paper
+                        key={index}
                         sx={{
-                          m: 1,
-                          height: "22px",
-                          width: "22px",
-                          bgcolor: "white",
+                          backgroundImage: `url(${image})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: 150,
+                          width: 150,
+                          flexShrink: 0,
+                          marginTop: "10px",
                         }}
-                        onClick={() => handleImageDelete(index)}
                       >
-                        <CloseOutlined />
-                      </IconButton>
-                    </Paper>
-                  ))}
-                </div>
+                        <IconButton
+                          sx={{
+                            m: 1,
+                            height: "22px",
+                            width: "22px",
+                            bgcolor: "white",
+                          }}
+                          onClick={() => handleImageDelete(index)}
+                        >
+                          <CloseOutlined />
+                        </IconButton>
+                      </Paper>
+                    ))}
+                  </div>
+                </Stack>
               </Stack>
-            </Stack>
+            </div>
           </div>
         </div>
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-4">
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-12">
           <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
             Contact Details
             {/* We use less vertical padding on card headers on desktop than on body sections */}
@@ -454,7 +511,7 @@ const AddProperty = ({ form }) => {
                     ],
                   })(
                     <PhoneInput
-                      label="Phone Number"
+                      label="Phone Number *"
                       prependIcon={false}
                       maxLength={10}
                     />
@@ -473,34 +530,11 @@ const AddProperty = ({ form }) => {
                     apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
                   />
                 </div>
-                <FormItem>
-                  {getFieldDecorator("state", {
-                    initialValue: "",
-                  })(<Select options={US_STATE} fullWidth label="State" />)}
-                </FormItem>
-                <Stack
-                  gap={2}
-                  sx={{ flexDirection: "row", alignItems: "center" }}
-                >
-                  <FormItem>
-                    {getFieldDecorator("country", {
-                      initialValue: "",
-                      rules: [{ required: true }],
-                    })(<Select fullWidth label="Country" options={COUNTRY} />)}
-                  </FormItem>
-
-                  <FormItem>
-                    {getFieldDecorator("zipcode", {
-                      initialValue: "",
-                    })(<TextInput label="Zipcode" type="number" />)}
-                  </FormItem>
-                </Stack>
               </Stack>
             </Stack>
           </div>
         </div>
-
-        <div className="col-span-12">
+        <div className="col-span-12 text-center pt-2 mb-16">
           <button
             onClick={checkout}
             type="button"
