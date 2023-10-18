@@ -112,7 +112,7 @@ export const US_STATE = [
 ];
 
 export const COUNTRY = [
-  { label: "United States", value: "United State", state: US_STATE },
+  { label: "United States", value: "United States", state: US_STATE },
   { label: "United Kingdom", value: "United Kingdom" },
   { label: "United Arab Emirates", value: "United Arab Emirates" },
   { label: "Germany", value: "Germany" },

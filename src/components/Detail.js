@@ -37,6 +37,8 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
     location,
     brand,
     agentName,
+    state,
+    country,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -64,6 +66,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
           <Breadcrumb />
         </div>
 
+        {/* User Edit*/}
         {user?.id === userId && (
           <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-8">
             <div className="flex gap-2">
@@ -101,27 +104,26 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
         )}
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-full max-h-full lg:px-20 px-4">
+        <div className="mx-auto py-3 max-w-full max-h-full lg:px-20 px-6">
           {gallery?.length > 0 && <Gallery images={gallery} />}
         </div>
 
         {/* Product info */}
-        <div className="mx-auto max-w-full lg:py-10 py-6 px-6 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+        <div className="mx-auto max-w-full px-6 py-4 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
-            <div>
-              <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy mb-4">
-                {title}
-              </h1>
-              <h2 className="text-2xl lg:text-4xl text-gray-900 fancy mb-4">
-                {price ? `$${price}` : pricingType.value}
-              </h2>
-            </div>
-
-            <h3 className="mb-2">{address}</h3>
+            <h3 className="pt-0 pb-3">
+              Orlando, {state.value} :: {country.value}
+            </h3>
+            <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy py-2">
+              {title}
+            </h1>
+            <h2 className="text-2xl lg:text-4xl text-gray-900 fancy py-2">
+              {price ? `$${price}` : pricingType.value}
+            </h2>
             <div className="py-4">
               <div className="bg-black/75">
                 <div className="mx-auto max-w-full">
-                  <div className="grid grid-cols-2 gap-px bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="grid grid-cols-2 gap-px sm:grid-cols-2 lg:grid-cols-4 bg-white/5">
                     <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                       <p className="text-sm font-medium leading-6 text-gray-400">
                         Year
@@ -195,8 +197,8 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
 
           {/* Aside */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <div className="border border-gray-200 bg-white px-4 py-5 sm:px-6 mb-0 lg:mb-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-1">
+            <div className="border border-gray-200 bg-white lg:mb-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 border-b p-4">
                 {people.map((person) => (
                   <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
                     <div className="flex-shrink-0">
@@ -218,21 +220,21 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                   </div>
                 ))}
               </div>
-              <div className="pt-4">
+              <div className="pt-4 px-4">
                 <Link to={`mailto:${email}?subject=Gain Luxury`}>
                   <button
                     type="submit"
-                    className="flex w-full items-center justify-center rounded-full border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white"
+                    className="flex w-full items-center justify-center border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white"
                   >
                     Contact
                   </button>
                 </Link>
               </div>
-              <div className="pt-3">
+              <div className="pt-2 pb-4 px-4">
                 <Link to={`mailto:${email}`}>
                   <button
                     type="submit"
-                    className="flex w-full items-center justify-center rounded-full border border-2 border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black"
+                    className="flex w-full items-center justify-center border border-2 border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black"
                   >
                     Show Number
                   </button>

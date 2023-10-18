@@ -235,7 +235,7 @@ const AddProperty = ({ form }) => {
         <Pricing />
       </div>
 
-      <div className="mx-auto max-w-4xl grid grid-cols-12 gap-4 lg:px-0 px-6">
+      <div className="mx-auto max-w-4xl grid grid-cols-1 gap-4 lg:px-0 px-6">
         <div className=" col-span-12 lg:col-span-12">
           <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
             <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
