@@ -11,10 +11,9 @@ import styled from "@emotion/styled";
 const ImageContainer = styled.div`
 .image-gallery-image {
     width: 900px;
-    height: 600px;
+    height: 650px;
 }
 `;
-
 
 export default function ImageGalleryModal({ open, setOpen, images, currentIndex = 0 }) {
 
@@ -39,7 +38,7 @@ export default function ImageGalleryModal({ open, setOpen, images, currentIndex 
                 className="relative"
             >
                 <Stack
-                    sx={{ flexDirection: 'row', justifyContent: 'space-between', m: 1, position: 'sticky', top: 5 }} >
+                    sx={{ flexDirection: 'row', justifyContent: 'space-between', m: 1 }} >
                     <div>
                         <IconButton onClick={setOpen}>
                             <ArrowBackIosNewIcon color="primary" />
