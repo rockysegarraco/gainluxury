@@ -90,13 +90,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       onClick: (index) => handleClick(index, "/pricing"),
     },
     { title: "divider" },
-    {
-      title: "Sign in / Register",
-      icon: <AccountCircleIcon />,
-      show: true,
-      onClick: (index) => handleClick(index, "/pricing"),
-    },
-    { title: "divider" },
+
     {
       title: "Manage Account",
       show: isSignedIn,
@@ -153,9 +147,6 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
       open={open}
     >
       <DrawerHeader>
-        <div>
-          <img className="h-10" src="/mark.svg" alt="" />
-        </div>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "ltr" ? <ClearIcon /> : <ClearIcon />}
         </IconButton>

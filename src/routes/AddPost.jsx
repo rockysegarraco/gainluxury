@@ -171,9 +171,9 @@ const AddPost = ({ form }) => {
 
   return (
     <div>
-      <Heading />
       <div className="mx-auto max-w-4xl bg-white mb-8">
-        <Pricing />
+        <Heading title="Sell a Car" />
+        <Pricing price="6.99" />
       </div>
       <div className="mx-auto max-w-4xl grid grid-cols-1 gap-4 lg:px-0 px-6">
         <div className=" col-span-12 lg:col-span-12">
@@ -181,7 +181,6 @@ const AddPost = ({ form }) => {
           <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
             <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
               Listing Details
-              {/* We use less vertical padding on card headers on desktop than on body sections */}
             </div>
             <div className="px-4 py-5 sm:p-6">
               <Stack spacing={0}>
@@ -380,12 +379,12 @@ const AddPost = ({ form }) => {
                             clip-rule="evenodd"
                           />
                         </svg>
-                        <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                        <div class="mt-4 flex text-sm leading-6 text-gray-600 text-center">
                           <label
                             for="file-upload"
                             class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span className="self-center">
+                            <span className="self-center text-blue-700 text-lg">
                               {galleryLoading ? "Loading..." : "Add Images"}
                             </span>
                             <input
@@ -394,15 +393,15 @@ const AddPost = ({ form }) => {
                               multiple
                               max={5}
                               type="file"
-                              class="sr-only"
+                              className="sr-only"
                               ref={inputGallery}
                               accept="image/png, image/jpg, image/jpeg"
                               onChange={handleGalleryFile}
                             />
                           </label>
                         </div>
-                        <p class="text-xs leading-5 text-gray-600">
-                          PNG, JPG up to 3MB
+                        <p class="text-lg leading-5 text-gray-600">
+                          PNG, JPG up to 5MB
                         </p>
                       </div>
                     </div>
@@ -500,7 +499,7 @@ const AddPost = ({ form }) => {
           <button
             onClick={checkout}
             type="button"
-            className="rounded-full bg-black px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 mt-8"
+            className="rounded-full w-full bg-blue-700 px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 mt-8"
           >
             {isLoading ? "Loading..." : "Continue to Payment"}
           </button>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
-export default function Example() {
+export default function Example(props) {
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -9,8 +9,9 @@ export default function Example() {
 
   return (
     <div className="py-4">
-      <div className="mx-auto max-w-full lg:px-20 px-6">
+      <div className="mx-auto max-w-full px-6 lg:px-0">
         <div className="flex flex-wrap items-center justify-between sm:flex-nowrap">
+          <div className="fancy text-xl lg:text-3xl">{props.title}</div>
           <div className="">
             <img className="h-14 w-auto" src="/mark.svg" alt="Gain Luxury" />
           </div>

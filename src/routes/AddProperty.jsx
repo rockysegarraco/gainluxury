@@ -234,9 +234,9 @@ const AddProperty = ({ form }) => {
 
   return (
     <div>
-      <Heading />
       <div className="mx-auto max-w-4xl bg-white mb-8">
-        <Pricing />
+        <Heading title="Sell a Property" />
+        <Pricing price="6.99" />
       </div>
 
       <div className="mx-auto max-w-4xl grid grid-cols-1 gap-4 lg:px-0 px-6">
@@ -547,7 +547,7 @@ const AddProperty = ({ form }) => {
           <button
             onClick={checkout}
             type="button"
-            className="rounded-full bg-black px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 mt-8"
+            className="rounded-full w-full bg-blue-700 px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 mt-8"
           >
             {isLoading ? "Loading..." : "Continue to Payment"}
           </button>
