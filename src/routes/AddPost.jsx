@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import IconButton from "@mui/material/IconButton";
+import FormHelperText from "@mui/material/FormHelperText";
 
 // components
 import Heading from "../components/Heading";
@@ -43,6 +44,7 @@ const AddPost = ({ form }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
+  const [hasError, setHasError] = useState(null);
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
   // In case the user signs out while on the page.
@@ -53,6 +55,7 @@ const AddPost = ({ form }) => {
   }, []);
 
   const checkout = async () => {
+      setHasError(addressValue === null);
     return validateFields()
       .then(async (values) => {
         if (gallaryImages.length >= 5) {
@@ -80,8 +83,8 @@ const AddPost = ({ form }) => {
             category,
             location,
           };
-          console.log(obj);
-          return await axios
+          if (addressValue !== null) {
+            return await axios
             .post(
               "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
               {
@@ -99,6 +102,9 @@ const AddPost = ({ form }) => {
                 window.location.assign(res.data.url);
               }
             });
+          } else {
+            setIsLoading(false);
+          }
         } else {
           alert("Please add at least 5 photos.");
         }
@@ -167,6 +173,7 @@ const AddPost = ({ form }) => {
         console.log(e);
       });
     setValue(value);
+    setHasError(false)
   };
 
   return (
@@ -304,7 +311,7 @@ const AddPost = ({ form }) => {
                 </Stack>
                 <Stack gap={3}>
                   <div className="mt-6">
-                    <label class="block mb-2 font-medium leading-6 text-gray-700">
+                    <label className={`block mb-2 font-medium leading-6 text-gray-700 ${hasError && 'text-red-500'} `}>
                       Address
                     </label>
                     <GooglePlacesAutocomplete
@@ -315,6 +322,7 @@ const AddPost = ({ form }) => {
                       }}
                       apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
                     />
+                    {hasError && <FormHelperText className="text-red-500">Address is required</FormHelperText>}
                   </div>
 
                   <FormItem>
@@ -358,17 +366,17 @@ const AddPost = ({ form }) => {
             <div className="px-4 py-5 sm:p-6">
               <Stack spacing={0}>
                 <Stack gap={2}>
-                  <div class="col-span-full">
+                  <div className="col-span-full">
                     <label
                       for="cover-photo"
-                      class="block font-medium leading-6 text-gray-700"
+                      className="block font-medium leading-6 text-gray-700"
                     >
                       Photos
                     </label>
-                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                      <div class="text-center">
+                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                      <div className="text-center">
                         <svg
-                          class="mx-auto h-12 w-12 text-gray-300"
+                          className="mx-auto h-12 w-12 text-gray-300"
                           viewBox="0 0 24 24"
                           fill="currentColor"
                           aria-hidden="true"
@@ -379,10 +387,10 @@ const AddPost = ({ form }) => {
                             clip-rule="evenodd"
                           />
                         </svg>
-                        <div class="mt-4 flex text-sm leading-6 text-gray-600 text-center">
+                        <div className="mt-4 flex text-sm leading-6 text-gray-600 text-center">
                           <label
                             for="file-upload"
-                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
                             <span className="self-center text-blue-700 text-lg">
                               {galleryLoading ? "Loading..." : "Add Images"}
@@ -400,7 +408,7 @@ const AddPost = ({ form }) => {
                             />
                           </label>
                         </div>
-                        <p class="text-lg leading-5 text-gray-600">
+                        <p className="text-lg leading-5 text-gray-600">
                           PNG, JPG up to 5MB
                         </p>
                       </div>
@@ -453,7 +461,7 @@ const AddPost = ({ form }) => {
                   <FormItem>
                     {getFieldDecorator("agentName", {
                       initialValue: "",
-                      rules: [{ required: false }],
+                      rules: [{ required: true }],
                     })(<TextInput label="Agent/Owner Name *" />)}
                   </FormItem>
                 </div>

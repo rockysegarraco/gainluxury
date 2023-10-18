@@ -1,15 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Share from '@mui/icons-material/Share';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageGalleryModal from "./ImageGalleryModal";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -32,7 +28,7 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
   const handleImageClick = (index) => {
     setCurrentIndex(index);
     setDialogOpen(true);
-  } 
+  }
 
   return (
     <>
@@ -43,28 +39,8 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
           onClose={setOpen}
           TransitionComponent={Transition}
         >
-          <Stack
-            sx={{ flexDirection: 'row', justifyContent: 'space-between', m: 1, position: 'sticky', top: 5  }} >
-            <div>
-              <IconButton onClick={setOpen}>
-                <ArrowBackIosNewIcon />
-              </IconButton>
-            </div>
-            <Stack sx={{ flexDirection: 'row' }} gap={2}>
-              <Typography sx={{ fontSize: 16, cursor: "pointer" }}>
-                <IconButton size="medium">
-                  <Share />
-                </IconButton> Share
-              </Typography>
-              <Typography sx={{ fontSize: 16, cursor: "pointer" }}>
-                <IconButton size="medium">
-                  <FavoriteBorderIcon />
-                </IconButton> Save
-              </Typography>
-            </Stack>
-          </Stack>
-
-          <Stack sx={{ alignItems: 'center'}}>
+        
+          <Stack sx={{ alignItems: 'center' }}>
             <ImageList
               sx={{
                 transform: 'translateZ(0)',
@@ -87,7 +63,14 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
               })}
             </ImageList>
           </Stack>
-          <ImageGalleryModal open={isDialogOpen} setOpen={() => setDialogOpen(!isDialogOpen)} images={images} currentIndex={currentIndex}  />
+          <button
+              onClick={setOpen}
+              type="button"
+              className="absolute top-4 right-4 inline-flex items-center bg-[#F2F2F2] rounded-md p-4 text-sm text-gray-900 hover:bg-gray-200"
+            >
+              <XMarkIcon className="h-5 w-5 text-gray-900" aria-hidden="true" />
+            </button>
+          <ImageGalleryModal open={isDialogOpen} setOpen={() => setDialogOpen(!isDialogOpen)} images={images} currentIndex={currentIndex} />
         </Dialog>
       </div>
     </>
