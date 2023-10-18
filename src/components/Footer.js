@@ -95,10 +95,6 @@ export default function Example() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
             <img className="h-7" src="/logo-dark.svg" alt="Gain Luxury" />
-            <p className="text-sm leading-6 text-gray-300">
-              Making the world a better place through constructing elegant
-              hierarchies.
-            </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
                 <a

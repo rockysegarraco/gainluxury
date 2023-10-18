@@ -63,7 +63,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
     <>
       <div className="py-4">
         <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-6 lg:px-0 flex flex-row justify-between">
-          <Breadcrumb />
+          Back to Search
         </div>
 
         {/* User Edit*/}
@@ -112,7 +112,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
         <div className="mx-auto max-w-full px-6 py-4 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
             <h3 className="pt-0 pb-3">
-              Orlando, {state.value} :: {country.value}
+              {city.value}, {state.value} :: {country.value}
             </h3>
             <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy py-2">
               {title}
