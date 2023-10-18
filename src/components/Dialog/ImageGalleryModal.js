@@ -1,12 +1,9 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import Stack from "@mui/material/Stack";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Share from '@mui/icons-material/Share';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import IconButton from "@mui/material/IconButton";
 import ImageGallery from "react-image-gallery";
 import styled from "@emotion/styled";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 const ImageContainer = styled.div`
 .image-gallery-image {
@@ -17,50 +14,41 @@ const ImageContainer = styled.div`
 
 export default function ImageGalleryModal({ open, setOpen, images, currentIndex = 0 }) {
 
-    const ImageItems = () => {
-        const imageData = images.map((item) => {
-            return { original: item, thumbnail: item }
-        })
-        return imageData;
-    }
+  const ImageItems = () => {
+    const imageData = images.map((item) => {
+      return { original: item, thumbnail: item }
+    })
+    return imageData;
+  }
 
-    return (
-        <div style={{ backgroundColor: "#212121" }}>
-            <Dialog
-                PaperProps={{
-                    style: {
-                        backgroundColor: "#212121"
-                    }
-                }}
-                fullScreen
-                open={open}
-                onClose={setOpen}
-                className="relative"
-            >
-                <Stack
-                    sx={{ flexDirection: 'row', justifyContent: 'space-between', m: 1 }} >
-                    <div>
-                        <IconButton onClick={setOpen}>
-                            <ArrowBackIosNewIcon color="primary" />
-                        </IconButton>
-                    </div>
-                    <Stack sx={{ flexDirection: 'row' }}>
-                        <IconButton size="medium">
-                            <Share color="primary" />
-                        </IconButton>
-                        <IconButton size="medium">
-                            <FavoriteBorderIcon color="warning" />
-                        </IconButton>
-                    </Stack>
-                </Stack>
+  return (
+      <Dialog
+        PaperProps={{
+          style: {
+            backgroundColor: "black"
+          }
+        }}
+        fullScreen
+        open={open}
+        onClose={setOpen}
+        className="relative"
+      >
+        <Stack className="items-end mx-4 mt-5" >
+          <button
+            onClick={setOpen}
+            type="button"
+            className="relative inline-flex items-center bg-[#F2F2F2] rounded-md p-2 text-sm text-gray-900 hover:bg-gray-200"
+          >
+            <XMarkIcon className="h-5 w-5 text-gray-900" aria-hidden="true" />
+          </button>
+        </Stack>
 
-                <Stack sx={{ alignItems: 'center' }}>
-                    <ImageContainer>
-                        <ImageGallery items={ImageItems()} startIndex={currentIndex} showFullscreenButton={false} />
-                    </ImageContainer>
-                </Stack>
+        <Stack sx={{ alignItems: 'center' }}>
+          <ImageContainer>
+            <ImageGallery items={ImageItems()} startIndex={currentIndex} showFullscreenButton={false} />
+          </ImageContainer>
+        </Stack>
 
-            </Dialog>
-        </div>
-    );
+      </Dialog>
+  );
 }
