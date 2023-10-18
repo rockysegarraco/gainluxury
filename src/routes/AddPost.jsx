@@ -83,7 +83,7 @@ const AddPost = ({ form }) => {
             category,
             location,
           };
-          if (!hasError) {
+          if (addressValue !== null) {
             return await axios
             .post(
               "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
@@ -102,6 +102,8 @@ const AddPost = ({ form }) => {
                 window.location.assign(res.data.url);
               }
             });
+          } else {
+            setIsLoading(false);
           }
         } else {
           alert("Please add at least 5 photos.");
