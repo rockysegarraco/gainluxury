@@ -3434,10 +3434,8 @@ export const RE_SELECT_PROPERTY = [
 ];
 
 export const RE_SELECT_PROPERTY_CATEGORY = [
-  { label: "Apartments & Flats", value: "apartments_flats" },
-  { label: "Commercial Property", value: "commercial_property" },
   { label: "Residential Property", value: "residential_property" },
-  { label: "Plots & Land", value: "plots_land" },
+  { label: "Commercial Property", value: "commercial_property" },
 ];
 
 export const RE_PRICE_UNIT = [
@@ -3445,4 +3443,15 @@ export const RE_PRICE_UNIT = [
   { label: "Year (per year)", value: "per_year" },
   { label: "Month (per month)", value: "per_month" },
   { label: "Square Feet (per sqft)", value: "square_feet" },
+];
+
+export const RE_PROPERTY_TYPE = [
+  { label: "Building", value: "no_unit" },
+  { label: "Factory/Mill", value: "per_year" },
+  { label: "Hotel", value: "per_month" },
+  { label: "Office", value: "square_feet" },
+  { label: "Restaurant", value: "square_feet" },
+  { label: "shop", value: "square_feet" },
+  { label: "Warehouse", value: "square_feet" },
+  { label: "Other", value: "square_feet" },
 ];

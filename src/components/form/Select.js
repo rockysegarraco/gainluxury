@@ -69,14 +69,14 @@ const customStyles = {
     ...provided,
     border: "1px solid lightgray",
     borderRadius: "5px",
-    width: "100%",    
+    width: "100%",
     padding: "5px 0px",
     color: "#000",
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     maxHeight: 44,
-    '&:hover': {
-      borderColor: '#5E6F86'
-    }
+    "&:hover": {
+      borderColor: "#5E6F86",
+    },
   }),
   valueContainer: (provided) => ({
     ...provided,
@@ -87,34 +87,34 @@ const customStyles = {
     ...provided,
     fontWeight: 400,
     opacity: 0.42,
-    color: 'gray'
+    color: "gray",
   }),
   dropdownIndicator: (provided, state) => ({
     ...provided,
     transition: "all .2s ease",
     transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-    color: 'gray',
+    color: "gray",
   }),
   indicatorsContainer: (provided) => ({
     ...provided,
     padding: "6px",
-    maxHeight: 32
+    maxHeight: 32,
   }),
   menu: (provided, state) => ({
     ...provided,
     zIndex: 99,
     overflow: "hidden",
-    backgroundColor: 'white',
-    borderRadius: '10px',
+    backgroundColor: "white",
+    borderRadius: "10px",
   }),
   option: (provided, { isSelected, isDisabled, theme }) => ({
     ...provided,
     backgroundColor: isSelected ? theme.colors.selected : null,
-    color: isDisabled ? 'grey' : 'black',
+    color: isDisabled ? "grey" : "black",
     fontSize: 14,
-    '&:hover': {
-      backgroundColor: !isDisabled && '#F5F5F5'
-    }
+    "&:hover": {
+      backgroundColor: !isDisabled && "#F5F5F5",
+    },
   }),
   singleValue: (provided) => ({
     ...provided,
@@ -125,7 +125,7 @@ const customStyles = {
     ...provided,
     margin: 0,
     padding: 0,
-    color: '#000',
+    color: "#000",
   }),
 };
 
@@ -208,7 +208,7 @@ const CustomSelect = React.forwardRef(
         fullWidth={fullWidth}
         error={hasError}
       >
-        {label && <FormLabel sx={{fontWeight: "bold"}}>{label}</FormLabel>}
+        {label && <FormLabel sx={{ fontWeight: "bold" }}>{label}</FormLabel>}
         {loadOptions ? (
           <AsyncComponent
             ref={ref}
@@ -245,7 +245,7 @@ const CustomSelect = React.forwardRef(
             isMulti={isMulti}
             hideSelectedOptions={!Components.MultiValue}
             closeMenuOnSelect={!isMulti}
-            styles={styles ? styles : customStyles}         
+            styles={styles ? styles : customStyles}
             {...rest}
           />
         )}

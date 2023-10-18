@@ -47,28 +47,38 @@ const Input = React.forwardRef(
         sx={{ width: "100%" }}
         {...other}
       >
-        {label && <FormLabel sx={{ fontWeight: "bold" }}>{label}</FormLabel>}
-        {subLabel && <FormLabel sx={{ fontSize: 12 }} color="primary">{subLabel}</FormLabel>}
-        {multiline ? <TextareaAutosize
-          minRows={3}
-          type={type}
-          className="styledInput"
-          style={{ paddingInline: 10 }}
-          id={id}
-          name={name}
-          inputRef={ref}
-          placeholder={placeholder}
-          fullWidth
-          value={capital ? value?.toUpperCase() : value}
-          onChange={onChange}
-          multiline={multiline}
-          disabled={disabled}
-          readOnly={readOnly}
-          rows={rows}
-          onBlur={onBlur}
-          error={hasError}
-          {...inputProps}
-        /> :
+        {label && (
+          <FormLabel sx={{ fontWeight: "bold", color: "black" }}>
+            {label}
+          </FormLabel>
+        )}
+        {subLabel && (
+          <FormLabel sx={{ fontSize: 12 }} color="primary">
+            {subLabel}
+          </FormLabel>
+        )}
+        {multiline ? (
+          <TextareaAutosize
+            minRows={3}
+            type={type}
+            className="styledInput"
+            style={{ paddingInline: 10 }}
+            id={id}
+            name={name}
+            inputRef={ref}
+            placeholder={placeholder}
+            fullWidth
+            value={capital ? value?.toUpperCase() : value}
+            onChange={onChange}
+            multiline={multiline}
+            disabled={disabled}
+            readOnly={readOnly}
+            rows={rows}
+            onBlur={onBlur}
+            error={hasError}
+            {...inputProps}
+          />
+        ) : (
           <InputBase
             type={type}
             className="styledInput"
@@ -107,7 +117,8 @@ const Input = React.forwardRef(
               )
             }
             {...inputProps}
-          />}
+          />
+        )}
         {hint && (
           <Typography variant="caption" color="textSecondary">
             {hint}
@@ -119,6 +130,6 @@ const Input = React.forwardRef(
   }
 );
 
-Input.displayName = 'TextInput';
+Input.displayName = "TextInput";
 
 export default Input;
