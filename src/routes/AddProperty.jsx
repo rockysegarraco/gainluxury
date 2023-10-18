@@ -146,11 +146,15 @@ const AddProperty = ({ form }) => {
           (a) => a.types[0] === "postal_code"
         )[0];
         const country = addressData.filter((a) => a.types[0] === "country")[0];
+        const city = addressData.filter(
+          (a) => a.types[0] === "administrative_area_level_3"
+        )[0];
         const state = addressData.filter(
           (a) => a.types[0] === "administrative_area_level_1"
         )[0];
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
+          city: city ? city.long_name : "",
           country: country
             ? { label: country.long_name, value: country.long_name }
             : "",
@@ -312,12 +316,17 @@ const AddProperty = ({ form }) => {
                     />
                   </div>
                   <FormItem>
+                    {getFieldDecorator("city", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(<TextInput fullWidth label="City *" />)}
+                  </FormItem>
+                  <FormItem>
                     {getFieldDecorator("state", {
                       initialValue: "",
                       rules: [{ required: true }],
                     })(<Select options={US_STATE} fullWidth label="State *" />)}
                   </FormItem>
-
                   <FormItem>
                     {getFieldDecorator("country", {
                       initialValue: "",
