@@ -170,21 +170,21 @@ const AddProperty = ({ form }) => {
     if (propertyCategory?.value === "apartments_flats") {
       return (
         <FormItem>
-                  {getFieldDecorator("priceUnit", {
-                    initialValue: "",
-                    rules: [{ required: true }],
-                  })(
-                    <Select
-                      options={RE_PRICE_UNIT}
-                      fullWidth
-                      label="Price Unit *"
-                      autocomplete="off"
-                    />
-                  )}
-                </FormItem>
-      )
+          {getFieldDecorator("priceUnit", {
+            initialValue: "",
+            rules: [{ required: true }],
+          })(
+            <Select
+              options={RE_PRICE_UNIT}
+              fullWidth
+              label="Price Unit *"
+              autocomplete="off"
+            />
+          )}
+        </FormItem>
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -230,7 +230,7 @@ const AddProperty = ({ form }) => {
                       fullWidth
                       label="Category *"
                       autocomplete="off"
-                      onChange={data => setPropertyCategory(data)}
+                      onChange={(data) => setPropertyCategory(data)}
                     />
                   )}
                 </FormItem>
@@ -267,6 +267,28 @@ const AddProperty = ({ form }) => {
                     apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
                   />
                 </div>
+                <FormItem>
+                  {getFieldDecorator("state", {
+                    initialValue: "",
+                  })(<Select options={US_STATE} fullWidth label="State" />)}
+                </FormItem>
+                <Stack
+                  gap={2}
+                  sx={{ flexDirection: "row", alignItems: "center" }}
+                >
+                  <FormItem>
+                    {getFieldDecorator("country", {
+                      initialValue: "",
+                      rules: [{ required: true }],
+                    })(<Select fullWidth label="Country" options={COUNTRY} />)}
+                  </FormItem>
+
+                  <FormItem>
+                    {getFieldDecorator("zipcode", {
+                      initialValue: "",
+                    })(<TextInput label="Zipcode" type="number" />)}
+                  </FormItem>
+                </Stack>
                 <FormItem>
                   {getFieldDecorator("aptsize", {
                     initialValue: "",
@@ -454,7 +476,7 @@ const AddProperty = ({ form }) => {
                     ],
                   })(
                     <PhoneInput
-                      label="Phone Number"
+                      label="Phone Number *"
                       prependIcon={false}
                       maxLength={10}
                     />
@@ -473,34 +495,12 @@ const AddProperty = ({ form }) => {
                     apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
                   />
                 </div>
-                <FormItem>
-                  {getFieldDecorator("state", {
-                    initialValue: "",
-                  })(<Select options={US_STATE} fullWidth label="State" />)}
-                </FormItem>
-                <Stack
-                  gap={2}
-                  sx={{ flexDirection: "row", alignItems: "center" }}
-                >
-                  <FormItem>
-                    {getFieldDecorator("country", {
-                      initialValue: "",
-                      rules: [{ required: true }],
-                    })(<Select fullWidth label="Country" options={COUNTRY} />)}
-                  </FormItem>
-
-                  <FormItem>
-                    {getFieldDecorator("zipcode", {
-                      initialValue: "",
-                    })(<TextInput label="Zipcode" type="number" />)}
-                  </FormItem>
-                </Stack>
               </Stack>
             </Stack>
           </div>
         </div>
 
-        <div className="col-span-12">
+        <div className="col-span-12 text-center pt-2 mb-16">
           <button
             onClick={checkout}
             type="button"
