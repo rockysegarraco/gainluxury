@@ -2,7 +2,6 @@ import { useUser } from "@clerk/clerk-react";
 //
 import Gallery from "./Gallery";
 import { Link } from "react-router-dom";
-import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
@@ -10,10 +9,8 @@ import Done from "@mui/icons-material/Done";
 import { useNavigate } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 
-import Breadcrumb from "../components/Breadcrumb";
 import Popconfirm from "./Popconfirm";
 import Footer from "../components/Footer";
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 
 export default function PostDetail({ data, handleSold, handleDelete }) {
   const { user } = useUser();
@@ -35,10 +32,10 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
     status,
     pricingType,
     location,
-    brand,
     agentName,
     state,
     country,
+    city
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -112,7 +109,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
         <div className="mx-auto max-w-full px-6 py-4 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
             <h3 className="pt-0 pb-3">
-              {city.value}, {state.value} :: {country.value}
+              {city?.value}, {state?.value} :: {country?.value}
             </h3>
             <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy py-2">
               {title}
