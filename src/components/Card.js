@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel/CarouselCard";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 export default function Example(props) {
   return (
@@ -15,10 +16,6 @@ export default function Example(props) {
                 <div className="font-bold text-base text-black/100">
                   {props.Price}
                 </div>
-                <div className="text-sm text-black/75">
-                  {props.Title}
-                  {/* <span aria-hidden="true" className="absolute inset-0" /> REmove this line */}
-                </div>
               </Link>
               <div>
                 <button
@@ -29,7 +26,22 @@ export default function Example(props) {
                 </button>
               </div>
             </div>
-            <p className="mt-1 text-sm text-black/50">{props.Location}</p>
+            <div className="flex flex-grow justify-between mt-4">
+              <div className="basis-3/4 mt-1 text-sm text-black/50">
+                <span className="text-black font-semibold">{props.Title}</span>
+                <br />
+                {props.Location}
+              </div>
+              <div className="flex-none">
+                <Link to="/">
+                  <img
+                    className="h-14 w-full aspect-square rounded-full"
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </article>

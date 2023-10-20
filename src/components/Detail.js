@@ -11,6 +11,8 @@ import GoogleMapReact from "google-map-react";
 
 import Popconfirm from "./Popconfirm";
 import Footer from "../components/Footer";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export default function PostDetail({ data, handleSold, handleDelete }) {
   const { user } = useUser();
@@ -35,7 +37,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
     agentName,
     state,
     country,
-    city
+    city,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -58,14 +60,24 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
 
   return (
     <>
-      <div className="py-4">
-        <div className="mx-auto max-w-full lg:max-w-[90%] max-h-full px-6 lg:px-0 flex flex-row justify-between">
-          Back to Search
+      <div>
+        <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-4 pb-1">
+          <Link
+            to="/home/cars"
+            type="button"
+            className="rounded-full border border-slate-900 px-4 py-2 mr-0 text-sm text-slate-900 hover:bg-white hover:text-slate-600"
+          >
+            {" "}
+            <span className="mr-1">
+              <KeyboardBackspaceIcon />
+            </span>{" "}
+            back
+          </Link>
         </div>
 
         {/* User Edit*/}
         {user?.id === userId && (
-          <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-8">
+          <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-4">
             <div className="flex gap-2">
               <Button
                 className="text-xs lg:text-xs rounded-full"
@@ -109,7 +121,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
         <div className="mx-auto max-w-full px-6 py-4 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
             <h3 className="pt-0 pb-3">
-              {city?.value}, {state?.value} :: {country?.value}
+              {state?.value}, {country?.value}
             </h3>
             <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy py-2">
               {title}
@@ -223,6 +235,9 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                     type="submit"
                     className="flex w-full items-center justify-center border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white"
                   >
+                    <span className="mr-2">
+                      <MailOutlineIcon />
+                    </span>{" "}
                     Contact
                   </button>
                 </Link>

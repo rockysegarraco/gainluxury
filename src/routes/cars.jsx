@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Link } from "react-router-dom";
 //
 import Container from "../components/container.js";
 import Breadcrumb from "../components/Breadcrumb";
@@ -21,6 +22,7 @@ import Stack from "@mui/material/Stack";
 import { BRAND, COUNTRY } from "../utils/constants.js";
 import SelectModel from "../components/Selects/SelectModel.js";
 import SearchDialog from "../components/Dialog/SearchDialog.js";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -305,10 +307,7 @@ const Cars = () => {
           </div>
         </div>
         <Container>
-          <div className="py-2 lg:py-3">
-            <Breadcrumb />
-          </div>
-          <h1 className="text-2xl lg:text-4xl fancy">Cars for Sale</h1>
+          <h1 className="text-2xl lg:text-4xl fancy pt-4">Cars for Sale</h1>
           <Stack
             sx={{
               display: "flex",
@@ -369,6 +368,7 @@ const Cars = () => {
           open={isSearchDialogOpen}
         />
       </div>
+      <Footer />
     </>
   );
 };

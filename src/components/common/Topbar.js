@@ -60,13 +60,10 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} />
-        <div className="px-4">
-          <SearchIcon />
-        </div>
         <button
           type="button"
           onClick={() => navigate("/pricing")}
-          className="rounded-full px-6 py-2 mr-0 text-base text-black hover:bg-gray-100 hidden lg:block"
+          className="rounded-full border border-blue-700 px-6 py-2 mr-3 text-sm text-blue-700 hover:bg-white hover:text-blue-600 hidden lg:block"
         >
           {" "}
           Pricing
@@ -74,7 +71,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="rounded-full px-6 py-2 mr-4 text-base text-black hover:bg-gray-100 hidden lg:block"
+          className="rounded-full border border-blue-700 px-6 py-2 mr-4 text-sm text-blue-700 hover:bg-white hover:text-blue-600 hidden lg:block"
         >
           {" "}
           Add Listing
@@ -85,7 +82,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           <button
             type="button"
             onClick={() => navigate("/login")}
-            className="rounded-full border border-black hover:border-gray-700 px-6 py-2 mr-0 text-sm font-semibold hover:text-gray-700 hidden lg:block"
+            className="rounded-full border border-blue-700 px-6 py-2 mr-0 text-sm text-blue-700 hover:bg-white hover:text-blue-600 hidden lg:block"
           >
             {" "}
             Log In
