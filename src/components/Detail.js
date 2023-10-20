@@ -190,7 +190,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                 </div>
               </div>
             </div>
-            <div className="mt-1 h-[300px] w-full">
+            <div className="py-3 h-[300px] w-full">
               <GoogleMapReact
                 bootstrapURLKeys={{
                   key: process.env.REACT_APP_GOOGLE_MAP_KEY,

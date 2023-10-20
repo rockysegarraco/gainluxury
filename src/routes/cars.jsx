@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Container from "../components/container.js";
 import Breadcrumb from "../components/Breadcrumb";
 import CardCar from "../components/cardCar.js";
+import Footer from "../components/Footer";
 //import Pagination from "../components/Pagination";
 
 import SelectCountries from "../components/Selects/SelectCountries";
