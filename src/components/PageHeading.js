@@ -5,7 +5,6 @@ function classNames(...classes) {
 export default function Tabs({ tabData, tabIndex, setIndex }) {
   return (
     <>
-      <h1 className="text-3xl fancy">My Listings</h1>
       <div className="mt-4">
         <nav className="flex lg:space-x-8 space-x-2">
           {tabData.map((tab, i) => (
