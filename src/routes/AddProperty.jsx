@@ -54,6 +54,14 @@ const AddProperty = ({ form }) => {
     }
   }, []);
 
+  useEffect(() => {
+    setFieldsValue({
+      agentName: user.firstName + " " + user.lastName,
+      email: user.emailAddresses[0]?.emailAddress,
+      phone: user.phoneNumbers[0]?.phoneNumber
+    })
+  }, [user])
+
   const checkout = async () => {
     return validateFields()
       .then(async (values) => {
@@ -76,6 +84,7 @@ const AddProperty = ({ form }) => {
             slug,
             location,
             category,
+            avatar: user.imageUrl
           };
 
           return await axios
