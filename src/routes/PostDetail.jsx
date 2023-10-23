@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { useUser } from "@clerk/clerk-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,10 +10,14 @@ import db from "../firebase";
 
 const PostDetail = () => {
   let { slug } = useParams();
+  const { user } = useUser();
   const [isLoading, setIsLoading] = useState(true);
+  const [listingSize, setListingSize] = useState(0);
   const [data, setData] = useState();
   const [docId, setDocId] = useState();
   const navigate = useNavigate();
+
+  const collections = collection(db, "cars");
 
   useEffect(() => {
     if (slug) {
@@ -22,7 +27,6 @@ const PostDetail = () => {
 
   const getPost = async () => {
     setIsLoading(true);
-    const collections = collection(db, "cars");
     const q = query(collections, where("slug", "==", slug));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -32,6 +36,19 @@ const PostDetail = () => {
       setIsLoading(false);
     });
   };
+
+  useEffect(() => {
+    getListingSize();
+  }, [user])
+
+  const getListingSize = async () => {
+    if (user) {
+      const q = query(collections, where("userId", "==", user.id));
+      const querySnapshot = await getDocs(q);
+      setListingSize(querySnapshot.size);
+    }
+  }
+  
 
   const handleSold = async(status) => {
     const documentToUpdate = doc(db, data.category.value, docId);
@@ -65,7 +82,7 @@ const PostDetail = () => {
         </Box>
       ) : (
         <div>
-          <Detail data={data} handleSold={handleSold} handleDelete={handleDelete}  />
+          <Detail data={data} handleSold={handleSold} handleDelete={handleDelete} listingSize={listingSize - 1} />
         </div>
       )}
     </div>

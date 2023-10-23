@@ -1,71 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+
 import MyListings from "../components/MyListings";
 import PageHeading from "../components/PageHeading";
 //
 import db from "../firebase";
 
-const MyPost = () => {
+const UserListings = () => {
+  let { uid } = useParams();
   const [post, setPost] = useState([]);
-  const [savedPost, setSavedPost] = useState([]);
-  const [soldPost, setSoldPost] = useState([]);
+  const [agent, setAgent] = useState([]);
+  const [about, setAbout] = useState([]);
   const { user } = useUser();
   const [tabs, setTabs] = useState([
-    { name: "All (0)", href: "#", current: true },
-    { name: "Saved (0)", href: "#", current: false },
-    { name: "Sold (0)", href: "#", current: false },
+    { name: "Listings (0)", href: "#", current: true },
+    { name: "Agents", href: "#", current: false },
+    { name: "About", href: "#", current: false },
   ]);
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
     getData();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (post.length > 0) {
       const tabData = JSON.parse(JSON.stringify(tabs));
-      tabData[0].name = `All (${post.length})`;
+      tabData[0].name = `Listings (${post.length})`;
       setTabs(tabData);
     }
   }, [post]);
 
-  useEffect(() => {
-    if (savedPost.length > 0) {
-      const tabData = JSON.parse(JSON.stringify(tabs));
-      tabData[1].name = `Saved (${savedPost.length})`;
-      setTabs(tabData);
-    }
-  }, [savedPost]);
-
-  useEffect(() => {
-    if (soldPost.length > 0) {
-      const tabData = JSON.parse(JSON.stringify(tabs));
-      tabData[2].name = `Sold (${soldPost.length})`;
-      setTabs(tabData);
-    }
-  }, [soldPost]);
-
   const getData = async () => {
-    if (user) {
-      const collections = collection(db, "cars");
-      const q = query(collections, where("userId", "==", user?.id));
+    const collections = collection(db, "cars");
+      const q = query(collections, where("userId", "==", uid));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        if (doc.data()?.status === "sold") {
-          setSoldPost((prev) => [...prev, doc.data()]);
-        } else {
-          setPost((prev) => [...prev, doc.data()]);
-        }
+        setPost((prev) => [...prev, doc.data()]);
       });
-    }
   };
 
   return (
     <div>
       <div className="mx-auto max-w-full mt-8 lg:px-20 px-4">
-      <h1 className="text-3xl fancy">My Listings</h1>
+      <h1 className="text-3xl fancy">Listings</h1>
         <PageHeading
           tabData={tabs}
           tabIndex={tabIndex}
@@ -77,17 +58,19 @@ const MyPost = () => {
           {tabIndex === 0 &&
             post.map((item, index) => <MyListings item={item} index={index} />)}
           {tabIndex === 1 &&
-            savedPost.map((item, index) => (
-              <MyListings item={item} index={index} />
-            ))}
+            (<div>
+              About agent
+            </div>)
+            }
           {tabIndex === 2 &&
-            soldPost.map((item, index) => (
-              <MyListings item={item} index={index} />
-            ))}
+          (<div>
+            About company
+          </div>)
+          }
         </div>
       </div>
     </div>
   );
 };
 
-export default MyPost;
+export default UserListings;
