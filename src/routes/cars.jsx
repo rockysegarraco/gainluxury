@@ -3,13 +3,10 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
 //
 import Container from "../components/container.js";
-import Breadcrumb from "../components/Breadcrumb";
 import CardCar from "../components/cardCar.js";
 import Footer from "../components/Footer";
-//import Pagination from "../components/Pagination";
 
 import SelectCountries from "../components/Selects/SelectCountries";
 import SelectStates from "../components/Selects/SelectStates";
@@ -355,7 +352,7 @@ const Cars = () => {
             </Stack>
           )}
 
-          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4">
+          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
             {post.map((item, index) => (
               <CardCar key={index} item={item} i={index} />
             ))}

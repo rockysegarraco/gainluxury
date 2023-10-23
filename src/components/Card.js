@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel/CarouselCard";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { EnvelopeIcon } from "@heroicons/react/20/solid";
 
 export default function Example(props) {
   return (
@@ -22,7 +23,12 @@ export default function Example(props) {
                   className="rounded bg-black px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   onClick={() => (window.location = `mailto:${props.email}`)}
                 >
-                  Contact
+                  <div className="flex">
+                    <div className="mr-1">
+                      <EnvelopeIcon className="h-4" />
+                    </div>
+                    <div>Contact</div>
+                  </div>
                 </button>
               </div>
             </div>
@@ -35,7 +41,7 @@ export default function Example(props) {
               <div className="flex-none">
                 <Link to="/">
                   <img
-                    className="h-14 w-full aspect-square rounded-full"
+                    className="h-12 w-full aspect-square rounded-full"
                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                     alt=""
                   />

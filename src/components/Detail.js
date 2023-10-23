@@ -118,7 +118,7 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
         </div>
 
         {/* Product info */}
-        <div className="mx-auto max-w-full px-6 py-4 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+        <div className="mx-auto max-w-full px-6 pt-4 pb-16 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
             <h3 className="pt-0 pb-3">
               {state?.value}, {country?.value}
@@ -250,6 +250,11 @@ export default function PostDetail({ data, handleSold, handleDelete }) {
                   >
                     Show Number
                   </button>
+                </Link>
+              </div>
+              <div className="pt-2 pb-4 px-4">
+                <Link to="/" className="underline">
+                  # Listings
                 </Link>
               </div>
             </div>
