@@ -54,6 +54,15 @@ const AddPost = ({ form }) => {
     }
   }, []);
 
+  useEffect(() => {
+    setFieldsValue({
+      agentName: user.firstName + " " + user.lastName,
+      email: user.emailAddresses[0]?.emailAddress,
+      phone: user.phoneNumbers[0]?.phoneNumber
+    })
+  }, [user])
+  
+
   const checkout = async () => {
       setHasError(addressValue === null);
     return validateFields()
@@ -82,6 +91,7 @@ const AddPost = ({ form }) => {
             slug,
             category,
             location,
+            avatar: user.imageUrl
           };
           if (addressValue !== null) {
             return await axios
