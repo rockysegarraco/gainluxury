@@ -17,6 +17,7 @@ export default function CardCar({ item, i }) {
         }
         Location={`${item.state?.value}, ${item.country?.value}`}
         email={item.email}
+        avatar={item.avatar}
       />
     </>
   );

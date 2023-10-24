@@ -492,7 +492,7 @@ const AddPost = ({ form }) => {
                   </FormItem>
                   <FormItem>
                     {getFieldDecorator("phone", {
-                      initialValue: user && user.user_mobile,
+                      initialValue: "",
                       rules: [
                         {
                           required: true,

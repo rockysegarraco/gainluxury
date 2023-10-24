@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel/CarouselCard";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { EnvelopeIcon } from "@heroicons/react/20/solid";
 
 export default function Example(props) {
@@ -42,7 +41,7 @@ export default function Example(props) {
                 <Link to="/">
                   <img
                     className="h-12 w-full aspect-square rounded-full"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src={props.avatar}
                     alt=""
                   />
                 </Link>

@@ -14,6 +14,7 @@ export default function MyListings({ item, index }) {
             : item.pricingType.value
         }
         Location={item.address}
+        avatar={item.avatar}
       />
     </>
   );

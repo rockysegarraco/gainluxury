@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useParams } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import MyListings from "../components/MyListings";
 import PageHeading from "../components/PageHeading";
 import Topbar from "../components/common/Topbar";
@@ -12,12 +13,36 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 //
 import db from "../firebase";
 
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress variant="indeterminate" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
 const UserListings = () => {
   let { uid } = useParams();
   const [post, setPost] = useState([]);
-  const [agent, setAgent] = useState([]);
-  const [about, setAbout] = useState([]);
-  const { user } = useUser();
+  const [progress, setProgress] = useState(10);
+  const [isShow, setShow] = useState(false);
+  const [timer, setTimer] = useState();
   const [tabs, setTabs] = useState([
     { name: "Listings (0)", href: "#", current: true },
   ]);
@@ -26,6 +51,23 @@ const UserListings = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      if (progress < 100) {
+        setProgress((prevProgress) => (prevProgress + 10));
+      }
+    }, 300);
+    setTimer(timer)
+  }, []);
+
+  useEffect(() => {
+    if (progress === 100) {
+      clearInterval(timer)
+    }
+  }, [progress])
+  
+
 
   useEffect(() => {
     if (post.length > 0) {
@@ -45,6 +87,8 @@ const UserListings = () => {
     });
   };
 
+  const itemData = post.length > 0 && post[0];
+
   return (
     <>
       <div className="mb-16">
@@ -55,27 +99,27 @@ const UserListings = () => {
               <div className="flex-shrink-0">
                 <img
                   className="h-16 w-16 rounded-full cursor-pointer"
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src={itemData?.avatar}
                   alt=""
                 />
               </div>
               <div className="min-w-0 flex-1">
                 <span className="absolute inset-0" aria-hidden="true" />
                 <p className="text-3xl font-semibold text-slate-900 fancy">
-                  "Name"'s Listings
+                  {itemData?.agentName}'s Listings
                 </p>
-                <p className="truncate text-sm text-slate-900">"person.role"</p>
+                <p className="truncate text-sm text-slate-900">{itemData?.agentCompany}</p>
               </div>
             </div>
             <div className="mt-4 flex md:ml-4 md:mt-0">
-              <Link to="/" className="mr-3">
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center rounded-full border border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black"
-                >
-                  Show Number
-                </button>
-              </Link>
+              <button
+                onClick={() => setShow(true)}
+                type="submit"
+                className="flex items-center justify-center rounded-full border border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black mr-3 w-48"
+              >
+                {!isShow ? `Show Number` : progress === 100 ? itemData.phone : "Loading..." }
+              </button>
+
               <Link to="/">
                 <button
                   type="submit"
