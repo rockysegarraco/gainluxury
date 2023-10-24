@@ -14,7 +14,12 @@ import Footer from "../components/Footer";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
-export default function PostDetail({ data, handleSold, handleDelete, listingSize }) {
+export default function PostDetail({
+  data,
+  handleSold,
+  handleDelete,
+  listingSize,
+}) {
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -37,7 +42,7 @@ export default function PostDetail({ data, handleSold, handleDelete, listingSize
     agentName,
     state,
     country,
-  } = data; 
+  } = data;
 
   const renderMarkers = (map, maps) => {
     let marker = new maps.Marker({
@@ -209,7 +214,7 @@ export default function PostDetail({ data, handleSold, handleDelete, listingSize
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 border-b p-4">
                 {people.map((person) => (
                   <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
-                    <div className="flex-shrink-0" >
+                    <div className="flex-shrink-0">
                       <img
                         onClick={() => navigate(`/listings/${user.id}`)}
                         className="h-16 w-16 rounded-full cursor-pointer"
@@ -242,29 +247,14 @@ export default function PostDetail({ data, handleSold, handleDelete, listingSize
                   </button>
                 </Link>
               </div>
-              <div className="pt-2 pb-4 px-4">
-                <Link to={`mailto:${email}`}>
-                  <button
-                    type="submit"
-                    className="flex w-full items-center justify-center border-2 border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black"
-                  >
-                    Show Number
-                  </button>
-                </Link>
-              </div>
-              <div className="pt-2 pb-4 px-4">
-                <Link to="/" className="underline">
-                  # Listings
-                </Link>
+              <div className="pt-4 pb-4 px-4">
+                {listingSize > 0 && (
+                  <Link className="underline" to={`/listings/${userId}`}>
+                    {listingSize} listings
+                  </Link>
+                )}
               </div>
             </div>
-            {listingSize > 0 && (
-                <div>
-                  <Link 
-                    to={`/listings/${userId}`}
-                    className="font-bold">{listingSize} listing for sale</Link>
-                </div>
-              )}
           </div>
         </div>
       </div>

@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import { Link } from "react-router-dom";
 
 import MyListings from "../components/MyListings";
 import PageHeading from "../components/PageHeading";
+import Topbar from "../components/common/Topbar";
+import Footer from "../components/Footer";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 //
 import db from "../firebase";
 
@@ -16,8 +20,6 @@ const UserListings = () => {
   const { user } = useUser();
   const [tabs, setTabs] = useState([
     { name: "Listings (0)", href: "#", current: true },
-    { name: "Agents", href: "#", current: false },
-    { name: "About", href: "#", current: false },
   ]);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -35,41 +37,78 @@ const UserListings = () => {
 
   const getData = async () => {
     const collections = collection(db, "cars");
-      const q = query(collections, where("userId", "==", uid));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        setPost((prev) => [...prev, doc.data()]);
-      });
+    const q = query(collections, where("userId", "==", uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      setPost((prev) => [...prev, doc.data()]);
+    });
   };
 
   return (
-    <div>
-      <div className="mx-auto max-w-full mt-8 lg:px-20 px-4">
-      <h1 className="text-3xl fancy">Listings</h1>
-        <PageHeading
-          tabData={tabs}
-          tabIndex={tabIndex}
-          setIndex={(i) => setTabIndex(i)}
-        />
-      </div>
-      <div className="mx-auto max-w-full lg:px-20 px-4 pt-6">
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6">
-          {tabIndex === 0 &&
-            post.map((item, index) => <MyListings item={item} index={index} />)}
-          {tabIndex === 1 &&
-            (<div>
-              About agent
-            </div>)
-            }
-          {tabIndex === 2 &&
-          (<div>
-            About company
-          </div>)
-          }
+    <>
+      <div className="mb-16">
+        <Topbar />
+        <div className="mx-auto max-w-full mt-24 lg:px-20 px-4">
+          <div className="md:flex md:items-center md:justify-between">
+            <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
+              <div className="flex-shrink-0">
+                <img
+                  className="h-16 w-16 rounded-full cursor-pointer"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="absolute inset-0" aria-hidden="true" />
+                <p className="text-3xl font-semibold text-slate-900 fancy">
+                  "Name"'s Listings
+                </p>
+                <p className="truncate text-sm text-slate-900">"person.role"</p>
+              </div>
+            </div>
+            <div className="mt-4 flex md:ml-4 md:mt-0">
+              <Link to="/" className="mr-3">
+                <button
+                  type="submit"
+                  className="flex w-full items-center justify-center rounded-full border border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black"
+                >
+                  Show Number
+                </button>
+              </Link>
+              <Link to="/">
+                <button
+                  type="submit"
+                  className="flex w-full items-center justify-center rounded-full border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white"
+                >
+                  <span className="mr-2">
+                    <MailOutlineIcon />
+                  </span>{" "}
+                  Contact
+                </button>
+              </Link>
+            </div>
+          </div>
+
+          <PageHeading
+            tabData={tabs}
+            tabIndex={tabIndex}
+            setIndex={(i) => setTabIndex(i)}
+          />
+        </div>
+        <div className="mx-auto max-w-full lg:px-20 px-4 pt-6">
+          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6">
+            {tabIndex === 0 &&
+              post.map((item, index) => (
+                <MyListings item={item} index={index} />
+              ))}
+            {tabIndex === 1 && <div>About agent</div>}
+            {tabIndex === 2 && <div>About company</div>}
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
