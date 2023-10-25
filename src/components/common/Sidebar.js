@@ -35,7 +35,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
+const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(drawerIndex);
