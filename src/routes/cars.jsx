@@ -20,7 +20,6 @@ import Stack from "@mui/material/Stack";
 import { BRAND, COUNTRY } from "../utils/constants.js";
 import SelectModel from "../components/Selects/SelectModel.js";
 import SearchDialog from "../components/Dialog/SearchDialog.js";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -175,7 +174,7 @@ const Cars = () => {
   };
 
   const handleCountry = (data) => {
-    const state = COUNTRY.find((table) => table.value === data).state;
+    const state = COUNTRY.find((table) => table.value === data)?.state;
     setCountry(data);
     if (state) {
       setStateData(state);
@@ -185,7 +184,7 @@ const Cars = () => {
   };
 
   const handleBrand = (data) => {
-    const modal = BRAND.find((table) => table.label === data).modal;
+    const modal = BRAND.find((table) => table.label === data)?.modal;
     setBrand(data);
     if (modal) {
       setModelData(modal);
