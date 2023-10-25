@@ -43,7 +43,7 @@ export default function PostDetail({
     state,
     country,
     agentCompany,
-    avatar
+    avatar,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -214,27 +214,24 @@ export default function PostDetail({
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <div className="border border-gray-200 bg-white lg:mb-4">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 border-b p-4">
-
-                  <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
-                    <div className="flex-shrink-0">
-                      <img
-                        onClick={() => navigate(`/listings/${user.id}`)}
-                        className="h-16 w-16 rounded-full cursor-pointer"
-                        src={avatar}
-                        alt=""
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                     
-                      <p className="text-xl font-semibold text-slate-900">
-                        {agentName}
-                      </p>
-                      <p className="truncate text-sm text-slate-900">
-                        {agentCompany}
-                      </p>
-                    </div>
+                <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
+                  <div className="flex-shrink-0">
+                    <img
+                      onClick={() => navigate(`/listings/${userId}`)}
+                      className="h-16 w-16 rounded-full cursor-pointer"
+                      src={avatar}
+                      alt=""
+                    />
                   </div>
-                
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xl font-semibold text-slate-900">
+                      {agentName}
+                    </p>
+                    <p className="truncate text-sm text-slate-900">
+                      {agentCompany}
+                    </p>
+                  </div>
+                </div>
               </div>
               <div className="pt-4 px-4">
                 <Link to={`mailto:${email}?subject=Gain Luxury`}>

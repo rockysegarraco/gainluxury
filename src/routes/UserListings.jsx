@@ -28,19 +28,17 @@ const UserListings = () => {
   React.useEffect(() => {
     const timer = setInterval(() => {
       if (progress < 100) {
-        setProgress((prevProgress) => (prevProgress + 10));
+        setProgress((prevProgress) => prevProgress + 10);
       }
     }, 300);
-    setTimer(timer)
+    setTimer(timer);
   }, []);
 
   useEffect(() => {
     if (progress === 100) {
-      clearInterval(timer)
+      clearInterval(timer);
     }
-  }, [progress])
-  
-
+  }, [progress]);
 
   useEffect(() => {
     if (post.length > 0) {
@@ -81,7 +79,9 @@ const UserListings = () => {
                 <p className="text-3xl font-semibold text-slate-900 fancy">
                   {itemData?.agentName}'s Listings
                 </p>
-                <p className="truncate text-sm text-slate-900">{itemData?.agentCompany}</p>
+                <p className="truncate text-sm text-slate-900">
+                  {itemData?.agentCompany}
+                </p>
               </div>
             </div>
             <div className="mt-4 flex md:ml-4 md:mt-0">
@@ -90,7 +90,11 @@ const UserListings = () => {
                 type="submit"
                 className="flex items-center justify-center rounded-full border border-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-black mr-3 w-48"
               >
-                {!isShow ? `Show Number` : progress === 100 ? itemData.phone : "Loading..." }
+                {!isShow
+                  ? `Show Number`
+                  : progress === 100
+                  ? itemData.phone
+                  : "Loading..."}
               </button>
 
               <Link to="/">
