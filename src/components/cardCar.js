@@ -1,5 +1,6 @@
 import * as React from "react";
 import Card from "../components/Card.js";
+import { currencyFormat } from "../utils/index.js";
 
 export default function CardCar({ item, i }) {
   return (
@@ -12,7 +13,7 @@ export default function CardCar({ item, i }) {
         Alt={item.title}
         Price={
           item.pricingType.value === "Fixed"
-            ? `$${item.price}`
+            ? `${currencyFormat(item.price)}`
             : item.pricingType.value
         }
         Location={`${item.state?.value}, ${item.country?.value}`}
