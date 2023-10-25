@@ -9,7 +9,7 @@ const posts = [
   {
     id: 2,
     title: "Cars",
-    href: "#",
+    href: "/home/cars",
     imageUrl: "img/featuredImages/vlad-grebenyev-WylEpB8ODgw-unsplash.jpg",
     listings: "(#)",
   },
@@ -51,7 +51,7 @@ export default function Example() {
               />
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
               <div className="absolute inset-0 -z-10" />
-              <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
+              <h3 className="mt-3 text-xl font-semibold leading-6 text-white">
                 <a href={post.href}>
                   <span className="absolute inset-0" />
                   {post.title}

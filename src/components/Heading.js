@@ -8,7 +8,7 @@ export default function Example(props) {
   };
 
   return (
-    <div className="py-4">
+    <div className="py-4 mb-8">
       <div className="mx-auto max-w-full px-6 lg:px-6">
         <div className="flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="fancy text-xl lg:text-3xl">{props.title}</div>
