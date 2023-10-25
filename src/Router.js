@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   useNavigate,
+  useLocation
 } from "react-router-dom";
 import Home from "./routes/home";
 import Pricing from "./routes/Pricing";
@@ -24,6 +25,7 @@ import Register from "./routes/Register";
 import AddProperty from "./routes/AddProperty";
 import SuperUser from "./routes/SuperUser";
 import UserListings from "./routes/UserListings";
+import { useEffect } from "react";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -33,6 +35,13 @@ const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 function ClerkProviderWithRoutes() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname]);
+
+  
   return (
     <ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
       <Routes>
