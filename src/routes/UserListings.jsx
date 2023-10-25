@@ -95,9 +95,8 @@ const UserListings = () => {
                   : "Loading..."}
               </button>
 
-              <Link to="/">
+              <Link to={`mailto:${itemData?.email}?subject=Gain Luxury`}>
                 <button
-                  type="submit"
                   className="flex w-full items-center justify-center rounded-full border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white"
                 >
                   <span className="mr-2">
