@@ -127,14 +127,10 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex = 0, openDialog }) => {
   };
 
   const handleMenuItemClick = (index, route) => {
-    if (isSignedIn) {
-      setSelectedIndex(0);
-      setMenuIndex(index);
-      handleDrawerClose();
-      navigate(route);
-    } else {
-      navigate('/login')
-    }
+    setSelectedIndex(0);
+    setMenuIndex(index);
+    handleDrawerClose();
+    navigate(route);
   };
 
   return (
