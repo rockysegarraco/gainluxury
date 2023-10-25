@@ -44,30 +44,32 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const { isSignedIn } = useUser();
   const { signOut } = useClerk();
 
+  console.log(drawerIndex, selectedIndex);
+
   const LIST_ITEMS = [
     {
       title: "Real Estate",
       icon: <HomeOutlined />,
       show: true,
-      onClick: (index) => handleMenuItemClick(index, "/home/real-estate"),
+      onClick: (index) => handleClick(index, "/home/real-estate"),
     },
     {
       title: "Cars",
       icon: <TimeToLeaveIcon />,
       show: true,
-      onClick: (index) => handleMenuItemClick(index, "/home/cars"),
+      onClick: (index) => handleClick(index, "/home/cars"),
     },
     {
       title: "Marine",
       icon: <SailingIcon />,
       show: true,
-      onClick: (index) => handleMenuItemClick(index, "/home/marine"),
+      onClick: (index) => handleClick(index, "/home/marine"),
     },
     {
       title: "Aviation",
       icon: <FlightOutlined />,
       show: true,
-      onClick: (index) => handleMenuItemClick(index, "/home/aviation"),
+      onClick: (index) => handleClick(index, "/home/aviation"),
     },
     { title: "divider" },
     {
@@ -127,7 +129,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   };
 
   const handleMenuItemClick = (index, route) => {
-    setSelectedIndex(0);
+    setSelectedIndex(undefined);
     setMenuIndex(index);
     handleDrawerClose();
     navigate(route);
