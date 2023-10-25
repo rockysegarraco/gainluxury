@@ -14,7 +14,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import CarRental from "@mui/icons-material/CarRental";
 import Home from "@mui/icons-material/Home";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import SearchIcon from "@mui/icons-material/Search";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const { isSignedIn } = useUser();

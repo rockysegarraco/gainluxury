@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MyListings from "../components/MyListings";
 import PageHeading from "../components/PageHeading";
-import Topbar from "../components/common/Topbar";
 import Footer from "../components/Footer";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 //
@@ -65,8 +64,7 @@ const UserListings = () => {
   return (
     <>
       <div className="mb-16">
-        <Topbar />
-        <div className="mx-auto max-w-full mt-24 lg:px-20 px-4">
+        <div className="mx-auto max-w-full mt-10 lg:px-20 px-4">
           <div className="md:flex md:items-center md:justify-between">
             <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
               <div className="flex-shrink-0">
