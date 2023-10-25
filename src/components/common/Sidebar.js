@@ -44,8 +44,6 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const { isSignedIn } = useUser();
   const { signOut } = useClerk();
 
-  console.log(drawerIndex, selectedIndex);
-
   const LIST_ITEMS = [
     {
       title: "Real Estate",

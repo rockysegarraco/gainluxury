@@ -10,12 +10,12 @@ import db from "../firebase";
 
 const PostDetail = () => {
   let { slug } = useParams();
-  const { user } = useUser();
   const [isLoading, setIsLoading] = useState(true);
   const [listingSize, setListingSize] = useState(0);
   const [data, setData] = useState();
   const [docId, setDocId] = useState();
-  const navigate = useNavigate();
+  const [userId, setUserId] = useState();
+  const navigate = useNavigate(); 
 
   const collections = collection(db, "cars");
 
@@ -33,20 +33,21 @@ const PostDetail = () => {
       // doc.data() is never undefined for query doc snapshots
       setData(doc.data());
       setDocId(doc?.id);
+      setUserId(doc.data()?.userId)
       setIsLoading(false);
     });
   };
 
   useEffect(() => {
-    getListingSize();
-  }, [user])
+    if (userId) {
+      getListingSize();
+    }
+  }, [userId])
 
   const getListingSize = async () => {
-    if (user) {
-      const q = query(collections, where("userId", "==", user.id));
+      const q = query(collections, where("userId", "==", userId));
       const querySnapshot = await getDocs(q);
       setListingSize(querySnapshot.size);
-    }
   }
   
 
