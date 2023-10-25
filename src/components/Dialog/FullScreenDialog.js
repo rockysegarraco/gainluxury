@@ -14,9 +14,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function srcset(image, width, height, rows = 1, cols = 1) {
   return {
-    src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${width * cols}&h=${height * rows
-      }&fit=crop&auto=format&dpr=2 2x`,
+    src: `${image}`,
+    srcSet: `${image}`
   };
 }
 
@@ -53,8 +52,9 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
                 return (
                   <ImageListItem autoFocus={selectedItem === i} key={i} cols={cols} rows={rows}>
                     <img
+                      className="w-full h-[900px]"
+                      src={item}
                       onClick={() => handleImageClick(i)}
-                      {...srcset(item, 250, 200, rows, cols)}
                       alt={i}
                       loading="lazy"
                     />
