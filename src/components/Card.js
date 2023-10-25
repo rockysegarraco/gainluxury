@@ -40,7 +40,7 @@ export default function Example(props) {
               <div className="flex-none">
                 <Link to={`/listings/${props.userId}`}>
                   <img
-                    className="h-12 w-full aspect-square rounded-full"
+                    className="h-12 w-12 w-full aspect-square rounded-full"
                     src={props.avatar}
                     alt=""
                   />
