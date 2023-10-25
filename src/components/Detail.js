@@ -249,7 +249,7 @@ export default function PostDetail({
               <div className="pt-4 pb-4 px-4">
                 {listingSize > 0 && (
                   <Link className="underline" to={`/listings/${userId}`}>
-                    {listingSize} listings
+                    {listingSize} listings for sale
                   </Link>
                 )}
               </div>
