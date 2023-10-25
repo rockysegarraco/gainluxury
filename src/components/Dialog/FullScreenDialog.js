@@ -47,12 +47,12 @@ export default function FullScreenDialog({ open, setOpen, images, selectedItem =
               gap={1}
             >
               {images.map((item, i) => {
-                const cols = 2;
+                const cols = 1;
                 const rows = 2;
                 return (
                   <ImageListItem autoFocus={selectedItem === i} key={i} cols={cols} rows={rows}>
                     <img
-                      className="w-full h-[900px]"
+                      className="w-full h-[800px]"
                       src={item}
                       onClick={() => handleImageClick(i)}
                       alt={i}
