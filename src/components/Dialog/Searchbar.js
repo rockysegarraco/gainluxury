@@ -31,7 +31,7 @@ export default function Searchbar({ handleClick, handleOption }) {
   const styles = {
     container: base => ({
       ...base,
-      minWidth: 360,
+      minWidth: 450,
     })
   };
 

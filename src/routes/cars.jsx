@@ -222,20 +222,7 @@ const Cars = () => {
           Search
         </label>
         <div className="relative flex px-4 pt-3">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-6 pt-2">
-            <MagnifyingGlassIcon
-              onClick={handleClear}
-              className="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </div>
-          <input
-            onClick={() => setDialogOpen(true)}
-            className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Search Cars"
-            style={{ minWidth: "100%" }}
-            value={searchText}
-          />
+        <Searchbar handleClick={handleSearch} handleOption={handleOption} />
         </div>
       </div>
       <div className="flex flex-col">
@@ -283,25 +270,6 @@ const Cars = () => {
               />
               <div className="w-full min-w-4xl hidden lg:block">
                 <Searchbar handleClick={handleSearch} handleOption={handleOption} />
-                {/* <label htmlFor="search" className="sr-only">
-                  Search cars
-                </label>
-                <div className="relative flex">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MagnifyingGlassIcon
-                      onClick={handleClear}
-                      className="h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <input
-                    onClick={() => setDialogOpen(true)}
-                    className="flex w-full rounded border-0 bg-gray-100 py-2 pl-10 pr-3 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Search Cars"
-                    style={{ minWidth: "300px" }}
-                    value={searchText}
-                  />
-                </div> */}
               </div>
             </div>
           </div>
