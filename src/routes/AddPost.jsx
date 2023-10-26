@@ -50,15 +50,15 @@ const AddPost = ({ form }) => {
   // In case the user signs out while on the page.
   useEffect(() => {
     if (!isLoaded || !isSignedIn) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 
   useEffect(() => {
     setFieldsValue({
-      agentName: user.firstName + " " + user.lastName,
-      email: user.emailAddresses[0]?.emailAddress,
-      phone: user.phoneNumbers[0]?.phoneNumber
+      agentName: user?.firstName + " " + user?.lastName,
+      email: user?.emailAddresses[0]?.emailAddress,
+      phone: user?.phoneNumbers[0]?.phoneNumber
     })
   }, [user])
   

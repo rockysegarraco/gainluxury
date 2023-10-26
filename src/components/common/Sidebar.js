@@ -39,7 +39,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(drawerIndex);
-  const [menuIndex, setMenuIndex] = useState(0);
+  const [menuIndex, setMenuIndex] = useState();
   const [menuOpen, setOpen] = React.useState(false);
   const { isSignedIn } = useUser();
   const { signOut } = useClerk();
@@ -130,7 +130,12 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
     setSelectedIndex(undefined);
     setMenuIndex(index);
     handleDrawerClose();
-    navigate(route);
+    if (isSignedIn) {
+      navigate(route);
+    } else {
+      navigate('/login')
+    }
+    
   };
 
   return (

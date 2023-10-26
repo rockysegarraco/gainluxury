@@ -8,7 +8,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 const ImageContainer = styled.div`
 .image-gallery-image {
     width: 900px;
-    height: 650px;
+    height: 710px;
 }
 `;
 
@@ -25,7 +25,7 @@ export default function ImageGalleryModal({ open, setOpen, images, currentIndex 
       <Dialog
         PaperProps={{
           style: {
-            backgroundColor: "black"
+            backgroundColor: "black",
           }
         }}
         fullScreen
@@ -48,7 +48,6 @@ export default function ImageGalleryModal({ open, setOpen, images, currentIndex 
             <ImageGallery items={ImageItems()} startIndex={currentIndex} showFullscreenButton={false} />
           </ImageContainer>
         </Stack>
-
       </Dialog>
   );
 }

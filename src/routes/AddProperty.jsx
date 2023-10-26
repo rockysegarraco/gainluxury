@@ -50,7 +50,7 @@ const AddProperty = ({ form }) => {
   // In case the user signs out while on the page.
   useEffect(() => {
     if (!isLoaded || !isSignedIn) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 
@@ -312,7 +312,7 @@ const AddProperty = ({ form }) => {
                   {renderCommercial()}
                   {renderResidential()}
                   <div>
-                    <label class="block mb-2 font-medium leading-6 text-gray-700">
+                    <label className="block mb-2 font-medium leading-6 text-gray-700">
                       Address
                     </label>
                     <GooglePlacesAutocomplete
@@ -406,17 +406,17 @@ const AddProperty = ({ form }) => {
             <div className="px-4 py-5 sm:p-6">
               <Stack spacing={0}>
                 <Stack gap={2}>
-                  <div class="col-span-full">
+                  <div className="col-span-full">
                     <label
                       for="cover-photo"
-                      class="block font-medium leading-6 text-gray-700"
+                      className="block font-medium leading-6 text-gray-700"
                     >
                       Photos
                     </label>
-                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                      <div class="text-center">
+                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                      <div className="text-center">
                         <svg
-                          class="mx-auto h-12 w-12 text-gray-300"
+                          className="mx-auto h-12 w-12 text-gray-300"
                           viewBox="0 0 24 24"
                           fill="currentColor"
                           aria-hidden="true"
@@ -427,10 +427,10 @@ const AddProperty = ({ form }) => {
                             clip-rule="evenodd"
                           />
                         </svg>
-                        <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
                           <label
                             for="file-upload"
-                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
                             <span className="self-center">
                               {galleryLoading ? "Loading..." : "Add Images"}
@@ -441,14 +441,14 @@ const AddProperty = ({ form }) => {
                               multiple
                               max={5}
                               type="file"
-                              class="sr-only"
+                              className="sr-only"
                               ref={inputGallery}
                               accept="image/png, image/jpg, image/jpeg"
                               onChange={handleGalleryFile}
                             />
                           </label>
                         </div>
-                        <p class="text-xs leading-5 text-gray-600">
+                        <p className="text-xs leading-5 text-gray-600">
                           PNG, JPG up to 3MB
                         </p>
                       </div>
@@ -536,7 +536,7 @@ const AddProperty = ({ form }) => {
                   )}
                 </FormItem>
                 <div className="mt-2">
-                  <label class="block mb-2 font-medium leading-6 text-gray-700">
+                  <label className="block mb-2 font-medium leading-6 text-gray-700">
                     Address
                   </label>
                   <GooglePlacesAutocomplete

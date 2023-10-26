@@ -11,12 +11,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function srcset(image, width, height, rows = 1, cols = 1) {
-  return {
-    src: `${image}`,
-    srcSet: `${image}`,
-  };
-}
 
 export default function FullScreenDialog({
   open,
