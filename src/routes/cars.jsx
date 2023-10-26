@@ -20,6 +20,7 @@ import Stack from "@mui/material/Stack";
 import { BRAND, COUNTRY } from "../utils/constants.js";
 import SelectModel from "../components/Selects/SelectModel.js";
 import SearchDialog from "../components/Dialog/SearchDialog.js";
+import Searchbar from "../components/Dialog/Searchbar.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -189,6 +190,7 @@ const Cars = () => {
     if (modal) {
       setModelData(modal);
     } else {
+      setModel("All");
       setModelData([]);
     }
   };
@@ -236,7 +238,7 @@ const Cars = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col overflow-hidden">
+      <div className="flex flex-col">
         <div className="border-b py-3 lg:py-3 max-w-[100vw]">
           <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
             <div className="flex space-x-2">
@@ -279,8 +281,9 @@ const Cars = () => {
                   setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
                 }
               />
-              <div className="relative w-full min-w-4xl hidden lg:block">
-                <label htmlFor="search" className="sr-only">
+              <div className="w-full min-w-4xl hidden lg:block">
+                <Searchbar handleClick={handleSearch} handleOption={handleOption} />
+                {/* <label htmlFor="search" className="sr-only">
                   Search cars
                 </label>
                 <div className="relative flex">
@@ -298,7 +301,7 @@ const Cars = () => {
                     style={{ minWidth: "300px" }}
                     value={searchText}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
