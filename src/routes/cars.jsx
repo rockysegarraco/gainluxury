@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -19,12 +18,10 @@ import db from "../firebase";
 import Stack from "@mui/material/Stack";
 import { BRAND, COUNTRY } from "../utils/constants.js";
 import SelectModel from "../components/Selects/SelectModel.js";
-import SearchDialog from "../components/Dialog/SearchDialog.js";
 import Searchbar from "../components/Dialog/Searchbar.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
-  const [isSearchDialogOpen, setDialogOpen] = useState(false);
   const [sortOptions, setSortOption] = useState([
     { name: "Price lowest first", current: true, label: "price", value: "asc" },
     {
@@ -196,12 +193,10 @@ const Cars = () => {
   const handleSearch = (modal, brand) => {
     setBrand(brand);
     setModel(modal);
-    setDialogOpen(false);
   };
 
   const handleOption = (brand) => {
     setBrand(brand);
-    setDialogOpen(false);
   };
 
   return (
@@ -318,12 +313,6 @@ const Cars = () => {
           </div>
           {/* <Pagination count={10} /> */}
         </Container>
-        <SearchDialog
-          handleClick={handleSearch}
-          handleOption={handleOption}
-          setOpen={() => setDialogOpen(false)}
-          open={isSearchDialogOpen}
-        />
       </div>
       <Footer />
     </>
