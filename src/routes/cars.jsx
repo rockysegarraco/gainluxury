@@ -25,7 +25,6 @@ import Searchbar from "../components/Dialog/Searchbar.js";
 const Cars = () => {
   const [post, setPost] = useState([]);
   const [isSearchDialogOpen, setDialogOpen] = useState(false);
-  const [searchText, setSearchText] = useState("");
   const [sortOptions, setSortOption] = useState([
     { name: "Price lowest first", current: true, label: "price", value: "asc" },
     {
@@ -171,7 +170,6 @@ const Cars = () => {
     setCountry("All");
     setState("All");
     setModel("All");
-    setSearchText("");
   };
 
   const handleCountry = (data) => {
@@ -196,23 +194,14 @@ const Cars = () => {
   };
 
   const handleSearch = (modal, brand) => {
-    setSearchText(`${modal}, ${brand}`);
     setBrand(brand);
     setModel(modal);
     setDialogOpen(false);
   };
 
   const handleOption = (brand) => {
-    setSearchText(brand);
     setBrand(brand);
     setDialogOpen(false);
-  };
-
-  const handleClear = (e) => {
-    e.stopPropagation();
-    setSearchText("");
-    setModel("All");
-    setBrand("All");
   };
 
   return (
