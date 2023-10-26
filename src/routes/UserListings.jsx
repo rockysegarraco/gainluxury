@@ -62,7 +62,7 @@ const UserListings = () => {
   return (
     <>
       <div className="mb-16">
-        <div className="mx-auto max-w-full mt-10 lg:px-20 px-4">
+        <div className="mx-auto max-w-full lg:mt-10 mt-4 lg:px-20 px-4">
           <div className="md:flex md:items-center md:justify-between">
             <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
               <div className="flex-shrink-0">
@@ -96,9 +96,7 @@ const UserListings = () => {
               </button>
 
               <Link to={`mailto:${itemData?.email}?subject=Gain Luxury`}>
-                <button
-                  className="flex w-full items-center justify-center rounded-full border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white"
-                >
+                <button className="flex w-full items-center justify-center rounded-full border border-transparent bg-black px-8 py-3 uppercase text-sm tracking-wider font-semibold text-white">
                   <span className="mr-2">
                     <MailOutlineIcon />
                   </span>{" "}

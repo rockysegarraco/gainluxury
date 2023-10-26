@@ -7,20 +7,20 @@ import FeaturedListings from "../components/FeaturedListings";
 import RecentListings from "../components/RecentListings";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import SubNav from "../components/SubNav";
 import Carousel from "../components/Carousel/CarouselFade";
 import { BrowserView, MobileView } from "react-device-detect";
 import MobileSlider from "../components/Carousel/MobileSlider";
-
 
 function Home() {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
     getPost();
-  }, [])
+  }, []);
 
   const getPost = async () => {
-    const data = []
+    const data = [];
     const collections = collection(db, "cars");
     const q = query(collections, orderBy("postDate", "asc"), limit(8));
     const querySnapshot = await getDocs(q);
@@ -31,9 +31,9 @@ function Home() {
     setPost(data);
   };
 
-
   return (
     <>
+      <SubNav />
       <BrowserView>
         <Carousel />
       </BrowserView>

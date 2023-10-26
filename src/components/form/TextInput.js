@@ -48,7 +48,7 @@ const Input = React.forwardRef(
         {...other}
       >
         {label && (
-          <FormLabel sx={{ fontWeight: "bold", color: "black" }}>
+          <FormLabel sx={{ fontWeight: "normal", color: "gray" }}>
             {label}
           </FormLabel>
         )}
