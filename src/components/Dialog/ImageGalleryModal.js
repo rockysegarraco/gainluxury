@@ -8,7 +8,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 const ImageContainer = styled.div`
 .image-gallery-image {
     width: 900px;
-    height: 710px;
+    height: 650px;
 }
 `;
 
@@ -31,7 +31,6 @@ export default function ImageGalleryModal({ open, setOpen, images, currentIndex 
         fullScreen
         open={open}
         onClose={setOpen}
-        className="relative"
       >
         <Stack className="items-end mx-4 mt-5" >
           <button

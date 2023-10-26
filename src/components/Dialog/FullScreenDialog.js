@@ -1,33 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import ImageGalleryModal from "./ImageGalleryModal";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-
 export default function FullScreenDialog({
   open,
   setOpen,
   images,
   selectedItem = 0,
+  handleImageDialog
 }) {
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handleImageClick = (index) => {
-    setCurrentIndex(index);
-    setDialogOpen(true);
-  };
 
   return (
-    <>
       <div>
         <Dialog
           fullScreen
@@ -55,7 +46,7 @@ export default function FullScreenDialog({
                     <img
                       className="aspect-[16/9] w-full bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                       src={item}
-                      onClick={() => handleImageClick(i)}
+                      onClick={() => handleImageDialog(i)}
                       alt={i}
                       loading="lazy"
                     />
@@ -71,14 +62,7 @@ export default function FullScreenDialog({
           >
             <XMarkIcon className="h-5 w-5 text-gray-900" aria-hidden="true" />
           </button>
-          <ImageGalleryModal
-            open={isDialogOpen}
-            setOpen={() => setDialogOpen(!isDialogOpen)}
-            images={images}
-            currentIndex={currentIndex}
-          />
         </Dialog>
       </div>
-    </>
   );
 }

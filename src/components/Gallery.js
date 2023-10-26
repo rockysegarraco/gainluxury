@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import FullScreenDialog from './Dialog/FullScreenDialog';
+import ImageGalleryModal from './Dialog/ImageGalleryModal';
 
 function srcset(image, size, rows = 1, cols = 1) {
 	return {
@@ -13,6 +14,15 @@ function srcset(image, size, rows = 1, cols = 1) {
 
 const Gallery = ({ images }) => {
 	const [isOpen, setIsOpen] = useState(false);
+
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleImageDialog = (index) => {
+    setCurrentIndex(index);
+    setDialogOpen(true);
+  }
+
 	const imageGrid = () => {
 		let imageData = [];
 		if (images.length === 1) {
@@ -144,7 +154,17 @@ const Gallery = ({ images }) => {
 		className='bg-white border border-1 border-black px-3 py-1 absolute right-4 bottom-4 cursor-pointer rounded text-sm font-semibold'>
 			Show all photos
 		</div>
-		<FullScreenDialog open={isOpen} setOpen={() => setIsOpen(!isOpen)} images={images} selectedItem={2}  />
+		<FullScreenDialog 
+      handleImageDialog={handleImageDialog}
+      open={isOpen} 
+      setOpen={() => setIsOpen(!isOpen)} 
+      images={images} selectedItem={2}  />
+    <ImageGalleryModal
+            open={isDialogOpen}
+            setOpen={() => setDialogOpen(!isDialogOpen)}
+            images={images}
+            currentIndex={currentIndex}
+          />
 		</div>
 	)
 }
