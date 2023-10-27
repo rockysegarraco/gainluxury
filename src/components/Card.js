@@ -13,7 +13,7 @@ export default function Example(props) {
           <div className="group relative">
             <div className="flex justify-between">
               <Link to={props.Link}>
-                <div className="font-bold text-base text-black/100">
+                <div className="font-bold text-lg text-black/100 font-inter">
                   {props.Price}
                 </div>
               </Link>
@@ -26,14 +26,16 @@ export default function Example(props) {
                     <div className="mr-1">
                       <EnvelopeIcon className="h-4" />
                     </div>
-                    <div>Contact</div>
+                    <div className="font-inter">Contact</div>
                   </div>
                 </button>
               </div>
             </div>
             <div className="flex flex-grow justify-between mt-4">
-              <div className="basis-3/4 mt-1 text-sm text-black/50">
-                <span className="text-black font-semibold">{props.Title}</span>
+              <div className="basis-3/4 mt-1 text-base text-black/50 font-inter">
+                <span className="text-black font-inter text-lg">
+                  {props.Title}
+                </span>
                 <br />
                 {props.Location}
               </div>

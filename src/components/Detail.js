@@ -68,7 +68,7 @@ export default function PostDetail({
             <span className="mr-1">
               <KeyboardBackspaceIcon />
             </span>{" "}
-            back
+            back to search
           </Link>
         </div>
 
@@ -110,22 +110,25 @@ export default function PostDetail({
         )}
 
         {/* Image gallery */}
-        <div className="mx-auto py-3 max-w-full max-h-full lg:px-20 px-6">
+        <div className="mx-auto pt-3 pb-0  max-w-full max-h-full lg:px-20 px-6">
           {gallery?.length > 0 && <Gallery images={gallery} />}
         </div>
 
         {/* Product info */}
         <div className="mx-auto max-w-full px-6 pt-4 pb-16 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:pr-8">
+            <hr className="lg:hidden block" />
+            <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy pt-2">
+              {title}
+            </h1>
             <h3 className="pt-0 pb-3">
               {state?.value}, {country?.value}
             </h3>
-            <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy py-2">
-              {title}
-            </h1>
-            <h2 className="text-2xl lg:text-4xl text-gray-900 fancy py-2">
+            <hr className="lg:hidden block" />
+            <h2 className="text-xl lg:text-2xl text-gray-900 fancy py-2">
               {price ? `$${price}` : pricingType.value}
             </h2>
+            <hr className="lg:hidden block" />
             <div className="py-4">
               <div className="bg-black/75">
                 <div className="mx-auto max-w-full">

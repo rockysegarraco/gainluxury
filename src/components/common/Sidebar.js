@@ -133,9 +133,8 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
     if (isSignedIn) {
       navigate(route);
     } else {
-      navigate('/login')
+      navigate("/login");
     }
-    
   };
 
   return (
@@ -152,6 +151,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       open={open}
     >
       <DrawerHeader>
+        <div>Welcome!</div>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "ltr" ? <ClearIcon /> : <ClearIcon />}
         </IconButton>

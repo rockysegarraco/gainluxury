@@ -62,9 +62,9 @@ const UserListings = () => {
   return (
     <>
       <div className="mb-16">
-        <div className="mx-auto max-w-full lg:mt-10 mt-4 lg:px-20 px-4">
+        <div className="mx-auto max-w-full lg:mt-4 mt-4 lg:px-20 px-4">
           <div className="md:flex md:items-center md:justify-between">
-            <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
+            <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 lg:mb-2 mb-6">
               <div className="flex-shrink-0">
                 <img
                   className="h-16 w-16 rounded-full cursor-pointer"
@@ -82,7 +82,7 @@ const UserListings = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-4 flex md:ml-4 md:mt-0">
+            <div className="mt-2 flex md:ml-4 md:mt-0 lg:mb-0 mb-4">
               <button
                 onClick={() => setShow(true)}
                 type="submit"
@@ -105,7 +105,7 @@ const UserListings = () => {
               </Link>
             </div>
           </div>
-
+          <hr className="block mt-2" />
           <PageHeading
             tabData={tabs}
             tabIndex={tabIndex}
