@@ -33,15 +33,16 @@ function Home() {
 
   return (
     <>
-      <SubNav />
-      <BrowserView>
+      {/*       <BrowserView>
         <Carousel />
       </BrowserView>
       <MobileView>
         <MobileSlider />
       </MobileView>
       <FeaturedSection />
-      <FeaturedListings />
+      <FeaturedListings /> */}
+      <SubNav />
+
       <RecentListings post={post} />
       <Newsletter />
       <Footer />
