@@ -2,23 +2,22 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-//
-import Container from "../components/container.js";
-import CardCar from "../components/cardCar.js";
-import Footer from "../components/Footer";
-
-import SelectCountries from "../components/Selects/SelectCountries";
-import SelectStates from "../components/Selects/SelectStates";
-import SelectMakes from "../components/Selects/SelectMakes";
-import SelectPrice from "../components/Selects/SelectPrice";
-import SelectYears from "../components/Selects/YearSelect";
-import SelectModel from "../components/Selects/SelectModel.js";
-import Filters from "../components/Filters";
-import Searchbar from "../components/Dialog/Searchbar.js";
-//
-import db from "../firebase";
 import Stack from "@mui/material/Stack";
-import { BRAND, COUNTRY } from "../utils/constants.js";
+//
+import Container from "../container.js";
+import CardCar from "../cardCar.js";
+
+import SelectCountries from "../Selects/SelectCountries";
+import SelectStates from "../Selects/SelectStates";
+import SelectMakes from "../Selects/SelectMakes";
+import SelectPrice from "../Selects/SelectPrice";
+import SelectYears from "../Selects/YearSelect";
+import SelectModel from "../Selects/SelectModel.js";
+import Filters from "../Filters";
+import Searchbar from "../Dialog/Searchbar.js";
+//
+import db from "../../firebase";
+import { BRAND, COUNTRY } from "../../utils/constants.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -315,7 +314,6 @@ const Cars = () => {
           {/* <Pagination count={10} /> */}
         </Container>
       </div>
-      <Footer />
     </>
   );
 };

@@ -2,25 +2,22 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-//
-import Container from "../components/container.js";
-import CardCar from "../components/cardCar.js";
-import Footer from "../components/Footer";
-
-import SelectCountries from "../components/Selects/SelectCountries";
-import SelectStates from "../components/Selects/SelectStates";
-import SelectMakes from "../components/Selects/SelectMakes";
-import SelectPrice from "../components/Selects/SelectPrice";
-import SelectYears from "../components/Selects/YearSelect";
-import SelectModel from "../components/Selects/SelectModel.js";
-import Filters from "../components/Filters";
-import Searchbar from "../components/Dialog/Searchbar.js";
-//
-import db from "../firebase";
 import Stack from "@mui/material/Stack";
-import { BRAND, COUNTRY } from "../utils/constants.js";
+//
+import Container from "../container.js";
+import CardCar from "../cardCar.js";
 
-const Cars = () => {
+import SelectCountries from "../Selects/SelectCountries.js";
+import SelectStates from "../Selects/SelectStates.js";
+import SelectYears from "../Selects/YearSelect.js";
+import SelectPrice from "../Selects/SelectPrice.js";
+import Filters from "../Filters.js";
+import Searchbar from "../Dialog/Searchbar.js";
+//
+import db from "../../firebase.js";
+import { COUNTRY } from "../../utils/constants.js";
+
+const Properties = () => {
   const [post, setPost] = useState([]);
   const [sortOptions, setSortOption] = useState([
     { name: "Price lowest first", current: true, label: "price", value: "asc" },
@@ -28,18 +25,6 @@ const Cars = () => {
       name: "Price highest first",
       current: false,
       label: "price",
-      value: "desc",
-    },
-    {
-      name: "Mileage Low to High",
-      current: false,
-      label: "kilometersRun",
-      value: "asc",
-    },
-    {
-      name: "Mileage High to Low",
-      current: false,
-      label: "kilometersRun",
       value: "desc",
     },
     {
@@ -59,7 +44,7 @@ const Cars = () => {
   const collections = collection(db, "cars");
   let q = query(
     collections,
-    where("category.value", "==", "cars"),
+    where("category.value", "==", "properties"),
     where("postStatus", "==", "Live"),
     orderBy("postDate", "asc")
   );
@@ -70,10 +55,8 @@ const Cars = () => {
   const [maxPrice, setMaxPrice] = React.useState("Max");
   const [minPrice, setMinPrice] = React.useState("Min");
 
-  const [brand, setBrand] = React.useState("All");
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
-  const [model, setModel] = React.useState("All");
 
   const [stateData, setStateData] = React.useState([]);
   const [modelData, setModelData] = React.useState([]);
@@ -86,7 +69,7 @@ const Cars = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, brand, state, country, model]);
+  }, [minYear, maxYear, maxPrice, minPrice, state, country]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -125,16 +108,6 @@ const Cars = () => {
       q = query(q, where("price", "<=", Number(minPrice)));
     }
 
-    // Brand Filter
-    if (brand !== "All") {
-      q = query(q, where("brand.value", "==", brand));
-    }
-
-    // Model Filter
-    if (model !== "All") {
-      q = query(q, where("model.value", "==", model));
-    }
-
     // Country Filter
     if (country !== "All") {
       q = query(q, where("country.value", "==", country));
@@ -145,7 +118,6 @@ const Cars = () => {
       q = query(q, where("state.value", "==", state));
     }
 
-    //   q = query(q, orderBy(sort.label, sort.value))
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
@@ -164,10 +136,8 @@ const Cars = () => {
     setMinPrice("Min");
     setMaxYear("Max");
     setMinYear("Min");
-    setBrand("All");
     setCountry("All");
     setState("All");
-    setModel("All");
   };
 
   const handleCountry = (data) => {
@@ -180,24 +150,13 @@ const Cars = () => {
     }
   };
 
-  const handleBrand = (data) => {
-    const modal = BRAND.find((table) => table.label === data)?.modal;
-    setBrand(data);
-    if (modal) {
-      setModelData(modal);
-    } else {
-      setModel("All");
-      setModelData([]);
-    }
-  };
 
   const handleSearch = (modal, brand) => {
-    setBrand(brand);
-    setModel(modal);
+    
   };
 
   const handleOption = (brand) => {
-    setBrand(brand);
+    //setBrand(brand);
   };
 
   return (
@@ -225,14 +184,7 @@ const Cars = () => {
                   stateData={stateData}
                 />
               )}
-              <SelectMakes handleBrand={handleBrand} brand={brand} />
-              {modelData?.length > 0 && (
-                <SelectModel
-                  handleModel={(value) => setModel(value)}
-                  model={model}
-                  modelData={modelData}
-                />
-              )}
+              
               <SelectPrice
                 minValue={minPrice}
                 maxValue={maxPrice}
@@ -260,7 +212,7 @@ const Cars = () => {
           </div>
         </div>
         <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Cars for Sale</h1>
+          <h1 className="text-2xl lg:text-4xl fancy pt-4">Properties for Sale</h1>
           <Stack
             sx={{
               display: "flex",
@@ -315,9 +267,8 @@ const Cars = () => {
           {/* <Pagination count={10} /> */}
         </Container>
       </div>
-      <Footer />
     </>
   );
 };
 
-export default Cars;
+export default Properties;

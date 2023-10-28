@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where, updateDoc, doc, deleteDoc } from "firebase/firestore";
-import { useUser } from "@clerk/clerk-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useNavigate, useParams } from "react-router-dom";
