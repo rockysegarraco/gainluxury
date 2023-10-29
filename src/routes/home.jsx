@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, where, limit } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -19,28 +19,29 @@ import Marine from "../components/Tabs/marine";
 import Aviation from "../components/Tabs/aviation";
 
 function Home() {
-  const [selected, setSelected] = useState('Cars');
+  const [selected, setSelected] = useState('Home');
   const [post, setPost] = useState([]);
 
-  // useEffect(() => {
-  //   getPost();
-  // }, []);
+  useEffect(() => {
+    getPost();
+  }, []);
 
-  // const getPost = async () => {
-  //   const data = [];
-  //   const collections = collection(db, "cars");
-  //   const q = query(collections, orderBy("postDate", "asc"), limit(8));
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     data.push(doc.data());
-  //   });
-  //   setPost(data);
-  // };
+  const getPost = async () => {
+    const data = [];
+    const collections = collection(db, "cars");
+    const q = query(collections, orderBy("postDate", "asc"), limit(8));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      data.push(doc.data());
+    });
+    setPost(data);
+  };
 
   return (
     <>
-      {/*       <BrowserView>
+    <SubNav handleSelected={(item) => setSelected(item)} selected={selected} />
+            {/* <BrowserView>
         <Carousel />
       </BrowserView>
       <MobileView>
@@ -49,14 +50,14 @@ function Home() {
       <FeaturedSection />
       <FeaturedListings />
        */}
-      <SubNav handleSelected={(item) => setSelected(item)} selected={selected} />
+      
 
       {selected === "Cars" && <Cars />}
       {selected === "Properties" && <Properties />}
       {selected === "Marine" && <Marine />}
-      {selected === "Aviation" && <Aviation />}
+      {selected === "Aviation" && <Aviation />} 
       
-      {/* <RecentListings post={post} selected={selected} /> */}
+     {selected === "Home" && <RecentListings post={post} selected={selected} />}
       <Newsletter />
       <Footer />
     </>

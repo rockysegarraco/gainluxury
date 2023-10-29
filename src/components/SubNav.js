@@ -1,7 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const array = ['Cars', 'Properties', 'Marine', 'Aviation'];
+const array = ['Home','Cars', 'Properties', 'Marine', 'Aviation'];
 
 export default function Tabs({ selected, handleSelected }) {
 
