@@ -207,7 +207,7 @@ const Cars = () => {
           Search
         </label>
         <div className="relative flex px-4 pt-3">
-        <Searchbar handleClick={handleSearch} handleOption={handleOption} />
+          <Searchbar handleClick={handleSearch} handleOption={handleOption} />
         </div>
       </div>
       <div className="flex flex-col">
@@ -254,7 +254,10 @@ const Cars = () => {
                 }
               />
               <div className="w-full min-w-4xl hidden lg:block">
-                <Searchbar handleClick={handleSearch} handleOption={handleOption} />
+                <Searchbar
+                  handleClick={handleSearch}
+                  handleOption={handleOption}
+                />
               </div>
             </div>
           </div>
@@ -307,7 +310,7 @@ const Cars = () => {
             </Stack>
           )}
 
-          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
+          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
             {post.map((item, index) => (
               <CardCar key={index} item={item} i={index} />
             ))}

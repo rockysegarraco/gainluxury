@@ -13,6 +13,8 @@ import Popconfirm from "./Popconfirm";
 import Footer from "../components/Footer";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import IosShareIcon from "@mui/icons-material/IosShare";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 export default function PostDetail({
   data,
@@ -59,17 +61,26 @@ export default function PostDetail({
     <>
       <div>
         <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-4 pb-1">
-          <Link
-            to="/home/cars"
+          <div className="flex justify-between">
+            <Link
+              to="/home/cars"
+              type="button"
+              className="inline-flex items-center gap-x-1.5 rounded-full px-0 py-1.5 text-sm text-slate-900 hover:text-slate-600 focus-visible:outline underline underline-offset-4"
+            >
+              {" "}
+              <span className="mr-1">
+                <KeyboardBackspaceIcon />
+              </span>{" "}
+              back to search
+            </Link>
+          </div>
+          <button
             type="button"
-            className="rounded-full border border-slate-900 px-4 py-2 mr-0 text-sm text-slate-900 hover:bg-white hover:text-slate-600"
+            className="inline-flex items-center gap-x-1.5 rounded-full px-0 py-1.5 text-sm text-slate-900 hover:text-slate-600 focus-visible:outline underline underline-offset-4"
           >
-            {" "}
-            <span className="mr-1">
-              <KeyboardBackspaceIcon />
-            </span>{" "}
-            back to search
-          </Link>
+            <IosShareIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+            Share
+          </button>
         </div>
 
         {/* User Edit*/}
