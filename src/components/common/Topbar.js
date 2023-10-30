@@ -59,10 +59,11 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} />
+
         <button
           type="button"
           onClick={() => navigate("/pricing")}
-          className="rounded-full border border-blue-700 px-6 py-2 mr-2 text-sm text-blue-700 hover:bg-white hover:text-blue-600 hidden lg:block"
+          className="rounded-full px-6 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
         >
           {" "}
           Pricing
@@ -70,7 +71,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="rounded-full border border-blue-700 px-6 py-2 mr-2 text-sm text-blue-700 hover:bg-white hover:text-blue-600 hidden lg:block"
+          className="rounded-full px-6 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
         >
           {" "}
           + Add Listing
@@ -81,7 +82,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           <button
             type="button"
             onClick={() => navigate("/login")}
-            className="rounded-full border border-blue-700 px-6 py-2 mr-0 text-sm text-blue-700 hover:bg-white hover:text-blue-600 hidden lg:block"
+            className="rounded-full border border-slate-950 px-6 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 hidden lg:block font-inter"
           >
             {" "}
             Log In
