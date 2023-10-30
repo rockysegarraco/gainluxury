@@ -1,4 +1,11 @@
-import { collection, getDocs, query, orderBy, where, limit } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  where,
+  limit,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -8,6 +15,7 @@ import FeaturedSection from "../components/FeaturedSection";
 import FeaturedListings from "../components/FeaturedListings";
 import RecentListings from "../components/RecentListings";
 import Newsletter from "../components/Newsletter";
+import Hero from "../components/hero";
 import Footer from "../components/Footer";
 import SubNav from "../components/SubNav";
 import Carousel from "../components/Carousel/CarouselFade";
@@ -19,7 +27,7 @@ import Marine from "../components/Tabs/marine";
 import Aviation from "../components/Tabs/aviation";
 
 function Home() {
-  const [selected, setSelected] = useState('Home');
+  const [selected, setSelected] = useState("Home");
   const [post, setPost] = useState([]);
 
   useEffect(() => {
@@ -40,8 +48,11 @@ function Home() {
 
   return (
     <>
-    <SubNav handleSelected={(item) => setSelected(item)} selected={selected} />
-            {/* <BrowserView>
+      <SubNav
+        handleSelected={(item) => setSelected(item)}
+        selected={selected}
+      />
+      {/* <BrowserView>
         <Carousel />
       </BrowserView>
       <MobileView>
@@ -50,14 +61,17 @@ function Home() {
       <FeaturedSection />
       <FeaturedListings />
        */}
-      
 
       {selected === "Cars" && <Cars />}
       {selected === "Properties" && <Properties />}
       {selected === "Marine" && <Marine />}
-      {selected === "Aviation" && <Aviation />} 
-      
-     {selected === "Home" && <RecentListings post={post} selected={selected} />}
+      {selected === "Aviation" && <Aviation />}
+
+      {selected === "Home" && (
+        <>
+          <RecentListings post={post} selected={selected} />
+        </>
+      )}
       <Newsletter />
       <Footer />
     </>
