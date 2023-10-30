@@ -1,4 +1,6 @@
 import { useUser } from "@clerk/clerk-react";
+import { useState } from "react";
+
 //
 import Gallery from "./Gallery";
 import { Link } from "react-router-dom";
@@ -14,7 +16,7 @@ import Footer from "../components/Footer";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import IosShareIcon from "@mui/icons-material/IosShare";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import ShareDialog from "./Dialog/ShareDialog";
 
 export default function PostDetail({
   data,
@@ -24,6 +26,7 @@ export default function PostDetail({
 }) {
   const { user } = useUser();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const {
     title,
@@ -46,6 +49,7 @@ export default function PostDetail({
     country,
     agentCompany,
     avatar,
+    category,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -75,7 +79,7 @@ export default function PostDetail({
             </Link>
           </div>
           <button
-            type="button"
+            onClick={() => setOpen(true)}
             className="inline-flex items-center gap-x-1.5 rounded-full px-0 py-1.5 text-sm text-slate-900 hover:text-slate-600 focus-visible:outline underline underline-offset-4"
           >
             <IosShareIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
@@ -263,6 +267,7 @@ export default function PostDetail({
         </div>
       </div>
       <Footer />
+      <ShareDialog open={open} handleClose={() => setOpen(false)} link={`${category.value}/${slug}`} />
     </>
   );
 }

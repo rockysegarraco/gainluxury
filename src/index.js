@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux'
 import { StyledEngineProvider, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ToastContainer } from 'react-toastify';
 
 import './index.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import 'react-toastify/dist/ReactToastify.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 import Router from './Router';
 import { store } from './store'
@@ -43,6 +44,7 @@ root.render(
   <>
     <StyledEngineProvider injectFirst>
       <CssBaseline />
+      <ToastContainer />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <Router />
