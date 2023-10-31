@@ -17,15 +17,11 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Example() {
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+    <div className="bg-white">
       <>
-        <div className="mx-auto max-w-full px-6 lg:px-20">
+        <div className="mx-auto max-w-full px-4 lg:px-20">
           <div className="flex h-16 justify-between">
             <div className="flex px-2 lg:px-0">
               <div className="flex flex-shrink-0 items-center mr-4">
@@ -60,22 +56,21 @@ export default function Example() {
             <div className="hidden lg:ml-4 lg:flex lg:items-center">
               <button
                 type="button"
-                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
                 Pricing
               </button>
               <button
                 type="button"
-                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
-                + Add Listing
+                Sell with us
               </button>
             </div>
             <div className="flex items-center">
-              {/* Mobile menu button */}
               <button
                 type="button"
-                className="rounded-full border border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 hidden lg:block font-inter"
+                className="rounded-full border border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
               >
                 Log In
               </button>
@@ -83,6 +78,6 @@ export default function Example() {
           </div>
         </div>
       </>
-    </Disclosure>
+    </div>
   );
 }
