@@ -59,7 +59,6 @@ const Properties = () => {
   const [country, setCountry] = React.useState("All");
 
   const [stateData, setStateData] = React.useState([]);
-  const [modelData, setModelData] = React.useState([]);
 
   const [sort, setSort] = useState({
     label: "price",
@@ -150,15 +149,6 @@ const Properties = () => {
     }
   };
 
-
-  const handleSearch = (modal, brand) => {
-    
-  };
-
-  const handleOption = (brand) => {
-    //setBrand(brand);
-  };
-
   return (
     <>
       <div className="w-full block lg:hidden">
@@ -166,7 +156,7 @@ const Properties = () => {
           Search
         </label>
         <div className="relative flex px-4 pt-3">
-        <Searchbar handleClick={handleSearch} handleOption={handleOption} />
+        <Searchbar />
         </div>
       </div>
       <div className="flex flex-col">
@@ -205,9 +195,6 @@ const Properties = () => {
                   setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
                 }
               />
-              <div className="w-full min-w-4xl hidden lg:block">
-                <Searchbar handleClick={handleSearch} handleOption={handleOption} />
-              </div>
             </div>
           </div>
         </div>

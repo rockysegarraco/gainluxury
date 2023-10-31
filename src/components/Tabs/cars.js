@@ -2,23 +2,27 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 //
-import Container from "../container.js";
-import CardCar from "../cardCar.js";
-import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
+import Container from "../components/container.js";
+import CardCar from "../components/cardCar.js";
+import Footer from "../components/Footer";
 
-import SelectCountries from "../Selects/SelectCountries";
-import SelectStates from "../Selects/SelectStates";
-import SelectMakes from "../Selects/SelectMakes";
-import SelectPrice from "../Selects/SelectPrice";
-import SelectYears from "../Selects/YearSelect";
-import SelectModel from "../Selects/SelectModel.js";
-import Filters from "../Filters";
-import Searchbar from "../Dialog/Searchbar.js";
+import SelectCountries from "../components/Selects/SelectCountries";
+import SelectStates from "../components/Selects/SelectStates";
+import SelectMakes from "../components/Selects/SelectMakes";
+import SelectPrice from "../components/Selects/SelectPrice";
+import SelectYears from "../components/Selects/YearSelect";
+import SelectModel from "../components/Selects/SelectModel.js";
+import Filters from "../components/Filters";
+import Searchbar from "../components/Dialog/Searchbar.js";
 //
-import db from "../../firebase";
-import { BRAND, COUNTRY } from "../../utils/constants.js";
+import db from "../firebase";
+import Stack from "@mui/material/Stack";
+import { BRAND, COUNTRY } from "../utils/constants.js";
+
+// redux
+import { setBrand, setModel, setModelData } from "../store/brandSerchSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -70,13 +74,17 @@ const Cars = () => {
   const [maxPrice, setMaxPrice] = React.useState("Max");
   const [minPrice, setMinPrice] = React.useState("Min");
 
-  const [brand, setBrand] = React.useState("All");
+ 
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
-  const [model, setModel] = React.useState("All");
-
+ 
   const [stateData, setStateData] = React.useState([]);
-  const [modelData, setModelData] = React.useState([]);
+
+  const brand = useSelector((state) => state.brandSearch.brand);
+  const model = useSelector((state) => state.brandSearch.model);
+  const modelData = useSelector((state) => state.brandSearch.modelData);
+
+  const dispatch = useDispatch()
 
   const [sort, setSort] = useState({
     label: "price",
@@ -164,10 +172,10 @@ const Cars = () => {
     setMinPrice("Min");
     setMaxYear("Max");
     setMinYear("Min");
-    setBrand("All");
     setCountry("All");
     setState("All");
-    setModel("All");
+    dispatch(setBrand("All"));
+    dispatch(setModel("All"));
   };
 
   const handleCountry = (data) => {
@@ -182,23 +190,15 @@ const Cars = () => {
 
   const handleBrand = (data) => {
     const modal = BRAND.find((table) => table.label === data)?.modal;
-    setBrand(data);
+    dispatch(setBrand(data));
     if (modal) {
-      setModelData(modal);
+      dispatch(setModelData(modal));
     } else {
-      setModel("All");
-      setModelData([]);
+      dispatch(setModel("All"));
+      dispatch(setModelData([]));
     }
   };
 
-  const handleSearch = (modal, brand) => {
-    setBrand(brand);
-    setModel(modal);
-  };
-
-  const handleOption = (brand) => {
-    setBrand(brand);
-  };
 
   return (
     <>
@@ -207,7 +207,7 @@ const Cars = () => {
           Search
         </label>
         <div className="relative flex px-4 pt-3">
-          <Searchbar handleClick={handleSearch} handleOption={handleOption} />
+          <Searchbar />
         </div>
       </div>
       <div className="flex flex-col">
@@ -228,7 +228,7 @@ const Cars = () => {
               <SelectMakes handleBrand={handleBrand} brand={brand} />
               {modelData?.length > 0 && (
                 <SelectModel
-                  handleModel={(value) => setModel(value)}
+                  handleModel={(value) => dispatch(setModel(value))}
                   model={model}
                   modelData={modelData}
                 />
@@ -253,12 +253,6 @@ const Cars = () => {
                   setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
                 }
               />
-              <div className="w-full min-w-4xl hidden lg:block">
-                <Searchbar
-                  handleClick={handleSearch}
-                  handleOption={handleOption}
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -318,6 +312,7 @@ const Cars = () => {
           {/* <Pagination count={10} /> */}
         </Container>
       </div>
+      <Footer />
     </>
   );
 };

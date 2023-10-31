@@ -6,10 +6,13 @@ import Button from "@mui/material/Button";
 import Popover from '@mui/material/Popover';
 
 import { BRAND } from "../../utils/constants";
+import { setBrand, setModel, setModelData } from "../../store/brandSerchSlice";
+import { useDispatch } from "react-redux";
 
-export default function Searchbar({ handleClick, handleOption }) {
+export default function Searchbar() {
   const [options, setOptions] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch()
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -36,7 +39,9 @@ export default function Searchbar({ handleClick, handleOption }) {
   };
 
   const handleItem = (modal) => {
-    handleClick(modal, options.value)
+    dispatch(setModel(modal));
+    dispatch(setBrand(options.value));
+    dispatch(setModelData(options.modal));
     handleClose()
   }
 
@@ -55,8 +60,8 @@ export default function Searchbar({ handleClick, handleOption }) {
         onClose={handleClose}
         anchorReference="anchorPosition"
         anchorPosition={{
-          top: 120,
-          left: 670
+          top: 60,
+          left: 290
         }}
       >
       {options && <Stack sx={{
@@ -66,7 +71,7 @@ export default function Searchbar({ handleClick, handleOption }) {
         }
       }}>
         <Button
-          onClick={() => handleOption(options.value)}
+          onClick={() => dispatch(setBrand(options.value))}
           sx={{ flexDirection: "row", justifyContent: 'space-between' }}>
           <div>{options?.label}</div>
           <Box sx={{ color: 'gray', pr: 2, fontSize: 14 }}>Make</Box>

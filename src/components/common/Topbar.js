@@ -14,6 +14,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import CarRental from "@mui/icons-material/CarRental";
 import Home from "@mui/icons-material/Home";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
+import Searchbar from "../Dialog/Searchbar";
 
 const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const { isSignedIn } = useUser();
@@ -40,7 +41,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
       color="inherit"
       elevation={0}
     >
-      <Toolbar className="pl-6 pr-4 lg:px-0">
+      <Toolbar className="flex justify-between pl-6 pr-4 lg:px-0">
         <IconButton
           className=""
           color="inherit"
@@ -57,6 +58,10 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
               <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
             </Link>
           </div>
+        </div>
+
+        <div className="ml-6 min-w-4xl hidden lg:block">
+          <Searchbar />
         </div>
         <Box sx={{ flexGrow: 1 }} />
 
