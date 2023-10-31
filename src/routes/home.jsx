@@ -49,7 +49,7 @@ function Home() {
 
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <SubNav
         handleSelected={(item) => setSelected(item)}
         selected={selected}

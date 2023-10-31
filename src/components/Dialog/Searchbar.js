@@ -54,6 +54,7 @@ export default function Searchbar() {
         styles={styles}
         loadOptions={loadOptions}
         menuPosition="fixed"
+        placeholder="search"
       />
       <Popover
         open={open}
