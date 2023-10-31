@@ -25,6 +25,7 @@ import Cars from "../components/Tabs/cars";
 import Properties from "../components/Tabs/properties";
 import Marine from "../components/Tabs/marine";
 import Aviation from "../components/Tabs/aviation";
+import Nav from "../components/Nav";
 
 function Home() {
   const [selected, setSelected] = useState("Home");
@@ -48,6 +49,7 @@ function Home() {
 
   return (
     <>
+      <Nav />
       <SubNav
         handleSelected={(item) => setSelected(item)}
         selected={selected}

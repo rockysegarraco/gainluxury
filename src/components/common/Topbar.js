@@ -60,7 +60,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </div>
         </div>
 
-        <div className="ml-6 min-w-4xl hidden lg:block">
+        <div>
           <Searchbar />
         </div>
         <Box sx={{ flexGrow: 1 }} />
