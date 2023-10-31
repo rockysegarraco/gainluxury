@@ -57,40 +57,28 @@ export default function Example() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center lg:hidden">
-              {/* Mobile menu button */}
-              <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open main menu</span>
-                Yo
-              </Disclosure.Button>
-            </div>
             <div className="hidden lg:ml-4 lg:flex lg:items-center">
               <button
                 type="button"
-                className="relative flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
+                Pricing
               </button>
-
-              {/* AVATAR */}
-              <Menu as="div" className="relative ml-4 flex-shrink-0">
-                <div>
-                  <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">Open user menu</span>
-                    {/* AVATAR / LOG IN */}
-                    <img
-                      className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    {/* / */}
-                  </Menu.Button>
-                </div>
-              </Menu>
+              <button
+                type="button"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+              >
+                + Add Listing
+              </button>
+            </div>
+            <div className="flex items-center">
+              {/* Mobile menu button */}
+              <button
+                type="button"
+                className="rounded-full border border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 hidden lg:block font-inter"
+              >
+                Log In
+              </button>
             </div>
           </div>
         </div>

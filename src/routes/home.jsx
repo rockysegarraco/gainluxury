@@ -38,7 +38,7 @@ function Home() {
   const getPost = async () => {
     const data = [];
     const collections = collection(db, "cars");
-    const q = query(collections, orderBy("postDate", "asc"), limit(8));
+    const q = query(collections, orderBy("postDate", "asc"), limit(12));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
