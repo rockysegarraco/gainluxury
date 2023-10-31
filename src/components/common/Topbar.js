@@ -30,6 +30,13 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
     setAnchorEl(null);
   };
 
+  const handlePage = () => {
+    navigate("/");
+    if (window.location.href === window.location.origin + "/") {
+      window.location.reload()
+    }
+  }
+
   const openPopver = Boolean(anchorEl);
   const id = openPopver ? "simple-popover" : undefined;
 
@@ -54,9 +61,9 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
         </IconButton>
         <div className="flex px-0 lg:px-0">
           <div className="flex flex-shrink-0 items-center">
-            <Link to="/">
+            <button onClick={handlePage}>
               <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
-            </Link>
+            </button>
           </div>
         </div>
 
