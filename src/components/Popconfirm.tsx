@@ -76,7 +76,7 @@ const Popconfirm = ({
             >
               {cancelText}
             </Button>
-            <Button size="small" variant={okType} onClick={onOK}>
+            <Button size="small" className="bg-red-600" onClick={onOK}>
               {okText}
             </Button>
           </Box>
