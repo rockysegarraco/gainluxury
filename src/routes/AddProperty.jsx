@@ -15,7 +15,6 @@ import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
-import Pricing from "../components/pricing";
 import {
   CATEGORY,
   COUNTRY,
@@ -29,20 +28,20 @@ import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 const { FormItem } = Form;
 
 const AddProperty = ({ form }) => {
   const { isLoaded, isSignedIn, user } = useUser();
   const navigate = useNavigate();
-  const [category, setCategory] = useState(CATEGORY[1]);
+  const [category] = useState(CATEGORY[1]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
+  const [isPrice, setPrice] = useState(true);
 
   const [propertyCategory, setPropertyCategory] = useState();
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
@@ -276,13 +275,18 @@ const AddProperty = ({ form }) => {
                       <FormItem>
                         {getFieldDecorator("priceType", {
                           initialValue: "",
-                          rules: [{ required: true }],
+                          rules: [{ required: !isPrice }],
                         })(
                           <Select
                             options={PRICE_TYPE}
                             fullWidth
                             label="Price Type *"
                             autocomplete="off"
+                            onChange={(data) =>
+                              setPrice(() =>
+                                data.value === "Fixed" ? false : true
+                              )
+                            }
                           />
                         )}
                       </FormItem>
@@ -290,7 +294,7 @@ const AddProperty = ({ form }) => {
                         {getFieldDecorator("price", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Price [$] *" />)}
+                        })(<TextInput  disabled={isPrice} label="Price [$] *" type="number" />)}
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("propertyCategory", {
@@ -498,7 +502,7 @@ const AddProperty = ({ form }) => {
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("phone", {
-                          initialValue: user && user.user_mobile,
+                          initialValue: "",
                           rules: [
                             {
                               required: true,

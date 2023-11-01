@@ -16,7 +16,6 @@ import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
-import Pricing from "../components/pricing";
 import {
   BRAND,
   CATEGORY,
@@ -35,7 +34,7 @@ const { FormItem } = Form;
 const AddPost = ({ form }) => {
   const { isLoaded, isSignedIn, user } = useUser();
   const navigate = useNavigate();
-  const [category, setCategory] = useState(CATEGORY[0]);
+  const [category] = useState(CATEGORY[0]);
   const [isPrice, setPrice] = useState(true);
   const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);

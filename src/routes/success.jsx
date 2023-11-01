@@ -16,7 +16,7 @@ const Success = () => {
     const post = JSON.parse(localStorage.getItem("userPost"));
     if (post) {
       setPost(post)
-      const collections = collection(db, post.category?.value);
+      const collections = collection(db, "cars");
       // Add a document to the collection
       addDoc(collections, {
         ...post,
