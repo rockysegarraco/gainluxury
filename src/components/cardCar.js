@@ -12,9 +12,9 @@ export default function CardCar({ item, i, from }) {
         ImageUrl={item.gallery}
         Alt={item.title}
         Price={
-          item.pricingType.value === "Fixed"
+          item.pricingType?.value === "Fixed"
             ? `${currencyFormat(item.price)}`
-            : item.pricingType.value
+            : item.pricingType?.value
         }
         Location={`${item.state?.value}, ${item.country?.value}`}
         email={item.email}
