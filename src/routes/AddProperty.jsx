@@ -273,7 +273,7 @@ const AddProperty = ({ form }) => {
                         )}
                       </FormItem>
                       <FormItem>
-                        {getFieldDecorator("priceType", {
+                        {getFieldDecorator("pricingType", {
                           initialValue: "",
                           rules: [{ required: !isPrice }],
                         })(

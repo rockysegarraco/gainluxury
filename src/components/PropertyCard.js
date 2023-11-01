@@ -12,7 +12,7 @@ export default function PropertyCard({ item, i, from }) {
         ImageUrl={item.gallery}
         Alt={item.title}
         Price={
-          item.priceType?.value === "Fixed"
+          item.pricingType?.value === "Fixed"
             ? `${currencyFormat(item.price)}`
             : item.pricingType.value
         }
