@@ -43,6 +43,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const [menuOpen, setOpen] = React.useState(false);
   const { isSignedIn } = useUser();
   const { signOut } = useClerk();
+  const { isSignedIn } = useUser();
 
   const LIST_ITEMS = [
     {
@@ -74,7 +75,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       title: "My Listings",
       icon: <PostAdd />,
       show: true,
-      onClick: (index) => handleClick(index, "/my-post"),
+      onClick: (index) => handleClick(index, "/my-post", true),
     },
     {
       title: "Add Listing",
@@ -115,11 +116,15 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       onClick: (index) => handleMenuItemClick(index, "/create-property-post"),
     },
   ];
-  const handleClick = (index, path) => {
+  const handleClick = (index, path, ischeck) => {
     setSelectedIndex(index);
     setMenuIndex(-1);
     handleDrawerClose();
-    navigate(path);
+    if (ischeck) {
+      isSignedIn ? navigate(path) : navigate('/login')
+    } else {
+      navigate(path);
+    }
   };
 
   const handleMenuClick = () => {
