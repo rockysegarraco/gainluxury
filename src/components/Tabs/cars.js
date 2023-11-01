@@ -14,7 +14,6 @@ import SelectPrice from "../Selects/SelectPrice";
 import SelectYears from "../Selects/YearSelect";
 import SelectModel from "../Selects/SelectModel.js";
 import Filters from "../Filters";
-import Searchbar from "../Dialog/Searchbar.js";
 //
 import db from "../../firebase";
 import Stack from "@mui/material/Stack";
@@ -306,7 +305,7 @@ const Cars = () => {
           {/* <Pagination count={10} /> */}
         </Container>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
