@@ -8,9 +8,6 @@ const navigation = {
     { name: "Cars", href: "#" },
     { name: "Marine", href: "#" },
     { name: "Aviation", href: "#" },
-    { name: "Business For Sale", href: "#" },
-    { name: "Vacation Rentals", href: "#" },
-    { name: "Art", href: "#" },
   ],
   company: [
     { name: "Pricing", href: "#" },
