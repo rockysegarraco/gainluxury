@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 //
 import Container from "../container.js";
-import CardCar from "../cardCar.js";
 
 import SelectCountries from "../Selects/SelectCountries.js";
 import SelectStates from "../Selects/SelectStates.js";

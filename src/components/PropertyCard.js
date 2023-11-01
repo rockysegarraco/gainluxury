@@ -14,7 +14,7 @@ export default function PropertyCard({ item, i, from }) {
         Price={
           item.pricingType?.value === "Fixed"
             ? `${currencyFormat(item.price)}`
-            : item.pricingType.value
+            : item.pricingType?.value
         }
         Location={`${item.state?.value}, ${item.country?.value}`}
         email={item.email}
