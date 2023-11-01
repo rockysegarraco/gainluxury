@@ -21,6 +21,7 @@ export default function CardCar({ item, i, from }) {
         avatar={item.avatar}
         userId={item.userId}
         from={from}
+        status={item.status}
       />
     </>
   );

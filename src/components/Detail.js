@@ -110,10 +110,11 @@ export default function PostDetail({
           <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-4">
             <div className="flex gap-2">
               <Button
-                className="text-xs lg:text-xs rounded-full"
+                className={`text-xs lg:text-xs rounded-full ${status === "sold" && 'bg-blue-500'}`}
                 onClick={() =>
                   handleSold(status === "sold" ? "unsold" : "sold")
                 }
+              
                 variant={status && status === "sold" ? "contained" : "outlined"}
                 startIcon={status && status === "sold" && <Done />}
               >
