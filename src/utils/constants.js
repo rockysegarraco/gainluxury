@@ -2,22 +2,22 @@ export const CATEGORY = [
   {
     label: "Sell Cars",
     value: "cars",
-    priceId: "price_1O5tJjGF4EI4toFud6lCFsGF",
+    priceId: "price_1O7dqtGF4EI4toFuXvnf51sJ",
   },
   {
     label: "Sell Real Estate Property",
     value: "properties",
-    priceId: "price_1O5tJjGF4EI4toFud6lCFsGF",
+    priceId: "price_1O7dqtGF4EI4toFuXvnf51sJ",
   },
   {
     label: "Sell Marine",
     value: "marine",
-    priceId: "price_1O5tJjGF4EI4toFud6lCFsGF",
+    priceId: "price_1O7dqtGF4EI4toFuXvnf51sJ",
   },
   {
     label: "Sell Aviation",
     value: "aviation",
-    priceId: "price_1O5tJjGF4EI4toFud6lCFsGF",
+    priceId: "price_1O7dqtGF4EI4toFuXvnf51sJ",
   },
 ];
 

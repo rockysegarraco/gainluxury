@@ -3,33 +3,28 @@ import {
   getDocs,
   query,
   orderBy,
-  where,
   limit,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+
 import db from "../firebase";
 
-import FeaturedSection from "../components/FeaturedSection";
-import FeaturedListings from "../components/FeaturedListings";
 import RecentListings from "../components/RecentListings";
 import Newsletter from "../components/Newsletter";
-import Hero from "../components/hero";
 import Footer from "../components/Footer";
 import SubNav from "../components/SubNav";
-import Carousel from "../components/Carousel/CarouselFade";
-import { BrowserView, MobileView } from "react-device-detect";
-import MobileSlider from "../components/Carousel/MobileSlider";
 import Cars from "../components/Tabs/cars";
 import Properties from "../components/Tabs/properties";
 import Marine from "../components/Tabs/marine";
 import Aviation from "../components/Tabs/aviation";
-import Nav from "../components/Nav";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelected } from "../store/routeSlice";
 
 function Home() {
-  const [selected, setSelected] = useState("Home");
+  const selected = useSelector((state) => state.routeSlice.selected);
   const [post, setPost] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getPost();
@@ -47,11 +42,12 @@ function Home() {
     setPost(data);
   };
 
+  console.log(selected);
+
   return (
     <div>
-      {/* <Nav /> */}
       <SubNav
-        handleSelected={(item) => setSelected(item)}
+        handleSelected={(item) => dispatch(setSelected(item))}
         selected={selected}
       />
       {/* <BrowserView>
@@ -71,7 +67,7 @@ function Home() {
 
       {selected === "Home" && (
         <>
-          <RecentListings post={post} selected={selected} />
+          <RecentListings post={post} selected={selected} from="home" />
         </>
       )}
       <Newsletter />

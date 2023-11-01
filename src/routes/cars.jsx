@@ -306,7 +306,7 @@ const Cars = () => {
 
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
             {post.map((item, index) => (
-              <CardCar key={index} item={item} i={index} />
+              <CardCar key={index} item={item} i={index} from="home/cars" />
             ))}
           </div>
           {/* <Pagination count={10} /> */}

@@ -2,7 +2,7 @@ import * as React from "react";
 import Card from "../components/Card.js";
 import { currencyFormat } from "../utils/index.js";
 
-export default function CardCar({ item, i }) {
+export default function CardCar({ item, i, from }) {
   return (
     <>
       <Card
@@ -20,6 +20,7 @@ export default function CardCar({ item, i }) {
         email={item.email}
         avatar={item.avatar}
         userId={item.userId}
+        from={from}
       />
     </>
   );

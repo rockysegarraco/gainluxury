@@ -7,7 +7,7 @@ export default function Example(props) {
     <>
       <article className="border">
         <div className="relative w-full">
-          <Carousel content={props.ImageUrl} link={props.Link} />
+          <Carousel content={props.ImageUrl} link={props.Link} from={props.from} />
         </div>
         <div className="mx-auto max-w-full p-3">
           <div className="group relative">

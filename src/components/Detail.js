@@ -17,6 +17,8 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import ShareDialog from "./Dialog/ShareDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelected } from "../store/routeSlice";
 
 export default function PostDetail({
   data,
@@ -27,6 +29,11 @@ export default function PostDetail({
   const { user } = useUser();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  const from = useSelector((state) => state.routeSlice.from);
+  const tab = useSelector((state) => state.routeSlice.tab);
+
+  const dispatch = useDispatch();
 
   const {
     title,
@@ -61,13 +68,24 @@ export default function PostDetail({
     return marker;
   };
 
+  const handleClick = () => {
+    console.log("adas", from);
+    if (from === 'home') {
+      console.log("adas");
+      navigate('/');
+    } else {
+      dispatch(setSelected("Home"))
+      navigate(-1);
+    }
+  }
+
   return (
     <>
       <div>
         <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-4 pb-1">
           <div className="flex justify-between">
-            <Link
-              to="/home/cars"
+            <button
+              onClick={handleClick}
               type="button"
               className="inline-flex items-center gap-x-1.5 rounded-full px-0 py-1.5 text-sm text-slate-900 hover:text-slate-600 focus-visible:outline underline underline-offset-4"
             >
@@ -76,7 +94,7 @@ export default function PostDetail({
                 <KeyboardBackspaceIcon />
               </span>{" "}
               back to search
-            </Link>
+            </button>
           </div>
           <button
             onClick={() => setOpen(true)}

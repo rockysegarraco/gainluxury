@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Carousel.css";
+import { setFrom } from "../../store/routeSlice";
+import { useDispatch } from 'react-redux';
 
 
-const Carousel = ({ content, link }) => {
+const Carousel = ({ content, link, from }) => {
   const [counter, setCounter] = useState(1);
   const [pause, setPause] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNext = () => {
     if (counter !== content.length) {
@@ -28,7 +32,12 @@ const Carousel = ({ content, link }) => {
     setPause(!pause);
   };
 
-  return (
+  const handleClick = () => {
+    dispatch(setFrom(from))
+    navigate(link)
+  }
+
+   return (
     <div className="App">
       <div
         className="slide2"
@@ -40,13 +49,13 @@ const Carousel = ({ content, link }) => {
             className={counter - 1 === index ? "show" : "not-show"}
             key={index}
           >
-            <Link to={link}>
+            <button onClick={handleClick}>
               <img
                 src={item}
                 className="aspect-[16/9] w-full bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                 alt=""
               />
-            </Link>
+            </button>
           </div>
         ))}
 
