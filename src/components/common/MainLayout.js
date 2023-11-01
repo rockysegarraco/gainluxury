@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 // components
-import Topbar from './Topbar'
+//import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 import ProfileDialog from '../Dialog/ProfileDialog'
 import { useUser } from '@clerk/clerk-react';
+import Navbar from '../Nav';
 
 // configs
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -23,7 +24,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	alignItems: 'center',
 	padding: theme.spacing(0, 1),
 	// necessary for content to be below app bar
-	...theme.mixins.toolbar,
+	// ...theme.mixins.toolbar,
 	justifyContent: 'flex-end',
 }));
 
@@ -51,8 +52,8 @@ const MainLayout = () => {
     }
   }
   return (
-    <Box sx={{ display: "flex" }}>
-      <Topbar open={open} handleOpen={handleOpenPage} handleDrawerOpen={handleDrawerOpen} />
+    <Box sx={{ display: "flex", flexDirection: 'column' }}>
+      <Navbar handleOpen={handleOpenPage} handleDrawerOpen={handleDrawerOpen} />
       <Sidebar open={open} openDialog={() => setOpenDialog(!openDialog)} drawerIndex={location.state?.drawerIndex} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />

@@ -48,7 +48,7 @@ function Home() {
   };
 
   return (
-    <>
+    <div>
       {/* <Nav /> */}
       <SubNav
         handleSelected={(item) => setSelected(item)}
@@ -76,7 +76,7 @@ function Home() {
       )}
       <Newsletter />
       <Footer />
-    </>
+    </div>
   );
 }
 

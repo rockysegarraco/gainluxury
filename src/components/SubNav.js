@@ -1,15 +1,14 @@
 import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const array = ["Home", "Cars", "Properties", "Marine", "Aviation"];
 
 export default function Tabs({ selected, handleSelected }) {
   return (
-    <Disclosure as="nav" className="bg-white border border-bottom border-top-0">
+    <Disclosure as="nav" className="bg-white border border-bottom">
       {({ open }) => (
         <>
           <div className="mx-auto px-6 lg:px-20 font-inter">
-            <div className="relative flex h-12 justify-between">
+            <div className="relative flex  justify-between">
               <div className="flex flex-1 items-stretch justify-start">
                 <div className="sm:flex space-x-4 lg:space-x-8">
                   {array.map((item, i) =>

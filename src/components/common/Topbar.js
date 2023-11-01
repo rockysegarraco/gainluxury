@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -67,11 +66,9 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} />
-        <div className="mr-4">
-           <Searchbar />
+        <div className="mr-4 hidden lg:block">
+          <Searchbar />
         </div>
-       
-
         <button
           onClick={() => navigate("/pricing")}
           className="rounded-full px-6 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
@@ -95,6 +92,9 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           </button>
         )}
       </Toolbar>
+      {/* <div className="mx-auto max-w-full px-4 lg:px-20 py-2 bg-slate-100 block lg:hidden">
+        <Searchbar />
+      </div> */}
       <Popover
         id={id}
         open={openPopver}
