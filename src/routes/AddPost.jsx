@@ -58,10 +58,9 @@ const AddPost = ({ form }) => {
     setFieldsValue({
       agentName: user?.firstName + " " + user?.lastName,
       email: user?.emailAddresses[0]?.emailAddress,
-      phone: user?.phoneNumbers[0]?.phoneNumber
-    })
-  }, [user])
-  
+      phone: user?.phoneNumbers[0]?.phoneNumber,
+    });
+  }, [user]);
 
   const checkout = async () => {
     setHasError(addressValue === null);
@@ -193,7 +192,7 @@ const AddPost = ({ form }) => {
           <div className="mx-auto max-w-full grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4">
               {" "}
-              <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+              <div className="divide-y divide-gray-200 rounded-lg bg-white shadow">
                 <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
                   Listing Details
                 </div>

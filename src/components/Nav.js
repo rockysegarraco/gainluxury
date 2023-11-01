@@ -12,7 +12,6 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import Searchbar from "./Dialog/Searchbar";
 
 export default function Navbar({ handleDrawerOpen, handleOpen }) {
-
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
 
@@ -29,23 +28,29 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
   const handlePage = () => {
     navigate("/");
     if (window.location.href === window.location.origin + "/") {
-      window.location.reload()
+      window.location.reload();
     }
-  }
+  };
 
   const openPopver = Boolean(anchorEl);
   const id = openPopver ? "simple-popover" : undefined;
 
   return (
-    <div className="bg-white">
+    <div className="bg-white border-b">
       <div className="mx-auto max-w-full px-4 lg:px-20">
         <div className="flex h-16 justify-between">
           <div className="flex px-2 lg:px-0">
-            <div onClick={handleDrawerOpen} className="flex flex-shrink-0 items-center mr-4">
+            <div
+              onClick={handleDrawerOpen}
+              className="flex flex-shrink-0 items-center mr-4 cursor-pointer"
+            >
               <Bars3Icon className="h-6" />
             </div>
-            <div onClick={handlePage} className="flex flex-shrink-0 items-center">
-              <img className="h-6 w-auto" src="logo.svg" alt="Your Company" />
+            <div
+              onClick={handlePage}
+              className="flex flex-shrink-0 items-center cursor-pointer"
+            >
+              <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
             </div>
           </div>
           <div className="lg:flex flex-1 hidden items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -68,13 +73,14 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
           <div className="flex items-center">
             {isSignedIn ? (
               <UserButton afterSignOutUrl="/login" />
-            ) : (<button
-              onClick={() => navigate("/login")}
-              className="rounded-full border border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
-            >
-              Log In
-            </button>)}
-
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="rounded-full border border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
+              >
+                Log In
+              </button>
+            )}
           </div>
         </div>
       </div>

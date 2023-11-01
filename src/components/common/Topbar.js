@@ -32,9 +32,9 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
   const handlePage = () => {
     navigate("/");
     if (window.location.href === window.location.origin + "/") {
-      window.location.reload()
+      window.location.reload();
     }
-  }
+  };
 
   const openPopver = Boolean(anchorEl);
   const id = openPopver ? "simple-popover" : undefined;
