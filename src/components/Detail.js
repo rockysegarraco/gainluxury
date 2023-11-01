@@ -70,14 +70,14 @@ export default function PostDetail({
 
   const handleClick = () => {
     console.log("adas", from);
-    if (from === 'home') {
+    if (from === "home") {
       console.log("adas");
-      navigate('/');
+      navigate("/");
     } else {
-      dispatch(setSelected("Home"))
+      dispatch(setSelected("Home"));
       navigate(-1);
     }
-  }
+  };
 
   return (
     <>
@@ -110,11 +110,12 @@ export default function PostDetail({
           <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-4">
             <div className="flex gap-2">
               <Button
-                className={`text-xs lg:text-xs rounded-full ${status === "sold" && 'bg-blue-500'}`}
+                className={`text-xs lg:text-xs rounded-full ${
+                  status === "sold" && "bg-blue-500"
+                }`}
                 onClick={() =>
                   handleSold(status === "sold" ? "unsold" : "sold")
                 }
-              
                 variant={status && status === "sold" ? "contained" : "outlined"}
                 startIcon={status && status === "sold" && <Done />}
               >
@@ -155,11 +156,11 @@ export default function PostDetail({
             <h1 className="text-2xl lg:text-4xl font-bold text-gray-900 fancy pt-2">
               {title}
             </h1>
-            <h3 className="pt-0 pb-3">
+            <h3 className="pt-0 pb-3 font-inter">
               {state?.value}, {country?.value}
             </h3>
             <hr className="lg:hidden block" />
-            <h2 className="text-xl lg:text-2xl text-gray-900 fancy py-2">
+            <h2 className="text-xl lg:text-2xl text-gray-900 font-inter py-2">
               {price ? `$${price}` : pricingType.value}
             </h2>
             <hr className="lg:hidden block" />
@@ -286,7 +287,11 @@ export default function PostDetail({
         </div>
       </div>
       <Footer />
-      <ShareDialog open={open} handleClose={() => setOpen(false)} link={`${category.value}/${slug}`} />
+      <ShareDialog
+        open={open}
+        handleClose={() => setOpen(false)}
+        link={`${category.value}/${slug}`}
+      />
     </>
   );
 }
