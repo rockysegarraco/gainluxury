@@ -62,7 +62,7 @@ export default function Searchbar() {
         anchorReference="anchorPosition"
         anchorPosition={{
           top: 60,
-          left: 290,
+          left: 900,
         }}
       >
         {options && (
