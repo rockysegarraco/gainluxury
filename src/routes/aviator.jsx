@@ -41,10 +41,9 @@ const Aviation = () => {
     },
   ]);
 
-  const collections = collection(db, "cars");
+  const collections = collection(db, "aviation");
   let q = query(
     collections,
-    where("category.value", "==", "aviation"),
     where("postStatus", "==", "Live"),
     orderBy("postDate", "asc")
   );

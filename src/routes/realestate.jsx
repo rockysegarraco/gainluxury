@@ -41,10 +41,9 @@ const Properties = () => {
     },
   ]);
 
-  const collections = collection(db, "cars");
+  const collections = collection(db, "properties");
   let q = query(
     collections,
-    where("category.value", "==", "properties"),
     where("postStatus", "==", "Live"),
     orderBy("postDate", "asc")
   );

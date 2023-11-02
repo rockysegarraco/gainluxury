@@ -41,10 +41,9 @@ const Art = () => {
     },
   ]);
 
-  const collections = collection(db, "cars");
+  const collections = collection(db, "arts");
   let q = query(
     collections,
-    where("category.value", "==", "art"),
     where("postStatus", "==", "Live"),
     orderBy("postDate", "asc")
   );

@@ -40,10 +40,9 @@ const Marine = () => {
     },
   ]);
 
-  const collections = collection(db, "cars");
+  const collections = collection(db, "marine");
   let q = query(
     collections,
-    where("category.value", "==", "marine"),
     where("postStatus", "==", "Live"),
     orderBy("postDate", "asc")
   );
