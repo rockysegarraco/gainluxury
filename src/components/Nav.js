@@ -53,10 +53,11 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
               <img className="h-6 w-auto" src="/logo.svg" alt="Your Company" />
             </div>
           </div>
-          <div className="lg:flex flex-1 hidden items-center justify-center px-2 lg:ml-6 lg:justify-end">
+          {/*           <div className="lg:flex flex-1 hidden items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <Searchbar />
-          </div>
-          <div className="hidden lg:ml-4 lg:flex lg:items-center">
+          </div> */}
+
+          <div className="flex items-center">
             <button
               onClick={() => navigate("/pricing")}
               className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
@@ -69,8 +70,6 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
             >
               Sell with us
             </button>
-          </div>
-          <div className="flex items-center">
             {isSignedIn ? (
               <UserButton afterSignOutUrl="/login" />
             ) : (
@@ -84,7 +83,7 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-full px-4 lg:px-20 py-2 bg-slate-100 block lg:hidden">
+      <div className="mx-auto max-w-full px-4 lg:px-20 py-2 bg-slate-100 hidden">
         <Searchbar />
       </div>
       <Popover

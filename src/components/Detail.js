@@ -81,7 +81,7 @@ export default function PostDetail({
 
   return (
     <>
-      {/* Share Edit*/}
+      {/* SHARE / BUTTON */}
       <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-4 pb-1">
         <div className="flex justify-between">
           <button
@@ -105,7 +105,7 @@ export default function PostDetail({
         </button>
       </div>
 
-      {/* User Edit*/}
+      {/* USER EDITS */}
       {user?.id === userId && (
         <div className="mx-auto max-w-full max-h-full px-4 lg:px-20 flex flex-row justify-between mt-4">
           <div className="flex gap-2">
@@ -140,12 +140,12 @@ export default function PostDetail({
         </div>
       )}
 
-      {/* Image gallery */}
+      {/* IMAGE GALLERY */}
       <div className="mx-auto pt-3 pb-0  max-w-full max-h-full lg:px-20 px-6">
         {gallery?.length > 0 && <Gallery images={gallery} />}
       </div>
 
-      {/* Product info */}
+      {/* LISTING INFO */}
       <div className="mx-auto max-w-full px-6 py-4 lg:py-8 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
         <div className="lg:col-span-2">
           <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 fancy">
@@ -158,7 +158,7 @@ export default function PostDetail({
             {price ? `$${price}` : pricingType.value}
           </h3>
           <hr className="lg:hidden block" />
-          {/* Product info */}
+          {/* INFO BOX */}
           <div className="py-4">
             <div className="bg-black/75">
               <div className="mx-auto max-w-full">
@@ -211,15 +211,15 @@ export default function PostDetail({
               </div>
             </div>
           </div>
+          {/* DESCRIPTION */}
           <div className="py-4 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
-            <div>
-              <h3 className="sr-only">Description</h3>
-              <div className="">
-                <h3 className="text-2xl font-bold mb-2 fancy">Features</h3>
-                <p className="text-base text-slate-900">{description}</p>
-              </div>
+            <h3 className="sr-only">Description</h3>
+            <div className="">
+              <h3 className="text-2xl font-bold mb-2 fancy">Features</h3>
+              <p className="text-base text-slate-900">{description}</p>
             </div>
           </div>
+          {/* MAP */}
           <div className="py-3 h-[300px] w-full">
             <GoogleMapReact
               bootstrapURLKeys={{
@@ -234,8 +234,8 @@ export default function PostDetail({
           </div>
         </div>
 
-        {/* Aside */}
-        <div className="mt-4 lg:row-span-3 lg:mt-0">
+        {/* ASIDE */}
+        <div className="lg:row-span-3">
           <div className="border border-gray-200 bg-white lg:mb-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 border-b p-4">
               <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 mb-2">
@@ -248,7 +248,7 @@ export default function PostDetail({
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xl font-semibold text-slate-900">
+                  <p className="text-xl font-semibold text-slate-900 capitalize">
                     {agentName}
                   </p>
                   <p className="truncate text-sm text-slate-900">

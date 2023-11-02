@@ -80,7 +80,7 @@ const posts = [
 
 export default function Example() {
   return (
-    <div className="bg-white py-16">
+    <div className="bg-slate-200 py-16">
       <div className="mx-auto max-w-full px-6 lg:px-20">
         <div className="mx-auto max-w-full">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl fancy">
