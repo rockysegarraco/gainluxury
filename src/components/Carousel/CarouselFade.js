@@ -49,7 +49,7 @@ const content = [
             color="white"
             className="mb-0 text-[14px] lg:text-base uppercase font-medium font-inter tracking-widest"
           >
-            Residential Real Estate
+            Real Estate
           </Typography>
         </a>
       </div>
@@ -107,7 +107,7 @@ const content = [
   </div>,
   <div className="relative h-full w-full">
     <img
-      src="https://images.unsplash.com/photo-1614969263964-f381e32b337d?auto=format&fit=crop&q=80&w=3731&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?auto=format&fit=crop&q=80&w=3266&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="image 3"
       className="h-full w-full object-cover"
     />
@@ -124,7 +124,7 @@ const content = [
             color="white"
             className="mb-0 text-[14px] lg:text-base uppercase font-medium font-inter tracking-widest"
           >
-            Commercial Real Estate
+            Art
           </Typography>
         </a>
       </div>
