@@ -44,16 +44,10 @@ const MainLayout = () => {
     setOpen(false);
   };
 
-  const handleOpenPage = (page) => {
-    if (isSignedIn) {
-      navigate(page)
-    } else {
-      navigate('/login')
-    }
-  }
+
   return (
     <Box sx={{ display: "flex", flexDirection: 'column' }}>
-      <Navbar handleOpen={handleOpenPage} handleDrawerOpen={handleDrawerOpen} />
+      <Navbar handleDrawerOpen={handleDrawerOpen} />
       <Sidebar open={open} openDialog={() => setOpenDialog(!openDialog)} drawerIndex={location.state?.drawerIndex} handleDrawerClose={handleDrawerClose} />
       <Main open={open}>
         <DrawerHeader />

@@ -121,6 +121,18 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       title: "Sell a Property",
       onClick: (index) => handleMenuItemClick(index, "/create-property-post"),
     },
+    {
+      title: "Sell a Marine",
+      onClick: (index) => handleMenuItemClick(index, "/create-marine-post"),
+    },
+    {
+      title: "Sell an Aviation",
+      onClick: (index) => handleMenuItemClick(index, "/create-aviation-post"),
+    },
+    {
+      title: "Sell an Art",
+      onClick: (index) => handleMenuItemClick(index, "/create-art-post"),
+    },
   ];
   const handleClick = (index, path, ischeck) => {
     setSelectedIndex(index);

@@ -23,6 +23,9 @@ import EditPost from "./routes/EditPost";
 import Login from "./routes/login";
 import Register from "./routes/Register";
 import AddProperty from "./routes/AddProperty";
+import AddMarine from "./routes/AddMarine";
+import AddAviation from "./routes/AddAviation";
+import AddArt from "./routes/AddArt";
 import SuperUser from "./routes/SuperUser";
 import UserListings from "./routes/UserListings";
 import { useEffect } from "react";
@@ -81,6 +84,18 @@ function ClerkProviderWithRoutes() {
         <Route
           path="/create-property-post"
           element={<AddProperty path="/create-property-post" />}
+        />
+         <Route
+          path="/create-marine-post"
+          element={<AddMarine path="/create-marine-post" />}
+        />
+         <Route
+          path="/create-aviation-post"
+          element={<AddAviation path="/create-aviation-post" />}
+        />
+         <Route
+          path="/create-art-post"
+          element={<AddArt path="/create-art-post" />}
         />
         <Route
           path="/edit-post/:slug"

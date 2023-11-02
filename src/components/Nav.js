@@ -1,36 +1,18 @@
 import { useState } from "react";
-import Popover from "@mui/material/Popover";
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemButton from "@mui/material/ListItemButton";
-import CarRental from "@mui/icons-material/CarRental";
-import Home from "@mui/icons-material/Home";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Searchbar from "./Dialog/Searchbar";
+import CategoryDialog from "./Dialog/CategoryDialog";
 
-export default function Navbar({ handleDrawerOpen, handleOpen }) {
+export default function Navbar({ handleDrawerOpen }) {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const [open, setOpen] = useState(false);
 
   const handlePage = () => {
     navigate("/");
   };
-
-  const openPopver = Boolean(anchorEl);
-  const id = openPopver ? "simple-popover" : undefined;
 
   return (
     <div className="bg-white border-b">
@@ -62,7 +44,7 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
               Pricing
             </button>
             <button
-              onClick={handleClick}
+              onClick={() => setOpen(true)}
               className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
             >
               Sell with us
@@ -83,40 +65,10 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
       <div className="mx-auto max-w-full px-4 lg:px-20 py-2 bg-slate-100 hidden">
         <Searchbar />
       </div>
-      <Popover
-        id={id}
-        open={openPopver}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-      >
-        <ListItem
-          divider
-          disablePadding
-          onClick={() => handleOpen("/create-car-post")}
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <CarRental />
-            </ListItemIcon>
-            <ListItemText primary="Sell a car" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem
-          disablePadding
-          onClick={() => handleOpen("/create-property-post")}
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <Home />
-            </ListItemIcon>
-            <ListItemText primary="Sell a Property" />
-          </ListItemButton>
-        </ListItem>
-      </Popover>
+      <CategoryDialog
+        open={open}
+        handleClose={() => setOpen(false)}
+      />
     </div>
   );
 }
