@@ -120,7 +120,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
     setMenuIndex(-1);
     handleDrawerClose();
     if (ischeck) {
-      isSignedIn ? navigate(path) : navigate('/login')
+      isSignedIn ? navigate(path) : navigate("/login");
     } else {
       navigate(path);
     }
