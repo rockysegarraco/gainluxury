@@ -43,7 +43,6 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const [menuOpen, setOpen] = React.useState(false);
   const { isSignedIn } = useUser();
   const { signOut } = useClerk();
-  const { isSignedIn } = useUser();
 
   const LIST_ITEMS = [
     {
