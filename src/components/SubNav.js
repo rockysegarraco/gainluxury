@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const array = [
   {title: "Cars", path: "/home/cars"}, 
-  {title: "Properties", path: "/home/real-estate"}, 
+  {title: "Properties", path: "/home/realestate"}, 
   {title: "Marine", path: "/home/marine"}, 
   {title: "Aviation", path: "/home/aviation"}, 
   {title: "Arts", path: "/home/arts"}, 

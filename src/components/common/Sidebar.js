@@ -50,7 +50,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       title: "Real Estate",
       icon: <HomeOutlined />,
       show: true,
-      onClick: (index) => handleClick(index, "/home/real-estate"),
+      onClick: (index) => handleClick(index, "/home/realestate"),
     },
     {
       title: "Cars",

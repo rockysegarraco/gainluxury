@@ -43,7 +43,7 @@ const content = [
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
-        <a href="/home/real-estate">
+        <a href="/home/realestate">
           <Typography
             variant="h1"
             color="white"

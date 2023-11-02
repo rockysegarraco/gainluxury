@@ -51,8 +51,8 @@ function ClerkProviderWithRoutes() {
           {/* Drawer routes */}
           <Route index element={<Home path="/home" />} />
           <Route
-            path="/home/real-estate"
-            element={<RealEstate path="/home/real-estate" />}
+            path="/home/realestate"
+            element={<RealEstate path="/home/realestate" />}
           />
           <Route path="/home/cars" element={<Cars path="/home/cars" />} />
           <Route path="/home/marine" element={<Marine path="/home/marine" />} />
