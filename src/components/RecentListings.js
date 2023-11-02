@@ -1,6 +1,6 @@
 import CardCar from "./cardCar.js";
 
-export default function RecentListings({ post, selected, from }) {
+export default function RecentListings({ post, from }) {
   return (
     <div className="section">
       <div className="mx-auto max-w-full lg:px-20 px-6">
@@ -11,7 +11,7 @@ export default function RecentListings({ post, selected, from }) {
               <CardCar key={index} item={item} i={index} from={from} />
             ))
           ) : (
-            <span>No {selected} listing found</span>
+            <span>No listing found</span>
           )}
         </div>
       </div>

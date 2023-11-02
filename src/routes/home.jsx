@@ -9,18 +9,9 @@ import Blog from "../components/Blog";
 import Carousel from "../components/Carousel/CarouselFade";
 import Footer from "../components/Footer";
 import SubNav from "../components/SubNav";
-import Cars from "../components/Tabs/cars";
-import Properties from "../components/Tabs/properties";
-import Marine from "../components/Tabs/marine";
-import Aviation from "../components/Tabs/aviation";
-import { useDispatch, useSelector } from "react-redux";
-import { setSelected } from "../store/routeSlice";
 
 function Home() {
-  const selected = useSelector((state) => state.routeSlice.selected);
   const [post, setPost] = useState([]);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     getPost();
@@ -38,28 +29,12 @@ function Home() {
     setPost(data);
   };
 
-  console.log(selected);
-
   return (
     <div>
-      <SubNav
-        handleSelected={(item) => dispatch(setSelected(item))}
-        selected={selected}
-      />
-
-      {selected === "Cars" && <Cars />}
-      {selected === "Properties" && <Properties />}
-      {selected === "Marine" && <Marine />}
-      {selected === "Aviation" && <Aviation />}
-
-      {selected === "Home" && (
-        <>
-          {" "}
-          <Carousel />
-          <RecentListings post={post} selected={selected} from="home" />
-          <Blog />
-        </>
-      )}
+      <SubNav />
+      <Carousel />
+      <RecentListings post={post} from="home" />
+      <Blog />
       <Newsletter />
       <Footer />
     </div>

@@ -4,20 +4,20 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 //
-import Container from "../container.js";
+import Container from "../components/container.js";
 
-import SelectCountries from "../Selects/SelectCountries.js";
-import SelectStates from "../Selects/SelectStates.js";
-import SelectYears from "../Selects/YearSelect.js";
-import SelectPrice from "../Selects/SelectPrice.js";
-import Filters from "../Filters.js";
-import Searchbar from "../Dialog/Searchbar.js";
+import SelectCountries from "../components/Selects/SelectCountries.js";
+import SelectStates from "../components/Selects/SelectStates.js";
+import SelectYears from "../components/Selects/YearSelect.js";
+import SelectPrice from "../components/Selects/SelectPrice.js";
+import Filters from "../components/Filters.js";
 //
-import db from "../../firebase.js";
-import { COUNTRY } from "../../utils/constants.js";
-import PropertyCard from "../PropertyCard.js";
+import db from "../firebase.js";
+import { COUNTRY } from "../utils/constants.js";
+import PropertyCard from "../components/PropertyCard.js";
+import Tabs from "../components/SubNav.js";
 
-const Properties = () => {
+const Art = () => {
   const [post, setPost] = useState([]);
   const [sortOptions, setSortOption] = useState([
     { name: "Price lowest first", current: true, label: "price", value: "asc" },
@@ -44,7 +44,7 @@ const Properties = () => {
   const collections = collection(db, "cars");
   let q = query(
     collections,
-    where("category.value", "==", "properties"),
+    where("category.value", "==", "art"),
     where("postStatus", "==", "Live"),
     orderBy("postDate", "asc")
   );
@@ -151,14 +151,7 @@ const Properties = () => {
 
   return (
     <>
-      <div className="w-full block lg:hidden">
-        <label htmlFor="search" className="sr-only">
-          Search
-        </label>
-        <div className="relative flex px-4 pt-3">
-        <Searchbar />
-        </div>
-      </div>
+      <Tabs selected="Arts" />
       <div className="flex flex-col">
         <div className="border-b py-3 lg:py-3 max-w-[100vw]">
           <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
@@ -199,7 +192,7 @@ const Properties = () => {
           </div>
         </div>
         <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Properties for Sale</h1>
+          <h1 className="text-2xl lg:text-4xl fancy pt-4">Arts for Sale</h1>
           <Stack
             sx={{
               display: "flex",
@@ -258,4 +251,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;
+export default Art;

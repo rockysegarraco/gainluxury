@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 //
 import Container from "../components/container.js";
 import CardCar from "../components/cardCar.js";
@@ -14,15 +15,14 @@ import SelectPrice from "../components/Selects/SelectPrice";
 import SelectYears from "../components/Selects/YearSelect";
 import SelectModel from "../components/Selects/SelectModel.js";
 import Filters from "../components/Filters";
-import Searchbar from "../components/Dialog/Searchbar.js";
 //
 import db from "../firebase";
-import Stack from "@mui/material/Stack";
 import { BRAND, COUNTRY } from "../utils/constants.js";
 
 // redux
 import { setBrand, setModel, setModelData } from "../store/brandSerchSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import Tabs from "../components/SubNav.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -202,15 +202,8 @@ const Cars = () => {
 
   return (
     <>
-      <div className="w-full block lg:hidden">
-        <label htmlFor="search" className="sr-only">
-          Search
-        </label>
-        <div className="relative flex px-4 pt-3">
-          <Searchbar />
-        </div>
-      </div>
       <div className="flex flex-col">
+      <Tabs selected="Cars" />
         <div className="border-b py-3 lg:py-3 max-w-[100vw]">
           <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
             <div className="flex space-x-2">
