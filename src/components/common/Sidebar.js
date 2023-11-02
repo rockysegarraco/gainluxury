@@ -43,7 +43,6 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
   const [menuOpen, setOpen] = React.useState(false);
   const { isSignedIn } = useUser();
   const { signOut } = useClerk();
-  const { isSignedIn } = useUser();
 
   const LIST_ITEMS = [
     {
@@ -121,7 +120,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
     setMenuIndex(-1);
     handleDrawerClose();
     if (ischeck) {
-      isSignedIn ? navigate(path) : navigate('/login')
+      isSignedIn ? navigate(path) : navigate("/login");
     } else {
       navigate(path);
     }

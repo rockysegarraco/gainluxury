@@ -1,16 +1,12 @@
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-} from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import db from "../firebase";
 
 import RecentListings from "../components/RecentListings";
 import Newsletter from "../components/Newsletter";
+import Blog from "../components/Blog";
+import Carousel from "../components/Carousel/CarouselFade";
 import Footer from "../components/Footer";
 import SubNav from "../components/SubNav";
 import Cars from "../components/Tabs/cars";
@@ -50,15 +46,6 @@ function Home() {
         handleSelected={(item) => dispatch(setSelected(item))}
         selected={selected}
       />
-      {/* <BrowserView>
-        <Carousel />
-      </BrowserView>
-      <MobileView>
-        <MobileSlider />
-      </MobileView>
-      <FeaturedSection />
-      <FeaturedListings />
-       */}
 
       {selected === "Cars" && <Cars />}
       {selected === "Properties" && <Properties />}
@@ -67,7 +54,10 @@ function Home() {
 
       {selected === "Home" && (
         <>
+          {" "}
+          <Carousel />
           <RecentListings post={post} selected={selected} from="home" />
+          <Blog />
         </>
       )}
       <Newsletter />
