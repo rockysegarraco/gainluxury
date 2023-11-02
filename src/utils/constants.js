@@ -19,6 +19,11 @@ export const CATEGORY = [
     value: "aviation",
     priceId: "price_1O7dqtGF4EI4toFuXvnf51sJ",
   },
+  {
+    label: "Sell Arts",
+    value: "arts",
+    priceId: "price_1O7dqtGF4EI4toFuXvnf51sJ",
+  },
 ];
 
 export const PRICE_TYPE = [
