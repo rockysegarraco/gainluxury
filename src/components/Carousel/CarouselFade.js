@@ -18,7 +18,7 @@ const content = [
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
-        <a href="/">
+        <a href="/home/cars">
           <Typography
             variant="h1"
             color="white"
@@ -43,7 +43,7 @@ const content = [
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
-        <a href="/">
+        <a href="/home/real-estate">
           <Typography
             variant="h1"
             color="white"
@@ -68,7 +68,7 @@ const content = [
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
-        <a href="/">
+        <a href="/home/marine">
           <Typography
             variant="h1"
             color="white"
@@ -93,7 +93,7 @@ const content = [
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
-        <a href="/">
+        <a href="/home/aviation">
           <Typography
             variant="h1"
             color="white"
@@ -118,7 +118,7 @@ const content = [
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
-        <a href="/">
+        <a href="/home/real-estate">
           <Typography
             variant="h1"
             color="white"

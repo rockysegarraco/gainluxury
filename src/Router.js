@@ -27,6 +27,7 @@ import SuperUser from "./routes/SuperUser";
 import UserListings from "./routes/UserListings";
 import { useEffect } from "react";
 import PropertyDetail from "./routes/PropertyDetail";
+import Art from "./routes/art";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -58,6 +59,10 @@ function ClerkProviderWithRoutes() {
           <Route
             path="/home/aviation"
             element={<Aviator path="/home/aviation" />}
+          />
+           <Route
+            path="/home/arts"
+            element={<Art path="/home/arts" />}
           />
           <Route path="/settings" element={<Settings path="/settings" />} />
           <Route path="/my-post" element={<MyPost path="/my-post" />} />

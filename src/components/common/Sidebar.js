@@ -23,6 +23,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
+import ArtTrack from "@mui/icons-material/ArtTrack";
 
 const drawerWidth = 240;
 
@@ -68,6 +69,12 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       icon: <FlightOutlined />,
       show: true,
       onClick: (index) => handleClick(index, "/home/aviation"),
+    },
+    {
+      title: "Art",
+      icon: <ArtTrack />,
+      show: true,
+      onClick: (index) => handleClick(index, "/home/arts"),
     },
     { title: "divider" },
     {

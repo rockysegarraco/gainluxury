@@ -27,9 +27,6 @@ export default function Navbar({ handleDrawerOpen, handleOpen }) {
 
   const handlePage = () => {
     navigate("/");
-    if (window.location.href === window.location.origin + "/") {
-      window.location.reload();
-    }
   };
 
   const openPopver = Boolean(anchorEl);
