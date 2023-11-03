@@ -23,6 +23,7 @@ import { BRAND, COUNTRY } from "../utils/constants.js";
 import { setBrand, setModel, setModelData } from "../store/brandSerchSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import Tabs from "../components/SubNav.js";
+import SelectCondition from "../components/Selects/SelectCondition.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);
@@ -77,6 +78,7 @@ const Cars = () => {
  
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
+  const [condition, setCondition] = React.useState("All");
  
   const [stateData, setStateData] = React.useState([]);
 
@@ -94,7 +96,7 @@ const Cars = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, brand, state, country, model]);
+  }, [minYear, maxYear, maxPrice, minPrice, brand, state, country, model, condition]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -153,6 +155,10 @@ const Cars = () => {
       q = query(q, where("state.value", "==", state));
     }
 
+     // Condition Filter
+     if (condition !== "All") {
+      q = query(q, where("condition.value", "==", condition));
+    }
     //   q = query(q, orderBy(sort.label, sort.value))
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -245,6 +251,10 @@ const Cars = () => {
                 handleMax={(value) =>
                   setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
                 }
+              />
+              <SelectCondition 
+                handleCondition={(value) => setCondition(value)}
+                condition={condition}
               />
             </div>
           </div>
