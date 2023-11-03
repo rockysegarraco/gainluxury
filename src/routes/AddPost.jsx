@@ -18,6 +18,7 @@ import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
   BRAND,
+  CARS_MILES,
   CATEGORY,
   CONDITION,
   COUNTRY,
@@ -213,6 +214,17 @@ const AddPost = ({ form }) => {
                         })(<TextInput multiline label="Features" />)}
                       </FormItem>
                       <FormItem>
+                        {getFieldDecorator("video", {
+                          initialValue: "",
+                          rules: [{ required: false }],
+                        })(
+                          <TextInput
+                            label="Video Url"
+                            hint="ex. https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
                         {getFieldDecorator("yearModel", {
                           initialValue: "",
                           rules: [{ required: true }],
@@ -302,14 +314,31 @@ const AddPost = ({ form }) => {
                           )}
                         </FormItem>
                       </Stack>
-
-                      <FormItem>
-                        {getFieldDecorator("kilometersRun", {
-                          initialValue: "",
-                          rules: [{ required: true }],
-                        })(<TextInput label="Kilometers Run" type="number" />)}
-                      </FormItem>
-
+                      <Stack
+                        gap={2}
+                        sx={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <FormItem>
+                          {getFieldDecorator("kilometersRun", {
+                            initialValue: "",
+                            rules: [{ required: true }],
+                          })(
+                            <TextInput label="Miles/Kilometers" type="number" />
+                          )}
+                        </FormItem>
+                        <FormItem>
+                          {getFieldDecorator("metric", {
+                            initialValue: "",
+                            rules: [{ required: true }],
+                          })(
+                            <Select
+                              fullWidth
+                              label="Metric"
+                              options={CARS_MILES}
+                            />
+                          )}
+                        </FormItem>
+                      </Stack>
                       <FormItem>
                         {getFieldDecorator("engineCapacity", {
                           initialValue: "",

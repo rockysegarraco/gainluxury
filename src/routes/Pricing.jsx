@@ -39,6 +39,9 @@ export default function Pricing() {
                     buyers. It's time to maximize your sale and move forward
                     with confidence! 🚀
                   </p>
+                  <p className="mt-4 text-gray-600">
+                    No Commisions, No upcharge and No extra fees.
+                  </p>
                   <div className="mt-10 flex items-center gap-x-4">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">
                       What’s included
@@ -65,7 +68,7 @@ export default function Pricing() {
                       </p>
                       <p className="mt-6 flex items-baseline justify-center gap-x-2">
                         <span className="text-5xl font-bold tracking-tight text-gray-900">
-                          $6.99
+                          $7
                         </span>
                         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
                           USD
@@ -77,7 +80,9 @@ export default function Pricing() {
                       >
                         Get Started
                       </Link>
-
+                      <p className="mt-6 text-xs leading-5 text-gray-600">
+                        Free til 2024!
+                      </p>
                       <p className="mt-6 text-xs leading-5 text-gray-600">
                         Invoices and receipts available for easy company
                         reimbursement

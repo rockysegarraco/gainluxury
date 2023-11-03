@@ -3456,3 +3456,8 @@ export const RE_PROPERTY_TYPE = [
   { label: "Warehouse", value: "square_feet" },
   { label: "Other", value: "square_feet" },
 ];
+
+export const CARS_MILES = [
+  { label: "Miles", value: "miles" },
+  { label: "Kilometers", value: "kl" },
+];
