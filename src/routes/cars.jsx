@@ -74,17 +74,16 @@ const Cars = () => {
   const [maxPrice, setMaxPrice] = React.useState("Max");
   const [minPrice, setMinPrice] = React.useState("Min");
 
- 
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
- 
+
   const [stateData, setStateData] = React.useState([]);
 
   const brand = useSelector((state) => state.brandSearch.brand);
   const model = useSelector((state) => state.brandSearch.model);
   const modelData = useSelector((state) => state.brandSearch.modelData);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [sort, setSort] = useState({
     label: "price",
@@ -199,11 +198,11 @@ const Cars = () => {
     }
   };
 
-
   return (
     <>
       <div className="flex flex-col">
-      <Tabs selected="Cars" />
+        {/* <Tabs selected="Cars" /> */}
+
         <div className="border-b py-3 lg:py-3 max-w-[100vw]">
           <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
             <div className="flex space-x-2">

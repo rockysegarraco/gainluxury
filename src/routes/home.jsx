@@ -59,7 +59,6 @@ function Home() {
 
   return (
     <div>
-      <SubNav />
       <Carousel />
       <RecentListings post={post} from="home" />
       <Blog />

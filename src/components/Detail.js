@@ -1,5 +1,6 @@
 import { useUser } from "@clerk/clerk-react";
 import { useState } from "react";
+import ReactPlayer from "react-player";
 
 //
 import Gallery from "./Gallery";
@@ -50,6 +51,7 @@ export default function PostDetail({
     agentCompany,
     avatar,
     category,
+    metric,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -136,15 +138,23 @@ export default function PostDetail({
           <h2 className="font-inter">
             {state?.value}, {country?.value}
           </h2>
-          <h3 className="text-xl font-bold text-slate-900 font-inter py-4">
-            {price ? `$${price}` : pricingType.value}
-          </h3>
           <hr className="lg:hidden block" />
           {/* INFO BOX */}
           <div className="py-4">
             <div className="bg-black/75">
               <div className="mx-auto max-w-full">
                 <div className="grid grid-cols-2 gap-px sm:grid-cols-2 lg:grid-cols-4 bg-white/5">
+                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
+                    <p className="text-sm font-medium leading-6 text-gray-400">
+                      Price
+                    </p>
+                    <p className="mt-2 flex items-baseline gap-x-2">
+                      <span className="text-3xl font-semibold tracking-tight text-white">
+                        {price ? `$${price}` : pricingType.value}
+                      </span>
+                      <span className="text-sm text-gray-400"></span>
+                    </p>
+                  </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
                       Year
@@ -164,18 +174,7 @@ export default function PostDetail({
                       <span className="text-4xl font-semibold tracking-tight text-white">
                         {kilometersRun}
                       </span>
-                      <span className="text-sm text-gray-400">km</span>
-                    </p>
-                  </div>
-                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
-                    <p className="text-sm font-medium leading-6 text-gray-400">
-                      Engine Type
-                    </p>
-                    <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-4xl font-semibold tracking-tight text-white">
-                        {engineCapacity}
-                      </span>
-                      <span className="text-sm text-gray-400"></span>
+                      <span className="text-sm text-gray-400">{metric}</span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
@@ -200,6 +199,10 @@ export default function PostDetail({
               <h3 className="text-2xl font-bold mb-2 fancy">Features</h3>
               <p className="text-base text-slate-900">{description}</p>
             </div>
+          </div>
+          {/* VIDEO */}
+          <div className="py-4 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
+            <ReactPlayer url="https://www.youtube.com/watch?v=LXb3EKWsInQ" />
           </div>
           {/* MAP */}
           <div className="py-3 h-[300px] w-full">
