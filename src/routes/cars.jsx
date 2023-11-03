@@ -78,7 +78,7 @@ const Cars = () => {
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
   const [condition, setCondition] = React.useState("All");
- 
+
   const [stateData, setStateData] = React.useState([]);
 
   const brand = useSelector((state) => state.brandSearch.brand);
@@ -95,7 +95,17 @@ const Cars = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, brand, state, country, model, condition]);
+  }, [
+    minYear,
+    maxYear,
+    maxPrice,
+    minPrice,
+    brand,
+    state,
+    country,
+    model,
+    condition,
+  ]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -154,8 +164,8 @@ const Cars = () => {
       q = query(q, where("state.value", "==", state));
     }
 
-     // Condition Filter
-     if (condition !== "All") {
+    // Condition Filter
+    if (condition !== "All") {
       q = query(q, where("condition.value", "==", condition));
     }
     //   q = query(q, orderBy(sort.label, sort.value))
@@ -251,7 +261,7 @@ const Cars = () => {
                   setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
                 }
               />
-              <SelectCondition 
+              <SelectCondition
                 handleCondition={(value) => setCondition(value)}
                 condition={condition}
               />

@@ -3461,3 +3461,44 @@ export const CARS_MILES = [
   { label: "Miles", value: "miles" },
   { label: "Kilometers", value: "kl" },
 ];
+
+// ART
+
+export const ART_CATEGORY = [
+  { label: "Painting", value: "painting" },
+  { label: "Printmaking", value: "printmaking" },
+  { label: "Sculpture", value: "sculpture" },
+  { label: "Photography", value: "photography" },
+  { label: "Drawing", value: "drawing" },
+  { label: "Digital Art", value: "digital_art" },
+  { label: "Collage", value: "collage" },
+  { label: "NFT", value: "nft" },
+  { label: "Other", value: "other" },
+];
+
+export const ART_SIZE = [
+  { label: "<19.7", value: "painting" },
+  { label: "19.7-39.4", value: "printmaking" },
+  { label: "39.4-59.1", value: "sculpture" },
+  { label: ">59.1", value: "photography" },
+  { label: "Other", value: "Other" },
+];
+
+export const ART_SUBJECT = [
+  { label: "All", value: "All" },
+  {
+    label: "Abstract And Non-Figurative",
+    value: "Abstract And Non-Figurative",
+  },
+  { label: "Animals And Birds", value: "Animals And Birds" },
+  {
+    label: "Architecture And Cityscapes",
+    value: "Architecture And Cityscapes",
+  },
+  { label: "Flowers And Plants", value: "Flowers And Plants" },
+  { label: "Landscapes, Sea And Sky", value: "Landscapes, Sea And Sky" },
+  { label: "Nudes And Erotic", value: "Nudes And Erotic" },
+  { label: "People And Portraits", value: "People And Portraits" },
+  { label: "Still Life", value: "Still Life" },
+  { label: "Transportation And Maps", value: "Transportation And Maps" },
+];

@@ -52,6 +52,7 @@ export default function PostDetail({
     avatar,
     category,
     metric,
+    video,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -193,16 +194,23 @@ export default function PostDetail({
             </div>
           </div>
           {/* DESCRIPTION */}
-          <div className="py-4 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
+          <div className="py-6">
             <h3 className="sr-only">Description</h3>
             <div className="">
               <h3 className="text-2xl font-bold mb-2 fancy">Features</h3>
-              <p className="text-base text-slate-900">{description}</p>
+              <p className="text-base text-slate-900 font-inter">
+                {description}
+              </p>
             </div>
           </div>
           {/* VIDEO */}
-          <div className="py-4 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
-            <ReactPlayer url="https://www.youtube.com/watch?v=LXb3EKWsInQ" />
+          <div className="py-6 aspect-video w-full ">
+            <div className="aspect-video w-full bg-slate-100">
+              <ReactPlayer
+                className="react-player aspect-video w-full"
+                url="https://youtu.be/8wvZe0hVaXo?si=gAb44R3ky-q_Wm56"
+              />
+            </div>
           </div>
           {/* MAP */}
           <div className="py-3 h-[300px] w-full">
