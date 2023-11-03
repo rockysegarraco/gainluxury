@@ -31,6 +31,9 @@ import UserListings from "./routes/UserListings";
 import { useEffect } from "react";
 import PropertyDetail from "./routes/PropertyDetail";
 import Art from "./routes/art";
+import MarineDetail from "./routes/MarineDetail";
+import AviationDetail from "./routes/AviationDetail";
+import ArtDetail from "./routes/ArtDetail";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -69,10 +72,11 @@ function ClerkProviderWithRoutes() {
           />
           <Route path="/settings" element={<Settings path="/settings" />} />
           <Route path="/my-post" element={<MyPost path="/my-post" />} />
-          <Route path="/aviation/:slug" element={<PostDetail />} />
+          <Route path="/aviation/:slug" element={<AviationDetail />} />
+          <Route path="/arts/:slug" element={<ArtDetail />} />
           <Route path="/cars/:slug" element={<PostDetail />} />
           <Route path="/properties/:slug" element={<PropertyDetail />} />
-          <Route path="/yatch/:slug" element={<PostDetail />} />
+          <Route path="/marine/:slug" element={<MarineDetail />} />
           <Route path="/listings/:uid" element={<UserListings />} />
         </Route>
 

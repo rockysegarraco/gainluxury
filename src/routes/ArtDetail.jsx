@@ -5,9 +5,9 @@ import Box from "@mui/material/Box";
 import { useNavigate, useParams } from "react-router-dom";
 //
 import db from "../firebase";
-import PropertyDetails from '../components/PropertyDetails';
+import ArtDetails from '../components/ArtDetails';
 
-const PropertyDetail = () => {
+const ArtDetail = () => {
   let { slug } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [listingSize, setListingSize] = useState(0);
@@ -16,7 +16,7 @@ const PropertyDetail = () => {
   const [userId, setUserId] = useState();
   const navigate = useNavigate(); 
 
-  const collections = collection(db, "properties");
+  const collections = collection(db, "arts");
 
   useEffect(() => {
     if (slug) {
@@ -82,11 +82,11 @@ const PropertyDetail = () => {
         </Box>
       ) : (
         <div>
-          <PropertyDetails data={data} handleSold={handleSold} handleDelete={handleDelete} listingSize={listingSize - 1} />
+          <ArtDetails data={data} handleSold={handleSold} handleDelete={handleDelete} listingSize={listingSize - 1} />
         </div>
       )}
     </div>
   );
 };
 
-export default PropertyDetail;
+export default ArtDetail;
