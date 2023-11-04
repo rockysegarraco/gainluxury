@@ -133,10 +133,10 @@ export default function PostDetail({
       {/* LISTING INFO */}
       <div className="mx-auto max-w-full px-6 py-4 lg:py-8 lg:px-20 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
         <div className="lg:col-span-2">
-          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 fancy">
+          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 fancy mb-2">
             {title}
           </h1>
-          <h2 className="font-inter">
+          <h2 className="font-inter mb-2">
             {state?.value}, {country?.value}
           </h2>
           <hr className="lg:hidden block" />
@@ -150,7 +150,7 @@ export default function PostDetail({
                       Price
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-3xl font-semibold tracking-tight text-white">
+                      <span className="text-2xl font-semibold tracking-tight text-white">
                         {price ? `$${price}` : pricingType.value}
                       </span>
                       <span className="text-sm text-gray-400"></span>
@@ -161,7 +161,7 @@ export default function PostDetail({
                       Year
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-4xl font-semibold tracking-tight text-white">
+                      <span className="text-2xl font-semibold tracking-tight text-white">
                         {yearModel}
                       </span>
                       <span className="text-sm text-gray-400"></span>
@@ -172,7 +172,7 @@ export default function PostDetail({
                       Miles
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-4xl font-semibold tracking-tight text-white">
+                      <span className="text-2xl font-semibold tracking-tight text-white">
                         {kilometersRun}
                       </span>
                       <span className="text-sm text-gray-400">{metric}</span>
@@ -208,7 +208,9 @@ export default function PostDetail({
             <div className="aspect-video w-full bg-slate-100">
               <ReactPlayer
                 className="react-player aspect-video w-full"
-                url="https://youtu.be/8wvZe0hVaXo?si=gAb44R3ky-q_Wm56"
+                url={video}
+                width="100%"
+                height="100%"
               />
             </div>
           </div>

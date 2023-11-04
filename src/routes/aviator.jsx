@@ -10,6 +10,9 @@ import SelectCountries from "../components/Selects/SelectCountries.js";
 import SelectStates from "../components/Selects/SelectStates.js";
 import SelectYears from "../components/Selects/YearSelect.js";
 import SelectPrice from "../components/Selects/SelectPrice.js";
+import SelectCondition from "../components/Selects/SelectCondition.js";
+import SelectAviationtype from "../components/Selects/SelectAviationtype.js";
+import SelectAviationmanufactures from "../components/Selects/SelectAviationmanufactures.js";
 import Filters from "../components/Filters.js";
 //
 import db from "../firebase.js";
@@ -56,6 +59,9 @@ const Aviation = () => {
 
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
+  const [condition, setCondition] = React.useState("All");
+  const [aviationtype, setAviationtype] = React.useState("All");
+  const [aviationmanufactures, setAviationmanufactures] = React.useState("All");
 
   const [stateData, setStateData] = React.useState([]);
 
@@ -67,7 +73,7 @@ const Aviation = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, state, country]);
+  }, [minYear, maxYear, maxPrice, minPrice, state, country, aviationtype]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -149,102 +155,107 @@ const Aviation = () => {
   };
 
   return (
-      <div className="flex flex-col">
-        <Tabs selected="Aviation" />
-        <div className="border-b py-3 lg:py-3 max-w-[100vw]">
-          <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
-            <div className="flex space-x-2">
-              <SelectCountries
-                handleCountry={handleCountry}
-                country={country}
+    <div className="flex flex-col">
+      <div className="border-b py-3 lg:py-3 max-w-[100vw]">
+        <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
+          <div className="flex space-x-2">
+            <SelectCountries handleCountry={handleCountry} country={country} />
+            {stateData?.length > 0 && (
+              <SelectStates
+                handleState={(value) => setState(value)}
+                state={state}
+                stateData={stateData}
               />
-              {stateData?.length > 0 && (
-                <SelectStates
-                  handleState={(value) => setState(value)}
-                  state={state}
-                  stateData={stateData}
-                />
-              )}
-              
-              <SelectPrice
-                minValue={minPrice}
-                maxValue={maxPrice}
-                handleMin={(value) =>
-                  setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
-                }
-                handleMax={(value) =>
-                  setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
-                }
-              />
-              <SelectYears
-                minValue={minYear}
-                maxValue={maxYear}
-                handleMin={(value) =>
-                  setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
-                }
-                handleMax={(value) =>
-                  setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
-                }
-              />
-            </div>
+            )}
+
+            <SelectPrice
+              minValue={minPrice}
+              maxValue={maxPrice}
+              handleMin={(value) =>
+                setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
+              }
+              handleMax={(value) =>
+                setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
+              }
+            />
+            <SelectYears
+              minValue={minYear}
+              maxValue={maxYear}
+              handleMin={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+              }
+              handleMax={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+              }
+            />
+            <SelectAviationtype
+              handleAviationtype={(value) => setAviationtype(value)}
+              aviationtype={aviationtype}
+            />
+            <SelectAviationmanufactures
+              handleAviationmanufactures={(value) =>
+                setAviationmanufactures(value)
+              }
+              aviationmanufactures={aviationmanufactures}
+            />
+            <SelectCondition
+              handleCondition={(value) => setCondition(value)}
+              condition={condition}
+            />
           </div>
         </div>
-        <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Aviation for Sale</h1>
-          <Stack
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              mt: 2,
-              justifyContent: "space-between",
-            }}
-          >
-            <Filters
-              sort={sort}
-              sortOptions={sortOptions}
-              handleSort={handleSort}
-            />
-            <span className="text-sm text-gray-700">
-              {post.length} Listings
-            </span>
-          </Stack>
-
-          {post.length === 0 && (
-            <Stack sx={{ mt: 4 }}>
-              <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
-                No Results
-              </Typography>
-              <Box>
-                <Typography
-                  onClick={handleReset}
-                  component="span"
-                  style={{ display: "inline" }}
-                  sx={{
-                    cursor: "pointer",
-                    color: "blueviolet",
-                    "&:hover": { textDecoration: "underline" },
-                  }}
-                >
-                  Reset all filters{" "}
-                </Typography>
-                <Typography
-                  style={{ display: "inline" }}
-                  sx={{ color: "black" }}
-                >
-                  or remove one of your filters above to see more listings
-                </Typography>
-              </Box>
-            </Stack>
-          )}
-
-          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
-            {post.map((item, index) => (
-              <CardCar key={index} item={item} i={index} />
-            ))}
-          </div>
-          {/* <Pagination count={10} /> */}
-        </Container>
       </div>
+      <Container>
+        <h1 className="text-2xl lg:text-4xl fancy pt-4">Aviation for Sale</h1>
+        <Stack
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            mt: 2,
+            justifyContent: "space-between",
+          }}
+        >
+          <Filters
+            sort={sort}
+            sortOptions={sortOptions}
+            handleSort={handleSort}
+          />
+          <span className="text-sm text-gray-700">{post.length} Listings</span>
+        </Stack>
+
+        {post.length === 0 && (
+          <Stack sx={{ mt: 4 }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
+              No Results
+            </Typography>
+            <Box>
+              <Typography
+                onClick={handleReset}
+                component="span"
+                style={{ display: "inline" }}
+                sx={{
+                  cursor: "pointer",
+                  color: "blueviolet",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                Reset all filters{" "}
+              </Typography>
+              <Typography style={{ display: "inline" }} sx={{ color: "black" }}>
+                or remove one of your filters above to see more listings
+              </Typography>
+            </Box>
+          </Stack>
+        )}
+
+        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
+          {post.map((item, index) => (
+            <CardCar key={index} item={item} i={index} />
+          ))}
+        </div>
+        {/* <Pagination count={10} /> */}
+      </Container>
+    </div>
   );
 };
 

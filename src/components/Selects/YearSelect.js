@@ -3,13 +3,18 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
-import Popover from '@mui/material/Popover';
+import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Typography from "@mui/material/Typography";
 import { YEAR, YEAR2 } from "../../utils/constants";
 
-export default function SelectYears({ handleMin, handleMax, minValue, maxValue }) {
+export default function SelectYears({
+  handleMin,
+  handleMax,
+  minValue,
+  maxValue,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -21,11 +26,10 @@ export default function SelectYears({ handleMin, handleMax, minValue, maxValue }
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <div className="relative">
-
       <Button
         id={id}
         onClick={handleClick}
@@ -37,20 +41,22 @@ export default function SelectYears({ handleMin, handleMax, minValue, maxValue }
           justifyContent: "space-between",
           padding: "7px",
           border: "1px solid lightgray",
-          color: 'black',
+          color: "black",
           ":hover": {
-            border: "1px solid black"
+            border: "1px solid black",
           },
-          textTransform: "none"
+          textTransform: "none",
         }}
       >
-      
-        {minValue === "Min" && maxValue === "Max" ? 
-        (<Typography>Years</Typography>) : 
-        minValue !== "Min" && maxValue === "Max" ?  (<Typography>{`${minValue}+`}</Typography>) :
-        minValue === "Min" && maxValue !== "Max" ? (<Typography>{` <${maxValue}`}</Typography>):
-        (<Typography>{`${minValue} - ${maxValue}`}</Typography>)}
-
+        {minValue === "Min" && maxValue === "Max" ? (
+          <Typography>Year</Typography>
+        ) : minValue !== "Min" && maxValue === "Max" ? (
+          <Typography>{`${minValue}+`}</Typography>
+        ) : minValue === "Min" && maxValue !== "Max" ? (
+          <Typography>{` <${maxValue}`}</Typography>
+        ) : (
+          <Typography>{`${minValue} - ${maxValue}`}</Typography>
+        )}
       </Button>
       <Popover
         id={id}
@@ -58,8 +64,8 @@ export default function SelectYears({ handleMin, handleMax, minValue, maxValue }
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
       >
         <Stack direction="row" spacing={2} padding={2}>
@@ -69,7 +75,9 @@ export default function SelectYears({ handleMin, handleMax, minValue, maxValue }
               onChange={(event) => handleMin(event.target.value)}
             >
               {YEAR.map((year, index) => (
-                <MenuItem key={index} value={year.value}>{year.label}</MenuItem>
+                <MenuItem key={index} value={year.value}>
+                  {year.label}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -79,13 +87,14 @@ export default function SelectYears({ handleMin, handleMax, minValue, maxValue }
               onChange={(event) => handleMax(event.target.value)}
             >
               {YEAR2.map((year, index) => (
-                <MenuItem key={index} value={year.value}>{year.label}</MenuItem>
+                <MenuItem key={index} value={year.value}>
+                  {year.label}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
         </Stack>
       </Popover>
-
     </div>
   );
 }

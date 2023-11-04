@@ -11,6 +11,11 @@ import SelectStates from "../components/Selects/SelectStates.js";
 import SelectYears from "../components/Selects/YearSelect.js";
 import SelectPrice from "../components/Selects/SelectPrice.js";
 import Filters from "../components/Filters.js";
+
+import SelectArtsize from "../components/Selects/SelectArtsize.js";
+import SelectArtsubject from "../components/Selects/SelectArtsubject.js";
+import SelectArtcategory from "../components/Selects/SelectArtcategory.js";
+
 //
 import db from "../firebase.js";
 import { COUNTRY } from "../utils/constants.js";
@@ -56,6 +61,9 @@ const Art = () => {
 
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
+  const [artsize, setArtsize] = React.useState("All");
+  const [artsubject, setArtsubject] = React.useState("All");
+  const [artcategory, setArtcategory] = React.useState("All");
 
   const [stateData, setStateData] = React.useState([]);
 
@@ -67,7 +75,17 @@ const Art = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, state, country]);
+  }, [
+    minYear,
+    maxYear,
+    maxPrice,
+    minPrice,
+    state,
+    country,
+    artsize,
+    artsubject,
+    artcategory,
+  ]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -150,7 +168,7 @@ const Art = () => {
 
   return (
     <>
-      <Tabs selected="Arts" />
+      {/* <Tabs selected="Arts" /> */}
       <div className="flex flex-col">
         <div className="border-b py-3 lg:py-3 max-w-[100vw]">
           <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
@@ -166,7 +184,7 @@ const Art = () => {
                   stateData={stateData}
                 />
               )}
-              
+
               <SelectPrice
                 minValue={minPrice}
                 maxValue={maxPrice}
@@ -177,15 +195,17 @@ const Art = () => {
                   setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
                 }
               />
-              <SelectYears
-                minValue={minYear}
-                maxValue={maxYear}
-                handleMin={(value) =>
-                  setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
-                }
-                handleMax={(value) =>
-                  setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
-                }
+              <SelectArtsize
+                handleArtsize={(value) => setArtsize(value)}
+                artsize={artsize}
+              />
+              <SelectArtcategory
+                handleArtcategory={(value) => setArtsubject(value)}
+                artcategory={artcategory}
+              />
+              <SelectArtsubject
+                handleArtsubject={(value) => setArtsubject(value)}
+                artsubject={artsubject}
               />
             </div>
           </div>

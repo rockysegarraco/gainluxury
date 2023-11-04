@@ -37,7 +37,9 @@ export default function Navbar({ handleDrawerOpen }) {
                   alt="Your Company"
                 />
               </div>
-              <SubNav />
+              <div className="hidden lg:block">
+                <SubNav />
+              </div>
             </div>
             {/*           <div className="lg:flex flex-1 hidden items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <Searchbar />
@@ -61,7 +63,7 @@ export default function Navbar({ handleDrawerOpen }) {
               ) : (
                 <button
                   onClick={() => navigate("/login")}
-                  className="rounded-full border border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
+                  className="rounded-full border border-1 border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
                 >
                   Log In
                 </button>
