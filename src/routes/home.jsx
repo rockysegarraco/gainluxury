@@ -8,7 +8,6 @@ import Newsletter from "../components/Newsletter";
 import Blog from "../components/Blog";
 import Carousel from "../components/Carousel/CarouselFade";
 import Footer from "../components/Footer";
-import SubNav from "../components/SubNav";
 
 function Home() {
   const [post, setPost] = useState([]);

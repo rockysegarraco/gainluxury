@@ -6,8 +6,8 @@ export default function Example(props) {
   return (
     <>
       <article className="border relative">
-        <div class="relative">
-         {props.status === "sold" &&<div class="absolute top-3 right-5 z-50">
+        <div className="relative">
+         {props.status === "sold" &&<div className="absolute top-3 right-5 z-50">
             <span className="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-lg font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">
               Sold
             </span>

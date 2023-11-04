@@ -30,7 +30,7 @@ export default function Tabs({ selected }) {
                     ) : (
                       <span
                         onClick={() => navigate(item.path)}
-                        key={item}
+                        key={item.title}
                         className="cursor-pointer inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-normal text-slate-900 hover:border-slate-900 hover:text-gray-700 h-[64px]"
                       >
                         {item.title}

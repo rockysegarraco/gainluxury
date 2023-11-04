@@ -23,10 +23,38 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+export const CATEGORY = [
+  {
+    label: "Sell a Cars",
+    path: '/create-car-post',
+    icon: <CarRental size={40} />
+  },
+  {
+    label: "Sell a Real Estate Property",
+    path: '/create-property-post',
+    icon: <Home size={40} />
+  },
+  {
+    label: "Sell a Marine",
+    path: '/create-marine-post',
+    icon: <SailingIcon size={40} />
+  },
+  {
+    label: "Sell an Aviation",
+    path: '/create-aviation-post',
+    icon: <FlightOutlined size={40} />
+  },
+  {
+    label: "Sell an Arts",
+    path: '/create-art-post',
+    icon: <ArtTrack size={40} />
+  },
+];
+
 export default function CategoryDialog({ handleClose, open }) {
 
   const navigate = useNavigate();
-  const {isSignedIn} = useUser();
+  const { isSignedIn } = useUser();
 
   const handleOpenPage = (page) => {
     if (isSignedIn) {
@@ -37,7 +65,7 @@ export default function CategoryDialog({ handleClose, open }) {
   }
 
   return (
-      <BootstrapDialog
+    <BootstrapDialog
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
@@ -58,54 +86,22 @@ export default function CategoryDialog({ handleClose, open }) {
         <CloseIcon />
       </IconButton>
       <div className='w-[500px]'>
-      <DialogContent dividers>
-        <div
-        onClick={() => handleOpenPage('/create-car-post')}
-         className='flex flex-row items-center justify-between w-full cursor-pointer'>
-          <h1>Sell a Car</h1>
-          <IconButton>
-            <CarRental size={40} />
-          </IconButton>
-        </div>
-        <Divider className='my-2' />
-        <div
-        onClick={() => handleOpenPage('/create-property-post')}
-         className='flex flex-row items-center justify-between w-full cursor-pointer'>
-          <h1>Sell a Property</h1>
-          <IconButton>
-            <Home size={40} />
-          </IconButton>
-        </div>
-        <Divider className='my-2' />
-        <div
-        onClick={() => handleOpenPage('/create-marine-post')}
-         className='flex flex-row items-center justify-between w-full cursor-pointer'>
-          <h1>Sell a Marine</h1>
-          <IconButton>
-            <SailingIcon size={40} />
-          </IconButton>
-        </div>
-        <Divider className='my-2' />
-        <div
-        onClick={() => handleOpenPage('/create-aviation-post')}
-         className='flex flex-row items-center justify-between w-full cursor-pointer'>
-          <h1>Sell an Aviation</h1>
-          <IconButton>
-            <FlightOutlined size={40} />
-          </IconButton>
-        </div>
-        <Divider className='my-2' />
-        <div
-        onClick={() => handleOpenPage('/create-art-post')}
-         className='flex flex-row items-center justify-between w-full cursor-pointer'>
-          <h1>Sell an Arts</h1>
-          <IconButton>
-            <ArtTrack size={40} />
-          </IconButton>
-        </div>
-      </DialogContent>
+        <DialogContent dividers>
+          {CATEGORY.map((item) => (
+            <div key={item.path}>
+              <div
+                onClick={() => handleOpenPage(item.path)}
+                className='flex flex-row items-center justify-between w-full cursor-pointer px-2 hover:ring-1 hover:bg-gray-100'>
+                <h1>{item.label}</h1>
+                <IconButton>
+                  {item.icon}
+                </IconButton>
+              </div>
+              <Divider className='my-2' />
+            </div>
+          ))}
+        </DialogContent>
       </div>
-     
     </BootstrapDialog>
   );
 }
