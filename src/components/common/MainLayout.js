@@ -2,14 +2,12 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { Outlet, useLocation } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 // components
 //import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 import ProfileDialog from '../Dialog/ProfileDialog'
-import { useUser } from '@clerk/clerk-react';
 import Navbar from '../Nav';
 
 // configs
@@ -32,9 +30,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const MainLayout = () => {
   const [open, setOpen] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
-  const {isSignedIn} = useUser();
 
   const handleDrawerOpen = () => {
     setOpen(true);
