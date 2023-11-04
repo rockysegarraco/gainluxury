@@ -93,9 +93,9 @@ export default function Example() {
           <div className="space-y-8">
             <img className="h-7" src="/logo-dark.svg" alt="Gain Luxury" />
             <div className="flex space-x-6">
-              {navigation.social.map((item) => (
+              {navigation.social.map((item, i) => (
                 <a
-                  key={item.name}
+                  key={i}
                   href={item.href}
                   className="text-gray-500 hover:text-gray-400"
                 >
@@ -111,9 +111,9 @@ export default function Example() {
                 <h3 className="text-sm font-semibold leading-6 text-white uppercase">
                   GainLuxury
                 </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.solutions.map((item) => (
-                    <li key={item.name}>
+                <ul className="mt-6 space-y-4">
+                  {navigation.solutions.map((item, i) => (
+                    <li key={i}>
                       <a
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"
@@ -128,9 +128,9 @@ export default function Example() {
                 <h3 className="text-xs font-semibold leading-6 text-white uppercase">
                   Categories
                 </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.support.map((item) => (
-                    <li key={item.name}>
+                <ul className="mt-6 space-y-4">
+                  {navigation.support.map((item, i) => (
+                    <li key={i}>
                       <a
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"
@@ -147,9 +147,9 @@ export default function Example() {
                 <h3 className="text-xs font-semibold leading-6 text-white uppercase">
                   Company
                 </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.company.map((item) => (
-                    <li key={item.name}>
+                <ul className="mt-6 space-y-4">
+                  {navigation.company.map((item, i) => (
+                    <li key={i}>
                       <a
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"
@@ -164,9 +164,9 @@ export default function Example() {
                 <h3 className="text-xs font-semibold leading-6 text-white uppercase">
                   Legal
                 </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.legal.map((item) => (
-                    <li key={item.name}>
+                <ul className="mt-6 space-y-4">
+                  {navigation.legal.map((item, i) => (
+                    <li key={i}>
                       <a
                         href={item.href}
                         className="text-sm leading-6 text-gray-300 hover:text-white"

@@ -13,8 +13,7 @@ export default function FullScreenDialog({ open, setOpen }) {
     <>
       <div>
         <Dialog
-          
-          maxWidth
+          maxWidth="lg"
           open={open}
           onClose={setOpen}
           TransitionComponent={Transition}

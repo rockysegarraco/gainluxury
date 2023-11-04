@@ -26,27 +26,27 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export const CATEGORY = [
   {
     label: "Sell a Cars",
-    path: '/home/cars',
+    path: '/create-car-post',
     icon: <CarRental size={40} />
   },
   {
     label: "Sell a Real Estate Property",
-    path: '/home/realestate',
+    path: '/create-property-post',
     icon: <Home size={40} />
   },
   {
     label: "Sell a Marine",
-    path: '/home/marine',
+    path: '/create-marine-post',
     icon: <SailingIcon size={40} />
   },
   {
     label: "Sell an Aviation",
-    path: '/home/aviation',
+    path: '/create-aviation-post',
     icon: <FlightOutlined size={40} />
   },
   {
     label: "Sell an Arts",
-    path: '/home/arts',
+    path: '/create-art-post',
     icon: <ArtTrack size={40} />
   },
 ];
@@ -54,7 +54,7 @@ export const CATEGORY = [
 export default function CategoryDialog({ handleClose, open }) {
 
   const navigate = useNavigate();
-  const {isSignedIn} = useUser();
+  const { isSignedIn } = useUser();
 
   const handleOpenPage = (page) => {
     if (isSignedIn) {
@@ -65,7 +65,7 @@ export default function CategoryDialog({ handleClose, open }) {
   }
 
   return (
-      <BootstrapDialog
+    <BootstrapDialog
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
@@ -86,22 +86,21 @@ export default function CategoryDialog({ handleClose, open }) {
         <CloseIcon />
       </IconButton>
       <div className='w-[500px]'>
-      <DialogContent dividers>
-        {CATEGORY.map((item) => (
-         <>
-           <div
-           key={item.label}
-          onClick={() => handleOpenPage('/create-car-post')}
-           className='flex flex-row items-center justify-between w-full cursor-pointer px-2 hover:ring-1 hover:bg-gray-100'>
-            <h1>{item.label}</h1>
-            <IconButton>
-              {item.icon}
-            </IconButton>
-          </div>
-          <Divider className='my-2' />
-         </>
-        ))}
-      </DialogContent>
+        <DialogContent dividers>
+          {CATEGORY.map((item) => (
+            <div key={item.path}>
+              <div
+                onClick={() => handleOpenPage(item.path)}
+                className='flex flex-row items-center justify-between w-full cursor-pointer px-2 hover:ring-1 hover:bg-gray-100'>
+                <h1>{item.label}</h1>
+                <IconButton>
+                  {item.icon}
+                </IconButton>
+              </div>
+              <Divider className='my-2' />
+            </div>
+          ))}
+        </DialogContent>
       </div>
     </BootstrapDialog>
   );
