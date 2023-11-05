@@ -16,9 +16,13 @@ import SelectAviationmanufactures from "../components/Selects/SelectAviationmanu
 import Filters from "../components/Filters.js";
 //
 import db from "../firebase.js";
-import { COUNTRY } from "../utils/constants.js";
+import { AVIATIONMANUFACTURES, COUNTRY } from "../utils/constants.js";
 import CardCar from "../components/cardCar.js";
-import Tabs from "../components/SubNav.js";
+
+// redux
+import { setCategory, setManufecture, setManufectureData, setModel, setModelData } from "../store/aviationFilterSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import SelectAviationModel from "../components/Selects/SelectAviationModel.js";
 
 const Aviation = () => {
   const [post, setPost] = useState([]);
@@ -44,6 +48,14 @@ const Aviation = () => {
     },
   ]);
 
+  const aviationCategory = useSelector((state) => state.aviationFilter.category);
+  const manufecture = useSelector((state) => state.aviationFilter.manufecture);
+  const manufectureData = useSelector((state) => state.aviationFilter.manufectureData);
+  const model = useSelector((state) => state.aviationFilter.model);
+  const modelData = useSelector((state) => state.aviationFilter.modelData);
+
+  const dispatch = useDispatch();
+
   const collections = collection(db, "aviation");
   let q = query(
     collections,
@@ -60,8 +72,6 @@ const Aviation = () => {
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
   const [condition, setCondition] = React.useState("All");
-  const [aviationtype, setAviationtype] = React.useState("All");
-  const [aviationmanufactures, setAviationmanufactures] = React.useState("All");
 
   const [stateData, setStateData] = React.useState([]);
 
@@ -73,7 +83,7 @@ const Aviation = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, state, country, aviationtype]);
+  }, [minYear, maxYear, maxPrice, minPrice, state, country, aviationCategory, manufecture, model]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -154,6 +164,27 @@ const Aviation = () => {
     }
   };
 
+  const handleCategory = (data) => {
+    if (data === "All") {
+      dispatch(setManufectureData(AVIATIONMANUFACTURES))
+    } else {
+      dispatch(setManufectureData([]))
+    }
+    dispatch(setCategory(data));
+  };
+
+  const handleManufecture = (data) => {
+    const modal = AVIATIONMANUFACTURES.find((table) => table.value === data)?.modal;
+    dispatch(setManufecture(data));
+    if (modal) {
+      dispatch(setModelData(modal));
+    } else {
+      dispatch(setModel("All"));
+      dispatch(setModelData([]));
+    }
+  };
+
+
   return (
     <div className="flex flex-col">
       <div className="border-b py-3 lg:py-3 max-w-[100vw]">
@@ -189,15 +220,21 @@ const Aviation = () => {
               }
             />
             <SelectAviationtype
-              handleAviationtype={(value) => setAviationtype(value)}
-              aviationtype={aviationtype}
+              handleAviationtype={(value) => handleCategory(value)}
+              aviationtype={aviationCategory}
             />
-            <SelectAviationmanufactures
-              handleAviationmanufactures={(value) =>
-                setAviationmanufactures(value)
-              }
-              aviationmanufactures={aviationmanufactures}
-            />
+            {manufectureData?.length > 0 && (<SelectAviationmanufactures
+              handleAviationmanufactures={(value) => handleManufecture(value)}
+              aviationmanufactures={manufecture}
+              manufectureData={manufectureData}
+            />)}
+            {modelData?.length > 0 && (
+                <SelectAviationModel
+                  handleModel={(value) => dispatch(setModel(value))}
+                  model={model}
+                  modelData={modelData}
+                />
+              )}
             <SelectCondition
               handleCondition={(value) => setCondition(value)}
               condition={condition}

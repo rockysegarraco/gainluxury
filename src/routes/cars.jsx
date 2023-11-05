@@ -14,6 +14,7 @@ import SelectMakes from "../components/Selects/SelectMakes";
 import SelectPrice from "../components/Selects/SelectPrice";
 import SelectYears from "../components/Selects/YearSelect";
 import SelectModel from "../components/Selects/SelectModel.js";
+import SelectCondition from "../components/Selects/SelectCondition.js";
 import Filters from "../components/Filters";
 //
 import db from "../firebase";
@@ -22,8 +23,6 @@ import { BRAND, COUNTRY } from "../utils/constants.js";
 // redux
 import { setBrand, setModel, setModelData } from "../store/brandSerchSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import Tabs from "../components/SubNav.js";
-import SelectCondition from "../components/Selects/SelectCondition.js";
 
 const Cars = () => {
   const [post, setPost] = useState([]);

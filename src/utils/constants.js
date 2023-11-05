@@ -3477,21 +3477,7 @@ export const AVIATIONTYPE = [
   { value: "turbo_prop", label: "Turbo Prop" },
 ];
 
-export const AVIATIONMANUFACTURES = [
-  { value: "airbus", label: "Airbus" },
-  { value: "beechcraft", label: "Beechcraft" },
-  { value: "boeing", label: "Boeing" },
-  { value: "bombardier", label: "Bombardier" },
-  { value: "cessna", label: "Cessna" },
-  { value: "dassault", label: "Dassault" },
-  { value: "extra", label: "EXTRA" },
-  { value: "embraer", label: "Embraer" },
-  { value: "gulfstream", label: "Gulfstream" },
-  { value: "hawker", label: "Hawker" },
-  { value: "other", label: "Other" },
-];
-
-export const AVIATION_AIRBUS = [
+export const AVIATION_AIRBUS_MODEL = [
   { value: "1900", label: "1900" },
   { value: "baron", label: "Baron" },
   { value: "beechjet", label: "Beechjet" },
@@ -3527,7 +3513,7 @@ export const AVIATION_AIRBUS = [
   { value: "starship", label: "Starship" },
 ];
 
-export const AVIATION_BEECHCRAFT = [
+export const AVIATION_BEECHCRAFT_MODEL = [
   { value: "a300", label: "A300" },
   { value: "a310", label: "A310" },
   { value: "a318", label: "A318" },
@@ -3547,7 +3533,7 @@ export const AVIATION_BEECHCRAFT = [
   { value: "acj380", label: "ACJ380" },
 ];
 
-export const AVIATIONBOEING = [
+export const AVIATIONBOEING_MODEL = [
   { value: "717", label: "717" },
   { value: "727", label: "727" },
   { value: "737", label: "737" },
@@ -3559,7 +3545,7 @@ export const AVIATIONBOEING = [
   { value: "bbj", label: "BBJ" },
 ];
 
-export const AVIATIONBOMBARDIER = [
+export const AVIATIONBOMBARDIER_MODEL = [
   { value: "challenger_300", label: "Challenger 300" },
   { value: "challenger-350", label: "Challenger 350" },
   { value: "challenger_600", label: "Challenger 600" },
@@ -3621,7 +3607,7 @@ export const AVIATIONBOMBARDIER = [
   { value: "learjet_85", label: "Learjet 85" },
 ];
 
-export const AVIATIONCESSNA = [
+export const AVIATIONCESSNA_MODEL = [
   { value: "162-skycatcher", label: "162 Skycatcher" },
   { value: "172_skyhawk", label: "172 Skyhawk" },
   { value: "182-skylane", label: "182 Skylane" },
@@ -3690,7 +3676,7 @@ export const AVIATIONCESSNA = [
   { value: "x_elite", label: "X Elite" },
 ];
 
-export const AVIATIONDASSAULT = [
+export const AVIATIONDASSAULT_MODEL = [
   { value: "falcon_10", label: "Falcon 10" },
   { value: "falcon_100", label: "Falcon 100" },
   { value: "falcon_20", label: "Falcon 20" },
@@ -3715,13 +3701,13 @@ export const AVIATIONDASSAULT = [
   { value: "mercure", label: "Mercure" },
 ];
 
-export const AVIATIONEXTRA = [
+export const AVIATIONEXTRA_MODEL = [
   { value: "330lt", label: "330LT" },
   { value: "330lx", label: "330LX" },
   { value: "330sc", label: "330SC" },
 ];
 
-export const AVIATIONEMBRAER = [
+export const AVIATIONEMBRAER_MODEL = [
   { value: "e-170", label: "E-170" },
   { value: "e-175", label: "E-175" },
   { value: "e-190", label: "E-190" },
@@ -3740,7 +3726,7 @@ export const AVIATIONEMBRAER = [
   { value: "phenom_300", label: "Phenom 300" },
 ];
 
-export const AVIATIONGULFSTREAM = [
+export const AVIATIONGULFSTREAM_MODEL = [
   { value: "g100", label: "G100" },
   { value: "g150", label: "G150" },
   { value: "g200", label: "G200" },
@@ -3761,7 +3747,7 @@ export const AVIATIONGULFSTREAM = [
   { value: "turbo-commander-ac-690a", label: "Turbo Commander AC-690A" },
 ];
 
-export const AVIATIONHAWKER = [
+export const AVIATIONHAWKER_MODEL = [
   { value: "1000", label: "1000" },
   { value: "200", label: "200" },
   { value: "2011-hawker-900xp", label: "2011 Hawker 900XP" },
@@ -3777,6 +3763,21 @@ export const AVIATIONHAWKER = [
   { value: "800xpi", label: "800XPi" },
   { value: "850xp", label: "850XP" },
   { value: "900xp", label: "900XP" },
+];
+
+
+export const AVIATIONMANUFACTURES = [
+  { value: "airbus", label: "Airbus", modal: AVIATION_AIRBUS_MODEL },
+  { value: "beechcraft", label: "Beechcraft", modal: AVIATION_BEECHCRAFT_MODEL },
+  { value: "boeing", label: "Boeing", modal: AVIATIONBOEING_MODEL },
+  { value: "bombardier", label: "Bombardier", modal: AVIATIONBOMBARDIER_MODEL },
+  { value: "cessna", label: "Cessna", modal: AVIATIONCESSNA_MODEL },
+  { value: "dassault", label: "Dassault", modal: AVIATIONDASSAULT_MODEL },
+  { value: "extra", label: "EXTRA", modal: AVIATIONEXTRA_MODEL },
+  { value: "embraer", label: "Embraer", modal: AVIATIONEMBRAER_MODEL },
+  { value: "gulfstream", label: "Gulfstream", modal: AVIATIONGULFSTREAM_MODEL },
+  { value: "hawker", label: "Hawker", modal: AVIATIONHAWKER_MODEL },
+  { value: "other", label: "Other" },
 ];
 
 // ART

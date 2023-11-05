@@ -3,19 +3,19 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function SelectAviationmanufactures({
-  handleAviationmanufactures,
-  aviationmanufactures,
-  manufectureData
+export default function SelectAviationModel({
+  handleModel,
+  model,
+  modelData
 }) {
   return (
     <FormControl sx={{ minWidth: 150 }} size="small">
       <Select
-        value={aviationmanufactures}
-        onChange={(e) => handleAviationmanufactures(e.target.value)}
+        value={model}
+        onChange={(e) => handleModel(e.target.value)}
       >
-        <MenuItem value={"All"}>All Manufactures</MenuItem>
-        {manufectureData.map((con, i) => (
+        <MenuItem value={"All"}>All Models</MenuItem>
+        {modelData.map((con, i) => (
           <MenuItem key={i} value={con.value}>
             {con.label}
           </MenuItem>
