@@ -152,6 +152,11 @@ const Aviation = () => {
     setMinYear("Min");
     setCountry("All");
     setState("All");
+    dispatch(setCategory("All"));
+    dispatch(setManufecture("All"));
+    dispatch(setManufectureData(AVIATIONMANUFACTURES))
+    dispatch(setModel("All"));
+    dispatch(setModelData([]));
   };
 
   const handleCountry = (data) => {
@@ -171,6 +176,8 @@ const Aviation = () => {
       dispatch(setManufectureData([]))
     }
     dispatch(setCategory(data));
+    dispatch(setModel("All"));
+    dispatch(setModelData([]));
   };
 
   const handleManufecture = (data) => {
