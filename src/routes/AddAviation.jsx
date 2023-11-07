@@ -23,6 +23,8 @@ import {
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
+  AVIATIONTYPE,
+  AVIATIONMANUFACTURES,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -187,7 +189,7 @@ const AddAviation = ({ form }) => {
   return (
     <div>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Sell an aviation">
+        <Heading title="Sell Aviation">
           <div className="mx-auto max-w-full grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4">
               {" "}
@@ -210,7 +212,7 @@ const AddAviation = ({ form }) => {
                         {getFieldDecorator("description", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput multiline label="Features" />)}
+                        })(<TextInput multiline label="Airframe Notes" />)}
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("yearModel", {
@@ -253,41 +255,39 @@ const AddAviation = ({ form }) => {
                           )}
                         </FormItem>
                       </Stack>
-
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("brand", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              label="Brand"
-                              fullWidth
-                              options={BRAND}
-                              onChange={(data) =>
-                                setBrandData(() => data.modal)
-                              }
-                            />
-                          )}
-                        </FormItem>
-                        <FormItem>
-                          {getFieldDecorator("model", {
-                            initialValue: "",
-                            rules: [{ required: brandData?.length > 0 }],
-                          })(
-                            <Select
-                              label="Modal"
-                              fullWidth
-                              disabled={!brandData?.length > 0}
-                              options={brandData}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
+                      <FormItem>
+                        {getFieldDecorator("aviationtype", {
+                          initialValue: "",
+                        })(
+                          <Select
+                            options={AVIATIONTYPE}
+                            fullWidth
+                            label="Plane Type"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("aviationmanufactures", {
+                          initialValue: "",
+                        })(
+                          <Select
+                            options={AVIATIONMANUFACTURES}
+                            fullWidth
+                            label="Manufacture"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("aviationmanufactures", {
+                          initialValue: "",
+                        })(
+                          <Select
+                            options={AVIATIONMANUFACTURES}
+                            fullWidth
+                            label="Model"
+                          />
+                        )}
+                      </FormItem>
                       <Stack gap={2} sx={{ flexDirection: "row" }}>
                         <FormItem>
                           {getFieldDecorator("condition", {
@@ -304,17 +304,17 @@ const AddAviation = ({ form }) => {
                       </Stack>
 
                       <FormItem>
-                        {getFieldDecorator("kilometersRun", {
+                        {getFieldDecorator("totaltime", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Kilometers Run" type="number" />)}
+                        })(<TextInput label="Total Time" type="number" />)}
                       </FormItem>
 
                       <FormItem>
-                        {getFieldDecorator("engineCapacity", {
+                        {getFieldDecorator("registration_number", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Engine" />)}
+                        })(<TextInput label="Registration #" />)}
                       </FormItem>
                     </Stack>
                     <Stack gap={3}>
