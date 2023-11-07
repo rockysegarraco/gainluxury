@@ -17,14 +17,13 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
-  BRAND,
   CATEGORY,
   CONDITION,
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
-  AVIATIONTYPE,
   AVIATIONMANUFACTURES,
+  AVIATIONTYPE2,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -38,7 +37,6 @@ const AddAviation = ({ form }) => {
   const navigate = useNavigate();
   const [category] = useState(CATEGORY[3]);
   const [isPrice, setPrice] = useState(true);
-  const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
@@ -46,6 +44,9 @@ const AddAviation = ({ form }) => {
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
   const [hasError, setHasError] = useState(null);
+  const [aviationType, setAviationType] = useState();
+  const [modelData, setModeldata] = useState();
+
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
   // In case the user signs out while on the page.
@@ -54,6 +55,12 @@ const AddAviation = ({ form }) => {
       navigate("/login");
     }
   }, []);
+
+  useEffect(() => {
+    if (aviationType !== "All") {
+      setModeldata();
+    }
+  }, [aviationType]);
 
   useEffect(() => {
     setFieldsValue({
@@ -73,12 +80,11 @@ const AddAviation = ({ form }) => {
           if (values.price) {
             values.price = Number(values.price);
           }
-          values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
-          values.brand = {
-            value: values.brand.value,
-            label: values.brand.label,
-          };
+          values.aviationmanufactures = {
+            value: values.aviationmanufactures.value,
+            label: values.aviationmanufactures.label
+          }
           values.country = {
             value: values.country.value,
             label: values.country.label,
@@ -260,13 +266,14 @@ const AddAviation = ({ form }) => {
                           initialValue: "",
                         })(
                           <Select
-                            options={AVIATIONTYPE}
+                            options={AVIATIONTYPE2}
                             fullWidth
                             label="Plane Type"
+                            onChange={(data) => setAviationType(data)}
                           />
                         )}
                       </FormItem>
-                      <FormItem>
+                      {aviationType?.value === "All" && (<FormItem>
                         {getFieldDecorator("aviationmanufactures", {
                           initialValue: "",
                         })(
@@ -274,20 +281,21 @@ const AddAviation = ({ form }) => {
                             options={AVIATIONMANUFACTURES}
                             fullWidth
                             label="Manufacture"
+                            onChange={(data) => setModeldata(data?.modal)}
                           />
                         )}
-                      </FormItem>
-                      <FormItem>
-                        {getFieldDecorator("aviationmanufactures", {
+                      </FormItem>)}
+                      {modelData?.length > 0 && (<FormItem>
+                        {getFieldDecorator("aviationModel", {
                           initialValue: "",
                         })(
                           <Select
-                            options={AVIATIONMANUFACTURES}
+                            options={modelData}
                             fullWidth
                             label="Model"
                           />
                         )}
-                      </FormItem>
+                      </FormItem>)}
                       <Stack gap={2} sx={{ flexDirection: "row" }}>
                         <FormItem>
                           {getFieldDecorator("condition", {

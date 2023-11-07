@@ -3464,6 +3464,20 @@ export const CARS_MILES = [
 
 // AVIATION
 
+export const AVIATIONTYPE2 = [
+  { value: "All", label: "All Plane Types" },
+  { value: "heavy_jet", label: "Heavy Jet" },
+  { value: "large_cabin", label: "Large Cabin" },
+  { value: "light_jet", label: "Light Jet" },
+  { value: "midsize_jet", label: "Midsize Jet" },
+  { value: "piston_single", label: "Piston Single" },
+  { value: "piston_twin", label: "Piston Twin" },
+  { value: "super_heavy_jet", label: "Super Heavy Jet" },
+  { value: "super_light_jet", label: "Super Light Jet" },
+  { value: "super_midsize_jet", label: "Super Midsize Jet" },
+  { value: "turbo_prop", label: "Turbo Prop" },
+];
+
 export const AVIATIONTYPE = [
   { value: "heavy_jet", label: "Heavy Jet" },
   { value: "large_cabin", label: "Large Cabin" },

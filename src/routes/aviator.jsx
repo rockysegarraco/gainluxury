@@ -13,6 +13,7 @@ import SelectPrice from "../components/Selects/SelectPrice.js";
 import SelectCondition from "../components/Selects/SelectCondition.js";
 import SelectAviationtype from "../components/Selects/SelectAviationtype.js";
 import SelectAviationmanufactures from "../components/Selects/SelectAviationmanufactures.js";
+import SelectAviationModel from "../components/Selects/SelectAviationModel.js";
 import Filters from "../components/Filters.js";
 //
 import db from "../firebase.js";
@@ -22,7 +23,7 @@ import CardCar from "../components/cardCar.js";
 // redux
 import { setCategory, setManufecture, setManufectureData, setModel, setModelData } from "../store/aviationFilterSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import SelectAviationModel from "../components/Selects/SelectAviationModel.js";
+
 
 const Aviation = () => {
   const [post, setPost] = useState([]);
