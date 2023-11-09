@@ -126,7 +126,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       onClick: (index) => handleMenuItemClick(index, "/create-marine-post"),
     },
     {
-      title: "Sell an Aviation",
+      title: "Sell Aviation",
       onClick: (index) => handleMenuItemClick(index, "/create-aviation-post"),
     },
     {
