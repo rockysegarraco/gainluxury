@@ -311,37 +311,11 @@ const AddMarine = ({ form }) => {
                         </FormItem>
                       </Stack>
 
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("kilometersRun", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <TextInput label="Miles/Kilometers" type="number" />
-                          )}
-                        </FormItem>
-                        <FormItem>
-                          {getFieldDecorator("metric", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              fullWidth
-                              label="Metric"
-                              options={CARS_MILES}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
                       <FormItem>
-                        {getFieldDecorator("engineCapacity", {
+                        {getFieldDecorator("engineNumber", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Engine" />)}
+                        })(<TextInput label="# of Engines" />)}
                       </FormItem>
                     </Stack>
                     <Stack gap={3}>
