@@ -17,12 +17,15 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
-  BRAND,
   CATEGORY,
   CONDITION,
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
+  CARS_MILES,
+  MARINETYPE,
+  MARINECLASS,
+  MARINELENGTHS,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -253,40 +256,45 @@ const AddMarine = ({ form }) => {
                           )}
                         </FormItem>
                       </Stack>
-
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("brand", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              label="Brand"
-                              fullWidth
-                              options={BRAND}
-                              onChange={(data) =>
-                                setBrandData(() => data.modal)
-                              }
-                            />
-                          )}
-                        </FormItem>
-                        <FormItem>
-                          {getFieldDecorator("model", {
-                            initialValue: "",
-                            rules: [{ required: brandData?.length > 0 }],
-                          })(
-                            <Select
-                              label="Modal"
-                              fullWidth
-                              disabled={!brandData?.length > 0}
-                              options={brandData}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
+                      <FormItem>
+                        {getFieldDecorator("marinetype", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(
+                          <Select
+                            label="Type"
+                            fullWidth
+                            options={MARINETYPE}
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("model", {
+                          initialValue: "",
+                          rules: [{ required: brandData?.length > 0 }],
+                        })(
+                          <Select
+                            options={MARINECLASS}
+                            fullWidth
+                            label="Class"
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("model", {
+                          initialValue: "",
+                          rules: [{ required: brandData?.length > 0 }],
+                        })(
+                          <Select
+                            options={MARINELENGTHS}
+                            fullWidth
+                            label="Lenght"
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
+                      </FormItem>
 
                       <Stack gap={2} sx={{ flexDirection: "row" }}>
                         <FormItem>
@@ -303,12 +311,31 @@ const AddMarine = ({ form }) => {
                         </FormItem>
                       </Stack>
 
-                      <FormItem>
-                        {getFieldDecorator("kilometersRun", {
-                          initialValue: "",
-                          rules: [{ required: true }],
-                        })(<TextInput label="Kilometers Run" type="number" />)}
-                      </FormItem>
+                      <Stack
+                        gap={2}
+                        sx={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <FormItem>
+                          {getFieldDecorator("kilometersRun", {
+                            initialValue: "",
+                            rules: [{ required: true }],
+                          })(
+                            <TextInput label="Miles/Kilometers" type="number" />
+                          )}
+                        </FormItem>
+                        <FormItem>
+                          {getFieldDecorator("metric", {
+                            initialValue: "",
+                            rules: [{ required: true }],
+                          })(
+                            <Select
+                              fullWidth
+                              label="Metric"
+                              options={CARS_MILES}
+                            />
+                          )}
+                        </FormItem>
+                      </Stack>
 
                       <FormItem>
                         {getFieldDecorator("engineCapacity", {

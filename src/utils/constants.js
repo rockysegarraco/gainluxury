@@ -3779,10 +3779,13 @@ export const AVIATIONHAWKER_MODEL = [
   { value: "900xp", label: "900XP" },
 ];
 
-
 export const AVIATIONMANUFACTURES = [
   { value: "airbus", label: "Airbus", modal: AVIATION_AIRBUS_MODEL },
-  { value: "beechcraft", label: "Beechcraft", modal: AVIATION_BEECHCRAFT_MODEL },
+  {
+    value: "beechcraft",
+    label: "Beechcraft",
+    modal: AVIATION_BEECHCRAFT_MODEL,
+  },
   { value: "boeing", label: "Boeing", modal: AVIATIONBOEING_MODEL },
   { value: "bombardier", label: "Bombardier", modal: AVIATIONBOMBARDIER_MODEL },
   { value: "cessna", label: "Cessna", modal: AVIATIONCESSNA_MODEL },
@@ -3833,4 +3836,37 @@ export const ARTCATEGORY = [
   { label: "Collage", value: "collage" },
   { label: "NFT", value: "nft" },
   { label: "Other", value: "Other" },
+];
+
+// MARINE
+
+export const MARINETYPE = [
+  { label: "Power", value: "painting" },
+  { label: "Sail", value: "printmaking" },
+  { label: "Unpowered", value: "sculpture" },
+  { label: "Other", value: "Other" },
+];
+
+export const MARINECLASS = [
+  { label: "Pontoon", value: "Pontoon" },
+  { label: "Center Console", value: "Center_Console" },
+  { label: "Bowrider", value: "Bowrider" },
+  { label: "Bass", value: "Bass" },
+  { label: "Ski and Wakeboard Boat", value: "Ski_and_Wakeboard Boat" },
+  { label: "Aluminum Fish", value: "Aluminum_Fish" },
+  { label: "Cruiser (Power)", value: "Cruiser_(Power)" },
+  { label: "Motor Yacht", value: "Motor_Yacht" },
+  { label: "Other (Power)", value: "Other_(Power)" },
+  { label: "Deck Boat", value: "Deck_Boat" },
+  { label: "Other", value: "other" },
+];
+
+export const MARINELENGTHS = [
+  { label: "0 - 20ft", value: "0 - 20ft" },
+  { label: "20 - 30ft", value: "20 - 30ft" },
+  { label: "30 - 40ft", value: "30 - 40ft" },
+  { label: "40 - 50ft", value: "40 - 50ft" },
+  { label: "50 - 60ft", value: "50 - 60ft" },
+  { label: "60 - 100ft", value: "60 - 100ft" },
+  { label: "100ft +", value: "100ft +" },
 ];

@@ -83,8 +83,8 @@ const AddAviation = ({ form }) => {
           values.yearModel = Number(values.yearModel);
           values.aviationmanufactures = {
             value: values.aviationmanufactures.value,
-            label: values.aviationmanufactures.label
-          }
+            label: values.aviationmanufactures.label,
+          };
           values.country = {
             value: values.country.value,
             label: values.country.label,
@@ -273,29 +273,33 @@ const AddAviation = ({ form }) => {
                           />
                         )}
                       </FormItem>
-                      {aviationType?.value === "All" && (<FormItem>
-                        {getFieldDecorator("aviationmanufactures", {
-                          initialValue: "",
-                        })(
-                          <Select
-                            options={AVIATIONMANUFACTURES}
-                            fullWidth
-                            label="Manufacture"
-                            onChange={(data) => setModeldata(data?.modal)}
-                          />
-                        )}
-                      </FormItem>)}
-                      {modelData?.length > 0 && (<FormItem>
-                        {getFieldDecorator("aviationModel", {
-                          initialValue: "",
-                        })(
-                          <Select
-                            options={modelData}
-                            fullWidth
-                            label="Model"
-                          />
-                        )}
-                      </FormItem>)}
+                      {aviationType?.value === "All" && (
+                        <FormItem>
+                          {getFieldDecorator("aviationmanufactures", {
+                            initialValue: "",
+                          })(
+                            <Select
+                              options={AVIATIONMANUFACTURES}
+                              fullWidth
+                              label="Manufacture"
+                              onChange={(data) => setModeldata(data?.modal)}
+                            />
+                          )}
+                        </FormItem>
+                      )}
+                      {modelData?.length > 0 && (
+                        <FormItem>
+                          {getFieldDecorator("aviationModel", {
+                            initialValue: "",
+                          })(
+                            <Select
+                              options={modelData}
+                              fullWidth
+                              label="Model"
+                            />
+                          )}
+                        </FormItem>
+                      )}
                       <Stack gap={2} sx={{ flexDirection: "row" }}>
                         <FormItem>
                           {getFieldDecorator("condition", {
