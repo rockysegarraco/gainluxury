@@ -1,15 +1,18 @@
 const posts = [
   {
     id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
+    title: "The State of Bugatti",
+    href: "https://blog.gainluxury.com/the-state-of-bugatti/",
     description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
+      "Bugatti is a name that has long been synonymous with unparalleled luxury and unrivaled performance in the…",
     imageUrl:
-      "https://images.unsplash.com/photo-1624471687574-db62e60673f3?auto=format&fit=crop&q=80&w=3870&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
+      "https://blog.gainluxury.com/wp-content/uploads/2023/11/tim-meyer-AsT9Dt11FkA-unsplash-1536x1024.jpg",
+    date: "Nov 10, 2023",
+    datetime: "2023-11-10",
+    category: {
+      title: "Cars",
+      href: "https://blog.gainluxury.com/category/cars/",
+    },
     author: {
       name: "Michael Foster",
       role: "Co-Founder / CTO",
@@ -20,15 +23,18 @@ const posts = [
   },
   {
     id: 2,
-    title: "Boost your conversion rate",
-    href: "#",
+    title: "Mastering the Art of Selling Art",
+    href: "https://blog.gainluxury.com/mastering-the-art-of-selling-art/",
     description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
+      "In the realm of artistic creation, there’s a bridge that often poses a challenge—selling art. The process of…",
     imageUrl:
-      "https://images.unsplash.com/photo-1575845464743-c61ae600b431?auto=format&fit=crop&q=80&w=3432&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
+      "https://blog.gainluxury.com/wp-content/uploads/2023/11/ryan-stefan-5K98ScREEUY-unsplash-380x250.jpg",
+    date: "Nov 10, 2023",
+    datetime: "2023-11-10",
+    category: {
+      title: "Art",
+      href: "https://blog.gainluxury.com/category/art/",
+    },
     author: {
       name: "Michael Foster",
       role: "Co-Founder / CTO",
@@ -39,15 +45,18 @@ const posts = [
   },
   {
     id: 3,
-    title: "Boost your conversion rate",
-    href: "#",
+    title: "Navigating the Skies of Aviation Buying",
+    href: "https://blog.gainluxury.com/navigating-the-skies-of-aviation-buying/",
     description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
+      "The aviation industry is an intricate web of technology, innovation, and high-stakes investments.",
     imageUrl:
-      "https://plus.unsplash.com/premium_photo-1683121812652-ca9bd27de727?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
+      "https://blog.gainluxury.com/wp-content/uploads/2023/11/yaroslav-muzychenko-cp3hc2N39WA-unsplash-380x250.jpg",
+    date: "Nov 10, 2023",
+    datetime: "2023-11-10",
+    category: {
+      title: "Aviation",
+      href: "https://blog.gainluxury.com/category/aviation/",
+    },
     author: {
       name: "Michael Foster",
       role: "Co-Founder / CTO",
@@ -58,15 +67,18 @@ const posts = [
   },
   {
     id: 4,
-    title: "Boost your conversion rate",
-    href: "#",
+    title: "A Comprehensive Guide to Buying a Boat",
+    href: "https://blog.gainluxury.com/charting-your-course-a-comprehensive-guide-to-buying-a-boat/",
     description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
+      "The allure of the open waters, the freedom of exploration, and the promise of adventure beckon to…",
     imageUrl:
-      "https://images.unsplash.com/photo-1599580546666-c26f15e00933?auto=format&fit=crop&q=80&w=3542&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
+      "https://blog.gainluxury.com/wp-content/uploads/2023/11/canada-380x250.jpg",
+    date: "Nov 10, 2023",
+    datetime: "2023-11-10",
+    category: {
+      title: "Marine",
+      href: "https://blog.gainluxury.com/category/marine/",
+    },
     author: {
       name: "Michael Foster",
       role: "Co-Founder / CTO",
@@ -98,7 +110,7 @@ export default function Example() {
                   alt=""
                   className="aspect-[16/9] w-full bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                 />
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                <div className="absolute inset-0" />
               </div>
               <div className="max-w-xl">
                 <div className="mt-8 flex items-center gap-x-4 text-xs">
