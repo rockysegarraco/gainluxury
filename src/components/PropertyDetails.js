@@ -36,10 +36,10 @@ export default function PropertyDetails({
     userId,
     slug,
     address,
-    yearModel,
-    kilometersRun,
-    engineCapacity,
-    condition,
+    propertyCategory,
+    aptsize,
+    bedrooms,
+    baths,
     email,
     status,
     pricingType,
@@ -147,44 +147,43 @@ export default function PropertyDetails({
                 <div className="grid grid-cols-2 gap-px sm:grid-cols-2 lg:grid-cols-4 bg-white/5">
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Year
-                    </p>
-                    <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-4xl font-semibold tracking-tight text-white">
-                        {yearModel}
-                      </span>
-                      <span className="text-sm text-gray-400"></span>
-                    </p>
-                  </div>
-                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
-                    <p className="text-sm font-medium leading-6 text-gray-400">
-                      Miles
-                    </p>
-                    <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-4xl font-semibold tracking-tight text-white">
-                        {kilometersRun}
-                      </span>
-                      <span className="text-sm text-gray-400">km</span>
-                    </p>
-                  </div>
-                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
-                    <p className="text-sm font-medium leading-6 text-gray-400">
-                      Engine Type
-                    </p>
-                    <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-4xl font-semibold tracking-tight text-white">
-                        {engineCapacity}
-                      </span>
-                      <span className="text-sm text-gray-400"></span>
-                    </p>
-                  </div>
-                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
-                    <p className="text-sm font-medium leading-6 text-gray-400">
-                      Condition
+                      Property Type
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-2xl font-semibold tracking-tight text-white">
-                        {condition.label}
+                        {propertyCategory?.label}
+                      </span>
+                      <span className="text-sm text-gray-400"></span>
+                    </p>
+                  </div>
+                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
+                    <p className="text-sm font-medium leading-6 text-gray-400">
+                      Size (sqft)
+                    </p>
+                    <p className="mt-2 flex items-baseline gap-x-2">
+                      <span className="text-4xl font-semibold tracking-tight text-white">
+                        {aptsize}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
+                    <p className="text-sm font-medium leading-6 text-gray-400">
+                      Bedrooms
+                    </p>
+                    <p className="mt-2 flex items-baseline gap-x-2">
+                      <span className="text-4xl font-semibold tracking-tight text-white">
+                        {bedrooms}
+                      </span>
+                      <span className="text-sm text-gray-400"></span>
+                    </p>
+                  </div>
+                  <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
+                    <p className="text-sm font-medium leading-6 text-gray-400">
+                      Baths
+                    </p>
+                    <p className="mt-2 flex items-baseline gap-x-2">
+                      <span className="text-2xl font-semibold tracking-tight text-white">
+                        {baths}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>

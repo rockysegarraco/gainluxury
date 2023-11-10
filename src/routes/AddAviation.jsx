@@ -81,10 +81,12 @@ const AddAviation = ({ form }) => {
             values.price = Number(values.price);
           }
           values.yearModel = Number(values.yearModel);
-          values.aviationmanufactures = {
-            value: values.aviationmanufactures.value,
-            label: values.aviationmanufactures.label,
-          };
+          if (values.aviationmanufactures) {
+            values.aviationmanufactures = {
+              value: values.aviationmanufactures?.value,
+              label: values.aviationmanufactures?.label,
+            };
+          }
           values.country = {
             value: values.country.value,
             label: values.country.label,
