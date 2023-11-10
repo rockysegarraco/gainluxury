@@ -103,7 +103,7 @@ export default function PropertyDetails({
             </Button>
             <Button
               className="text-xs lg:text-xs rounded-full"
-              onClick={() => navigate(`/edit-post/${slug}`)}
+              onClick={() => navigate(`/edit-property/${slug}`)}
               variant="outlined"
               startIcon={<Edit />}
             >
