@@ -5,7 +5,7 @@ const Terms = () => {
   return (
     <>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Terms & Conditions">Terms & Conditions</Heading>
+        <Heading title="Terms & Conditions"></Heading>
       </div>
     </>
   );

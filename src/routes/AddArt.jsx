@@ -17,9 +17,10 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
-  BRAND,
+  ARTSIZE,
+  ARTSUBJECT,
   CATEGORY,
-  CONDITION,
+  ARTCATEGORY,
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
@@ -182,7 +183,7 @@ const AddArt = ({ form }) => {
   return (
     <div>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Sell an Art">
+        <Heading title="Sell Art">
           <div className="mx-auto max-w-full grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4">
               {" "}
@@ -249,67 +250,44 @@ const AddArt = ({ form }) => {
                         </FormItem>
                       </Stack>
 
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("brand", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              label="Brand"
-                              fullWidth
-                              options={BRAND}
-                              onChange={(data) =>
-                                setBrandData(() => data.modal)
-                              }
-                            />
-                          )}
-                        </FormItem>
-                        <FormItem>
-                          {getFieldDecorator("model", {
-                            initialValue: "",
-                            rules: [{ required: brandData?.length > 0 }],
-                          })(
-                            <Select
-                              label="Modal"
-                              fullWidth
-                              disabled={!brandData?.length > 0}
-                              options={brandData}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
-                      <Stack gap={2} sx={{ flexDirection: "row" }}>
-                        <FormItem>
-                          {getFieldDecorator("condition", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              fullWidth
-                              label="Condition"
-                              options={CONDITION}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
                       <FormItem>
-                        {getFieldDecorator("kilometersRun", {
+                        {getFieldDecorator("artsize", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Kilometers Run" type="number" />)}
+                        })(
+                          <Select
+                            label="Size"
+                            fullWidth
+                            options={ARTSIZE}
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
                       </FormItem>
-
                       <FormItem>
-                        {getFieldDecorator("engineCapacity", {
+                        {getFieldDecorator("artsubject", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Engine" />)}
+                        })(
+                          <Select
+                            label="Subject"
+                            fullWidth
+                            options={ARTSUBJECT}
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("artcategory", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(
+                          <Select
+                            label="Category"
+                            fullWidth
+                            options={ARTCATEGORY}
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
                       </FormItem>
                     </Stack>
                     <Stack gap={3}>
