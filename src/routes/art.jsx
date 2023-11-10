@@ -8,7 +8,6 @@ import Container from "../components/container.js";
 
 import SelectCountries from "../components/Selects/SelectCountries.js";
 import SelectStates from "../components/Selects/SelectStates.js";
-import SelectYears from "../components/Selects/YearSelect.js";
 import SelectPrice from "../components/Selects/SelectPrice.js";
 import Filters from "../components/Filters.js";
 
@@ -20,7 +19,6 @@ import SelectArtcategory from "../components/Selects/SelectArtcategory.js";
 import db from "../firebase.js";
 import { COUNTRY } from "../utils/constants.js";
 import PropertyCard from "../components/PropertyCard.js";
-import Tabs from "../components/SubNav.js";
 
 const Art = () => {
   const [post, setPost] = useState([]);
@@ -107,17 +105,8 @@ const Art = () => {
   const getData = async () => {
     let data = [];
 
-    // Year filter
-    if (minYear !== "Min") {
-      q = query(q, where("yearModel", ">=", minYear));
-    }
-    if (maxYear !== "Max") {
-      q = query(q, where("yearModel", "<=", maxYear));
-    }
-
     // Price filter
     if (minPrice !== "Min" && minPrice.length >= 2) {
-      console.log(typeof minPrice);
       q = query(q, where("price", ">=", Number(minPrice)));
     }
     if (maxPrice !== "Max" && maxPrice.length >= 2) {
@@ -127,11 +116,6 @@ const Art = () => {
     // Country Filter
     if (country !== "All") {
       q = query(q, where("country.value", "==", country));
-    }
-
-    // State Filter
-    if (state !== "All") {
-      q = query(q, where("state.value", "==", state));
     }
 
     const querySnapshot = await getDocs(q);
@@ -150,10 +134,7 @@ const Art = () => {
   const handleReset = () => {
     setMaxPrice("Max");
     setMinPrice("Min");
-    setMaxYear("Max");
-    setMinYear("Min");
     setCountry("All");
-    setState("All");
   };
 
   const handleCountry = (data) => {
@@ -200,7 +181,7 @@ const Art = () => {
                 artsize={artsize}
               />
               <SelectArtcategory
-                handleArtcategory={(value) => setArtsubject(value)}
+                handleArtcategory={(value) => setArtcategory(value)}
                 artcategory={artcategory}
               />
               <SelectArtsubject
