@@ -182,7 +182,7 @@ export default function PropertyDetails({
                       Baths
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
-                      <span className="text-2xl font-semibold tracking-tight text-white">
+                      <span className="text-4xl font-semibold tracking-tight text-white">
                         {baths}
                       </span>
                       <span className="text-sm text-gray-400"></span>

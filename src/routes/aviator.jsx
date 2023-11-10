@@ -21,9 +21,14 @@ import { AVIATIONMANUFACTURES, COUNTRY } from "../utils/constants.js";
 import CardCar from "../components/cardCar.js";
 
 // redux
-import { setCategory, setManufecture, setManufectureData, setModel, setModelData } from "../store/aviationFilterSlice.js";
+import {
+  setCategory,
+  setManufecture,
+  setManufectureData,
+  setModel,
+  setModelData,
+} from "../store/aviationFilterSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-
 
 const Aviation = () => {
   const [post, setPost] = useState([]);
@@ -49,9 +54,13 @@ const Aviation = () => {
     },
   ]);
 
-  const aviationCategory = useSelector((state) => state.aviationFilter.category);
+  const aviationCategory = useSelector(
+    (state) => state.aviationFilter.category
+  );
   const manufecture = useSelector((state) => state.aviationFilter.manufecture);
-  const manufectureData = useSelector((state) => state.aviationFilter.manufectureData);
+  const manufectureData = useSelector(
+    (state) => state.aviationFilter.manufectureData
+  );
   const model = useSelector((state) => state.aviationFilter.model);
   const modelData = useSelector((state) => state.aviationFilter.modelData);
 
@@ -84,7 +93,17 @@ const Aviation = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, state, country, aviationCategory, manufecture, model]);
+  }, [
+    minYear,
+    maxYear,
+    maxPrice,
+    minPrice,
+    state,
+    country,
+    aviationCategory,
+    manufecture,
+    model,
+  ]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -155,7 +174,7 @@ const Aviation = () => {
     setState("All");
     dispatch(setCategory("All"));
     dispatch(setManufecture("All"));
-    dispatch(setManufectureData(AVIATIONMANUFACTURES))
+    dispatch(setManufectureData(AVIATIONMANUFACTURES));
     dispatch(setModel("All"));
     dispatch(setModelData([]));
   };
@@ -172,9 +191,9 @@ const Aviation = () => {
 
   const handleCategory = (data) => {
     if (data === "All") {
-      dispatch(setManufectureData(AVIATIONMANUFACTURES))
+      dispatch(setManufectureData(AVIATIONMANUFACTURES));
     } else {
-      dispatch(setManufectureData([]))
+      dispatch(setManufectureData([]));
     }
     dispatch(setCategory(data));
     dispatch(setModel("All"));
@@ -182,7 +201,9 @@ const Aviation = () => {
   };
 
   const handleManufecture = (data) => {
-    const modal = AVIATIONMANUFACTURES.find((table) => table.value === data)?.modal;
+    const modal = AVIATIONMANUFACTURES.find(
+      (table) => table.value === data
+    )?.modal;
     dispatch(setManufecture(data));
     if (modal) {
       dispatch(setModelData(modal));
@@ -191,7 +212,6 @@ const Aviation = () => {
       dispatch(setModelData([]));
     }
   };
-
 
   return (
     <div className="flex flex-col">
@@ -231,18 +251,20 @@ const Aviation = () => {
               handleAviationtype={(value) => handleCategory(value)}
               aviationtype={aviationCategory}
             />
-            {manufectureData?.length > 0 && (<SelectAviationmanufactures
-              handleAviationmanufactures={(value) => handleManufecture(value)}
-              aviationmanufactures={manufecture}
-              manufectureData={manufectureData}
-            />)}
+            {manufectureData?.length > 0 && (
+              <SelectAviationmanufactures
+                handleAviationmanufactures={(value) => handleManufecture(value)}
+                aviationmanufactures={manufecture}
+                manufectureData={manufectureData}
+              />
+            )}
             {modelData?.length > 0 && (
-                <SelectAviationModel
-                  handleModel={(value) => dispatch(setModel(value))}
-                  model={model}
-                  modelData={modelData}
-                />
-              )}
+              <SelectAviationModel
+                handleModel={(value) => dispatch(setModel(value))}
+                model={model}
+                modelData={modelData}
+              />
+            )}
             <SelectCondition
               handleCondition={(value) => setCondition(value)}
               condition={condition}
@@ -293,7 +315,7 @@ const Aviation = () => {
           </Stack>
         )}
 
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
+        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
           {post.map((item, index) => (
             <CardCar key={index} item={item} i={index} />
           ))}

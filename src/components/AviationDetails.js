@@ -50,6 +50,8 @@ export default function AviationDetail({
     agentCompany,
     avatar,
     category,
+    totaltime,
+    aviationtype,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -158,22 +160,22 @@ export default function AviationDetail({
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Miles
+                      Total Time
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {kilometersRun}
+                        {totaltime}
                       </span>
-                      <span className="text-sm text-gray-400">km</span>
+                      <span className="text-sm text-gray-400">hrs</span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Engine Type
+                      Type
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {engineCapacity}
+                        {aviationtype}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>

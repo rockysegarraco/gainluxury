@@ -14,7 +14,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <img className="h-16 mb-4" src="mark.svg" />
-        <div className="text-2xl lg:text-5xl text-white fancy mb-16 lg:leading-[3.5rem]">
+        <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
@@ -39,7 +39,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/[.50]">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <img className="h-16 mb-4" src="mark.svg" />
-        <div className="text-2xl lg:text-5xl text-white fancy mb-16 lg:leading-[3.5rem]">
+        <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
@@ -64,7 +64,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <img className="h-16 mb-4" src="mark.svg" />
-        <div className="text-2xl lg:text-5xl text-white fancy mb-16 lg:leading-[3.5rem]">
+        <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>
@@ -114,7 +114,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <img className="h-16 mb-4" src="mark.svg" />
-        <div className="text-2xl lg:text-5xl text-white fancy mb-16 lg:leading-[3.5rem]">
+        <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
           The Global Epicenter of
           <br /> Luxury Shopping
         </div>

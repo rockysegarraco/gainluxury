@@ -24,7 +24,7 @@ import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import ArtTrack from "@mui/icons-material/ArtTrack";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { setTab } from "../../store/tabSlice";
 
 const drawerWidth = 240;
@@ -50,34 +50,36 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
 
   const LIST_ITEMS = [
     {
-      title: "Real Estate",
-      icon: <HomeOutlined />,
-      show: true,
-      onClick: (index) => handleClick(index, "/home/realestate", false, 'Properties'),
-    },
-    {
       title: "Cars",
       icon: <TimeToLeaveIcon />,
       show: true,
-      onClick: (index) => handleClick(index, "/home/cars", false, 'Cars'),
+      onClick: (index) => handleClick(index, "/home/cars", false, "Cars"),
+    },
+    {
+      title: "Real Estate",
+      icon: <HomeOutlined />,
+      show: true,
+      onClick: (index) =>
+        handleClick(index, "/home/realestate", false, "Properties"),
     },
     {
       title: "Marine",
       icon: <SailingIcon />,
       show: true,
-      onClick: (index) => handleClick(index, "/home/marine", false, 'Marine'),
+      onClick: (index) => handleClick(index, "/home/marine", false, "Marine"),
     },
     {
       title: "Aviation",
       icon: <FlightOutlined />,
       show: true,
-      onClick: (index) => handleClick(index, "/home/aviation", false, 'Aviation'),
+      onClick: (index) =>
+        handleClick(index, "/home/aviation", false, "Aviation"),
     },
     {
       title: "Art",
       icon: <ArtTrack />,
       show: true,
-      onClick: (index) => handleClick(index, "/home/arts", false, 'Arts'),
+      onClick: (index) => handleClick(index, "/home/arts", false, "Arts"),
     },
     { title: "divider" },
     {
@@ -138,7 +140,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
     },
   ];
   const handleClick = (index, path, ischeck, title) => {
-    dispatch(setTab(title))
+    dispatch(setTab(title));
     setSelectedIndex(index);
     setMenuIndex(-1);
     handleDrawerClose();

@@ -10,6 +10,8 @@ import SelectCountries from "../components/Selects/SelectCountries.js";
 import SelectStates from "../components/Selects/SelectStates.js";
 import SelectYears from "../components/Selects/YearSelect.js";
 import SelectPrice from "../components/Selects/SelectPrice.js";
+import SelectRerooms from "../components/Selects/SelectRerooms.js";
+import SelectRebaths from "../components/Selects/SelectRebaths.js";
 import Filters from "../components/Filters.js";
 //
 import db from "../firebase.js";
@@ -55,6 +57,8 @@ const Properties = () => {
 
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
+  const [rerooms, setRerooms] = React.useState("All");
+  const [rebaths, setRebaths] = React.useState("All");
 
   const [stateData, setStateData] = React.useState([]);
 
@@ -66,7 +70,7 @@ const Properties = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, state, country]);
+  }, [minYear, maxYear, maxPrice, minPrice, state, country, rerooms, rebaths]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -152,10 +156,7 @@ const Properties = () => {
       <div className="border-b py-3 lg:py-3 max-w-[100vw]">
         <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
           <div className="flex space-x-2">
-            <SelectCountries
-              handleCountry={handleCountry}
-              country={country}
-            />
+            <SelectCountries handleCountry={handleCountry} country={country} />
             {stateData?.length > 0 && (
               <SelectStates
                 handleState={(value) => setState(value)}
@@ -184,6 +185,14 @@ const Properties = () => {
                 setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
               }
             />
+            <SelectRerooms
+              handleRerooms={(value) => setRerooms(value)}
+              rerooms={rerooms}
+            />
+            <SelectRebaths
+              handleRebaths={(value) => setRebaths(value)}
+              rebaths={rebaths}
+            />
           </div>
         </div>
       </div>
@@ -202,9 +211,7 @@ const Properties = () => {
             sortOptions={sortOptions}
             handleSort={handleSort}
           />
-          <span className="text-sm text-gray-700">
-            {post.length} Listings
-          </span>
+          <span className="text-sm text-gray-700">{post.length} Listings</span>
         </Stack>
 
         {post.length === 0 && (
@@ -225,17 +232,14 @@ const Properties = () => {
               >
                 Reset all filters{" "}
               </Typography>
-              <Typography
-                style={{ display: "inline" }}
-                sx={{ color: "black" }}
-              >
+              <Typography style={{ display: "inline" }} sx={{ color: "black" }}>
                 or remove one of your filters above to see more listings
               </Typography>
             </Box>
           </Stack>
         )}
 
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
+        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
           {post.map((item, index) => (
             <PropertyCard key={index} item={item} i={index} from="home" />
           ))}
