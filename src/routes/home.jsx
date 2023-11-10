@@ -8,6 +8,7 @@ import Newsletter from "../components/Newsletter";
 import Blog from "../components/Blog";
 import Carousel from "../components/Carousel/CarouselFade";
 import Footer from "../components/Footer";
+import Banner from "../components/Banner";
 
 function Home() {
   const [post, setPost] = useState([]);
@@ -58,6 +59,7 @@ function Home() {
 
   return (
     <div>
+      <Banner />
       <Carousel />
       <RecentListings post={post} from="home" />
       <Blog />

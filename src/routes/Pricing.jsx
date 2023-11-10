@@ -3,12 +3,10 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 import Heading from "../components/Heading";
 
 const includedFeatures = [
-  "Maximum Visibility: Reach a wide audience of potential buyers, both locally and beyond, ensuring your car gets the attention it deserves.",
-  "Expert Presentation: Our platform offers professional-grade listings, complete with high-quality photos and detailed descriptions that showcase your vehicle's best features.",
+  "Maximum Visibility: Reach a wide audience of potential buyers, both locally and beyond, ensuring your listing gets the attention it deserves.",
   "Safe and Secure: Rest easy knowing that we prioritize safety. We verify all buyers and provide tips to protect you during the sales process.",
-  "Competitive Pricing: Get the most value out of your sale with our flexible pricing options, all designed to fit your budget and goals.",
-  "Easy to Use: Our user-friendly interface makes listing your car a breeze, and you can manage your ad with ease at any time.",
-  "Stay Connected: Communicate effortlessly with potential buyers, schedule viewings, and answer inquiries with our integrated messaging system.",
+  "Easy to Use: Our user-friendly interface makes listing a breeze, and you can manage your ad with ease at any time.",
+  "Stay Connected: Communicate effortlessly with potential buyers, schedule viewings, and answer inquiries.",
 ];
 
 export default function Pricing() {
@@ -18,9 +16,9 @@ export default function Pricing() {
         <Heading title="Pricing">
           <div className="bg-white py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-2xl sm:text-center">
+              <div className="mx-auto max-w-4xl sm:text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  Simple listings with Gain Luxury.
+                  Simple listings with Gain Luxury
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Are you looking to sell your car, yacht, aviation and property
@@ -39,11 +37,8 @@ export default function Pricing() {
                     buyers. It's time to maximize your sale and move forward
                     with confidence! 🚀
                   </p>
-                  <p className="mt-4 text-gray-600">
-                    No Commisions, No upcharge and No extra fees.
-                  </p>
                   <div className="mt-10 flex items-center gap-x-4">
-                    <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">
+                    <h4 className="flex-none text-sm font-semibold leading-6 text-slate-950">
                       What’s included
                     </h4>
                     <div className="h-px flex-auto bg-gray-100" />
@@ -68,24 +63,24 @@ export default function Pricing() {
                       </p>
                       <p className="mt-6 flex items-baseline justify-center gap-x-2">
                         <span className="text-5xl font-bold tracking-tight text-gray-900">
-                          $7
+                          <del>$7</del>
                         </span>
                         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
                           USD
                         </span>
                       </p>
+                      <p className="mt-6 text-base font-bold text-gray-600">
+                        Free Listings til 2024!
+                      </p>
                       <Link
                         to="/login"
-                        className="mt-10 block w-full rounded-md bg-slate-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="mt-4 block w-full rounded-md bg-slate-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         Get Started
                       </Link>
+
                       <p className="mt-6 text-xs leading-5 text-gray-600">
-                        Free til 2024!
-                      </p>
-                      <p className="mt-6 text-xs leading-5 text-gray-600">
-                        Invoices and receipts available for easy company
-                        reimbursement
+                        No Commisions, No upcharge <br /> and No extra fees.
                       </p>
                     </div>
                   </div>
