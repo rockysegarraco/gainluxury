@@ -14,7 +14,6 @@ import Filters from "../components/Filters.js";
 import db from "../firebase.js";
 import { COUNTRY } from "../utils/constants.js";
 import CardCar from "../components/cardCar.js";
-import Tabs from "../components/SubNav.js";
 
 const Marine = () => {
   const [post, setPost] = useState([]);
@@ -150,7 +149,6 @@ const Marine = () => {
 
   return (
     <div className="flex flex-col">
-      <Tabs selected="Marine" />
       <div className="border-b py-3 lg:py-3 max-w-[100vw]">
         <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
           <div className="flex space-x-2">
