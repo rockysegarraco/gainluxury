@@ -200,7 +200,7 @@ const Art = () => {
                 artsize={artsize}
               />
               <SelectArtcategory
-                handleArtcategory={(value) => setArtsubject(value)}
+                handleArtcategory={(value) => setArtcategory(value)}
                 artcategory={artcategory}
               />
               <SelectArtsubject

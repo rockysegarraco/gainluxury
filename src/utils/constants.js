@@ -3870,3 +3870,20 @@ export const MARINELENGTHS = [
   { label: "60 - 100ft", value: "60 - 100ft" },
   { label: "100ft +", value: "100ft +" },
 ];
+
+// REAL ESTATE
+export const REROOMS = [
+  { label: "+1", value: "+1" },
+  { label: "+2", value: "+2" },
+  { label: "+3", value: "+3" },
+  { label: "+4", value: "+4" },
+  { label: "+5", value: "+5" },
+];
+
+export const REBATHS = [
+  { label: "+1", value: "+1" },
+  { label: "+2", value: "+2" },
+  { label: "+3", value: "+3" },
+  { label: "+4", value: "+4" },
+  { label: "+5", value: "+5" },
+];
