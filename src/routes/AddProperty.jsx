@@ -40,6 +40,7 @@ const AddProperty = ({ form }) => {
   const [gallaryImages, setGallaryImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
+  const [propertyAddress, setAddress] = useState(null);
   const [location, setLocation] = useState(null);
   const [isPrice, setPrice] = useState(true);
 
@@ -79,7 +80,8 @@ const AddProperty = ({ form }) => {
             gallery: gallaryImages,
             ...values,
             userId: user.id,
-            address: addressValue.label,
+            address: addressValue?.label,
+            propertyAddress: propertyAddress?.label,
             slug,
             location,
             category,
@@ -175,7 +177,7 @@ const AddProperty = ({ form }) => {
       .catch((e) => {
         console.log(e);
       });
-    setValue(value);
+    setAddress(value);
   };
   const renderResidential = () => {
     if (propertyCategory?.value === "residential_property") {
@@ -319,7 +321,7 @@ const AddProperty = ({ form }) => {
                         <GooglePlacesAutocomplete
                           selectProps={{
                             placeholder: "search your place",
-                            value: addressValue,
+                            value: propertyAddress,
                             onChange: getAddressValue,
                           }}
                           apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
@@ -470,7 +472,7 @@ const AddProperty = ({ form }) => {
               </div>
             </div>
             <div className="col-span-12 lg:col-span-4">
-              <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+              <div className="divide-y divide-gray-200 rounded-lg bg-white shadow">
                 <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
                   Contact Details
                   {/* We use less vertical padding on card headers on desktop than on body sections */}
@@ -526,7 +528,7 @@ const AddProperty = ({ form }) => {
                           selectProps={{
                             placeholder: "search your place",
                             value: addressValue,
-                            onChange: getAddressValue,
+                            onChange: (value) => setValue(value),
                           }}
                           apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
                         />

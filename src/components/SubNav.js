@@ -1,5 +1,7 @@
 import { Disclosure } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setTab } from "../store/tabSlice";
 
 const array = [
   { title: "Cars", path: "/home/cars" },
@@ -9,8 +11,12 @@ const array = [
   { title: "Arts", path: "/home/arts" },
 ];
 
-export default function Tabs({ selected }) {
+export default function Tabs() {
   const navigate = useNavigate();
+  const tab = useSelector((state) => state.tabSlice.tab);
+  const dispatch = useDispatch();
+
+  console.log(tab);
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
@@ -20,7 +26,7 @@ export default function Tabs({ selected }) {
               <div className="flex flex-1 items-stretch justify-start">
                 <div className="sm:flex space-x-4 lg:space-x-8">
                   {array.map((item) =>
-                    selected === item.title ? (
+                    tab === item.title ? (
                       <span
                         key={item.title}
                         className="cursor-pointer inline-flex items-center border-b-2 border-slate-900 px-1 pt-1 text-sm font-semibold text-slate-900 h-[64px]"
@@ -29,7 +35,10 @@ export default function Tabs({ selected }) {
                       </span>
                     ) : (
                       <span
-                        onClick={() => navigate(item.path)}
+                        onClick={() => {
+                          navigate(item.path);
+                          dispatch(setTab(item.title));
+                        }}
                         key={item.title}
                         className="cursor-pointer inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-normal text-slate-900 hover:border-slate-900 hover:text-gray-700 h-[64px]"
                       >

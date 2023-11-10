@@ -1,29 +1,38 @@
 import React, { useState, useRef } from "react";
-import { useUser } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 // MUI
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import IconButton from "@mui/material/IconButton";
-import FormHelperText from "@mui/material/FormHelperText";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 // components
+import db from "../firebase";
 import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
   CATEGORY,
-  CONDITION,
   COUNTRY,
-  PRICE_TYPE,
   US_STATE,
-  AVIATIONMANUFACTURES,
-  AVIATIONTYPE2,
+  RE_LISTING_TYPE,
+  RE_SELECT_PROPERTY_CATEGORY,
+  PRICE_TYPE,
+  RE_PRICE_UNIT,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -32,46 +41,84 @@ import PhoneInput from "../components/form/PhoneInput";
 
 const { FormItem } = Form;
 
-const AddAviation = ({ form }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
+const EditProperty = ({ form }) => {
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const [category] = useState(CATEGORY[3]);
-  const [isPrice, setPrice] = useState(true);
+  const [category] = useState(CATEGORY[1]);
+  const [docId, setDocId] = useState();
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
+  const [propertyAddress, setAddress] = useState(null);
   const [location, setLocation] = useState(null);
-  const [hasError, setHasError] = useState(null);
-  const [aviationType, setAviationType] = useState();
-  const [modelData, setModeldata] = useState();
+  const [isPrice, setPrice] = useState(true);
+  const [postData, setPostData] = useState();
+  const [isFetching, setFetching] = useState(true);
 
+
+  const [propertyCategory, setPropertyCategory] = useState();
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
-  // In case the user signs out while on the page.
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) {
-      navigate("/login");
+    if (slug) {
+      getPost();
     }
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
-    if (aviationType !== "All") {
-      setModeldata();
+    if (postData) {
+      setTimeout(() => {
+        setFieldsValue({
+          title: postData?.title,
+          listingType: postData?.listingType,
+          description: postData?.description,
+          pricingType: postData?.pricingType,
+          yearModel: postData?.yearModel,
+          price: postData?.price,
+          propertyCategory: postData?.propertyCategory,
+          aptsize: postData?.aptsize,
+          bedrooms: postData?.bedrooms,
+          baths: postData?.baths,
+          propertyType: postData?.propertyType,
+          size: postData?.size,
+          city: postData?.city,
+          phone: postData?.phone,
+          state: postData?.state,
+          country: postData?.country,
+          zipcode: postData?.zipcode,
+          email: postData?.email,
+          model: postData?.model,
+          agentName: postData?.agentName,
+          agentCompany: postData?.agentCompany,
+        });
+        setGallaryImages(postData?.gallery);
+        setPrice(() => (postData.pricingType.value === "Fixed" ? false : true));
+      }, 1000);
     }
-  }, [aviationType]);
+  }, [postData]);
 
-  useEffect(() => {
-    setFieldsValue({
-      agentName: user?.firstName + " " + user?.lastName,
-      email: user?.emailAddresses[0]?.emailAddress,
-      phone: user?.phoneNumbers[0]?.phoneNumber,
-    });
-  }, [user]);
+  const getPost = async () => {
+    const collections = collection(db, "properties");
+    const q = query(collections, where("slug", "==", slug));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.docs.length > 0) {
+      querySnapshot.forEach((doc) => {
+        setFetching(false);
+        // doc.data() is never undefined for query doc snapshots
+        setPostData(doc.data());
+        setValue({ label: doc.data().address });
+        setAddress({ label: doc.data().propertyAddress });
+        setLocation(doc.data()?.location);
+        setDocId(doc?.id);
+      });
+    } else {
+      setFetching(false);
+    }
+  };
 
   const checkout = async () => {
-    setHasError(addressValue === null);
     return validateFields()
       .then(async (values) => {
         if (gallaryImages.length >= 5) {
@@ -81,12 +128,6 @@ const AddAviation = ({ form }) => {
             values.price = Number(values.price);
           }
           values.yearModel = Number(values.yearModel);
-          if (values.aviationmanufactures) {
-            values.aviationmanufactures = {
-              value: values.aviationmanufactures?.value,
-              label: values.aviationmanufactures?.label,
-            };
-          }
           values.country = {
             value: values.country.value,
             label: values.country.label,
@@ -94,35 +135,18 @@ const AddAviation = ({ form }) => {
           const obj = {
             gallery: gallaryImages,
             ...values,
-            userId: user.id,
-            address: addressValue.label,
+            address: addressValue?.label,
+            propertyAddress: propertyAddress?.label,
             slug,
-            category,
             location,
-            avatar: user.imageUrl,
           };
-          if (addressValue !== null) {
-            return await axios
-              .post(
-                "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
-                {
-                  post: {
-                    priceId: category.priceId,
-                    success_url: window.location.origin + "/success",
-                    cancel_url: window.location.origin + "/cancel",
-                  },
-                }
-              )
-              .then((res) => {
-                if (res.data.url) {
-                  setIsLoading(false);
-                  localStorage.setItem("userPost", JSON.stringify(obj));
-                  window.location.assign(res.data.url);
-                }
-              });
-          } else {
-            setIsLoading(false);
-          }
+
+          const documentToUpdate = doc(db, category.value, docId);
+          await updateDoc(documentToUpdate, {
+            ...obj,
+          });
+          setIsLoading(false);
+          navigate(`/${category.value}/${slug}`);
         } else {
           alert("Please add at least 5 photos.");
         }
@@ -173,11 +197,15 @@ const AddAviation = ({ form }) => {
           (a) => a.types[0] === "postal_code"
         )[0];
         const country = addressData.filter((a) => a.types[0] === "country")[0];
+        const city = addressData.filter(
+          (a) => a.types[0] === "administrative_area_level_3"
+        )[0];
         const state = addressData.filter(
           (a) => a.types[0] === "administrative_area_level_1"
         )[0];
         setFieldsValue({
           zipcode: zipcode ? zipcode.long_name : "",
+          city: city ? city.long_name : "",
           country: country
             ? { label: country.long_name, value: country.long_name }
             : "",
@@ -190,210 +218,220 @@ const AddAviation = ({ form }) => {
       .catch((e) => {
         console.log(e);
       });
-    setValue(value);
-    setHasError(false);
+    setAddress(value);
+  };
+  const renderResidential = () => {
+    if (propertyCategory?.value === "residential_property") {
+      return (
+        <Stack spacing={0}>
+          <Stack gap={2}>
+            <FormItem>
+              {getFieldDecorator("aptsize", {
+                initialValue: "",
+                rules: [{ required: true }],
+              })(<TextInput label="Apartment Size *" />)}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("bedrooms", {
+                initialValue: "",
+                rules: [{ required: true }],
+              })(<TextInput label="Bedrooms *" />)}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("baths", {
+                initialValue: "",
+                rules: [{ required: true }],
+              })(<TextInput label="Baths *" />)}
+            </FormItem>
+          </Stack>
+        </Stack>
+      );
+    }
+  };
+
+  const renderCommercial = () => {
+    if (propertyCategory?.value === "commercial_property") {
+      return (
+        <Stack spacing={0}>
+          <Stack gap={2}>
+            <FormItem>
+              {getFieldDecorator("propertyType", {
+                initialValue: "",
+                rules: [{ required: true }],
+              })(
+                <Select
+                  options={RE_PRICE_UNIT}
+                  fullWidth
+                  label="Property Type *"
+                  autocomplete="off"
+                />
+              )}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("size", {
+                initialValue: "",
+                rules: [{ required: false }],
+              })(<TextInput label="Size" />)}
+            </FormItem>
+          </Stack>
+        </Stack>
+      );
+    }
   };
 
   return (
     <div>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Sell Aviation">
+        <Heading title="Sell a Property">
+        {isFetching ? (
+              <Box
+                sx={{
+                  flex: 1,
+                  height: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
           <div className="mx-auto max-w-full grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4">
-              {" "}
-              <div className="divide-y divide-gray-200 rounded-lg bg-white shadow">
+              <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                 <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
                   Listing Details
+                  {/* We use less vertical padding on card headers on desktop than on body sections */}
                 </div>
-                <div className="p-6">
+                <div className="px-4 py-5 sm:p-6">
                   <Stack spacing={0}>
                     <Stack gap={2}>
-                      <div className="0">
-                        <FormItem>
-                          {getFieldDecorator("title", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(<TextInput label="Listing Title" />)}
-                        </FormItem>
-                      </div>
                       <FormItem>
-                        {getFieldDecorator("description", {
+                        {getFieldDecorator("title", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput multiline label="Airframe Notes" />)}
+                        })(<TextInput label="Listing Title *" />)}
                       </FormItem>
                       <FormItem>
-                        {getFieldDecorator("yearModel", {
+                        {getFieldDecorator("listingType", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Year" type="number" />)}
-                      </FormItem>
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("pricingType", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              fullWidth
-                              label="Price Type"
-                              options={PRICE_TYPE}
-                              onChange={(data) =>
-                                setPrice(() =>
-                                  data.value === "Fixed" ? false : true
-                                )
-                              }
-                            />
-                          )}
-                        </FormItem>
-
-                        <FormItem>
-                          {getFieldDecorator("price", {
-                            initialValue: "",
-                            rules: [{ required: !isPrice }],
-                          })(
-                            <TextInput
-                              disabled={isPrice}
-                              label="Price $"
-                              type="number"
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-                      <FormItem>
-                        {getFieldDecorator("aviationtype", {
-                          initialValue: "",
                         })(
                           <Select
-                            options={AVIATIONTYPE2}
+                            options={RE_LISTING_TYPE}
                             fullWidth
-                            label="Plane Type"
-                            onChange={(data) => setAviationType(data)}
+                            label="Listing Type *"
                           />
                         )}
                       </FormItem>
-                      {aviationType?.value === "All" && (
-                        <FormItem>
-                          {getFieldDecorator("aviationmanufactures", {
-                            initialValue: "",
-                          })(
-                            <Select
-                              options={AVIATIONMANUFACTURES}
-                              fullWidth
-                              label="Manufacture"
-                              onChange={(data) => setModeldata(data?.modal)}
-                            />
-                          )}
-                        </FormItem>
-                      )}
-                      {modelData?.length > 0 && (
-                        <FormItem>
-                          {getFieldDecorator("aviationModel", {
-                            initialValue: "",
-                          })(
-                            <Select
-                              options={modelData}
-                              fullWidth
-                              label="Model"
-                            />
-                          )}
-                        </FormItem>
-                      )}
-                      <Stack gap={2} sx={{ flexDirection: "row" }}>
-                        <FormItem>
-                          {getFieldDecorator("condition", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              fullWidth
-                              label="Condition"
-                              options={CONDITION}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
                       <FormItem>
-                        {getFieldDecorator("totaltime", {
+                        {getFieldDecorator("pricingType", {
+                          initialValue: "",
+                          rules: [{ required: !isPrice }],
+                        })(
+                          <Select
+                            options={PRICE_TYPE}
+                            fullWidth
+                            label="Price Type *"
+                            autocomplete="off"
+                            onChange={(data) =>
+                              setPrice(() =>
+                                data.value === "Fixed" ? false : true
+                              )
+                            }
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("price", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Total Time" type="number" />)}
+                        })(<TextInput disabled={isPrice} label="Price [$] *" type="number" />)}
                       </FormItem>
-
                       <FormItem>
-                        {getFieldDecorator("registration_number", {
+                        {getFieldDecorator("propertyCategory", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Registration #" />)}
+                        })(
+                          <Select
+                            options={RE_SELECT_PROPERTY_CATEGORY}
+                            fullWidth
+                            label="Category *"
+                            autocomplete="off"
+                            onChange={(data) => setPropertyCategory(data)}
+                          />
+                        )}
                       </FormItem>
-                    </Stack>
-                    <Stack gap={3}>
-                      <div className="mt-6">
-                        <label
-                          className={`block mb-2 font-medium leading-6 text-gray-700 ${
-                            hasError && "text-red-500"
-                          } `}
-                        >
+                      {renderCommercial()}
+                      {renderResidential()}
+                      <div>
+                        <label className="block mb-2 font-medium leading-6 text-gray-700">
                           Address
                         </label>
                         <GooglePlacesAutocomplete
                           selectProps={{
                             placeholder: "search your place",
-                            value: addressValue,
+                            value: propertyAddress,
                             onChange: getAddressValue,
                           }}
                           apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
                         />
-                        {hasError && (
-                          <FormHelperText className="text-red-500">
-                            Address is required
-                          </FormHelperText>
-                        )}
                       </div>
-
+                      <FormItem>
+                        {getFieldDecorator("city", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(<TextInput fullWidth label="City *" />)}
+                      </FormItem>
                       <FormItem>
                         {getFieldDecorator("state", {
                           initialValue: "",
+                          rules: [{ required: true }],
                         })(
-                          <Select options={US_STATE} fullWidth label="State" />
+                          <Select
+                            options={US_STATE}
+                            fullWidth
+                            label="State *"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("country", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(
+                          <Select
+                            fullWidth
+                            label="Country *"
+                            options={COUNTRY}
+                          />
                         )}
                       </FormItem>
 
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("country", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              fullWidth
-                              label="Country"
-                              options={COUNTRY}
-                            />
-                          )}
-                        </FormItem>
-
-                        <FormItem>
-                          {getFieldDecorator("zipcode", {
-                            initialValue: "",
-                          })(<TextInput label="Zipcode" type="number" />)}
-                        </FormItem>
-                      </Stack>
+                      <FormItem>
+                        {getFieldDecorator("zipcode", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(<TextInput label="Zipcode *" type="number" />)}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("description", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(
+                          <TextInput
+                            multiline
+                            label="Features"
+                            hint="ex. Elevator, Privacy, Air Conditioning 2D Floor Plan..."
+                          />
+                        )}
+                      </FormItem>
                     </Stack>
                   </Stack>
                 </div>
               </div>
             </div>
-
             <div className="col-span-12 lg:col-span-4">
-              {" "}
               <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                 <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
                   Gallery
@@ -423,12 +461,12 @@ const AddAviation = ({ form }) => {
                                 clip-rule="evenodd"
                               />
                             </svg>
-                            <div className="mt-4 flex text-sm leading-6 text-gray-600 text-center">
+                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
                               <label
                                 for="file-upload"
                                 className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                               >
-                                <span className="self-center text-blue-700 text-lg">
+                                <span className="self-center">
                                   {galleryLoading ? "Loading..." : "Add Images"}
                                 </span>
                                 <input
@@ -444,8 +482,8 @@ const AddAviation = ({ form }) => {
                                 />
                               </label>
                             </div>
-                            <p className="text-lg leading-5 text-gray-600">
-                              PNG, JPG up to 5MB
+                            <p className="text-xs leading-5 text-gray-600">
+                              PNG, JPG up to 3MB
                             </p>
                           </div>
                         </div>
@@ -483,10 +521,8 @@ const AddAviation = ({ form }) => {
                 </div>
               </div>
             </div>
-
             <div className="col-span-12 lg:col-span-4">
-              {" "}
-              <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow col-span-12 lg:col-span-12">
+              <div className="divide-y divide-gray-200 rounded-lg bg-white shadow">
                 <div className="px-4 py-5 sm:px-6 font-bold bg-slate-50">
                   Contact Details
                   {/* We use less vertical padding on card headers on desktop than on body sections */}
@@ -497,7 +533,7 @@ const AddAviation = ({ form }) => {
                       <FormItem>
                         {getFieldDecorator("agentName", {
                           initialValue: "",
-                          rules: [{ required: true }],
+                          rules: [{ required: false }],
                         })(<TextInput label="Agent/Owner Name *" />)}
                       </FormItem>
                     </div>
@@ -534,6 +570,19 @@ const AddAviation = ({ form }) => {
                           />
                         )}
                       </FormItem>
+                      <div className="mt-2">
+                        <label className="block mb-2 font-medium leading-6 text-gray-700">
+                          Address
+                        </label>
+                        <GooglePlacesAutocomplete
+                          selectProps={{
+                            placeholder: "search your place",
+                            value: addressValue,
+                            onChange: (value) => setValue(value),
+                          }}
+                          apiKey={process.env.REACT_APP_GOOGLE_MAP_KEY}
+                        />
+                      </div>
                     </Stack>
                   </Stack>
                 </div>
@@ -543,16 +592,16 @@ const AddAviation = ({ form }) => {
               <button
                 onClick={checkout}
                 type="button"
-                className="rounded-full w-full bg-slate-950 px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 mt-8"
+                className="rounded-full w-full bg-blue-700 px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 mt-8"
               >
-                {isLoading ? "Loading..." : "Continue to Payment"}
+                {isLoading ? "Loading..." : "Save"}
               </button>
             </div>
-          </div>
+          </div>)}
         </Heading>
       </div>
     </div>
   );
 };
 
-export default Form.create()(AddAviation);
+export default Form.create()(EditProperty);

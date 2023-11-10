@@ -84,6 +84,7 @@ const EditPost = ({ form }) => {
           model: postData?.model,
           agentName: postData?.agentName,
           agentCompany: postData?.agentCompany,
+          video: postData?.video
         });
         setGallaryImages(postData?.gallery);
         setPrice(() => (postData.pricingType.value === "Fixed" ? false : true));
@@ -102,6 +103,7 @@ const EditPost = ({ form }) => {
         setPostData(doc.data());
         setValue({ label: doc.data().address });
         setCategory(doc.data()?.category);
+        setLocation(doc.data()?.location);
         setDocId(doc?.id);
       });
     } else {
@@ -256,6 +258,17 @@ const EditPost = ({ form }) => {
                                 initialValue: "",
                                 rules: [{ required: true }],
                               })(<TextInput multiline label="Features" />)}
+                            </FormItem>
+                            <FormItem>
+                              {getFieldDecorator("video", {
+                                initialValue: "",
+                                rules: [{ required: false }],
+                              })(
+                                <TextInput
+                                  label="Video Url"
+                                  hint="ex. https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                                />
+                              )}
                             </FormItem>
                             <FormItem>
                               {getFieldDecorator("yearModel", {

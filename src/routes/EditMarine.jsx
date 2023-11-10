@@ -1,8 +1,15 @@
 import React, { useState, useRef } from "react";
-import { useUser } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 // MUI
 import Stack from "@mui/material/Stack";
@@ -10,8 +17,11 @@ import Paper from "@mui/material/Paper";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import IconButton from "@mui/material/IconButton";
 import FormHelperText from "@mui/material/FormHelperText";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 // components
+import db from "../firebase";
 import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
@@ -22,8 +32,9 @@ import {
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
-  AVIATIONMANUFACTURES,
-  AVIATIONTYPE2,
+  MARINETYPE,
+  MARINECLASS,
+  MARINELENGTHS,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -32,11 +43,12 @@ import PhoneInput from "../components/form/PhoneInput";
 
 const { FormItem } = Form;
 
-const AddAviation = ({ form }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
+const EditMarine = ({ form }) => {
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const [category] = useState(CATEGORY[3]);
+  const [category] = useState(CATEGORY[2]);
   const [isPrice, setPrice] = useState(true);
+  const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
   const [gallaryImages, setGallaryImages] = useState([]);
@@ -44,31 +56,64 @@ const AddAviation = ({ form }) => {
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
   const [hasError, setHasError] = useState(null);
-  const [aviationType, setAviationType] = useState();
-  const [modelData, setModeldata] = useState();
-
+  const [postData, setPostData] = useState();
+  const [isFetching, setFetching] = useState(true);
+  const [docId, setDocId] = useState();
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
-  // In case the user signs out while on the page.
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn) {
-      navigate("/login");
-    }
-  }, []);
 
   useEffect(() => {
-    if (aviationType !== "All") {
-      setModeldata();
+    if (slug) {
+      getPost();
     }
-  }, [aviationType]);
+  }, [slug]);
 
   useEffect(() => {
-    setFieldsValue({
-      agentName: user?.firstName + " " + user?.lastName,
-      email: user?.emailAddresses[0]?.emailAddress,
-      phone: user?.phoneNumbers[0]?.phoneNumber,
-    });
-  }, [user]);
+    if (postData) {
+      setTimeout(() => {
+        setFieldsValue({
+          title: postData?.title,
+          listingType: postData?.listingType,
+          description: postData?.description,
+          pricingType: postData?.pricingType,
+          yearModel: postData?.yearModel,
+          price: postData?.price,
+          marinetype: postData?.marinetype,
+          class: postData?.class,
+          length: postData?.length,
+          condition: postData?.condition,
+          engineNumber: postData?.engineNumber,
+          phone: postData?.phone,
+          state: postData?.state,
+          country: postData?.country,
+          zipcode: postData?.zipcode,
+          email: postData?.email,
+          agentName: postData?.agentName,
+          agentCompany: postData?.agentCompany,
+        });
+        setGallaryImages(postData?.gallery);
+        setPrice(() => (postData.pricingType.value === "Fixed" ? false : true));
+      }, 1000);
+    }
+  }, [postData]);
+
+  const getPost = async () => {
+    const collections = collection(db, "marine");
+    const q = query(collections, where("slug", "==", slug));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.docs.length > 0) {
+      querySnapshot.forEach((doc) => {
+        setFetching(false);
+        // doc.data() is never undefined for query doc snapshots
+        setPostData(doc.data());
+        setValue({ label: doc.data().address });
+        setLocation(doc.data()?.location);
+        setDocId(doc?.id);
+      });
+    } else {
+      setFetching(false);
+    }
+  };
 
   const checkout = async () => {
     setHasError(addressValue === null);
@@ -81,48 +126,23 @@ const AddAviation = ({ form }) => {
             values.price = Number(values.price);
           }
           values.yearModel = Number(values.yearModel);
-          if (values.aviationmanufactures) {
-            values.aviationmanufactures = {
-              value: values.aviationmanufactures?.value,
-              label: values.aviationmanufactures?.label,
-            };
-          }
           values.country = {
-            value: values.country.value,
-            label: values.country.label,
+            value: values.country?.value,
+            label: values.country?.label,
           };
           const obj = {
             gallery: gallaryImages,
             ...values,
-            userId: user.id,
             address: addressValue.label,
             slug,
-            category,
             location,
-            avatar: user.imageUrl,
           };
-          if (addressValue !== null) {
-            return await axios
-              .post(
-                "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
-                {
-                  post: {
-                    priceId: category.priceId,
-                    success_url: window.location.origin + "/success",
-                    cancel_url: window.location.origin + "/cancel",
-                  },
-                }
-              )
-              .then((res) => {
-                if (res.data.url) {
-                  setIsLoading(false);
-                  localStorage.setItem("userPost", JSON.stringify(obj));
-                  window.location.assign(res.data.url);
-                }
-              });
-          } else {
-            setIsLoading(false);
-          }
+          const documentToUpdate = doc(db, category.value, docId);
+          await updateDoc(documentToUpdate, {
+            ...obj,
+          });
+          setIsLoading(false);
+          navigate(`/${category.value}/${slug}`);
         } else {
           alert("Please add at least 5 photos.");
         }
@@ -197,7 +217,20 @@ const AddAviation = ({ form }) => {
   return (
     <div>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Sell Aviation">
+        <Heading title="Sell a Marine">
+        {isFetching ? (
+              <Box
+                sx={{
+                  flex: 1,
+                  height: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
           <div className="mx-auto max-w-full grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4">
               {" "}
@@ -220,7 +253,7 @@ const AddAviation = ({ form }) => {
                         {getFieldDecorator("description", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput multiline label="Airframe Notes" />)}
+                        })(<TextInput multiline label="Features" />)}
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("yearModel", {
@@ -264,44 +297,45 @@ const AddAviation = ({ form }) => {
                         </FormItem>
                       </Stack>
                       <FormItem>
-                        {getFieldDecorator("aviationtype", {
+                        {getFieldDecorator("marinetype", {
                           initialValue: "",
+                          rules: [{ required: true }],
                         })(
                           <Select
-                            options={AVIATIONTYPE2}
+                            label="Type"
                             fullWidth
-                            label="Plane Type"
-                            onChange={(data) => setAviationType(data)}
+                            options={MARINETYPE}
+                            onChange={(data) => setBrandData(() => data.modal)}
                           />
                         )}
                       </FormItem>
-                      {aviationType?.value === "All" && (
-                        <FormItem>
-                          {getFieldDecorator("aviationmanufactures", {
-                            initialValue: "",
-                          })(
-                            <Select
-                              options={AVIATIONMANUFACTURES}
-                              fullWidth
-                              label="Manufacture"
-                              onChange={(data) => setModeldata(data?.modal)}
-                            />
-                          )}
-                        </FormItem>
-                      )}
-                      {modelData?.length > 0 && (
-                        <FormItem>
-                          {getFieldDecorator("aviationModel", {
-                            initialValue: "",
-                          })(
-                            <Select
-                              options={modelData}
-                              fullWidth
-                              label="Model"
-                            />
-                          )}
-                        </FormItem>
-                      )}
+                      <FormItem>
+                        {getFieldDecorator("class", {
+                          initialValue: "",
+                          rules: [{ required: brandData?.length > 0 }],
+                        })(
+                          <Select
+                            options={MARINECLASS}
+                            fullWidth
+                            label="Class"
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("length", {
+                          initialValue: "",
+                          rules: [{ required: brandData?.length > 0 }],
+                        })(
+                          <Select
+                            options={MARINELENGTHS}
+                            fullWidth
+                            label="Lenght"
+                            onChange={(data) => setBrandData(() => data.modal)}
+                          />
+                        )}
+                      </FormItem>
+
                       <Stack gap={2} sx={{ flexDirection: "row" }}>
                         <FormItem>
                           {getFieldDecorator("condition", {
@@ -318,17 +352,10 @@ const AddAviation = ({ form }) => {
                       </Stack>
 
                       <FormItem>
-                        {getFieldDecorator("totaltime", {
+                        {getFieldDecorator("engineNumber", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Total Time" type="number" />)}
-                      </FormItem>
-
-                      <FormItem>
-                        {getFieldDecorator("registration_number", {
-                          initialValue: "",
-                          rules: [{ required: true }],
-                        })(<TextInput label="Registration #" />)}
+                        })(<TextInput label="# of Engines" />)}
                       </FormItem>
                     </Stack>
                     <Stack gap={3}>
@@ -545,14 +572,14 @@ const AddAviation = ({ form }) => {
                 type="button"
                 className="rounded-full w-full bg-slate-950 px-8 py-4 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 mt-8"
               >
-                {isLoading ? "Loading..." : "Continue to Payment"}
+                {isLoading ? "Loading..." : "Save"}
               </button>
             </div>
-          </div>
+          </div>)}
         </Heading>
       </div>
     </div>
   );
 };
 
-export default Form.create()(AddAviation);
+export default Form.create()(EditMarine);

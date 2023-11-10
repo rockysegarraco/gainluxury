@@ -15,7 +15,6 @@ import Filters from "../components/Filters.js";
 import db from "../firebase.js";
 import { COUNTRY } from "../utils/constants.js";
 import PropertyCard from "../components/PropertyCard.js";
-import Tabs from "../components/SubNav.js";
 
 const Properties = () => {
   const [post, setPost] = useState([]);
@@ -149,104 +148,101 @@ const Properties = () => {
   };
 
   return (
-    <>
-    <Tabs selected="Properties" />
-      <div className="flex flex-col">
-        <div className="border-b py-3 lg:py-3 max-w-[100vw]">
-          <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
-            <div className="flex space-x-2">
-              <SelectCountries
-                handleCountry={handleCountry}
-                country={country}
+    <div className="flex flex-col">
+      <div className="border-b py-3 lg:py-3 max-w-[100vw]">
+        <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
+          <div className="flex space-x-2">
+            <SelectCountries
+              handleCountry={handleCountry}
+              country={country}
+            />
+            {stateData?.length > 0 && (
+              <SelectStates
+                handleState={(value) => setState(value)}
+                state={state}
+                stateData={stateData}
               />
-              {stateData?.length > 0 && (
-                <SelectStates
-                  handleState={(value) => setState(value)}
-                  state={state}
-                  stateData={stateData}
-                />
-              )}
-              
-              <SelectPrice
-                minValue={minPrice}
-                maxValue={maxPrice}
-                handleMin={(value) =>
-                  setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
-                }
-                handleMax={(value) =>
-                  setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
-                }
-              />
-              <SelectYears
-                minValue={minYear}
-                maxValue={maxYear}
-                handleMin={(value) =>
-                  setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
-                }
-                handleMax={(value) =>
-                  setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
-                }
-              />
-            </div>
+            )}
+
+            <SelectPrice
+              minValue={minPrice}
+              maxValue={maxPrice}
+              handleMin={(value) =>
+                setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
+              }
+              handleMax={(value) =>
+                setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
+              }
+            />
+            <SelectYears
+              minValue={minYear}
+              maxValue={maxYear}
+              handleMin={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+              }
+              handleMax={(value) =>
+                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+              }
+            />
           </div>
         </div>
-        <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Properties for Sale</h1>
-          <Stack
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              mt: 2,
-              justifyContent: "space-between",
-            }}
-          >
-            <Filters
-              sort={sort}
-              sortOptions={sortOptions}
-              handleSort={handleSort}
-            />
-            <span className="text-sm text-gray-700">
-              {post.length} Listings
-            </span>
-          </Stack>
-
-          {post.length === 0 && (
-            <Stack sx={{ mt: 4 }}>
-              <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
-                No Results
-              </Typography>
-              <Box>
-                <Typography
-                  onClick={handleReset}
-                  component="span"
-                  style={{ display: "inline" }}
-                  sx={{
-                    cursor: "pointer",
-                    color: "blueviolet",
-                    "&:hover": { textDecoration: "underline" },
-                  }}
-                >
-                  Reset all filters{" "}
-                </Typography>
-                <Typography
-                  style={{ display: "inline" }}
-                  sx={{ color: "black" }}
-                >
-                  or remove one of your filters above to see more listings
-                </Typography>
-              </Box>
-            </Stack>
-          )}
-
-          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
-            {post.map((item, index) => (
-              <PropertyCard key={index} item={item} i={index} from="home" />
-            ))}
-          </div>
-          {/* <Pagination count={10} /> */}
-        </Container>
       </div>
-    </>
+      <Container>
+        <h1 className="text-2xl lg:text-4xl fancy pt-4">Properties for Sale</h1>
+        <Stack
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            mt: 2,
+            justifyContent: "space-between",
+          }}
+        >
+          <Filters
+            sort={sort}
+            sortOptions={sortOptions}
+            handleSort={handleSort}
+          />
+          <span className="text-sm text-gray-700">
+            {post.length} Listings
+          </span>
+        </Stack>
+
+        {post.length === 0 && (
+          <Stack sx={{ mt: 4 }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
+              No Results
+            </Typography>
+            <Box>
+              <Typography
+                onClick={handleReset}
+                component="span"
+                style={{ display: "inline" }}
+                sx={{
+                  cursor: "pointer",
+                  color: "blueviolet",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                Reset all filters{" "}
+              </Typography>
+              <Typography
+                style={{ display: "inline" }}
+                sx={{ color: "black" }}
+              >
+                or remove one of your filters above to see more listings
+              </Typography>
+            </Box>
+          </Stack>
+        )}
+
+        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 mt-4 mb-16">
+          {post.map((item, index) => (
+            <PropertyCard key={index} item={item} i={index} from="home" />
+          ))}
+        </div>
+        {/* <Pagination count={10} /> */}
+      </Container>
+    </div>
   );
 };
 

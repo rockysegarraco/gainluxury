@@ -36,6 +36,10 @@ import AviationDetail from "./routes/AviationDetail";
 import ArtDetail from "./routes/ArtDetail";
 import Privacy from "./routes/Privacy";
 import Terms from "./routes/Terms";
+import EditProperty from "./routes/EditProperty";
+import EditMarine from "./routes/EditMarine";
+import EditAviation from "./routes/EditAviation";
+import EditArt from "./routes/EditArt";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -103,6 +107,19 @@ function ClerkProviderWithRoutes() {
           path="/edit-post/:slug"
           element={<EditPost path="/edit-post" />}
         />
+        <Route
+          path="/edit-property/:slug"
+          element={<EditProperty path="/edit-property" />}
+        />
+        <Route
+          path="/edit-marine/:slug"
+          element={<EditMarine path="/edit-marine" />}
+        />
+        <Route
+          path="/edit-aviation/:slug"
+          element={<EditAviation path="/edit-aviation" />}
+        />
+        <Route path="/edit-art/:slug" element={<EditArt path="/edit-art" />} />
         <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
         <Route path="/login" element={<Login path="/login" />} />

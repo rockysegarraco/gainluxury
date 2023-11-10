@@ -22,7 +22,6 @@ import {
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
-  CARS_MILES,
   MARINETYPE,
   MARINECLASS,
   MARINELENGTHS,
@@ -74,15 +73,10 @@ const AddMarine = ({ form }) => {
           if (values.price) {
             values.price = Number(values.price);
           }
-          values.kilometersRun = Number(values.kilometersRun);
           values.yearModel = Number(values.yearModel);
-          values.brand = {
-            value: values.brand.value,
-            label: values.brand.label,
-          };
           values.country = {
-            value: values.country.value,
-            label: values.country.label,
+            value: values.country?.value,
+            label: values.country?.label,
           };
           const obj = {
             gallery: gallaryImages,
@@ -270,7 +264,7 @@ const AddMarine = ({ form }) => {
                         )}
                       </FormItem>
                       <FormItem>
-                        {getFieldDecorator("model", {
+                        {getFieldDecorator("class", {
                           initialValue: "",
                           rules: [{ required: brandData?.length > 0 }],
                         })(
@@ -283,7 +277,7 @@ const AddMarine = ({ form }) => {
                         )}
                       </FormItem>
                       <FormItem>
-                        {getFieldDecorator("model", {
+                        {getFieldDecorator("length", {
                           initialValue: "",
                           rules: [{ required: brandData?.length > 0 }],
                         })(
