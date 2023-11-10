@@ -4,7 +4,7 @@ import {
   Route,
   Routes,
   useNavigate,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 import Home from "./routes/home";
 import Pricing from "./routes/Pricing";
@@ -34,6 +34,8 @@ import Art from "./routes/art";
 import MarineDetail from "./routes/MarineDetail";
 import AviationDetail from "./routes/AviationDetail";
 import ArtDetail from "./routes/ArtDetail";
+import Privacy from "./routes/Privacy";
+import Terms from "./routes/Terms";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -46,10 +48,9 @@ function ClerkProviderWithRoutes() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, [pathname]);
 
-  
   return (
     <ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
       <Routes>
@@ -66,10 +67,7 @@ function ClerkProviderWithRoutes() {
             path="/home/aviation"
             element={<Aviator path="/home/aviation" />}
           />
-           <Route
-            path="/home/arts"
-            element={<Art path="/home/arts" />}
-          />
+          <Route path="/home/arts" element={<Art path="/home/arts" />} />
           <Route path="/settings" element={<Settings path="/settings" />} />
           <Route path="/my-post" element={<MyPost path="/my-post" />} />
           <Route path="/aviation/:slug" element={<AviationDetail />} />
@@ -89,15 +87,15 @@ function ClerkProviderWithRoutes() {
           path="/create-property-post"
           element={<AddProperty path="/create-property-post" />}
         />
-         <Route
+        <Route
           path="/create-marine-post"
           element={<AddMarine path="/create-marine-post" />}
         />
-         <Route
+        <Route
           path="/create-aviation-post"
           element={<AddAviation path="/create-aviation-post" />}
         />
-         <Route
+        <Route
           path="/create-art-post"
           element={<AddArt path="/create-art-post" />}
         />
@@ -110,6 +108,8 @@ function ClerkProviderWithRoutes() {
         <Route path="/login" element={<Login path="/login" />} />
         <Route path="/signup" element={<Register path="/signup" />} />
         <Route path="/pricing" element={<Pricing path="/pricing" />} />
+        <Route path="/privacy" element={<Privacy path="/privacy" />} />
+        <Route path="/terms" element={<Terms path="/terms" />} />
         <Route path="/super-user" element={<SuperUser path="/super-user" />} />
       </Routes>
     </ClerkProvider>

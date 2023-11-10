@@ -14,8 +14,14 @@ const navigation = {
     { name: "Sell with us", href: "#" },
   ],
   legal: [
-    { name: "Terms", href: "#" },
-    { name: "Privacy", href: "#" },
+    {
+      name: "Privacy Policy",
+      href: "https://www.iubenda.com/privacy-policy/47904645",
+    },
+    {
+      name: "Cookie Policy",
+      href: "https://www.iubenda.com/privacy-policy/47904645/cookie-policy",
+    },
   ],
   social: [
     {
