@@ -6,9 +6,6 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 // MUI
 import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
-import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import IconButton from "@mui/material/IconButton";
 import FormHelperText from "@mui/material/FormHelperText";
 
 // components
@@ -25,8 +22,8 @@ import {
   PRICE_TYPE,
   US_STATE,
 } from "../utils/constants";
-import { uploadImages } from "../firebase";
-import { createSlug, deepCloneData, validatePhone } from "../utils";
+import {uploadImage} from "../firebase";
+import { createSlug, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
 
@@ -37,10 +34,9 @@ const AddArt = ({ form }) => {
   const navigate = useNavigate();
   const [category] = useState(CATEGORY[4]);
   const [isPrice, setPrice] = useState(true);
-  const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
-  const [gallaryImages, setGallaryImages] = useState([]);
+  const [gallaryImage, setGallaryImages] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
@@ -66,7 +62,7 @@ const AddArt = ({ form }) => {
     setHasError(addressValue === null);
     return validateFields()
       .then(async (values) => {
-        if (gallaryImages.length >= 5) {
+        if (gallaryImage) {
           setIsLoading(true);
           const slug = createSlug(values.title);
           if (values.price) {
@@ -78,7 +74,7 @@ const AddArt = ({ form }) => {
             label: values.country.label,
           };
           const obj = {
-            gallery: gallaryImages,
+            gallery: gallaryImage,
             ...values,
             userId: user.id,
             address: addressValue.label,
@@ -120,32 +116,20 @@ const AddArt = ({ form }) => {
   };
 
   const handleGalleryFile = async (e) => {
-    const MAX_LENGTH = 10;
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
-      if (files?.length <= MAX_LENGTH) {
-        const maxSize = 5 * 1024 * 1024;
-        const validFiles = files.filter((file) => file.size <= maxSize);
-        if (validFiles.length !== files.length) {
-          alert("Some files exceed the maximum size limit (5MB).");
-        } else {
-          setGalleryLoading(true);
-          const result = await uploadImages(e.target.files);
-          setGallaryImages((prev) => [...prev, ...result]);
-          setGalleryLoading(false);
-        }
+      const maxSize = 5 * 1024 * 1024;
+      const validFiles = files.filter((file) => file.size <= maxSize);
+      if (validFiles.length !== files.length) {
+        alert("Some files exceed the maximum size limit (5MB).");
       } else {
-        e.preventDefault();
-        alert(`Cannot upload files more than ${MAX_LENGTH}`);
+        setGalleryLoading(true);
+        const result = await uploadImage(e.target.files[0]);
+        setGallaryImages(result);
+        setGalleryLoading(false);
       }
     }
-  };
-
-  const handleImageDelete = (index) => {
-    const data = deepCloneData(gallaryImages);
-    data.splice(index, 1);
-    setGallaryImages(data);
-  };
+  }
 
   const getAddressValue = (value) => {
     axios
@@ -259,7 +243,6 @@ const AddArt = ({ form }) => {
                             label="Size"
                             fullWidth
                             options={ARTSIZE}
-                            onChange={(data) => setBrandData(() => data.modal)}
                           />
                         )}
                       </FormItem>
@@ -272,7 +255,6 @@ const AddArt = ({ form }) => {
                             label="Subject"
                             fullWidth
                             options={ARTSUBJECT}
-                            onChange={(data) => setBrandData(() => data.modal)}
                           />
                         )}
                       </FormItem>
@@ -285,7 +267,6 @@ const AddArt = ({ form }) => {
                             label="Category"
                             fullWidth
                             options={ARTCATEGORY}
-                            onChange={(data) => setBrandData(() => data.modal)}
                           />
                         )}
                       </FormItem>
@@ -293,9 +274,8 @@ const AddArt = ({ form }) => {
                     <Stack gap={3}>
                       <div className="mt-6">
                         <label
-                          className={`block mb-2 font-medium leading-6 text-gray-700 ${
-                            hasError && "text-red-500"
-                          } `}
+                          className={`block mb-2 font-medium leading-6 text-gray-700 ${hasError && "text-red-500"
+                            } `}
                         >
                           Address
                         </label>
@@ -393,7 +373,6 @@ const AddArt = ({ form }) => {
                                 <input
                                   id="file-upload"
                                   name="file-upload"
-                                  multiple
                                   max={5}
                                   type="file"
                                   className="sr-only"
@@ -410,32 +389,7 @@ const AddArt = ({ form }) => {
                         </div>
                       </div>
                       <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                        {gallaryImages.map((image, index) => (
-                          <Paper
-                            key={index}
-                            sx={{
-                              backgroundImage: `url(${image})`,
-                              backgroundRepeat: "no-repeat",
-                              backgroundSize: "cover",
-                              height: 150,
-                              width: 150,
-                              flexShrink: 0,
-                              marginTop: "10px",
-                            }}
-                          >
-                            <IconButton
-                              sx={{
-                                m: 1,
-                                height: "22px",
-                                width: "22px",
-                                bgcolor: "white",
-                              }}
-                              onClick={() => handleImageDelete(index)}
-                            >
-                              <CloseOutlined />
-                            </IconButton>
-                          </Paper>
-                        ))}
+                      {gallaryImage && (<img src={gallaryImage} alt="" />)}
                       </div>
                     </Stack>
                   </Stack>

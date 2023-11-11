@@ -39,7 +39,6 @@ export default function PostDetail({
     address,
     yearModel,
     kilometersRun,
-    engineCapacity,
     condition,
     email,
     status,
@@ -204,7 +203,7 @@ export default function PostDetail({
             </div>
           </div>
           {/* VIDEO */}
-          <div className="py-6 aspect-video w-full ">
+          {video && (<div className="py-6 aspect-video w-full ">
             <div className="aspect-video w-full bg-slate-100">
               <ReactPlayer
                 className="react-player aspect-video w-full"
@@ -213,7 +212,7 @@ export default function PostDetail({
                 height="100%"
               />
             </div>
-          </div>
+          </div>)}
           {/* MAP */}
           <div className="py-3 h-[300px] w-full">
             <GoogleMapReact

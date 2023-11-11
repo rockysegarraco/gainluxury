@@ -16,7 +16,7 @@ const firebase = initializeApp(firebaseConfig);
 const storage = getStorage(firebase);
 const db = getFirestore(firebase)
 
-async function uploadImage(image) {
+export async function uploadImage(image) {
   const storageRef = ref(storage, `/images/${Date.now()}-${image.name}`);
   const response = await uploadBytes(storageRef, image);
   const url = await getDownloadURL(response.ref);

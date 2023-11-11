@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -65,7 +65,6 @@ const Cars = () => {
     collections,
     where("category.value", "==", "cars"),
     where("postStatus", "==", "Live"),
-    orderBy("postDate", "asc")
   );
 
   const [minYear, setMinYear] = React.useState("Min");

@@ -37,9 +37,6 @@ export default function ArtDetails({
     slug,
     address,
     yearModel,
-    kilometersRun,
-    engineCapacity,
-    condition,
     email,
     status,
     pricingType,
@@ -103,7 +100,7 @@ export default function ArtDetails({
             </Button>
             <Button
               className="text-xs lg:text-xs rounded-full"
-              onClick={() => navigate(`/edit-post/${slug}`)}
+              onClick={() => navigate(`/edit-arts/${slug}`)}
               variant="outlined"
               startIcon={<Edit />}
             >
@@ -124,7 +121,7 @@ export default function ArtDetails({
 
       {/* IMAGE GALLERY */}
       <div className="mx-auto pt-3 pb-0  max-w-full max-h-full lg:px-20 px-6">
-        {gallery?.length > 0 && <Gallery images={gallery} />}
+        <Gallery images={[gallery]} />
       </div>
 
       {/* LISTING INFO */}
@@ -162,7 +159,7 @@ export default function ArtDetails({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {kilometersRun}
+                        {}
                       </span>
                       <span className="text-sm text-gray-400">km</span>
                     </p>
@@ -173,7 +170,7 @@ export default function ArtDetails({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {engineCapacity}
+                        {}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>
@@ -184,7 +181,7 @@ export default function ArtDetails({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-2xl font-semibold tracking-tight text-white">
-                        {condition.label}
+                        {}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>

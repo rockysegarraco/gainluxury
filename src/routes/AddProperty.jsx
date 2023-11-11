@@ -76,6 +76,10 @@ const AddProperty = ({ form }) => {
             value: values.country.value,
             label: values.country.label,
           };
+          if (propertyCategory.value === "residential_property") {
+            values.bedrooms = Number(values.bedrooms);
+            values.baths = Number(values.baths);
+          }
           const obj = {
             gallery: gallaryImages,
             ...values,

@@ -43,7 +43,6 @@ const Marine = () => {
   let q = query(
     collections,
     where("postStatus", "==", "Live"),
-    orderBy("postDate", "asc")
   );
 
   const [minYear, setMinYear] = React.useState("Min");

@@ -37,8 +37,6 @@ export default function AviationDetail({
     slug,
     address,
     yearModel,
-    kilometersRun,
-    engineCapacity,
     condition,
     email,
     status,
@@ -175,7 +173,7 @@ export default function AviationDetail({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {aviationtype}
+                        {aviationtype.label}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>

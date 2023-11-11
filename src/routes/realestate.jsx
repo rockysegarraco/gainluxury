@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -46,7 +46,6 @@ const Properties = () => {
   let q = query(
     collections,
     where("postStatus", "==", "Live"),
-    orderBy("postDate", "asc")
   );
 
   const [minYear, setMinYear] = React.useState("Min");
@@ -102,7 +101,6 @@ const Properties = () => {
 
     // Price filter
     if (minPrice !== "Min" && minPrice.length >= 2) {
-      console.log(typeof minPrice);
       q = query(q, where("price", ">=", Number(minPrice)));
     }
     if (maxPrice !== "Max" && maxPrice.length >= 2) {
@@ -118,6 +116,17 @@ const Properties = () => {
     if (state !== "All") {
       q = query(q, where("state.value", "==", state));
     }
+
+     // bedroom filter
+    if (rerooms !== "All") {
+      q = query(q, where("bedrooms", ">=", Number(rerooms)));
+    }
+
+    // baths filter
+    if (rebaths !== "All") {
+      q = query(q, where("baths", ">=", Number(rebaths)));
+    }
+    
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -139,6 +148,8 @@ const Properties = () => {
     setMinYear("Min");
     setCountry("All");
     setState("All");
+    setRebaths("All");
+    setRerooms("All");
   };
 
   const handleCountry = (data) => {
@@ -186,11 +197,11 @@ const Properties = () => {
               }
             />
             <SelectRerooms
-              handleRerooms={(value) => setRerooms(value)}
+              handleRerooms={(value) => setRerooms(value) | setRebaths("All")}
               rerooms={rerooms}
             />
             <SelectRebaths
-              handleRebaths={(value) => setRebaths(value)}
+              handleRebaths={(value) => setRebaths(value) | setRerooms("All")}
               rebaths={rebaths}
             />
           </div>

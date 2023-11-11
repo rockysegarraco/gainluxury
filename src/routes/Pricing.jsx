@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import Heading from "../components/Heading";
+import CategoryDialog from "../components/Dialog/CategoryDialog";
+import { useState } from "react";
 
 const includedFeatures = [
   "Maximum Visibility: Reach a wide audience of potential buyers, both locally and beyond, ensuring your listing gets the attention it deserves.",
@@ -10,6 +11,7 @@ const includedFeatures = [
 ];
 
 export default function Pricing() {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
@@ -72,12 +74,12 @@ export default function Pricing() {
                       <p className="mt-6 text-base font-bold text-gray-600">
                         Free Listings til 2024!
                       </p>
-                      <Link
-                        to="/login"
+                      <button
+                        onClick={() => setOpen(true)}
                         className="mt-4 block w-full rounded-md bg-slate-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         Get Started
-                      </Link>
+                      </button>
 
                       <p className="mt-6 text-xs leading-5 text-gray-600">
                         No Commisions, No upcharge <br /> and No extra fees.
@@ -89,6 +91,7 @@ export default function Pricing() {
             </div>
           </div>
         </Heading>
+        <CategoryDialog open={open} handleClose={() => setOpen(false)} />
       </div>
     </>
   );

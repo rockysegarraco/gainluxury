@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -70,7 +70,6 @@ const Aviation = () => {
   let q = query(
     collections,
     where("postStatus", "==", "Live"),
-    orderBy("postDate", "asc")
   );
 
   const [minYear, setMinYear] = React.useState("Min");
@@ -103,6 +102,7 @@ const Aviation = () => {
     aviationCategory,
     manufecture,
     model,
+    condition
   ]);
 
   const handleSort = (obj, index) => {
@@ -147,9 +147,29 @@ const Aviation = () => {
       q = query(q, where("country.value", "==", country));
     }
 
-    // State Filter
-    if (state !== "All") {
+     // state Filter
+     if (state !== "All") {
       q = query(q, where("state.value", "==", state));
+    }
+
+    // aviation type Filter
+    if (aviationCategory !== "All") {
+      q = query(q, where("aviationtype.value", "==", aviationCategory));
+    }
+
+    // aviation manufecture Filter
+    if (manufecture !== "All") {
+      q = query(q, where("aviationmanufactures.value", "==", manufecture));
+    }
+
+    // aviation manufecture Filter
+    if (model !== "All") {
+      q = query(q, where("aviationModel.value", "==", model));
+    }
+
+     // aviation condition Filter
+     if (condition !== "All") {
+      q = query(q, where("condition.value", "==", condition));
     }
 
     const querySnapshot = await getDocs(q);
@@ -172,6 +192,7 @@ const Aviation = () => {
     setMinYear("Min");
     setCountry("All");
     setState("All");
+    setCondition("All")
     dispatch(setCategory("All"));
     dispatch(setManufecture("All"));
     dispatch(setManufectureData(AVIATIONMANUFACTURES));

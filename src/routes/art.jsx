@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -48,7 +48,6 @@ const Art = () => {
   let q = query(
     collections,
     where("postStatus", "==", "Live"),
-    orderBy("postDate", "asc")
   );
 
   const [minYear, setMinYear] = React.useState("Min");
@@ -118,6 +117,21 @@ const Art = () => {
       q = query(q, where("country.value", "==", country));
     }
 
+     // Art category Filter
+     if (artcategory !== "All") {
+      q = query(q, where("artcategory.value", "==", artcategory));
+    }
+
+    // Art subject Filter
+    if (artsubject !== "All") {
+      q = query(q, where("artsubject.value", "==", artsubject));
+    }
+
+     // Art size Filter
+     if (artsize !== "All") {
+      q = query(q, where("artsize.value", "==", artsize));
+    }
+
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
@@ -135,6 +149,10 @@ const Art = () => {
     setMaxPrice("Max");
     setMinPrice("Min");
     setCountry("All");
+    setState("All")
+    setArtcategory("All");
+    setArtsize("All");
+    setArtsubject("All")
   };
 
   const handleCountry = (data) => {

@@ -1,116 +1,142 @@
 import React, { useState, useRef } from "react";
-import { useUser } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 // MUI
 import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
-import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import IconButton from "@mui/material/IconButton";
 import FormHelperText from "@mui/material/FormHelperText";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 // components
+import db from "../firebase.js";
 import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
-  BRAND,
+  ARTSIZE,
+  ARTSUBJECT,
   CATEGORY,
-  CONDITION,
+  ARTCATEGORY,
   COUNTRY,
   PRICE_TYPE,
   US_STATE,
 } from "../utils/constants";
-import { uploadImages } from "../firebase";
-import { createSlug, deepCloneData, validatePhone } from "../utils";
+import { uploadImage } from "../firebase";
+import { createSlug, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
 
 const { FormItem } = Form;
 
 const EditArt = ({ form }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [category] = useState(CATEGORY[4]);
   const [isPrice, setPrice] = useState(true);
-  const [brandData, setBrandData] = useState([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
-  const [gallaryImages, setGallaryImages] = useState([]);
+  const [gallaryImage, setGallaryImages] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);
   const [hasError, setHasError] = useState(null);
+  const [postData, setPostData] = useState();
+  const [isFetching, setFetching] = useState(true);
+  const [docId, setDocId] = useState();
+
   const { getFieldDecorator, validateFields, setFieldsValue } = form;
 
-  // In case the user signs out while on the page.
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) {
-      navigate("/login");
+    if (slug) {
+      getPost();
     }
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
-    setFieldsValue({
-      agentName: user?.firstName + " " + user?.lastName,
-      email: user?.emailAddresses[0]?.emailAddress,
-      phone: user?.phoneNumbers[0]?.phoneNumber,
-    });
-  }, [user]);
+    if (postData) {
+      setTimeout(() => {
+        setFieldsValue({
+          title: postData?.title,
+          listingType: postData?.listingType,
+          description: postData?.description,
+          pricingType: postData?.pricingType,
+          yearModel: postData?.yearModel,
+          price: postData?.price,
+          artsize: postData?.artsize,
+          artsubject: postData?.artsubject,
+          artcategory: postData?.artcategory,
+          phone: postData?.phone,
+          state: postData?.state,
+          country: postData?.country,
+          zipcode: postData?.zipcode,
+          email: postData?.email,
+          agentName: postData?.agentName,
+          agentCompany: postData?.agentCompany,
+        });
+        setGallaryImages(postData?.gallery);
+        setPrice(() => (postData.pricingType.value === "Fixed" ? false : true));
+      }, 1000);
+    }
+  }, [postData]);
+
+  const getPost = async () => {
+    const collections = collection(db, "arts");
+    const q = query(collections, where("slug", "==", slug));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.docs.length > 0) {
+      querySnapshot.forEach((doc) => {
+        setFetching(false);
+        // doc.data() is never undefined for query doc snapshots
+        setPostData(doc.data());
+        setValue({ label: doc.data().address });
+        setLocation(doc.data()?.location);
+        setDocId(doc?.id);
+      });
+    } else {
+      setFetching(false);
+    }
+  };
+
 
   const checkout = async () => {
     setHasError(addressValue === null);
     return validateFields()
       .then(async (values) => {
-        if (gallaryImages.length >= 5) {
-          setIsLoading(true);
-          const slug = createSlug(values.title);
-          if (values.price) {
-            values.price = Number(values.price);
-          }
-          values.yearModel = Number(values.yearModel);
-          values.country = {
-            value: values.country.value,
-            label: values.country.label,
-          };
-          const obj = {
-            gallery: gallaryImages,
-            ...values,
-            userId: user.id,
-            address: addressValue.label,
-            slug,
-            category,
-            location,
-            avatar: user.imageUrl,
-          };
-          if (addressValue !== null) {
-            return await axios
-              .post(
-                "https://us-central1-gain-luxury-e7fee.cloudfunctions.net/cloudAPI/checkout",
-                {
-                  post: {
-                    priceId: category.priceId,
-                    success_url: window.location.origin + "/success",
-                    cancel_url: window.location.origin + "/cancel",
-                  },
-                }
-              )
-              .then((res) => {
-                if (res.data.url) {
-                  setIsLoading(false);
-                  localStorage.setItem("userPost", JSON.stringify(obj));
-                  window.location.assign(res.data.url);
-                }
-              });
-          } else {
-            setIsLoading(false);
-          }
-        } else {
-          alert("Please add at least 5 photos.");
+        setIsLoading(true);
+        const slug = createSlug(values.title);
+        if (values.price) {
+          values.price = Number(values.price);
         }
+        values.yearModel = Number(values.yearModel);
+        values.country = {
+          value: values.country.value,
+          label: values.country.label,
+        };
+        const obj = {
+          gallery: gallaryImage,
+          ...values,
+          address: addressValue.label,
+          slug,
+          category,
+          location,
+        };
+        const documentToUpdate = doc(db, category.value, docId);
+        await updateDoc(documentToUpdate, {
+          ...obj,
+        });
+        setIsLoading(false);
+        navigate(`/${category.value}/${slug}`);
       })
       .catch((e) => {
         setIsLoading(false);
@@ -119,32 +145,20 @@ const EditArt = ({ form }) => {
   };
 
   const handleGalleryFile = async (e) => {
-    const MAX_LENGTH = 10;
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
-      if (files?.length <= MAX_LENGTH) {
-        const maxSize = 5 * 1024 * 1024;
-        const validFiles = files.filter((file) => file.size <= maxSize);
-        if (validFiles.length !== files.length) {
-          alert("Some files exceed the maximum size limit (5MB).");
-        } else {
-          setGalleryLoading(true);
-          const result = await uploadImages(e.target.files);
-          setGallaryImages((prev) => [...prev, ...result]);
-          setGalleryLoading(false);
-        }
+      const maxSize = 5 * 1024 * 1024;
+      const validFiles = files.filter((file) => file.size <= maxSize);
+      if (validFiles.length !== files.length) {
+        alert("Some files exceed the maximum size limit (5MB).");
       } else {
-        e.preventDefault();
-        alert(`Cannot upload files more than ${MAX_LENGTH}`);
+        setGalleryLoading(true);
+        const result = await uploadImage(e.target.files[0]);
+        setGallaryImages(result);
+        setGalleryLoading(false);
       }
     }
-  };
-
-  const handleImageDelete = (index) => {
-    const data = deepCloneData(gallaryImages);
-    data.splice(index, 1);
-    setGallaryImages(data);
-  };
+  }
 
   const getAddressValue = (value) => {
     axios
@@ -182,7 +196,20 @@ const EditArt = ({ form }) => {
   return (
     <div>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Sell an Art">
+        <Heading title="Sell Art">
+        {isFetching ? (
+              <Box
+                sx={{
+                  flex: 1,
+                  height: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
           <div className="mx-auto max-w-full grid grid-cols-12 gap-4">
             <div className="col-span-12 lg:col-span-4">
               {" "}
@@ -249,75 +276,48 @@ const EditArt = ({ form }) => {
                         </FormItem>
                       </Stack>
 
-                      <Stack
-                        gap={2}
-                        sx={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <FormItem>
-                          {getFieldDecorator("brand", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              label="Brand"
-                              fullWidth
-                              options={BRAND}
-                              onChange={(data) =>
-                                setBrandData(() => data.modal)
-                              }
-                            />
-                          )}
-                        </FormItem>
-                        <FormItem>
-                          {getFieldDecorator("model", {
-                            initialValue: "",
-                            rules: [{ required: brandData?.length > 0 }],
-                          })(
-                            <Select
-                              label="Modal"
-                              fullWidth
-                              disabled={!brandData?.length > 0}
-                              options={brandData}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
-                      <Stack gap={2} sx={{ flexDirection: "row" }}>
-                        <FormItem>
-                          {getFieldDecorator("condition", {
-                            initialValue: "",
-                            rules: [{ required: true }],
-                          })(
-                            <Select
-                              fullWidth
-                              label="Condition"
-                              options={CONDITION}
-                            />
-                          )}
-                        </FormItem>
-                      </Stack>
-
                       <FormItem>
-                        {getFieldDecorator("kilometersRun", {
+                        {getFieldDecorator("artsize", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Kilometers Run" type="number" />)}
+                        })(
+                          <Select
+                            label="Size"
+                            fullWidth
+                            options={ARTSIZE}
+                          />
+                        )}
                       </FormItem>
-
                       <FormItem>
-                        {getFieldDecorator("engineCapacity", {
+                        {getFieldDecorator("artsubject", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput label="Engine" />)}
+                        })(
+                          <Select
+                            label="Subject"
+                            fullWidth
+                            options={ARTSUBJECT}
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("artcategory", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(
+                          <Select
+                            label="Category"
+                            fullWidth
+                            options={ARTCATEGORY}
+                          />
+                        )}
                       </FormItem>
                     </Stack>
                     <Stack gap={3}>
                       <div className="mt-6">
                         <label
-                          className={`block mb-2 font-medium leading-6 text-gray-700 ${
-                            hasError && "text-red-500"
-                          } `}
+                          className={`block mb-2 font-medium leading-6 text-gray-700 ${hasError && "text-red-500"
+                            } `}
                         >
                           Address
                         </label>
@@ -415,7 +415,6 @@ const EditArt = ({ form }) => {
                                 <input
                                   id="file-upload"
                                   name="file-upload"
-                                  multiple
                                   max={5}
                                   type="file"
                                   className="sr-only"
@@ -432,32 +431,7 @@ const EditArt = ({ form }) => {
                         </div>
                       </div>
                       <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                        {gallaryImages.map((image, index) => (
-                          <Paper
-                            key={index}
-                            sx={{
-                              backgroundImage: `url(${image})`,
-                              backgroundRepeat: "no-repeat",
-                              backgroundSize: "cover",
-                              height: 150,
-                              width: 150,
-                              flexShrink: 0,
-                              marginTop: "10px",
-                            }}
-                          >
-                            <IconButton
-                              sx={{
-                                m: 1,
-                                height: "22px",
-                                width: "22px",
-                                bgcolor: "white",
-                              }}
-                              onClick={() => handleImageDelete(index)}
-                            >
-                              <CloseOutlined />
-                            </IconButton>
-                          </Paper>
-                        ))}
+                        {gallaryImage && (<img src={gallaryImage} alt="" />)}
                       </div>
                     </Stack>
                   </Stack>
@@ -529,7 +503,7 @@ const EditArt = ({ form }) => {
                 {isLoading ? "Loading..." : "Continue to Payment"}
               </button>
             </div>
-          </div>
+          </div>)}
         </Heading>
       </div>
     </div>

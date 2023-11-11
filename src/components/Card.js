@@ -3,6 +3,7 @@ import Carousel from "./Carousel/CarouselCard";
 import { EnvelopeIcon } from "@heroicons/react/20/solid";
 
 export default function Example(props) {
+  const images = typeof props.ImageUrl === "string" ? [props.ImageUrl] : props.ImageUrl;
   return (
     <>
       <article className="border relative">
@@ -15,7 +16,7 @@ export default function Example(props) {
         </div>
         <div className="relative w-full">
           <Carousel
-            content={props.ImageUrl}
+            content={images}
             link={props.Link}
             from={props.from}
           />

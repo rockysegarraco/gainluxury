@@ -119,6 +119,10 @@ function ClerkProviderWithRoutes() {
           path="/edit-aviation/:slug"
           element={<EditAviation path="/edit-aviation" />}
         />
+         <Route
+          path="/edit-arts/:slug"
+          element={<EditArt path="/edit-arts" />}
+        />
         <Route path="/edit-art/:slug" element={<EditArt path="/edit-art" />} />
         <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
