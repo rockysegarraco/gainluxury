@@ -17,6 +17,7 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
+import MailchimpForm from "./MailchimpForm";
 
 export default function Example() {
   return (
@@ -120,7 +121,7 @@ export default function Example() {
         >
           <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-              Embed Form
+              <MailchimpForm />
             </div>
           </div>
         </form>

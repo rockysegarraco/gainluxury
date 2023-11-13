@@ -27,9 +27,7 @@ export default function Pricing() {
                   {t("TITLE1")}
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Are you looking to sell your car, yacht, aviation and property
-                  quickly and efficiently? Say hello to our streamlined listing
-                  service – your ticket to a successful sale.
+                 {t("PRICING_TITLE2")}
                 </p>
               </div>
               <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
