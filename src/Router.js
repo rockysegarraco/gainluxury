@@ -34,7 +34,7 @@ import Art from "./routes/art";
 import MarineDetail from "./routes/MarineDetail";
 import AviationDetail from "./routes/AviationDetail";
 import ArtDetail from "./routes/ArtDetail";
-import Privacy from "./routes/Privacy";
+import Contact from "./routes/Contact";
 import Terms from "./routes/Terms";
 import EditProperty from "./routes/EditProperty";
 import EditMarine from "./routes/EditMarine";
@@ -119,7 +119,7 @@ function ClerkProviderWithRoutes() {
           path="/edit-aviation/:slug"
           element={<EditAviation path="/edit-aviation" />}
         />
-         <Route
+        <Route
           path="/edit-arts/:slug"
           element={<EditArt path="/edit-arts" />}
         />
@@ -129,7 +129,7 @@ function ClerkProviderWithRoutes() {
         <Route path="/login" element={<Login path="/login" />} />
         <Route path="/signup" element={<Register path="/signup" />} />
         <Route path="/pricing" element={<Pricing path="/pricing" />} />
-        <Route path="/privacy" element={<Privacy path="/privacy" />} />
+        <Route path="/contact" element={<Contact path="/contact" />} />
         <Route path="/terms" element={<Terms path="/terms" />} />
         <Route path="/super-user" element={<SuperUser path="/super-user" />} />
       </Routes>
