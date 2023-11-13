@@ -5,10 +5,13 @@ import { StyledEngineProvider, createTheme, ThemeProvider } from '@mui/material/
 import CssBaseline from '@mui/material/CssBaseline';
 import { ToastContainer } from 'react-toastify';
 
+import './i18n';
+
 import './index.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import 'react-toastify/dist/ReactToastify.css';
 import "react-image-gallery/styles/css/image-gallery.css";
+import 'react-languages-select/css/react-languages-select.css';
 import Router from './Router';
 import { store } from './store'
 

@@ -1,7 +1,10 @@
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
+//
 import Heading from "../components/Heading";
 import CategoryDialog from "../components/Dialog/CategoryDialog";
-import { useState } from "react";
 
 const includedFeatures = [
   "Maximum Visibility: Reach a wide audience of potential buyers, both locally and beyond, ensuring your listing gets the attention it deserves.",
@@ -12,15 +15,16 @@ const includedFeatures = [
 
 export default function Pricing() {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
   return (
     <>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title="Pricing">
+        <Heading title={t("PRICING")}>
           <div className="bg-white py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-4xl sm:text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  Simple listings with Gain Luxury
+                  {t("TITLE1")}
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Are you looking to sell your car, yacht, aviation and property
