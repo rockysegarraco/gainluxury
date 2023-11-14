@@ -210,7 +210,7 @@ const Properties = () => {
         </div>
         <Container>
           <h1 className="text-2xl lg:text-4xl fancy pt-4">
-            Properties for Sale
+            Real Estate for Sale
           </h1>
           <Stack
             sx={{

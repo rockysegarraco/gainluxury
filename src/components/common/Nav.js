@@ -17,10 +17,10 @@ export default function Navbar({ handleDrawerOpen }) {
   };
 
   useEffect(() => {
-    var addScript = document.createElement('script');
+    var addScript = document.createElement("script");
     addScript.setAttribute(
-      'src',
-      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+      "src",
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
     );
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
@@ -29,11 +29,11 @@ export default function Navbar({ handleDrawerOpen }) {
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
-        pageLanguage: 'en',
-        includedLanguages: 'en,ms,de,ta,zh-CN,he', // include this for selected languages
+        pageLanguage: "en",
+        includedLanguages: "en,ms,de,ta,zh-CN,he", // include this for selected languages
         layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
-      'google_translate_element'
+      "google_translate_element"
     );
   };
 
@@ -65,19 +65,20 @@ export default function Navbar({ handleDrawerOpen }) {
             </div>
             {/*           <div className="lg:flex flex-1 hidden items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <Searchbar />
+                          <div className="hidden lg:block">
+                <div id="google_translate_element"></div>
+              </div>
           </div> */}
-          <div id="google_translate_element"></div>
             <div className="flex items-center">
-            
               <button
                 onClick={() => navigate("/pricing")}
-                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-black hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
                 Pricing
               </button>
               <button
                 onClick={() => setOpen(true)}
-                className="relative flex-shrink-0 rounded-full pl-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-black hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
                 Sell with us
               </button>

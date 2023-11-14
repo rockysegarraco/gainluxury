@@ -19,15 +19,17 @@ export default function Pricing() {
   return (
     <>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
-        <Heading title={t("PRICING")}>
+        <Heading title={"Pricing"}>
           <div className="bg-white py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-4xl sm:text-center">
+              <div className="mx-auto max-w-3xl sm:text-center">
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  {t("TITLE1")}
+                  Simple listings with Gain Luxury.
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                 {t("PRICING_TITLE2")}
+                  Are you looking to sell your car, yacht, aviation and
+                  property. It's time to maximize your sale and move forward
+                  with confidence!
                 </p>
               </div>
               <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
@@ -39,7 +41,7 @@ export default function Pricing() {
                     Ready to take the hassle out of selling your listings? List
                     with us today and watch your listings attract the right
                     buyers. It's time to maximize your sale and move forward
-                    with confidence! 🚀
+                    with confidence!
                   </p>
                   <div className="mt-10 flex items-center gap-x-4">
                     <h4 className="flex-none text-sm font-semibold leading-6 text-slate-950">
