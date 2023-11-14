@@ -77,6 +77,7 @@ function ClerkProviderWithRoutes() {
           <Route path="/aviation/:slug" element={<AviationDetail />} />
           <Route path="/arts/:slug" element={<ArtDetail />} />
           <Route path="/cars/:slug" element={<PostDetail />} />
+          <Route path="/contact" element={<Contact path="/contact" />} />
           <Route path="/properties/:slug" element={<PropertyDetail />} />
           <Route path="/marine/:slug" element={<MarineDetail />} />
           <Route path="/listings/:uid" element={<UserListings />} />

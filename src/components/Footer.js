@@ -1,16 +1,17 @@
 const navigation = {
   solutions: [
     { name: "About", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Contact", href: "/contact" },
   ],
   support: [
-    { name: "Real Estate", href: "#" },
-    { name: "Cars", href: "#" },
-    { name: "Marine", href: "#" },
-    { name: "Aviation", href: "#" },
+    { name: "Real Estate", href: "/home/realestate" },
+    { name: "Cars", href: "/home/cars" },
+    { name: "Marine", href: "/home/marine" },
+    { name: "Aviation", href: "home/aviation" },
+    { name: "Arts", href: "home/arts" },
   ],
   company: [
-    { name: "Pricing", href: "#" },
+    { name: "Pricing", href: "/pricing" },
     { name: "Sell with us", href: "#" },
   ],
   legal: [
