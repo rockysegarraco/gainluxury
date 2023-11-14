@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
-import ReactLanguageSelect from 'react-languages-select';
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import Searchbar from "./Dialog/Searchbar";
-import CategoryDialog from "./Dialog/CategoryDialog";
-import SubNav from "../components/SubNav";
-import i18n from "../i18n";
+import Searchbar from "../Dialog/Searchbar";
+import CategoryDialog from "../Dialog/CategoryDialog";
+import SubNav from "../SubNav";
 
 export default function Navbar({ handleDrawerOpen }) {
   const { isSignedIn } = useUser();
@@ -18,10 +16,26 @@ export default function Navbar({ handleDrawerOpen }) {
     navigate("/");
   };
 
-  const onSelectLanguage = (code) => {
-    i18n.changeLanguage(code);
-    window.location.reload();
-  }
+  useEffect(() => {
+    var addScript = document.createElement('script');
+    addScript.setAttribute(
+      'src',
+      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+    );
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+  }, []);
+
+  const googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        includedLanguages: 'en,ms,de,ta,zh-CN,he', // include this for selected languages
+        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+      },
+      'google_translate_element'
+    );
+  };
 
   return (
     <>
@@ -52,8 +66,9 @@ export default function Navbar({ handleDrawerOpen }) {
             {/*           <div className="lg:flex flex-1 hidden items-center justify-center px-2 lg:ml-6 lg:justify-end">
             <Searchbar />
           </div> */}
-
+          <div id="google_translate_element"></div>
             <div className="flex items-center">
+            
               <button
                 onClick={() => navigate("/pricing")}
                 className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
@@ -66,12 +81,6 @@ export default function Navbar({ handleDrawerOpen }) {
               >
                 Sell with us
               </button>
-              <ReactLanguageSelect
-                className="mr-4 mt-2"
-                defaultLanguage={i18n.resolvedLanguage}
-                languages={["en", "fr", "de"]} 
-                onSelect={onSelectLanguage}
-              />
               {isSignedIn ? (
                 <UserButton afterSignOutUrl="/login" />
               ) : (

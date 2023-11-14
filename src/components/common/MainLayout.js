@@ -8,7 +8,7 @@ import { useState } from "react";
 //import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 import ProfileDialog from '../Dialog/ProfileDialog'
-import Navbar from '../Nav';
+import Navbar from './Nav';
 
 // configs
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
