@@ -15,6 +15,7 @@ import SelectAviationtype from "../components/Selects/SelectAviationtype.js";
 import SelectAviationmanufactures from "../components/Selects/SelectAviationmanufactures.js";
 import SelectAviationModel from "../components/Selects/SelectAviationModel.js";
 import Filters from "../components/Filters.js";
+import Footer from "../components/Footer";
 //
 import db from "../firebase.js";
 import { AVIATIONMANUFACTURES, COUNTRY } from "../utils/constants.js";
@@ -67,10 +68,7 @@ const Aviation = () => {
   const dispatch = useDispatch();
 
   const collections = collection(db, "aviation");
-  let q = query(
-    collections,
-    where("postStatus", "==", "Live"),
-  );
+  let q = query(collections, where("postStatus", "==", "Live"));
 
   const [minYear, setMinYear] = React.useState("Min");
   const [maxYear, setMaxYear] = React.useState("Max");
@@ -102,7 +100,7 @@ const Aviation = () => {
     aviationCategory,
     manufecture,
     model,
-    condition
+    condition,
   ]);
 
   const handleSort = (obj, index) => {
@@ -147,8 +145,8 @@ const Aviation = () => {
       q = query(q, where("country.value", "==", country));
     }
 
-     // state Filter
-     if (state !== "All") {
+    // state Filter
+    if (state !== "All") {
       q = query(q, where("state.value", "==", state));
     }
 
@@ -167,8 +165,8 @@ const Aviation = () => {
       q = query(q, where("aviationModel.value", "==", model));
     }
 
-     // aviation condition Filter
-     if (condition !== "All") {
+    // aviation condition Filter
+    if (condition !== "All") {
       q = query(q, where("condition.value", "==", condition));
     }
 
@@ -192,7 +190,7 @@ const Aviation = () => {
     setMinYear("Min");
     setCountry("All");
     setState("All");
-    setCondition("All")
+    setCondition("All");
     dispatch(setCategory("All"));
     dispatch(setManufecture("All"));
     dispatch(setManufectureData(AVIATIONMANUFACTURES));
@@ -235,115 +233,128 @@ const Aviation = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="border-b py-3 lg:py-3 max-w-[100vw]">
-        <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
-          <div className="flex space-x-2">
-            <SelectCountries handleCountry={handleCountry} country={country} />
-            {stateData?.length > 0 && (
-              <SelectStates
-                handleState={(value) => setState(value)}
-                state={state}
-                stateData={stateData}
+    <>
+      <div className="flex flex-col">
+        <div className="border-b py-3 lg:py-3 max-w-[100vw]">
+          <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
+            <div className="flex space-x-2">
+              <SelectCountries
+                handleCountry={handleCountry}
+                country={country}
               />
-            )}
+              {stateData?.length > 0 && (
+                <SelectStates
+                  handleState={(value) => setState(value)}
+                  state={state}
+                  stateData={stateData}
+                />
+              )}
 
-            <SelectPrice
-              minValue={minPrice}
-              maxValue={maxPrice}
-              handleMin={(value) =>
-                setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
-              }
-              handleMax={(value) =>
-                setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
-              }
-            />
-            <SelectYears
-              minValue={minYear}
-              maxValue={maxYear}
-              handleMin={(value) =>
-                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
-              }
-              handleMax={(value) =>
-                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
-              }
-            />
-            <SelectAviationtype
-              handleAviationtype={(value) => handleCategory(value)}
-              aviationtype={aviationCategory}
-            />
-            {manufectureData?.length > 0 && (
-              <SelectAviationmanufactures
-                handleAviationmanufactures={(value) => handleManufecture(value)}
-                aviationmanufactures={manufecture}
-                manufectureData={manufectureData}
+              <SelectPrice
+                minValue={minPrice}
+                maxValue={maxPrice}
+                handleMin={(value) =>
+                  setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
+                }
+                handleMax={(value) =>
+                  setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
+                }
               />
-            )}
-            {modelData?.length > 0 && (
-              <SelectAviationModel
-                handleModel={(value) => dispatch(setModel(value))}
-                model={model}
-                modelData={modelData}
+              <SelectYears
+                minValue={minYear}
+                maxValue={maxYear}
+                handleMin={(value) =>
+                  setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+                }
+                handleMax={(value) =>
+                  setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+                }
               />
-            )}
-            <SelectCondition
-              handleCondition={(value) => setCondition(value)}
-              condition={condition}
-            />
+              <SelectAviationtype
+                handleAviationtype={(value) => handleCategory(value)}
+                aviationtype={aviationCategory}
+              />
+              {manufectureData?.length > 0 && (
+                <SelectAviationmanufactures
+                  handleAviationmanufactures={(value) =>
+                    handleManufecture(value)
+                  }
+                  aviationmanufactures={manufecture}
+                  manufectureData={manufectureData}
+                />
+              )}
+              {modelData?.length > 0 && (
+                <SelectAviationModel
+                  handleModel={(value) => dispatch(setModel(value))}
+                  model={model}
+                  modelData={modelData}
+                />
+              )}
+              <SelectCondition
+                handleCondition={(value) => setCondition(value)}
+                condition={condition}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <Container>
-        <h1 className="text-2xl lg:text-4xl fancy pt-4">Aviation for Sale</h1>
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            mt: 2,
-            justifyContent: "space-between",
-          }}
-        >
-          <Filters
-            sort={sort}
-            sortOptions={sortOptions}
-            handleSort={handleSort}
-          />
-          <span className="text-sm text-gray-700">{post.length} Listings</span>
-        </Stack>
-
-        {post.length === 0 && (
-          <Stack sx={{ mt: 4 }}>
-            <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
-              No Results
-            </Typography>
-            <Box>
-              <Typography
-                onClick={handleReset}
-                component="span"
-                style={{ display: "inline" }}
-                sx={{
-                  cursor: "pointer",
-                  color: "blueviolet",
-                  "&:hover": { textDecoration: "underline" },
-                }}
-              >
-                Reset all filters{" "}
-              </Typography>
-              <Typography style={{ display: "inline" }} sx={{ color: "black" }}>
-                or remove one of your filters above to see more listings
-              </Typography>
-            </Box>
+        <Container>
+          <h1 className="text-2xl lg:text-4xl fancy pt-4">Aviation for Sale</h1>
+          <Stack
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              mt: 2,
+              justifyContent: "space-between",
+            }}
+          >
+            <Filters
+              sort={sort}
+              sortOptions={sortOptions}
+              handleSort={handleSort}
+            />
+            <span className="text-sm text-gray-700">
+              {post.length} Listings
+            </span>
           </Stack>
-        )}
 
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
-          {post.map((item, index) => (
-            <CardCar key={index} item={item} i={index} />
-          ))}
-        </div>
-        {/* <Pagination count={10} /> */}
-      </Container>
-    </div>
+          {post.length === 0 && (
+            <Stack sx={{ mt: 4 }}>
+              <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
+                No Results
+              </Typography>
+              <Box>
+                <Typography
+                  onClick={handleReset}
+                  component="span"
+                  style={{ display: "inline" }}
+                  sx={{
+                    cursor: "pointer",
+                    color: "blueviolet",
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                >
+                  Reset all filters{" "}
+                </Typography>
+                <Typography
+                  style={{ display: "inline" }}
+                  sx={{ color: "black" }}
+                >
+                  or remove one of your filters above to see more listings
+                </Typography>
+              </Box>
+            </Stack>
+          )}
+
+          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
+            {post.map((item, index) => (
+              <CardCar key={index} item={item} i={index} />
+            ))}
+          </div>
+          {/* <Pagination count={10} /> */}
+        </Container>
+      </div>
+      <Footer />
+    </>
   );
 };
 

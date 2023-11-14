@@ -13,6 +13,7 @@ import SelectPrice from "../components/Selects/SelectPrice.js";
 import SelectRerooms from "../components/Selects/SelectRerooms.js";
 import SelectRebaths from "../components/Selects/SelectRebaths.js";
 import Filters from "../components/Filters.js";
+import Footer from "../components/Footer";
 //
 import db from "../firebase.js";
 import { COUNTRY } from "../utils/constants.js";
@@ -43,10 +44,7 @@ const Properties = () => {
   ]);
 
   const collections = collection(db, "properties");
-  let q = query(
-    collections,
-    where("postStatus", "==", "Live"),
-  );
+  let q = query(collections, where("postStatus", "==", "Live"));
 
   const [minYear, setMinYear] = React.useState("Min");
   const [maxYear, setMaxYear] = React.useState("Max");
@@ -117,7 +115,7 @@ const Properties = () => {
       q = query(q, where("state.value", "==", state));
     }
 
-     // bedroom filter
+    // bedroom filter
     if (rerooms !== "All") {
       q = query(q, where("bedrooms", ">=", Number(rerooms)));
     }
@@ -126,7 +124,6 @@ const Properties = () => {
     if (rebaths !== "All") {
       q = query(q, where("baths", ">=", Number(rebaths)));
     }
-    
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -163,101 +160,114 @@ const Properties = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="border-b py-3 lg:py-3 max-w-[100vw]">
-        <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
-          <div className="flex space-x-2">
-            <SelectCountries handleCountry={handleCountry} country={country} />
-            {stateData?.length > 0 && (
-              <SelectStates
-                handleState={(value) => setState(value)}
-                state={state}
-                stateData={stateData}
+    <>
+      <div className="flex flex-col">
+        <div className="border-b py-3 lg:py-3 max-w-[100vw]">
+          <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
+            <div className="flex space-x-2">
+              <SelectCountries
+                handleCountry={handleCountry}
+                country={country}
               />
-            )}
+              {stateData?.length > 0 && (
+                <SelectStates
+                  handleState={(value) => setState(value)}
+                  state={state}
+                  stateData={stateData}
+                />
+              )}
 
-            <SelectPrice
-              minValue={minPrice}
-              maxValue={maxPrice}
-              handleMin={(value) =>
-                setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
-              }
-              handleMax={(value) =>
-                setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
-              }
-            />
-            <SelectYears
-              minValue={minYear}
-              maxValue={maxYear}
-              handleMin={(value) =>
-                setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
-              }
-              handleMax={(value) =>
-                setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
-              }
-            />
-            <SelectRerooms
-              handleRerooms={(value) => setRerooms(value) | setRebaths("All")}
-              rerooms={rerooms}
-            />
-            <SelectRebaths
-              handleRebaths={(value) => setRebaths(value) | setRerooms("All")}
-              rebaths={rebaths}
-            />
+              <SelectPrice
+                minValue={minPrice}
+                maxValue={maxPrice}
+                handleMin={(value) =>
+                  setMinYear("Min") | setMaxYear("Max") | setMinPrice(value)
+                }
+                handleMax={(value) =>
+                  setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
+                }
+              />
+              <SelectYears
+                minValue={minYear}
+                maxValue={maxYear}
+                handleMin={(value) =>
+                  setMinPrice("Min") | setMaxPrice("Max") | setMinYear(value)
+                }
+                handleMax={(value) =>
+                  setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
+                }
+              />
+              <SelectRerooms
+                handleRerooms={(value) => setRerooms(value) | setRebaths("All")}
+                rerooms={rerooms}
+              />
+              <SelectRebaths
+                handleRebaths={(value) => setRebaths(value) | setRerooms("All")}
+                rebaths={rebaths}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <Container>
-        <h1 className="text-2xl lg:text-4xl fancy pt-4">Properties for Sale</h1>
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            mt: 2,
-            justifyContent: "space-between",
-          }}
-        >
-          <Filters
-            sort={sort}
-            sortOptions={sortOptions}
-            handleSort={handleSort}
-          />
-          <span className="text-sm text-gray-700">{post.length} Listings</span>
-        </Stack>
-
-        {post.length === 0 && (
-          <Stack sx={{ mt: 4 }}>
-            <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
-              No Results
-            </Typography>
-            <Box>
-              <Typography
-                onClick={handleReset}
-                component="span"
-                style={{ display: "inline" }}
-                sx={{
-                  cursor: "pointer",
-                  color: "blueviolet",
-                  "&:hover": { textDecoration: "underline" },
-                }}
-              >
-                Reset all filters{" "}
-              </Typography>
-              <Typography style={{ display: "inline" }} sx={{ color: "black" }}>
-                or remove one of your filters above to see more listings
-              </Typography>
-            </Box>
+        <Container>
+          <h1 className="text-2xl lg:text-4xl fancy pt-4">
+            Properties for Sale
+          </h1>
+          <Stack
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              mt: 2,
+              justifyContent: "space-between",
+            }}
+          >
+            <Filters
+              sort={sort}
+              sortOptions={sortOptions}
+              handleSort={handleSort}
+            />
+            <span className="text-sm text-gray-700">
+              {post.length} Listings
+            </span>
           </Stack>
-        )}
 
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
-          {post.map((item, index) => (
-            <PropertyCard key={index} item={item} i={index} from="home" />
-          ))}
-        </div>
-        {/* <Pagination count={10} /> */}
-      </Container>
-    </div>
+          {post.length === 0 && (
+            <Stack sx={{ mt: 4 }}>
+              <Typography sx={{ fontWeight: "bold", fontSize: 20 }}>
+                No Results
+              </Typography>
+              <Box>
+                <Typography
+                  onClick={handleReset}
+                  component="span"
+                  style={{ display: "inline" }}
+                  sx={{
+                    cursor: "pointer",
+                    color: "blueviolet",
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                >
+                  Reset all filters{" "}
+                </Typography>
+                <Typography
+                  style={{ display: "inline" }}
+                  sx={{ color: "black" }}
+                >
+                  or remove one of your filters above to see more listings
+                </Typography>
+              </Box>
+            </Stack>
+          )}
+
+          <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-6 mt-4 mb-16">
+            {post.map((item, index) => (
+              <PropertyCard key={index} item={item} i={index} from="home" />
+            ))}
+          </div>
+          {/* <Pagination count={10} /> */}
+        </Container>
+      </div>
+      <Footer />
+    </>
   );
 };
 

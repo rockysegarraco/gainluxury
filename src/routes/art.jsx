@@ -10,6 +10,7 @@ import SelectCountries from "../components/Selects/SelectCountries.js";
 import SelectStates from "../components/Selects/SelectStates.js";
 import SelectPrice from "../components/Selects/SelectPrice.js";
 import Filters from "../components/Filters.js";
+import Footer from "../components/Footer";
 
 import SelectArtsize from "../components/Selects/SelectArtsize.js";
 import SelectArtsubject from "../components/Selects/SelectArtsubject.js";
@@ -45,10 +46,7 @@ const Art = () => {
   ]);
 
   const collections = collection(db, "arts");
-  let q = query(
-    collections,
-    where("postStatus", "==", "Live"),
-  );
+  let q = query(collections, where("postStatus", "==", "Live"));
 
   const [minYear, setMinYear] = React.useState("Min");
   const [maxYear, setMaxYear] = React.useState("Max");
@@ -117,8 +115,8 @@ const Art = () => {
       q = query(q, where("country.value", "==", country));
     }
 
-     // Art category Filter
-     if (artcategory !== "All") {
+    // Art category Filter
+    if (artcategory !== "All") {
       q = query(q, where("artcategory.value", "==", artcategory));
     }
 
@@ -127,8 +125,8 @@ const Art = () => {
       q = query(q, where("artsubject.value", "==", artsubject));
     }
 
-     // Art size Filter
-     if (artsize !== "All") {
+    // Art size Filter
+    if (artsize !== "All") {
       q = query(q, where("artsize.value", "==", artsize));
     }
 
@@ -149,10 +147,10 @@ const Art = () => {
     setMaxPrice("Max");
     setMinPrice("Min");
     setCountry("All");
-    setState("All")
+    setState("All");
     setArtcategory("All");
     setArtsize("All");
-    setArtsubject("All")
+    setArtsubject("All");
   };
 
   const handleCountry = (data) => {
@@ -210,7 +208,7 @@ const Art = () => {
           </div>
         </div>
         <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Arts for Sale</h1>
+          <h1 className="text-2xl lg:text-4xl fancy pt-4">Art for Sale</h1>
           <Stack
             sx={{
               display: "flex",
@@ -265,6 +263,7 @@ const Art = () => {
           {/* <Pagination count={10} /> */}
         </Container>
       </div>
+      <Footer />
     </>
   );
 };
