@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import CarouselCars from "../components/Carousel/CarouselCars";
 //
 import Container from "../components/container.js";
 import CardCar from "../components/cardCar.js";
@@ -64,7 +65,7 @@ const Cars = () => {
   let q = query(
     collections,
     where("category.value", "==", "cars"),
-    where("postStatus", "==", "Live"),
+    where("postStatus", "==", "Live")
   );
 
   const [minYear, setMinYear] = React.useState("Min");
@@ -214,6 +215,7 @@ const Cars = () => {
 
   return (
     <>
+      <CarouselCars />
       <div className="flex flex-col">
         {/* <Tabs selected="Cars" /> */}
 
@@ -267,7 +269,6 @@ const Cars = () => {
           </div>
         </div>
         <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Cars for Sale</h1>
           <Stack
             sx={{
               display: "flex",
