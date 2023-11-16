@@ -86,7 +86,7 @@ export default function Navbar({ handleDrawerOpen }) {
                 <UserButton afterSignOutUrl="/login" />
               ) : (
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/signup")}
                   className="rounded-full border border-1 border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
                 >
                   Log In

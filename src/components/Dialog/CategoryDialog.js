@@ -59,7 +59,7 @@ export default function CategoryDialog({ handleClose, open }) {
     if (isSignedIn) {
       navigate(page);
     } else {
-      navigate("/login");
+      navigate("/signup");
     }
   };
 
