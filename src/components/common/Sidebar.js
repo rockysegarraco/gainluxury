@@ -252,7 +252,7 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       )}
       {!isSignedIn && (
         <Button
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/signup")}
           className="bg-[#212121] m-2 text-white rounded-full font-semibold normal-case"
         >
           Login
