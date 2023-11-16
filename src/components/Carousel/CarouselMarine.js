@@ -7,14 +7,14 @@ import "./Carousel.css";
 const content = [
   <div className="relative h-full w-full">
     <img
-      src="https://images.unsplash.com/photo-1567863786964-9d65fa4469ed?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="https://images.unsplash.com/photo-1570114267719-374006489485?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       alt="image 3"
       className="h-full w-full object-cover"
     />
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute left-4 lg:left-16 bottom-0">
         <div className="text-4xl lg:text-6xl text-white fancy mb-8 lg:leading-[4.5rem]">
-          Cars
+          Marine
         </div>
       </div>
     </div>
