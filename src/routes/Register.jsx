@@ -5,11 +5,14 @@ import Heading from "../components/Heading";
 const Register = () => {
   return (
     <>
-      <Heading />
-      <div className="flex">
-        <div className="flex flex-1 items-center justify-center mt-16 lg:mt-24">
-          <SignUp />
-        </div>
+      <div className="mx-auto max-w-8xl lg:p-6 p-3">
+        <Heading title="Sign Up">
+          <div className="flex">
+            <div className="flex flex-1 items-center justify-center lg:py-16 py-8">
+              <SignUp />
+            </div>
+          </div>
+        </Heading>
       </div>
     </>
   );
