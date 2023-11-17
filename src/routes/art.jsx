@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import CarouselArt from "../components/Carousel/CarouselArt";
 //
 import Container from "../components/container.js";
 
@@ -166,6 +167,7 @@ const Art = () => {
   return (
     <>
       {/* <Tabs selected="Arts" /> */}
+      <CarouselArt />
       <div className="flex flex-col">
         <div className="border-b py-3 lg:py-3 max-w-[100vw]">
           <div className="flex flex-row mx-auto px-4 lg:px-20 overflow-scroll">
@@ -208,7 +210,6 @@ const Art = () => {
           </div>
         </div>
         <Container>
-          <h1 className="text-2xl lg:text-4xl fancy pt-4">Art for Sale</h1>
           <Stack
             sx={{
               display: "flex",

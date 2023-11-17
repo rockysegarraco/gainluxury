@@ -39,7 +39,7 @@ export default function Navbar({ handleDrawerOpen }) {
 
   return (
     <>
-      <div className="bg-white border-b">
+      <div className="bg-black">
         <div className="mx-auto max-w-full px-4 lg:px-20">
           <div className="flex h-16 justify-between">
             <div className="flex px-2 lg:px-0">
@@ -47,17 +47,15 @@ export default function Navbar({ handleDrawerOpen }) {
                 onClick={handleDrawerOpen}
                 className="flex flex-shrink-0 items-center mr-4 cursor-pointer"
               >
-                <Bars3Icon className="h-6" />
+                <Bars3Icon className="h-6 text-white" />
               </div>
               <div
                 onClick={handlePage}
                 className="flex flex-shrink-0 items-center cursor-pointer"
               >
-                <img
-                  className="h-6 w-auto"
-                  src="/logo.svg"
-                  alt="Your Company"
-                />
+                <div className="text-white fancy text-xl lg:text-2xl uppercase">
+                  Gain Luxury
+                </div>
               </div>
               <div className="hidden lg:block">
                 <SubNav />
@@ -72,13 +70,13 @@ export default function Navbar({ handleDrawerOpen }) {
             <div className="flex items-center">
               <button
                 onClick={() => navigate("/pricing")}
-                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-black hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-base text-white hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
                 Pricing
               </button>
               <button
                 onClick={() => setOpen(true)}
-                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-2 text-sm text-black hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
+                className="relative flex-shrink-0 rounded-full px-4 py-2 mr-3 text-base text-white hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
               >
                 Sell with us
               </button>
@@ -87,7 +85,7 @@ export default function Navbar({ handleDrawerOpen }) {
               ) : (
                 <button
                   onClick={() => navigate("/signup")}
-                  className="rounded-full border border-1 border-slate-950 px-4 py-2 mr-0 text-sm text-slate-950 hover:bg-white hover:text-slate-800 font-inter"
+                  className="rounded-full border border-1 border-white px-4 py-2 mr-0 text-sm text-white hover:bg-white hover:text-slate-800 font-inter"
                 >
                   Log In
                 </button>

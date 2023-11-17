@@ -18,7 +18,7 @@ export default function Tabs() {
 
   console.log(tab);
   return (
-    <Disclosure as="nav" className="bg-white">
+    <Disclosure as="nav" className="">
       {({ open }) => (
         <>
           <div className="mx-auto font-inter ml-10 h-[64px]">
@@ -29,7 +29,7 @@ export default function Tabs() {
                     tab === item.title ? (
                       <span
                         key={item.title}
-                        className="cursor-pointer inline-flex items-center border-b-2 border-slate-900 px-1 pt-1 text-sm font-semibold text-slate-900 h-[64px]"
+                        className="cursor-pointer inline-flex items-center border-b-2 border-white px-1 pt-1 text-base font-normal text-white h-[64px]"
                       >
                         {item.title}
                       </span>
@@ -40,7 +40,7 @@ export default function Tabs() {
                           dispatch(setTab(item.title));
                         }}
                         key={item.title}
-                        className="cursor-pointer inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-normal text-slate-900 hover:border-slate-900 hover:text-gray-700 h-[64px]"
+                        className="cursor-pointer inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-normal text-white hover:border-white hover:text-white h-[64px]"
                       >
                         {item.title}
                       </span>

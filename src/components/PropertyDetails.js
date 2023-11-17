@@ -64,7 +64,7 @@ export default function PropertyDetails({
   return (
     <>
       {/* SHARE / BUTTON */}
-      <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-4 pb-1">
+      <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-20 pb-1">
         <div className="flex justify-between">
           <button
             onClick={() => navigate(-1)}
