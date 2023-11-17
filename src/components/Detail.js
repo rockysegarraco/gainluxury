@@ -66,7 +66,7 @@ export default function PostDetail({
   return (
     <>
       {/* SHARE / BUTTON */}
-      <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-4 pb-1">
+      <div className="mx-auto max-w-full max-h-full px-6 lg:px-20 flex flex-row justify-between pt-20 pb-1">
         <div className="flex justify-between">
           <button
             onClick={() => navigate(-1)}
@@ -203,16 +203,18 @@ export default function PostDetail({
             </div>
           </div>
           {/* VIDEO */}
-          {video && (<div className="py-6 aspect-video w-full ">
-            <div className="aspect-video w-full bg-slate-100">
-              <ReactPlayer
-                className="react-player aspect-video w-full"
-                url={video}
-                width="100%"
-                height="100%"
-              />
+          {video && (
+            <div className="py-6 aspect-video w-full ">
+              <div className="aspect-video w-full bg-slate-100">
+                <ReactPlayer
+                  className="react-player aspect-video w-full"
+                  url={video}
+                  width="100%"
+                  height="100%"
+                />
+              </div>
             </div>
-          </div>)}
+          )}
           {/* MAP */}
           <div className="py-3 h-[300px] w-full">
             <GoogleMapReact
