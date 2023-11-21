@@ -53,7 +53,7 @@ export default function Navbar({ handleDrawerOpen }) {
                 onClick={handlePage}
                 className="flex flex-shrink-0 items-center cursor-pointer"
               >
-                <div className="text-white fancy text-xl lg:text-2xl uppercase">
+                <div className="text-white fancy text-xl lg:text-3xl">
                   Gain Luxury
                 </div>
               </div>
