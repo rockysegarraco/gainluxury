@@ -7,10 +7,11 @@ import Heading from "../components/Heading";
 import CategoryDialog from "../components/Dialog/CategoryDialog";
 
 const includedFeatures = [
-  "Maximum Visibility: Reach a wide audience of potential buyers, both locally and beyond, ensuring your listing gets the attention it deserves.",
-  "Safe and Secure: Rest easy knowing that we prioritize safety. We verify all buyers and provide tips to protect you during the sales process.",
+  "5 Photos / Upload your Video / Price / Year- (Make and Model if a Car) / Features / Map of Location / Contact Information (Example Below)",
+  "Maximum Visibility: Reach a wide audience of potential buyers, both locally and globally, ensuring your listing gets the attention it deserves.",
   "Easy to Use: Our user-friendly interface makes listing a breeze, and you can manage your ad with ease at any time.",
-  "Stay Connected: Communicate effortlessly with potential buyers, schedule viewings, and answer inquiries.",
+  "Safe and Secure. Rest easy knowing that we prioritize safety.",
+  "Stay Connected: Communicate effortlessly with potential buyers, schedule viewings, and answer inquiries. ",
 ];
 
 export default function Pricing() {
@@ -23,18 +24,17 @@ export default function Pricing() {
           <div className="bg-white py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl sm:text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  Simple listings with Gain Luxury.
+                <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl fancy">
+                  Gain Luxury Listings
                 </h2>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Are you looking to sell your car, yacht, aviation and
-                  property. It's time to maximize your sale and move forward
-                  with confidence!
+                <p className="mt-6 text-base leading-8 text-gray-600">
+                  Gain Luxury makes Lisings Simplified. Real Estate, Cars, Art,
+                  Marine, and Aviation.
                 </p>
               </div>
               <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
                 <div className="p-8 sm:p-10 lg:flex-auto">
-                  <h3 className="text-2xl font-bold tracking-tight text-gray-900">
+                  <h3 className="text-2xl font-bold text-gray-900 fancy">
                     Streamlined Listing Service
                   </h3>
                   <p className="mt-6 text-base leading-7 text-gray-600">
@@ -68,7 +68,7 @@ export default function Pricing() {
                         Per listing
                       </p>
                       <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                        <span className="text-5xl font-bold tracking-tight text-gray-900">
+                        <span className="text-5xl font-bold text-gray-900">
                           <del>$7</del>
                         </span>
                         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
