@@ -174,7 +174,7 @@ export default function PostDetail({
                       <span className="text-2xl font-semibold tracking-tight text-white">
                         {kilometersRun}
                       </span>
-                      <span className="text-sm text-gray-400">{metric}</span>
+                      <span className="text-sm text-gray-400">{metric?.label}</span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
