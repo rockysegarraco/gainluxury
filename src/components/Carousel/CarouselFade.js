@@ -14,8 +14,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
-          The Global Epicenter of
-          <br /> Luxury Shopping
+          Global Affluent Listings
         </div>
         <a href="/home/cars">
           <Typography
@@ -38,8 +37,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/[.50]">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
-          The Global Epicenter of
-          <br /> Luxury Shopping
+          Global Affluent Listings
         </div>
         <a href="/home/realestate">
           <Typography
@@ -62,8 +60,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
-          The Global Epicenter of
-          <br /> Luxury Shopping
+          Global Affluent Listings
         </div>
         <a href="/home/marine">
           <Typography
@@ -86,8 +83,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <div className="text-2xl lg:text-5xl text-white fancy mb-16 lg:leading-[3.5rem]">
-          The Global Epicenter of
-          <br /> Luxury Shopping
+          Global Affluent Listings
         </div>
         <a href="/home/aviation">
           <Typography
@@ -110,8 +106,7 @@ const content = [
     <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
       <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
         <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
-          The Global Epicenter of
-          <br /> Luxury Shopping
+          Global Affluent Listings
         </div>
         <a href="/home/arts">
           <Typography

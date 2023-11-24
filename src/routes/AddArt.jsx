@@ -22,7 +22,7 @@ import {
   PRICE_TYPE,
   US_STATE,
 } from "../utils/constants";
-import {uploadImage} from "../firebase";
+import { uploadImage } from "../firebase";
 import { createSlug, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
@@ -129,7 +129,7 @@ const AddArt = ({ form }) => {
         setGalleryLoading(false);
       }
     }
-  }
+  };
 
   const getAddressValue = (value) => {
     axios
@@ -193,6 +193,17 @@ const AddArt = ({ form }) => {
                         })(<TextInput multiline label="Features" />)}
                       </FormItem>
                       <FormItem>
+                        {getFieldDecorator("video", {
+                          initialValue: "",
+                          rules: [{ required: false }],
+                        })(
+                          <TextInput
+                            label="Video Url"
+                            hint="ex. https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
                         {getFieldDecorator("yearModel", {
                           initialValue: "",
                           rules: [{ required: true }],
@@ -238,13 +249,7 @@ const AddArt = ({ form }) => {
                         {getFieldDecorator("artsize", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(
-                          <Select
-                            label="Size"
-                            fullWidth
-                            options={ARTSIZE}
-                          />
-                        )}
+                        })(<Select label="Size" fullWidth options={ARTSIZE} />)}
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("artsubject", {
@@ -274,8 +279,9 @@ const AddArt = ({ form }) => {
                     <Stack gap={3}>
                       <div className="mt-6">
                         <label
-                          className={`block mb-2 font-medium leading-6 text-gray-700 ${hasError && "text-red-500"
-                            } `}
+                          className={`block mb-2 font-medium leading-6 text-gray-700 ${
+                            hasError && "text-red-500"
+                          } `}
                         >
                           Address
                         </label>
@@ -389,7 +395,7 @@ const AddArt = ({ form }) => {
                         </div>
                       </div>
                       <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                      {gallaryImage && (<img src={gallaryImage} alt="" />)}
+                        {gallaryImage && <img src={gallaryImage} alt="" />}
                       </div>
                     </Stack>
                   </Stack>

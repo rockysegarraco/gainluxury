@@ -267,6 +267,29 @@ const AddProperty = ({ form }) => {
                         })(<TextInput label="Listing Title *" />)}
                       </FormItem>
                       <FormItem>
+                        {getFieldDecorator("description", {
+                          initialValue: "",
+                          rules: [{ required: true }],
+                        })(
+                          <TextInput
+                            multiline
+                            label="Features"
+                            hint="ex. Elevator, Privacy, Air Conditioning 2D Floor Plan..."
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
+                        {getFieldDecorator("video", {
+                          initialValue: "",
+                          rules: [{ required: false }],
+                        })(
+                          <TextInput
+                            label="Video Url"
+                            hint="ex. https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
                         {getFieldDecorator("listingType", {
                           initialValue: "",
                           rules: [{ required: true }],
@@ -300,7 +323,13 @@ const AddProperty = ({ form }) => {
                         {getFieldDecorator("price", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput  disabled={isPrice} label="Price [$] *" type="number" />)}
+                        })(
+                          <TextInput
+                            disabled={isPrice}
+                            label="Price [$] *"
+                            type="number"
+                          />
+                        )}
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("propertyCategory", {
@@ -367,18 +396,6 @@ const AddProperty = ({ form }) => {
                           initialValue: "",
                           rules: [{ required: true }],
                         })(<TextInput label="Zipcode *" type="number" />)}
-                      </FormItem>
-                      <FormItem>
-                        {getFieldDecorator("description", {
-                          initialValue: "",
-                          rules: [{ required: true }],
-                        })(
-                          <TextInput
-                            multiline
-                            label="Features"
-                            hint="ex. Elevator, Privacy, Air Conditioning 2D Floor Plan..."
-                          />
-                        )}
                       </FormItem>
                     </Stack>
                   </Stack>

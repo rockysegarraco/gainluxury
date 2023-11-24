@@ -210,6 +210,17 @@ const AddMarine = ({ form }) => {
                         })(<TextInput multiline label="Features" />)}
                       </FormItem>
                       <FormItem>
+                        {getFieldDecorator("video", {
+                          initialValue: "",
+                          rules: [{ required: false }],
+                        })(
+                          <TextInput
+                            label="Video Url"
+                            hint="ex. https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                          />
+                        )}
+                      </FormItem>
+                      <FormItem>
                         {getFieldDecorator("yearModel", {
                           initialValue: "",
                           rules: [{ required: true }],

@@ -82,6 +82,7 @@ function ClerkProviderWithRoutes() {
           <Route path="/marine/:slug" element={<MarineDetail />} />
           <Route path="/listings/:uid" element={<UserListings />} />
           <Route path="/contact" element={<Contact path="/contact" />} />
+          <Route path="/success" element={<Success path="/success" />} />
         </Route>
 
         {/* Global routes */}
@@ -126,7 +127,6 @@ function ClerkProviderWithRoutes() {
           element={<EditArt path="/edit-arts" />}
         />
         <Route path="/edit-art/:slug" element={<EditArt path="/edit-art" />} />
-        <Route path="/success" element={<Success path="/success" />} />
         <Route path="/cancel" element={<Cancel path="/cancel" />} />
         <Route path="/login" element={<Login path="/login" />} />
         <Route path="/signup" element={<Register path="/signup" />} />

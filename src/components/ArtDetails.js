@@ -47,6 +47,9 @@ export default function ArtDetails({
     agentCompany,
     avatar,
     category,
+    artsize,
+    artcategory,
+    artsubject,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -155,33 +158,33 @@ export default function ArtDetails({
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Miles
+                      Art Size
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {}
+                        {artsize}
                       </span>
                       <span className="text-sm text-gray-400">km</span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Engine Type
+                      Art Subject
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {}
+                        {artsubject}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Condition
+                      Art Category
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-2xl font-semibold tracking-tight text-white">
-                        {}
+                        {artcategory}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>
