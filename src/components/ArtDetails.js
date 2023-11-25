@@ -162,7 +162,7 @@ export default function ArtDetails({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {artsize}
+                        {artsize?.label}
                       </span>
                       <span className="text-sm text-gray-400">km</span>
                     </p>
@@ -173,7 +173,7 @@ export default function ArtDetails({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {artsubject}
+                        {artsubject?.label}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>
@@ -184,7 +184,7 @@ export default function ArtDetails({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-2xl font-semibold tracking-tight text-white">
-                        {artcategory}
+                        {artcategory?.label}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>
