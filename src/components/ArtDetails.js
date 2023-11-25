@@ -124,7 +124,7 @@ export default function ArtDetails({
 
       {/* IMAGE GALLERY */}
       <div className="mx-auto pt-3 pb-0  max-w-full max-h-full lg:px-20 px-6">
-        <Gallery images={[gallery]} />
+      {gallery?.length > 0 && <Gallery images={gallery} />}
       </div>
 
       {/* LISTING INFO */}

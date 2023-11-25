@@ -22,7 +22,7 @@ import {
   PRICE_TYPE,
   US_STATE,
 } from "../utils/constants";
-import { uploadImage } from "../firebase";
+import { uploadImages } from "../firebase";
 import { createSlug, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
@@ -116,17 +116,23 @@ const AddArt = ({ form }) => {
   };
 
   const handleGalleryFile = async (e) => {
+    const MAX_LENGTH = 10;
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
-      const maxSize = 5 * 1024 * 1024;
-      const validFiles = files.filter((file) => file.size <= maxSize);
-      if (validFiles.length !== files.length) {
-        alert("Some files exceed the maximum size limit (5MB).");
+      if (files?.length <= MAX_LENGTH) {
+        const maxSize = 5 * 1024 * 1024;
+        const validFiles = files.filter((file) => file.size <= maxSize);
+        if (validFiles.length !== files.length) {
+          alert("Some files exceed the maximum size limit (5MB).");
+        } else {
+          setGalleryLoading(true);
+          const result = await uploadImages(e.target.files);
+          setGallaryImages((prev) => [...prev, ...result]);
+          setGalleryLoading(false);
+        }
       } else {
-        setGalleryLoading(true);
-        const result = await uploadImage(e.target.files[0]);
-        setGallaryImages(result);
-        setGalleryLoading(false);
+        e.preventDefault();
+        alert(`Cannot upload files more than ${MAX_LENGTH}`);
       }
     }
   };
@@ -383,6 +389,7 @@ const AddArt = ({ form }) => {
                                   type="file"
                                   className="sr-only"
                                   ref={inputGallery}
+                                  multiple
                                   accept="image/png, image/jpg, image/jpeg"
                                   onChange={handleGalleryFile}
                                 />
