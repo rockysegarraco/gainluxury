@@ -36,7 +36,7 @@ const AddArt = ({ form }) => {
   const [isPrice, setPrice] = useState(true);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const inputGallery = useRef(null);
-  const [gallaryImage, setGallaryImages] = useState();
+  const [gallaryImage, setGallaryImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addressValue, setValue] = useState(null);
   const [location, setLocation] = useState(null);

@@ -18,7 +18,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 // components
-import db from "../firebase.js";
+import db, { uploadImages } from "../firebase.js";
 import Heading from "../components/Heading";
 import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
@@ -31,7 +31,6 @@ import {
   PRICE_TYPE,
   US_STATE,
 } from "../utils/constants";
-import { uploadImage } from "../firebase";
 import { createSlug, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
@@ -151,7 +150,7 @@ const EditArt = ({ form }) => {
         alert("Some files exceed the maximum size limit (5MB).");
       } else {
         setGalleryLoading(true);
-        const result = await uploadImage(e.target.files[0]);
+        const result = await uploadImages(e.target.files);
         setGallaryImages(result);
         setGalleryLoading(false);
       }
