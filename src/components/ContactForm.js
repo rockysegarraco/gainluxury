@@ -17,7 +17,6 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import MailchimpForm from "./MailchimpForm";
 
 export default function Example() {
   return (
@@ -25,7 +24,7 @@ export default function Example() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <div className="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
           <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-            <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100  lg:w-1/2">
+            <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100">
               <svg
                 className="absolute inset-0 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
                 aria-hidden="true"
@@ -57,26 +56,7 @@ export default function Example() {
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 fancy">
               Get in touch
             </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600 font-inter">
-              Proin volutpat consequat porttitor cras nullam gravida at. Orci
-              molestie a eu arcu. Sed ut tincidunt integer elementum id sem.
-              Arcu sed malesuada et magna.
-            </p>
             <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-              <div className="flex gap-x-4">
-                <dt className="flex-none">
-                  <span className="sr-only">Address</span>
-                  <BuildingOffice2Icon
-                    className="h-7 w-6 text-gray-400"
-                    aria-hidden="true"
-                  />
-                </dt>
-                <dd>
-                  545 Mavis Island
-                  <br />
-                  Chicago, IL 99191
-                </dd>
-              </div>
               <div className="flex gap-x-4">
                 <dt className="flex-none">
                   <span className="sr-only">Telephone</span>
@@ -90,7 +70,7 @@ export default function Example() {
                     className="hover:text-gray-900"
                     href="tel:+1 (555) 234-5678"
                   >
-                    +1 (555) 234-5678
+                    +1 (352) 277-1307
                   </a>
                 </dd>
               </div>
@@ -105,26 +85,15 @@ export default function Example() {
                 <dd>
                   <a
                     className="hover:text-gray-900"
-                    href="mailto:hello@example.com"
+                    href="mailto:admin@gainluxury.com"
                   >
-                    hello@example.com
+                    admin@gainluxury.com
                   </a>
                 </dd>
               </div>
             </dl>
           </div>
         </div>
-        <form
-          action="#"
-          method="POST"
-          className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-36"
-        >
-          <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-            <div>
-              <MailchimpForm />
-            </div>
-          </div>
-        </form>
       </div>
     </div>
   );
