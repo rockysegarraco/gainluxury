@@ -7,6 +7,9 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 // MUI
 import Stack from "@mui/material/Stack";
 import FormHelperText from "@mui/material/FormHelperText";
+import Paper from "@mui/material/Paper";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import IconButton from "@mui/material/IconButton";
 
 // components
 import Heading from "../components/Heading";
@@ -23,7 +26,7 @@ import {
   US_STATE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
-import { createSlug, validatePhone } from "../utils";
+import { createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
 
@@ -168,6 +171,12 @@ const AddArt = ({ form }) => {
       });
     setValue(value);
     setHasError(false);
+  };
+
+  const handleImageDelete = (index) => {
+    const data = deepCloneData(gallaryImage);
+    data.splice(index, 1);
+    setGallaryImages(data);
   };
 
   return (
@@ -402,7 +411,32 @@ const AddArt = ({ form }) => {
                         </div>
                       </div>
                       <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                        {gallaryImage && <img src={gallaryImage} alt="" />}
+                      {gallaryImage.map((image, index) => (
+                          <Paper
+                            key={index}
+                            sx={{
+                              backgroundImage: `url(${image})`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundSize: "cover",
+                              height: 150,
+                              width: 150,
+                              flexShrink: 0,
+                              marginTop: "10px",
+                            }}
+                          >
+                            <IconButton
+                              sx={{
+                                m: 1,
+                                height: "22px",
+                                width: "22px",
+                                bgcolor: "white",
+                              }}
+                              onClick={() => handleImageDelete(index)}
+                            >
+                              <CloseOutlined />
+                            </IconButton>
+                          </Paper>
+                        ))}
                       </div>
                     </Stack>
                   </Stack>
