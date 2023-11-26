@@ -193,7 +193,7 @@ const AddProperty = ({ form }) => {
                 {getFieldDecorator("aptsize", {
                   initialValue: "",
                   rules: [{ required: true }],
-                })(<TextInput label="Apartment Size *" />)}
+                })(<TextInput label="Size *" />)}
               </FormItem>
               <FormItem>
                 {getFieldDecorator("bedrooms", {
@@ -221,22 +221,9 @@ const AddProperty = ({ form }) => {
           <Stack spacing={0}>
             <Stack gap={2}>
               <FormItem>
-                {getFieldDecorator("propertyType", {
-                  initialValue: "",
-                  rules: [{ required: true }],
-                })(
-                  <Select
-                    options={RE_PRICE_UNIT}
-                    fullWidth
-                    label="Property Type *"
-                    autocomplete="off"
-                  />
-                )}
-              </FormItem>
-              <FormItem>
                 {getFieldDecorator("size", {
                   initialValue: "",
-                  rules: [{ required: false }],
+                  rules: [{ required: true }],
                 })(<TextInput label="Size" />)}
               </FormItem>
             </Stack>

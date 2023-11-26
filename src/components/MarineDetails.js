@@ -50,6 +50,9 @@ export default function MarineDetails({
     agentCompany,
     avatar,
     category,
+    marinetype,
+    marineclass,
+    length,
   } = data;
 
   const renderMarkers = (map, maps) => {
@@ -158,33 +161,33 @@ export default function MarineDetails({
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Miles
+                      Type
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {kilometersRun}
+                        {marinetype}
                       </span>
                       <span className="text-sm text-gray-400">km</span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Engine Type
+                      Class
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-4xl font-semibold tracking-tight text-white">
-                        {engineCapacity}
+                        {marineclass}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
                     <p className="text-sm font-medium leading-6 text-gray-400">
-                      Condition
+                      length
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-2xl font-semibold tracking-tight text-white">
-                        {condition.label}
+                        {length}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>

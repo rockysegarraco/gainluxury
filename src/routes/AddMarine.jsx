@@ -275,7 +275,7 @@ const AddMarine = ({ form }) => {
                         )}
                       </FormItem>
                       <FormItem>
-                        {getFieldDecorator("class", {
+                        {getFieldDecorator("marineclass", {
                           initialValue: "",
                           rules: [{ required: brandData?.length > 0 }],
                         })(

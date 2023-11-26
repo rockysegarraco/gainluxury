@@ -202,7 +202,7 @@ export default function AviationDetail({
             </div>
           </div>
           {/* MAP */}
-          <div className="py-3 h-[300px] w-full">
+          <div className="py-3 h-[600px] w-full">
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: process.env.REACT_APP_GOOGLE_MAP_KEY,

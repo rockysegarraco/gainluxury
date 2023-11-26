@@ -124,7 +124,7 @@ export default function ArtDetails({
 
       {/* IMAGE GALLERY */}
       <div className="mx-auto pt-3 pb-0  max-w-full max-h-full lg:px-20 px-6">
-      {gallery?.length > 0 && <Gallery images={gallery} />}
+        {gallery?.length > 0 && <Gallery images={gallery} />}
       </div>
 
       {/* LISTING INFO */}
@@ -202,7 +202,7 @@ export default function ArtDetails({
             </div>
           </div>
           {/* MAP */}
-          <div className="py-3 h-[300px] w-full">
+          <div className="py-3 h-[600px] w-full">
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: process.env.REACT_APP_GOOGLE_MAP_KEY,

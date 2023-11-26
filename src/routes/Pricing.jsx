@@ -21,35 +21,35 @@ export default function Pricing() {
     <>
       <div className="mx-auto max-w-8xl lg:p-6 p-3">
         <Heading title={"Pricing"}>
-          <div className="bg-white py-16">
+          <div className="bg-black py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl sm:text-center">
-                <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl fancy">
+                <h2 className="text-3xl font-bold sm:text-4xl fancy text-white">
                   Gain Luxury Listings
                 </h2>
-                <p className="mt-6 text-base leading-8 text-gray-600">
+                <p className="mt-6 text-base leading-8 text-white">
                   Gain Luxury makes Lisings Simplified. Real Estate, Cars, Art,
                   Marine, and Aviation.
                 </p>
               </div>
               <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
                 <div className="p-8 sm:p-10 lg:flex-auto">
-                  <h3 className="text-2xl font-bold text-gray-900 fancy">
+                  <h3 className="text-2xl font-bold text-white fancy">
                     Streamlined Listing Service
                   </h3>
-                  <p className="mt-6 text-base leading-7 text-gray-600">
+                  <p className="mt-6 text-base leading-7 text-white">
                     Ready to take the hassle out of selling your listings? List
                     with us today and watch your listings attract the right
                     buyers. It's time to maximize your sale and move forward
                     with confidence!
                   </p>
                   <div className="mt-10 flex items-center gap-x-4">
-                    <h4 className="flex-none text-sm font-semibold leading-6 text-slate-950">
+                    <h4 className="flex-none text-sm font-semibold leading-6 text-white">
                       What’s included
                     </h4>
                     <div className="h-px flex-auto bg-gray-100" />
                   </div>
-                  <ul className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
+                  <ul className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-white sm:grid-cols-2 sm:gap-6">
                     {includedFeatures.map((feature) => (
                       <li key={feature} className="flex gap-x-3">
                         <CheckIcon

@@ -194,10 +194,6 @@ const Art = () => {
                   setMinYear("Min") | setMaxYear("Max") | setMaxPrice(value)
                 }
               />
-              <SelectArtsize
-                handleArtsize={(value) => setArtsize(value)}
-                artsize={artsize}
-              />
               <SelectArtcategory
                 handleArtcategory={(value) => setArtcategory(value)}
                 artcategory={artcategory}
