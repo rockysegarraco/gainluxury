@@ -7,8 +7,8 @@ const navigation = {
     { name: "Real Estate", href: "/home/realestate" },
     { name: "Cars", href: "/home/cars" },
     { name: "Marine", href: "/home/marine" },
-    { name: "Aviation", href: "home/aviation" },
-    { name: "Arts", href: "home/arts" },
+    { name: "Aviation", href: "/home/aviation" },
+    { name: "Arts", href: "/home/arts" },
   ],
   company: [
     { name: "Pricing", href: "/pricing" },
