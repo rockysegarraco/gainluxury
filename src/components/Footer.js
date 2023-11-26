@@ -8,12 +8,9 @@ const navigation = {
     { name: "Cars", href: "/home/cars" },
     { name: "Marine", href: "/home/marine" },
     { name: "Aviation", href: "/home/aviation" },
-    { name: "Arts", href: "/home/arts" },
+    { name: "Art", href: "/home/arts" },
   ],
-  company: [
-    { name: "Pricing", href: "/pricing" },
-    { name: "Sell with us", href: "#" },
-  ],
+  company: [{ name: "Pricing", href: "/pricing" }],
   legal: [
     {
       name: "Privacy Policy",
