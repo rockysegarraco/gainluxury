@@ -17,7 +17,6 @@ import Form from "../components/form";
 import TextInput from "../components/form/TextInput";
 import Select from "../components/form/Select";
 import {
-  ARTSIZE,
   ARTSUBJECT,
   CATEGORY,
   ARTCATEGORY,
@@ -259,13 +258,6 @@ const AddArt = ({ form }) => {
                           )}
                         </FormItem>
                       </Stack>
-
-                      <FormItem>
-                        {getFieldDecorator("artsize", {
-                          initialValue: "",
-                          rules: [{ required: true }],
-                        })(<Select label="Size" fullWidth options={ARTSIZE} />)}
-                      </FormItem>
                       <FormItem>
                         {getFieldDecorator("artsubject", {
                           initialValue: "",
