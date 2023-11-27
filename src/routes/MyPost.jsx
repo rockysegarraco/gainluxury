@@ -64,8 +64,8 @@ const MyPost = () => {
 
   return (
     <div>
-      <div className="mx-auto max-w-full mt-8 lg:px-20 px-4">
-      <h1 className="text-3xl fancy">My Listings</h1>
+      <div className="mx-auto max-w-full mt-24 lg:px-20 px-4">
+        <h1 className="text-3xl fancy">My Listings</h1>
         <PageHeading
           tabData={tabs}
           tabIndex={tabIndex}

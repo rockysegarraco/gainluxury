@@ -165,7 +165,6 @@ export default function MarineDetails({
                       <span className="text-4xl font-semibold tracking-tight text-white">
                         {marinetype?.label}
                       </span>
-                      <span className="text-sm text-gray-400">km</span>
                     </p>
                   </div>
                   <div className="bg-gray-900 p-6 sm:px-6 lg:px-8">
@@ -203,7 +202,7 @@ export default function MarineDetails({
             </div>
           </div>
           {/* MAP */}
-          <div className="py-3 h-[300px] w-full">
+          <div className="py-3 h-[600px] w-full">
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: process.env.REACT_APP_GOOGLE_MAP_KEY,

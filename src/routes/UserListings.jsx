@@ -62,7 +62,7 @@ const UserListings = () => {
   return (
     <>
       <div className="mb-16">
-        <div className="mx-auto max-w-full lg:mt-20 lg:px-20 px-4">
+        <div className="mx-auto max-w-full lg:mt-24 mt-4 lg:px-20 px-4">
           <div className="md:flex md:items-center md:justify-between">
             <div className="relative flex items-center space-x-3 rounded-lg bg-white focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 lg:mb-2 mb-6">
               <div className="flex-shrink-0">

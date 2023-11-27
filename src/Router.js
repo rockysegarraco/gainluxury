@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Home from "./routes/home";
 import Pricing from "./routes/Pricing";
+import About from "./routes/About";
 import AddPost from "./routes/AddPost";
 import Success from "./routes/success";
 import Cancel from "./routes/cancel";
@@ -131,6 +132,7 @@ function ClerkProviderWithRoutes() {
         <Route path="/login" element={<Login path="/login" />} />
         <Route path="/signup" element={<Register path="/signup" />} />
         <Route path="/pricing" element={<Pricing path="/pricing" />} />
+        <Route path="/about" element={<About path="/about" />} />
         <Route path="/terms" element={<Terms path="/terms" />} />
         <Route path="/super-user" element={<SuperUser path="/super-user" />} />
       </Routes>
