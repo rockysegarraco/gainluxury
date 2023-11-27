@@ -18,6 +18,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import ShareDialog from "./Dialog/ShareDialog";
+import { currencyFormat } from "../utils";
 
 export default function PostDetail({
   data,
@@ -150,7 +151,7 @@ export default function PostDetail({
                     </p>
                     <p className="mt-2 flex items-baseline gap-x-2">
                       <span className="text-2xl font-semibold tracking-tight text-white">
-                        {price ? `$${price}` : pricingType.value}
+                        {price ? `${currencyFormat(price)}` : pricingType.value}
                       </span>
                       <span className="text-sm text-gray-400"></span>
                     </p>

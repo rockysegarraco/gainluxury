@@ -15,6 +15,7 @@ export default function MyListings({ item, index }) {
         }
         Location={item.address}
         avatar={item.avatar}
+        userId={item.userId}
       />
     </>
   );

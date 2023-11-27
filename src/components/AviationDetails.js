@@ -17,6 +17,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import ShareDialog from "./Dialog/ShareDialog";
+import { currencyFormat } from "../utils";
 
 export default function AviationDetail({
   data,
@@ -137,7 +138,7 @@ export default function AviationDetail({
             {state?.value}, {country?.value}
           </h2>
           <h3 className="text-xl font-bold text-slate-900 font-inter py-4">
-            {price ? `$${price}` : pricingType.value}
+            {price ? `${currencyFormat(price)}` : pricingType.value}
           </h3>
           <hr className="lg:hidden block" />
           {/* INFO BOX */}
