@@ -54,7 +54,7 @@ const AddArt = ({ form }) => {
 
   useEffect(() => {
     setFieldsValue({
-      agentName: user?.firstName + " " + user?.lastName,
+      agentName: user?.firstName != null ? user?.firstName + " " + user?.lastName : "",
       email: user?.emailAddresses[0]?.emailAddress,
       phone: user?.phoneNumbers[0]?.phoneNumber,
     });
