@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -16,6 +16,9 @@ import Footer from "../components/Footer";
 import db from "../firebase.js";
 import { COUNTRY } from "../utils/constants.js";
 import CardCar from "../components/cardCar.js";
+import SelectLength from "../components/Selects/SelectLength.js";
+import SelectMarineType from "../components/Selects/SelectMarineType.js";
+import SelectMarineClass from "../components/Selects/SelectMarineClass.js";
 
 const Marine = () => {
   const [post, setPost] = useState([]);
@@ -53,6 +56,10 @@ const Marine = () => {
   const [state, setState] = React.useState("All");
   const [country, setCountry] = React.useState("All");
 
+  const [marineLength, setLength] = React.useState("All");
+  const [marineType, setType] = React.useState("All");
+  const [marineClass, setClass] = React.useState("All");
+
   const [stateData, setStateData] = React.useState([]);
 
   const [sort, setSort] = useState({
@@ -63,7 +70,7 @@ const Marine = () => {
 
   useEffect(() => {
     getData();
-  }, [minYear, maxYear, maxPrice, minPrice, state, country]);
+  }, [minYear, maxYear, maxPrice, minPrice, state, country, marineLength, marineType, marineClass]);
 
   const handleSort = (obj, index) => {
     const data = JSON.parse(JSON.stringify(sortOptions));
@@ -111,6 +118,22 @@ const Marine = () => {
     if (state !== "All") {
       q = query(q, where("state.value", "==", state));
     }
+
+    // Length Filter
+    if (marineLength !== "All") {
+      q = query(q, where("length.value", "==", marineLength));
+    }
+
+    // Type Filter
+    if (marineType !== "All") {
+      q = query(q, where("marinetype.value", "==", marineType));
+    }
+
+    // Class Filter
+    if (marineClass !== "All") {
+      q = query(q, where("class.value", "==", marineClass));
+    }
+
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -182,6 +205,18 @@ const Marine = () => {
                 handleMax={(value) =>
                   setMinPrice("Min") | setMaxPrice("Max") | setMaxYear(value)
                 }
+              />
+              <SelectLength
+                handleLength={(value) => setLength(value)}
+                length={marineLength}
+              />
+              <SelectMarineType
+                handleType={(value) => setType(value)}
+                type={marineType}
+              />
+              <SelectMarineClass
+                handleClass={(value) => setClass(value)}
+                marineClass={marineClass}
               />
             </div>
           </div>
