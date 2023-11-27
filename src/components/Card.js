@@ -1,9 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Carousel from "./Carousel/CarouselCard";
 import { EnvelopeIcon } from "@heroicons/react/20/solid";
+import { useDispatch } from "react-redux";
+import { setTab } from "../store/tabSlice";
 
 export default function Example(props) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const images = typeof props.ImageUrl === "string" ? [props.ImageUrl] : props.ImageUrl;
+
+  const handleLink = () => {
+    navigate(props.Link);
+    dispatch(setTab(""));
+  }
+
   return (
     <>
       <article className="border relative">
@@ -24,7 +34,7 @@ export default function Example(props) {
         <div className="mx-auto max-w-full p-3">
           <div className="group relative">
             <div className="flex justify-between">
-              <Link to={props.Link}>
+              <Link onClick={handleLink}>
                 <div className="font-bold text-lg text-black/100 font-inter">
                   {props.Price}
                 </div>

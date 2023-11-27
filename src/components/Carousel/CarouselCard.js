@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import "./Carousel.css";
+import { useDispatch } from "react-redux";
+import { setTab } from "../../store/tabSlice";
 
 
 
@@ -9,6 +11,7 @@ const Carousel = ({ content, link }) => {
   const [counter, setCounter] = useState(1);
   const [pause, setPause] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNext = () => {
     if (counter !== content.length) {
@@ -42,7 +45,7 @@ const Carousel = ({ content, link }) => {
             className={counter - 1 === index ? "show" : "not-show"}
             key={index}
           >
-            <button onClick={() => navigate(link)}>
+            <button onClick={() => navigate(link)|dispatch(setTab(""))}>
               <img
                 src={item}
                 className="aspect-[16/9] w-full bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
