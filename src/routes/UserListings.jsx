@@ -48,13 +48,43 @@ const UserListings = () => {
   }, [post]);
 
   const getData = async () => {
+    const data = [];
     const collections = collection(db, "cars");
     const q = query(collections, where("userId", "==", uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      setPost((prev) => [...prev, doc.data()]);
+      data.push(doc.data());
     });
+    const propertyCollection = collection(db, "properties");
+    const pq = query(propertyCollection, where("userId", "==", uid));
+    const psnap = await getDocs(pq);
+    psnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      data.push(doc.data());
+    });
+    const marineCollection = collection(db, "marine");
+    const mq = query(marineCollection,where("userId", "==", uid));
+    const msnap = await getDocs(mq);
+    msnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      data.push(doc.data());
+    });
+    const aviationCollection = collection(db, "aviation");
+    const aq = query(aviationCollection, where("userId", "==", uid));
+    const asnap = await getDocs(aq);
+    asnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      data.push(doc.data());
+    });
+    const artCollection = collection(db, "arts");
+    const artq = query(artCollection, where("userId", "==", uid));
+    const artsnap = await getDocs(artq);
+    artsnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      data.push(doc.data());
+    });
+    setPost(data);
   };
 
   const itemData = post.length > 0 && post[0];
