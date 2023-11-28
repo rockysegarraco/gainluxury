@@ -22,6 +22,7 @@ const SuperUser = () => {
   }, [])
 
   const getData = async () => {
+    const data = [];
     const collections = collection(db, "cars");
     const q = query(collections);
     const querySnapshot = await getDocs(q);
@@ -32,8 +33,54 @@ const SuperUser = () => {
       const obj = {...doc.data()};
       obj.id = index;
       obj.docId = doc.id
-      setPost((prev) => [...prev, obj]);
+      data.push(obj);
     });
+
+    const propertyCollection = collection(db, "properties");
+    const pq = query(propertyCollection);
+    const psnap = await getDocs(pq);
+    psnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      index = index + 1;
+      const obj = {...doc.data()};
+      obj.id = index;
+      obj.docId = doc.id
+      data.push(obj);
+    });
+    const marineCollection = collection(db, "marine");
+    const mq = query(marineCollection);
+    const msnap = await getDocs(mq);
+    msnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      index = index + 1;
+      const obj = {...doc.data()};
+      obj.id = index;
+      obj.docId = doc.id
+      data.push(obj);
+    });
+    const aviationCollection = collection(db, "aviation");
+    const aq = query(aviationCollection);
+    const asnap = await getDocs(aq);
+    asnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      index = index + 1;
+      const obj = {...doc.data()};
+      obj.id = index;
+      obj.docId = doc.id
+      data.push(obj);
+    });
+    const artCollection = collection(db, "arts");
+    const artq = query(artCollection);
+    const artsnap = await getDocs(artq);
+    artsnap.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      index = index + 1;
+      const obj = {...doc.data()};
+      obj.id = index;
+      obj.docId = doc.id
+      data.push(obj);
+    });
+    setPost(data);
   };
 
   const handleLogin = () => {
@@ -83,7 +130,8 @@ const SuperUser = () => {
     {
       field: 'postDate',
       headerName: 'Post Date',
-      valueGetter: (params) => params.row.postDate
+      minWidth: 200,
+      valueGetter: (params) => params.row.postDate?.toDate().toDateString()
     },
     {
       field: 'action',
