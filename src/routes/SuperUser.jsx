@@ -8,6 +8,7 @@ import { collection, getDocs, query, doc, updateDoc } from "firebase/firestore";
 //
 import db from "../firebase";
 import { Link } from 'react-router-dom';
+import { deepCloneData } from '../utils';
 
 const SuperUser = () => {
   const [isLogin, setIsLogin] = useState(JSON.parse(localStorage.getItem("isSuperLogin")))
@@ -16,7 +17,7 @@ const SuperUser = () => {
   const [post, setPost] = useState([]);
   const username = process.env.REACT_APP_SUPER_USER_NAME;
   const superpassword = process.env.REACT_APP_SUPER_USER_PASS;
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getData();
@@ -106,7 +107,10 @@ const SuperUser = () => {
       postStatus
     }).then(() => {
      // setPost([])
-      getData();
+      const postData = deepCloneData(post);
+      postData[data.id - 1].postStatus = postStatus;
+      setLoading(false)
+      setPost(postData)
     });
   }
 
@@ -131,12 +135,12 @@ const SuperUser = () => {
       headerName: 'status',
       valueGetter: (params) => params.row.postStatus
     },
-    {
-      field: 'postDate',
-      headerName: 'Post Date',
-      minWidth: 200,
-      valueGetter: (params) => params.row.postDate?.toDate().toDateString()
-    },
+    // {
+    //   field: 'postDate',
+    //   headerName: 'Post Date',
+    //   minWidth: 200,
+    //   valueGetter: (params) => params.row.postDate?.toDate().toDateString()
+    // },
     {
       field: 'action',
       headerName: "Actions",
