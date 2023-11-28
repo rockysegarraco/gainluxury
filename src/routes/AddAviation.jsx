@@ -264,7 +264,18 @@ const AddAviation = ({ form }) => {
                         <FormItem>
                           {getFieldDecorator("price", {
                             initialValue: "",
-                            rules: [{ required: !isPrice }],
+                            rules: [
+                              { required: !isPrice },
+                              {
+                                validator: (rule, value, callback) => {
+                                  if (value < 40000) {
+                                    callback("Price must be greater than 40,000");
+                                  } else {
+                                    callback();
+                                  }
+                                },
+                              },
+                            ],
                           })(
                             <TextInput
                               disabled={isPrice}

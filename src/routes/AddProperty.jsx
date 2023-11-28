@@ -309,7 +309,18 @@ const AddProperty = ({ form }) => {
                       <FormItem>
                         {getFieldDecorator("price", {
                           initialValue: "",
-                          rules: [{ required: true }],
+                          rules: [
+                            { required: true },
+                            {
+                              validator: (rule, value, callback) => {
+                                if (value < 400000) {
+                                  callback("Price must be greater than 400,000");
+                                } else {
+                                  callback();
+                                }
+                              },
+                            },
+                          ],
                         })(
                           <TextInput
                             disabled={isPrice}

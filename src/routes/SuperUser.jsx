@@ -116,10 +116,11 @@ const SuperUser = () => {
       field: 'category', headerName: 'Category', minWidth: 100,
       valueGetter: (params) => `${params.row.category.value}`
     },
-    { field: 'title', headerName: 'Title', minWidth: 200 },
+    { field: 'title', headerName: 'Title', minWidth: 300 },
     {
       field: 'price',
       headerName: 'Price',
+      minWidth: 200,
       valueGetter: (params) => `${params.row.pricingType.value === "Fixed" ? params.row.price : params.row.pricingType.value}`
     },
     {
@@ -165,7 +166,7 @@ const SuperUser = () => {
       ) : (
         <div className='p-10'>
           <Typography fontSize={30}>All Posts</Typography>
-          <div style={{ height: 700, width: 1000 }}>
+          <div style={{ height: 700, width: 1400 }}>
             <DataGrid
               getRowId={(row)=> row.id}
               rows={post}

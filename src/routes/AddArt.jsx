@@ -248,7 +248,18 @@ const AddArt = ({ form }) => {
                         <FormItem>
                           {getFieldDecorator("price", {
                             initialValue: "",
-                            rules: [{ required: !isPrice }],
+                            rules: [
+                              { required: !isPrice },
+                              {
+                                validator: (rule, value, callback) => {
+                                  if (value < 1000) {
+                                    callback("Price must be greater than 1000");
+                                  } else {
+                                    callback();
+                                  }
+                                },
+                              },
+                            ],
                           })(
                             <TextInput
                               disabled={isPrice}
