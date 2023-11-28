@@ -16,6 +16,7 @@ const SuperUser = () => {
   const [post, setPost] = useState([]);
   const username = process.env.REACT_APP_SUPER_USER_NAME;
   const superpassword = process.env.REACT_APP_SUPER_USER_PASS;
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     getData();
@@ -81,6 +82,7 @@ const SuperUser = () => {
       data.push(obj);
     });
     setPost(data);
+    setLoading(false)
   };
 
   const handleLogin = () => {
@@ -97,12 +99,13 @@ const SuperUser = () => {
   }
 
   const handleBlock = (data) => {
+    setLoading(true)
     const postStatus = data.postStatus === "Live" ? "Block" : "Live";
     const documentToUpdate = doc(db, data.category.value, data.docId);
     updateDoc(documentToUpdate, {
       postStatus
     }).then(() => {
-      setPost([])
+     // setPost([])
       getData();
     });
   }
@@ -168,6 +171,7 @@ const SuperUser = () => {
           <Typography fontSize={30}>All Posts</Typography>
           <div style={{ height: 700, width: 1400 }}>
             <DataGrid
+              loading={isLoading}
               getRowId={(row)=> row.id}
               rows={post}
               columns={columns}
