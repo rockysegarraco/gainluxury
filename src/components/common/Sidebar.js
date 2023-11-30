@@ -50,18 +50,25 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
 
   const LIST_ITEMS = [
     {
-      title: "Cars",
-      icon: <TimeToLeaveIcon />,
-      show: true,
-      onClick: (index) => handleClick(index, "/home/cars", false, "Cars"),
-    },
-    {
       title: "Real Estate",
       icon: <HomeOutlined />,
       show: true,
       onClick: (index) =>
         handleClick(index, "/home/realestate", false, "Properties"),
     },
+    {
+      title: "Cars",
+      icon: <TimeToLeaveIcon />,
+      show: true,
+      onClick: (index) => handleClick(index, "/home/cars", false, "Cars"),
+    },
+    {
+      title: "Art",
+      icon: <ArtTrack />,
+      show: true,
+      onClick: (index) => handleClick(index, "/home/arts", false, "Arts"),
+    },
+
     {
       title: "Marine",
       icon: <SailingIcon />,
@@ -74,12 +81,6 @@ const Sidebar = ({ open, handleDrawerClose, drawerIndex, openDialog }) => {
       show: true,
       onClick: (index) =>
         handleClick(index, "/home/aviation", false, "Aviation"),
-    },
-    {
-      title: "Art",
-      icon: <ArtTrack />,
-      show: true,
-      onClick: (index) => handleClick(index, "/home/arts", false, "Arts"),
     },
     { title: "divider" },
     {
