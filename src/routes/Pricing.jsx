@@ -63,7 +63,7 @@ export default function Pricing() {
                   <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                     <div className="mx-auto max-w-xs px-8">
                       <p className="mt-6 text-base font-bold text-gray-600">
-                        Free Listings til July 2024!
+                        Free Listings
                       </p>
                       <button
                         onClick={() => setOpen(true)}
