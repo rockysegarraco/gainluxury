@@ -23,6 +23,7 @@ import {
   RE_SELECT_PROPERTY_CATEGORY,
   PRICE_TYPE,
   RE_PRICE_UNIT,
+  PHOTOS_MAX_LENGTH,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
 import { createSlug, deepCloneData, validatePhone } from "../utils";
@@ -121,10 +122,9 @@ const AddProperty = ({ form }) => {
   };
 
   const handleGalleryFile = async (e) => {
-    const MAX_LENGTH = 10;
     const files = Array.from(e.target.files);
     if (files?.length > 0) {
-      if (files?.length <= MAX_LENGTH) {
+      if (files?.length <= PHOTOS_MAX_LENGTH) {
         const maxSize = 5 * 1024 * 1024;
         const validFiles = files.filter((file) => file.size <= maxSize);
         if (validFiles.length !== files.length) {
@@ -137,7 +137,7 @@ const AddProperty = ({ form }) => {
         }
       } else {
         e.preventDefault();
-        alert(`Cannot upload files more than ${MAX_LENGTH}`);
+        alert(`Cannot upload files more than ${PHOTOS_MAX_LENGTH}`);
       }
     }
   };

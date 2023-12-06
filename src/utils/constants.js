@@ -1,3 +1,5 @@
+export  const PHOTOS_MAX_LENGTH = 10;
+
 export const CATEGORY = [
   {
     label: "Sell Cars",
