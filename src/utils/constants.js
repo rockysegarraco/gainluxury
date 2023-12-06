@@ -1,4 +1,4 @@
-export  const PHOTOS_MAX_LENGTH = 10;
+export const PHOTOS_MAX_LENGTH = 11;
 
 export const CATEGORY = [
   {
