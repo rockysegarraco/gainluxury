@@ -64,7 +64,7 @@ export default function Pricing() {
                         </span>
                       </p>
                       <p className="mt-6 text-base font-bold text-gray-600">
-                        Free Listings til 2024!
+                        Free Listings til July 2024!
                       </p>
                       <button
                         onClick={() => setOpen(true)}

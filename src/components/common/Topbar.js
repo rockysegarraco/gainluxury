@@ -76,7 +76,7 @@ const Topbar = ({ open, handleDrawerOpen, handleOpen }) => {
           onClick={handleClick}
           className="rounded-full px-6 py-2 mr-2 text-sm text-slate-950 hover:bg-slate-100 hover:text-slate-800 hidden lg:block font-inter"
         >
-          Sell with us
+          List with us
         </button>
         {isSignedIn ? (
           <UserButton afterSignOutUrl="/login" />

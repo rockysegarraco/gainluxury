@@ -157,7 +157,7 @@ const Carousel = () => {
       } else {
         clearInterval(interval);
       }
-    }, 9000);
+    }, 4000);
     return () => clearInterval(interval);
   });
 
@@ -224,7 +224,7 @@ const Carousel = () => {
         </IconButton>
       </div>
 
-      <div className="absolute bottom-24 lg:bottom-28 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+      <div className="absolute bottom-24 lg:bottom-28 left-2/4 z-50 flex -translate-x-2/4 gap-2 hidden">
         {new Array(content.length).fill("").map((_, i) => (
           <span
             key={i}

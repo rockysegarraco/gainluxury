@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { setTab } from "../store/tabSlice";
 
 const array = [
-  { title: "Cars", path: "/home/cars" },
   { title: "Real Estate", path: "/home/realestate" },
+  { title: "Cars", path: "/home/cars" },
+  { title: "Art", path: "/home/arts" },
   { title: "Marine", path: "/home/marine" },
   { title: "Aviation", path: "/home/aviation" },
-  { title: "Arts", path: "/home/arts" },
 ];
 
 export default function Tabs() {
