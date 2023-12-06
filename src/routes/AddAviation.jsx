@@ -65,7 +65,8 @@ const AddAviation = ({ form }) => {
 
   useEffect(() => {
     setFieldsValue({
-      agentName: user?.firstName != null ? user?.firstName + " " + user?.lastName : "",
+      agentName:
+        user?.firstName != null ? user?.firstName + " " + user?.lastName : "",
       email: user?.emailAddresses[0]?.emailAddress,
       phone: user?.phoneNumbers[0]?.phoneNumber,
     });
@@ -269,7 +270,9 @@ const AddAviation = ({ form }) => {
                               {
                                 validator: (rule, value, callback) => {
                                   if (value < 40000) {
-                                    callback("Price must be greater than 40,000");
+                                    callback(
+                                      "Price must be greater than 40,000"
+                                    );
                                   } else {
                                     callback();
                                   }
@@ -467,7 +470,7 @@ const AddAviation = ({ form }) => {
                               </label>
                             </div>
                             <p className="text-lg leading-5 text-gray-600">
-                              PNG, JPG up to 5MB
+                              PNG, JPG up to 10MB
                             </p>
                           </div>
                         </div>

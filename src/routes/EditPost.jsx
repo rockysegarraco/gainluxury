@@ -84,7 +84,7 @@ const EditPost = ({ form }) => {
           model: postData?.model,
           agentName: postData?.agentName,
           agentCompany: postData?.agentCompany,
-          video: postData?.video
+          video: postData?.video,
         });
         setGallaryImages(postData?.gallery);
         setPrice(() => (postData.pricingType.value === "Fixed" ? false : true));
@@ -509,7 +509,7 @@ const EditPost = ({ form }) => {
                                     </label>
                                   </div>
                                   <p className="text-lg leading-5 text-gray-600">
-                                    PNG, JPG up to 5MB
+                                    PNG, JPG up to 10MB
                                   </p>
                                 </div>
                               </div>

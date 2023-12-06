@@ -55,7 +55,8 @@ const AddArt = ({ form }) => {
 
   useEffect(() => {
     setFieldsValue({
-      agentName: user?.firstName != null ? user?.firstName + " " + user?.lastName : "",
+      agentName:
+        user?.firstName != null ? user?.firstName + " " + user?.lastName : "",
       email: user?.emailAddresses[0]?.emailAddress,
       phone: user?.phoneNumbers[0]?.phoneNumber,
     });
@@ -408,13 +409,13 @@ const AddArt = ({ form }) => {
                               </label>
                             </div>
                             <p className="text-lg leading-5 text-gray-600">
-                              PNG, JPG up to 5MB
+                              PNG, JPG up to 10MB
                             </p>
                           </div>
                         </div>
                       </div>
                       <div className="flex overflow-x-auto gap-2 flex-row whitespace-nowrap">
-                      {gallaryImage.map((image, index) => (
+                        {gallaryImage.map((image, index) => (
                           <Paper
                             key={index}
                             sx={{

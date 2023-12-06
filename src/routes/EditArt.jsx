@@ -416,7 +416,7 @@ const EditArt = ({ form }) => {
                                 </label>
                               </div>
                               <p className="text-lg leading-5 text-gray-600">
-                                PNG, JPG up to 5MB
+                                PNG, JPG up to 10MB
                               </p>
                             </div>
                           </div>
