@@ -281,9 +281,11 @@ const AddAviation = ({ form }) => {
                             ],
                           })(
                             <TextInput
+                              name="price"
                               disabled={isPrice}
                               label="Price $"
                               type="number"
+                              pattern={true}
                             />
                           )}
                         </FormItem>

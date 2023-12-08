@@ -27,7 +27,7 @@ import {
   US_STATE,
 } from "../utils/constants";
 import { uploadImages } from "../firebase";
-import { createSlug, deepCloneData, validatePhone } from "../utils";
+import { allowOnlyNumbers, createSlug, deepCloneData, validatePhone } from "../utils";
 import { useEffect } from "react";
 import PhoneInput from "../components/form/PhoneInput";
 
@@ -272,9 +272,11 @@ const AddPost = ({ form }) => {
                             ],
                           })(
                             <TextInput
+                              name="price"
                               disabled={isPrice}
                               label="Price $"
                               type="number"
+                              pattern={true}
                             />
                           )}
                         </FormItem>

@@ -35,6 +35,7 @@ const Input = React.forwardRef(
       capital,
       cardNumber,
       letterOnly,
+      pattern,
       ...other
     },
     ref
@@ -72,7 +73,6 @@ const Input = React.forwardRef(
             onChange={onChange}
             multiline={multiline}
             disabled={disabled}
-            readOnly={readOnly}
             rows={rows}
             onBlur={onBlur}
             error={hasError}
@@ -95,6 +95,7 @@ const Input = React.forwardRef(
             readOnly={readOnly}
             rows={rows}
             onBlur={onBlur}
+            onKeyPress={(e) => pattern && !/[0-9]/.test(e.key) && e.preventDefault()}
             error={hasError}
             startAdornment={
               startAdornment && (
