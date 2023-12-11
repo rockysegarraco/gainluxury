@@ -221,7 +221,7 @@ const AddAviation = ({ form }) => {
                         {getFieldDecorator("description", {
                           initialValue: "",
                           rules: [{ required: true }],
-                        })(<TextInput multiline label="Airframe Notes" />)}
+                        })(<TextInput multiline label="Features" />)}
                       </FormItem>
                       <FormItem>
                         {getFieldDecorator("video", {
