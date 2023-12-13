@@ -66,9 +66,9 @@ export default function Example() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="p-12">
+      <div className="p-12 flex justify-center">
         {" "}
-        <img src="/logo-dark.svg" className="h-8" />
+        <img src="/logo.png" className="h-12 w-auto" />
       </div>
       <div className="mx-auto max-w-[90%] px-6 pb-8 pt-16 sm:pt-24 lg:px-0 lg:pt-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">

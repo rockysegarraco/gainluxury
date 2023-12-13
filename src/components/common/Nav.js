@@ -54,9 +54,9 @@ export default function Navbar({ handleDrawerOpen }) {
                 className="flex flex-shrink-0 items-center cursor-pointer"
               >
                 <img
-                  src="/logo-dark.svg"
+                  src="/logo.png"
                   alt="Gain Luxury"
-                  className="h-8 w-auto"
+                  className="h-12 w-auto"
                 />
               </div>
               <div className="hidden lg:block">
