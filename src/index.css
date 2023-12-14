@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-::-webkit-scrollbar {display:none;}
+
 
 iframe#webpack-dev-server-client-overlay{display:none!important}
 
@@ -21,6 +21,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: visible;
 }
 
 code {
