@@ -53,7 +53,7 @@ const content = [
   </div>,
   <div className="relative h-full w-full">
     <img
-      src="https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&q=80&w=2924&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="img/boat.jpg"
       alt="image 2"
       className="h-full w-full object-cover"
     />
@@ -76,7 +76,7 @@ const content = [
   </div>,
   <div className="relative h-full w-full">
     <img
-      src="https://images.unsplash.com/photo-1583169327375-a5078762c09c?auto=format&fit=crop&q=80&w=3091&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="img/plane.jpg"
       alt="image 3"
       className="h-full w-full object-cover"
     />
