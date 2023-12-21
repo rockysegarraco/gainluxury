@@ -7,29 +7,6 @@ import "./Carousel.css";
 const content = [
   <div className="relative h-full w-full">
     <img
-      src="https://images.unsplash.com/photo-1689826493949-5e5824a5474e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3132&q=80"
-      alt="image 3"
-      className="h-full w-full object-cover"
-    />
-    <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
-      <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
-        <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
-          Global Affluent Listings
-        </div>
-        <a href="/home/cars">
-          <Typography
-            variant="h1"
-            color="white"
-            className="mb-0 text-[14px] lg:text-base uppercase font-medium font-inter tracking-widest"
-          >
-            CARS
-          </Typography>
-        </a>
-      </div>
-    </div>
-  </div>,
-  <div className="relative h-full w-full">
-    <img
       src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3550&q=80"
       alt="image 1"
       className="h-full w-full object-cover"
@@ -51,6 +28,30 @@ const content = [
       </div>
     </div>
   </div>,
+  <div className="relative h-full w-full">
+    <img
+      src="https://images.unsplash.com/photo-1689826493949-5e5824a5474e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3132&q=80"
+      alt="image 3"
+      className="h-full w-full object-cover"
+    />
+    <div className="absolute inset-0 bottom-0 grid h-full w-full place-items-center bg-black/50">
+      <div className="absolute bottom-16 w-3/4 text-center md:w-2/4">
+        <div className="text-2xl lg:text-6xl text-white fancy mb-16 lg:leading-[4.5rem]">
+          Global Affluent Listings
+        </div>
+        <a href="/home/cars">
+          <Typography
+            variant="h1"
+            color="white"
+            className="mb-0 text-[14px] lg:text-base uppercase font-medium font-inter tracking-widest"
+          >
+            CARS
+          </Typography>
+        </a>
+      </div>
+    </div>
+  </div>,
+
   <div className="relative h-full w-full">
     <img
       src="img/boat.jpg"
